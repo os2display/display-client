@@ -21,3 +21,7 @@ yarn-error.log*
 
 # Ignore VS-code
 .vscode
+
+# Cypress
+cypress/videos/*
+cypress/screenshots/*
