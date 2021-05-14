@@ -23,8 +23,8 @@
     "lint:scss:fix": "stylelint --fix \"./src/**/*.scss\"",
     "test": "cypress run",
     "test-ui": "cypress open",
-    "coding-standards-check": "yarn lint:js && yarn lint:scss",
-    "coding-standards-apply": "yarn lint:js:fix && yarn lint:scss:fix",
+    "check-coding-standards": "yarn lint:js && yarn lint:scss",
+    "apply-coding-standards": "yarn lint:js:fix && yarn lint:scss:fix",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "eject": "react-scripts eject"
