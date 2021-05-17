@@ -9,10 +9,10 @@ Currently, this is a create-react-app.
 
 ## Install
 
-Install the node modules using yarn.
+Install the node modules using npm.
 
 ```
-yarn
+npm install
 ```
 ## Start
 
@@ -20,7 +20,7 @@ Runs the app in the development mode.
 Open http://localhost:3000 to view it in the browser.
 
 ```
-yarn start
+npm start
 ```
 
 ## Build
@@ -35,10 +35,10 @@ For code analysis we use the [Airbnb style guide for javascript](https://github.
 
 ```
 # Check for coding standards issues
-yarn check-coding-standards
+npm run check-coding-standards
 
 # Auto-correct coding standards issues
-yarn apply-coding-standards
+npm run apply-coding-standards
 ```
 
 ## Testing with cypress
@@ -47,7 +47,7 @@ We use [cypress](https://www.cypress.io/) for testing.
 
 
 ```
-yarn test
+npm run test
 ```
 
 Or spinning up electron:
