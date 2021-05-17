@@ -56,5 +56,7 @@ Or spinning up electron:
 test-ui
 ```
 
+## Debug bar
 
-
+The frontend has a debug bar, that allows for loading fixtures into the react app.
+See the `public/fixtures` for the data fixtures.

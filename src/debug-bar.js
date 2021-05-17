@@ -3,8 +3,16 @@ import './debug-bar.scss';
 
 function DebugBar() {
   const fixtures = [
-    { key: 'data-fixture-1', title: 'Data 1', file: './fixtures/data1.json' },
-    { key: 'data-fixture-2', title: 'Data 2', file: './fixtures/data2.json' },
+    {
+      key: 'debug-bar-fixture-1',
+      title: 'Data 1',
+      file: './fixtures/data1.json',
+    },
+    {
+      key: 'debug-bar-fixture-2',
+      title: 'Data 2',
+      file: './fixtures/data2.json',
+    },
   ];
 
   function loadContent(fixture) {
@@ -26,6 +34,7 @@ function DebugBar() {
           <button
             className="debug-bar-button"
             type="button"
+            id={fixture.key}
             key={fixture.key}
             onClick={() => {
               loadContent(fixture.file);
