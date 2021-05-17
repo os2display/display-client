@@ -21,4 +21,5 @@ npm-debug.log*
 .vscode
 
 # Cypress
-cypress/*
+cypress/videos/*
+cypress/screenshots/*
