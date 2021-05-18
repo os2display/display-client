@@ -1,0 +1,27 @@
+version: "3"
+
+networks:
+  frontend:
+    external: true
+  app:
+    driver: bridge
+    internal: false
+
+services:
+  node:
+    image: node:14
+    command: npm start
+    networks:
+      - app
+      - frontend
+    working_dir: /app
+    ports:
+      - '3001:3000'
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - .:/app:delegated
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=frontend"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}.rule=Host(`${COMPOSE_DOMAIN}`)"
