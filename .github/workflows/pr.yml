@@ -18,19 +18,17 @@ jobs:
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
-      - name: Run install and build assets
-        run: |
-          npm install
-          npm run build
+      - name: install
+        run: npm install
+      - name: Build production assets
+        run: npm run build
 
   frontend-coding-standards:
     name: Frontend coding standards
     runs-on: ubuntu-latest
+    container: node:14
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '14.x'
       - name: Cache node modules
         uses: actions/cache@v2
         env:
@@ -50,11 +48,9 @@ jobs:
   frontend-tests:
     name: Frontend tests
     runs-on: ubuntu-latest
+    container: node:14
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '14.x'
       - name: Cache node modules
         uses: actions/cache@v2
         env:

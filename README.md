@@ -1,33 +1,28 @@
 # DisplayClient
-A display client for OS2Display ver. 2, currently a work in progress.
+
+The display client for OS2Display ver. 2, currently a work in progress.
 
 Currently, this is a create-react-app.
 
-## Docker
-
-@TODO: Provide a docker setup, and modify readme to use docker instead.
-
-## Install
-
-Install the node modules using npm.
+## Docker development setup
 
 ```
-npm install
+# Up the containers
+docker-compose up -d
+
+# Install npm packages
+docker-compose run node bash -c 'npm install'
+
+# Restart node
+docker-compose restart node
+
+# Follow the node logs to see when the code is compiled.
+docker-compose logs -f node
 ```
-## Start
 
-Runs the app in the development mode.
-Open http://localhost:3000 to view it in the browser.
+The display client can opened at `http://display-client.local.itkdev.dk:3001/`.
 
-```
-npm start
-```
-
-## Build
-Builds the app for production to the build folder.
-
-@TODO: Add production build instructions.
-
+The code is compiled when changed.
 
 ## Coding standards
 
@@ -35,10 +30,10 @@ For code analysis we use the [Airbnb style guide for javascript](https://github.
 
 ```
 # Check for coding standards issues
-npm run check-coding-standards
+docker-compose exec node bash -c 'npm run check-coding-standards'
 
 # Auto-correct coding standards issues
-npm run apply-coding-standards
+docker-compose exec node bash -c 'npm run apply-coding-standards'
 ```
 
 ## Testing with cypress
@@ -47,16 +42,23 @@ We use [cypress](https://www.cypress.io/) for testing.
 
 
 ```
-npm run test
+docker-compose exec node bash -c 'npm run test'
 ```
 
 Or spinning up electron:
 
 ```
-test-ui
+docker-compose exec node bash -c 'test-ui'
 ```
 
 ## Debug bar
 
 The frontend has a debug bar, that allows for loading fixtures into the react app.
 See the `public/fixtures` for the data fixtures.
+
+## Build for production
+
+Builds the app for production to the build folder.
+
+@TODO: Add production build instructions.
+
