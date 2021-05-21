@@ -6,13 +6,13 @@ function DebugBar() {
     {
       key: 'debug-bar-fixture-1',
       title: 'Data 1',
-      file: './fixtures/data1.json',
+      file: './fixtures/data1.json'
     },
     {
       key: 'debug-bar-fixture-2',
       title: 'Data 2',
-      file: './fixtures/data2.json',
-    },
+      file: './fixtures/data2.json'
+    }
   ];
 
   function loadContent(fixture) {
@@ -20,7 +20,7 @@ function DebugBar() {
       .then((response) => response.json())
       .then((jsonData) => {
         const event = new CustomEvent('content', {
-          detail: jsonData,
+          detail: jsonData
         });
         document.dispatchEvent(event);
       });
