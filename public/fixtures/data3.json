@@ -1,0 +1,9 @@
+{
+  "name": "Data pull example",
+  "image": "http://display-client.local.itkdev.dk:3002/fixtures/image1.jpeg",
+  "video": "http://display-client.local.itkdev.dk:3002/fixtures/video1.webm",
+  "cacheResources": [
+    "http://display-client.local.itkdev.dk:3002/fixtures/image1.jpeg",
+    "http://display-client.local.itkdev.dk:3002/fixtures/video1.webm"
+  ]
+}
