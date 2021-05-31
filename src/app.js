@@ -1,4 +1,5 @@
 import { React, useEffect, useState } from 'react';
+import ImageWithText from './image-with-text';
 
 function App() {
   const [content, setContent] = useState('');
@@ -20,6 +21,7 @@ function App() {
     <div className="App">
       <div>Display client</div>
       <div>{name}</div>
+      <ImageWithText />
     </div>
   );
 }
