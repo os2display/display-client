@@ -13,6 +13,11 @@ function DebugBar() {
       title: 'Data 2',
       file: './fixtures/data2.json',
     },
+    {
+      key: 'debug-bar-fixture-3',
+      title: 'Data 3',
+      file: './fixtures/data3.json',
+    },
   ];
 
   function loadContent(fixture) {

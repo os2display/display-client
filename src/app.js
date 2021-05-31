@@ -1,26 +1,15 @@
-import { React, useEffect, useState } from 'react';
+import { React } from 'react';
+import TestComponent from './test-component';
+import ErrorBoundary from './error-boundary';
 
 function App() {
-  const [content, setContent] = useState('');
-
-  useEffect(function initialize() {
-    document.addEventListener(
-      'content',
-      function newContent(event) {
-        const data = event.detail;
-        setContent(data);
-      },
-      false,
-    );
-  }, []);
-
-  const name = content?.name ?? 'no name';
-
   return (
-    <div className="App">
-      <div>Display client</div>
-      <div>{name}</div>
-    </div>
+    <ErrorBoundary>
+      <div className="App">
+        <div>Display client</div>
+        <TestComponent />
+      </div>
+    </ErrorBoundary>
   );
 }
 
