@@ -23,8 +23,8 @@ function TextBox({ content }) {
     <div className="template-text-box" style={rootStyle}>
       {content.title && content.text && (
         <div className="box" style={textBoxStyle}>
-          {content.title && <h1>{content.title}</h1>}
-          {content.text && <div>{content.text}</div>}
+          {content.title && <h1 className="headline">{content.title}</h1>}
+          {content.text && <div className="text">{content.text}</div>}
         </div>
       )}
     </div>
