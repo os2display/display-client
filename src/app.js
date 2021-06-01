@@ -1,4 +1,6 @@
 import { React, useEffect, useState } from 'react';
+import TextBox from './templates/text-box/text-box';
+import './app.scss';
 
 function App() {
   const [content, setContent] = useState('');
@@ -14,14 +16,7 @@ function App() {
     );
   }, []);
 
-  const name = content?.name ?? 'no name';
-
-  return (
-    <div className="App">
-      <div>Display client</div>
-      <div>{name}</div>
-    </div>
-  );
+  return <div className="App">{content?.content && <TextBox content={content.content} />}</div>;
 }
 
 export default App;

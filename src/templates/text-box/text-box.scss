@@ -1,0 +1,29 @@
+.template-text-box {
+  height: 100%;
+  width: 100%;
+
+  background-size: cover;
+  background-position: center;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-content: stretch;
+  align-items: flex-start;
+
+  .box {
+    padding: 2%;
+    order: 0;
+    flex: 1 0 auto;
+    align-self: auto;
+    background-color: beige;
+    color: black;
+    margin: 5%;
+    width: 40%;
+
+    h1 {
+      margin-top: 0;
+    }
+  }
+}

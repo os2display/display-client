@@ -1,0 +1,13 @@
+{
+  "title": "Channel 1",
+  "slides": [
+    {
+      "weight": 1,
+      "slide": "uniqueSlide1"
+    },
+    {
+      "weight": 2,
+      "slide": "uniqueSlide2"
+    }
+  ]
+}
