@@ -5,13 +5,23 @@ function DebugBar() {
   const fixtures = [
     {
       key: 'debug-bar-fixture-1',
-      title: 'Data 1',
-      file: './fixtures/data1.json',
+      title: 'Slide 1',
+      file: './fixtures/slide1.json',
     },
     {
       key: 'debug-bar-fixture-2',
-      title: 'Data 2',
-      file: './fixtures/data2.json',
+      title: 'Slide 2',
+      file: './fixtures/slide2.json',
+    },
+    {
+      key: 'debug-bar-fixture-3',
+      title: 'Slide 3',
+      file: './fixtures/slide3.json',
+    },
+    {
+      key: 'debug-bar-fixture-4',
+      title: 'Slide 4',
+      file: './fixtures/slide4.json',
     },
   ];
 

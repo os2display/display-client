@@ -16,23 +16,9 @@ function App() {
     );
   }, []);
 
-  const slide1 = {
-    title: 'Cool headline',
-    text:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    media: [
-      {
-        id: 'uniqueMedia1',
-        url: './fixtures/mountain1.jpeg',
-      },
-    ],
-    boxAlign: 'right',
-  };
-
   return (
     <div className="App">
-      <TextBox content={slide1} />
-      {content && <div>{content.text}</div>}
+      {content?.content && <TextBox content={content.content} />}
     </div>
   );
 }

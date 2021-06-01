@@ -7,7 +7,7 @@ function TextBox({ content }) {
   const textBoxStyle = {};
 
   // Set background image.
-  if (content?.media[0]?.url) {
+  if (content?.media) {
     rootStyle['background-image'] = `url("${content.media[0].url}")`;
   }
 
