@@ -1,4 +1,4 @@
-import { React } from 'react';
+import React from 'react';
 import './text-box.scss';
 import PropTypes from 'prop-types';
 

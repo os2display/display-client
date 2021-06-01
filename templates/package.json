@@ -1,0 +1,35 @@
+{
+  "name": "templates",
+  "version": "1.0.0",
+  "description": "",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "start": "webpack serve --mode development --env development"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.13.0",
+    "@babel/preset-react": "^7.13.13",
+    "babel-loader": "^8.2.2",
+    "babel-preset-react": "^6.24.1",
+    "copy-webpack-plugin": "^9.0.0",
+    "css-loader": "^5.2.6",
+    "mini-css-extract-plugin": "^1.6.0",
+    "postcss-loader": "^5.3.0",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.38.1",
+    "webpack-cli": "^4.7.0",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "dependencies": {
+    "clean-webpack-plugin": "^4.0.0-alpha.0",
+    "html-webpack-plugin": "^5.3.1",
+    "prop-types": "^15.7.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  }
+}
