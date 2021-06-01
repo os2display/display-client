@@ -17,6 +17,9 @@ module.exports = {
     filename: '[name].bundle.js',
     libraryTarget: 'commonjs'
   },
+  externals: {
+    react: 'react'
+  },
   module: {
     rules: [
       {
