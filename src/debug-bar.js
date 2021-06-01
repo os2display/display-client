@@ -1,7 +1,9 @@
-import { React } from 'react';
+import { React, useState } from 'react';
 import './debug-bar.scss';
 
 function DebugBar() {
+  const [show, setShow] = useState(true);
+
   const fixtures = [
     {
       key: 'debug-bar-fixture-1',
@@ -37,24 +39,36 @@ function DebugBar() {
   }
 
   return (
-    <div className="debug-bar">
-      <div className="debug-bar-header">Debug</div>
-      <div className="debug-bar-content">
-        {fixtures.map((fixture) => (
-          <button
-            className="debug-bar-button"
-            type="button"
-            id={fixture.key}
-            key={fixture.key}
-            onClick={() => {
-              loadContent(fixture.file);
-            }}
-          >
-            {fixture.title}
-          </button>
-        ))}
-      </div>
-    </div>
+    <>
+      {show && (
+        <div className="debug-bar">
+          <div className="debug-bar-header">Debug</div>
+          <div className="debug-bar-content">
+            {fixtures.map((fixture) => (
+              <button
+                className="debug-bar-button"
+                type="button"
+                id={fixture.key}
+                key={fixture.key}
+                onClick={() => {
+                  loadContent(fixture.file);
+                }}
+              >
+                {fixture.title}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <button
+        className="debug-bar-toggle-button"
+        type="button"
+        onClick={() => setShow(!show)}
+      >
+        {show ? 'Hide' : 'Debug'}
+      </button>
+    </>
   );
 }
 
