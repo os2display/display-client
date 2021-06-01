@@ -10,7 +10,7 @@ function App() {
         const data = event.detail;
         setContent(data);
       },
-      false,
+      false
     );
   }, []);
 
