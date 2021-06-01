@@ -24,7 +24,7 @@ function DebugBar() {
       key: 'debug-bar-fixture-4',
       title: 'slide: text-box bottom',
       file: './fixtures/slide4.json',
-    },
+    }
   ];
 
   function loadContent(fixture) {
@@ -32,7 +32,7 @@ function DebugBar() {
       .then((response) => response.json())
       .then((jsonData) => {
         const event = new CustomEvent('content', {
-          detail: jsonData,
+          detail: jsonData
         });
         document.dispatchEvent(event);
       });

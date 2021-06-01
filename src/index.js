@@ -8,5 +8,5 @@ ReactDOM.render(
     <App />
     <DebugBar />
   </React.StrictMode>,
-  document.getElementById('root'),
+  document.getElementById('root')
 );
