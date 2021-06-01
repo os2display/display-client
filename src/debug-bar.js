@@ -8,22 +8,22 @@ function DebugBar() {
     {
       key: 'debug-bar-fixture-1',
       title: 'slide: text-box top',
-      file: './fixtures/slide1.json',
+      file: './fixtures/slide1.json'
     },
     {
       key: 'debug-bar-fixture-2',
       title: 'slide: text-box left',
-      file: './fixtures/slide2.json',
+      file: './fixtures/slide2.json'
     },
     {
       key: 'debug-bar-fixture-3',
       title: 'slide: text-box right',
-      file: './fixtures/slide3.json',
+      file: './fixtures/slide3.json'
     },
     {
       key: 'debug-bar-fixture-4',
       title: 'slide: text-box bottom',
-      file: './fixtures/slide4.json',
+      file: './fixtures/slide4.json'
     }
   ];
 
@@ -61,11 +61,7 @@ function DebugBar() {
         </div>
       )}
 
-      <button
-        className="debug-bar-toggle-button"
-        type="button"
-        onClick={() => setShow(!show)}
-      >
+      <button className="debug-bar-toggle-button" type="button" onClick={() => setShow(!show)}>
         {show ? 'Hide' : 'Debug'}
       </button>
     </>

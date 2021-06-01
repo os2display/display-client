@@ -36,8 +36,8 @@ TextBox.propTypes = {
     // eslint-disable-next-line react/forbid-prop-types
     media: PropTypes.array,
     // Accepted values: top, bottom, left, right.
-    boxAlign: PropTypes.string,
-  }).isRequired,
+    boxAlign: PropTypes.string
+  }).isRequired
 };
 
 export default TextBox;

@@ -16,11 +16,7 @@ function App() {
     );
   }, []);
 
-  return (
-    <div className="App">
-      {content?.content && <TextBox content={content.content} />}
-    </div>
-  );
+  return <div className="App">{content?.content && <TextBox content={content.content} />}</div>;
 }
 
 export default App;
