@@ -9,8 +9,6 @@ describe('Load data', () => {
   it('Should load data from fixtures', () => {
     cy.visit('http://localhost:3000');
     cy.get('#debug-bar-fixture-1').click();
-    cy.contains('Eksempel Eksempelsen');
-    cy.get('#debug-bar-fixture-2').click();
-    cy.contains('Test Testesen');
+    cy.contains('Slide 1');
   });
 });

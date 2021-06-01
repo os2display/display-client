@@ -40,7 +40,14 @@ docker-compose exec node bash -c 'npm run apply-coding-standards'
 
 We use [cypress](https://www.cypress.io/) for testing.
 
+Install cypress requirements in node container (@TODO: make this a part of the docker setup)
+```
+docker-compose exec node bash
+apt-get update
+apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
+```
 
+Run tests
 ```
 docker-compose exec node bash -c 'npm run test'
 ```
