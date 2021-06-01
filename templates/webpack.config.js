@@ -17,10 +17,6 @@ module.exports = {
     filename: '[name].bundle.js',
     libraryTarget: 'commonjs'
   },
-  externals: {
-    react: 'react',
-    'prop-types': 'prop-types'
-  },
   module: {
     rules: [
       {
