@@ -1,7 +1,32 @@
 describe('Make sure text-box loads', () => {
-  it('Should display the title Debug', () => {
+  it('Should have headline, text and background-image', () => {
     cy.visit('http://localhost:3000');
     cy.get('#debug-bar-fixture-1').click();
-    cy.contains('Slide 1');
+    cy.get('.template-text-box .box .headline').contains('Slide 1');
+    cy.get('.template-text-box .box .text').contains('Lorem ipsum');
+    cy.get('.template-text-box').should(
+      'have.css',
+      'background-image',
+      'url("http://localhost:3000/fixtures/mountain1.jpeg")'
+    );
+  });
+
+  it('Should have flex-direction set when boxAlign is left', () => {
+    cy.visit('http://localhost:3000');
+    cy.get('#debug-bar-fixture-2').click();
+    cy.get('.template-text-box').should('have.css', 'flex-direction', 'column');
+  });
+
+  it('Should have flex-direction, align-self set when boxAlign is right', () => {
+    cy.visit('http://localhost:3000');
+    cy.get('#debug-bar-fixture-3').click();
+    cy.get('.template-text-box').should('have.css', 'flex-direction', 'column');
+    cy.get('.template-text-box .box').should('have.css', 'align-self', 'flex-end');
+  });
+
+  it('Should have align-self set when boxAlign is bottom', () => {
+    cy.visit('http://localhost:3000');
+    cy.get('#debug-bar-fixture-4').click();
+    cy.get('.template-text-box .box').should('have.css', 'align-self', 'flex-end');
   });
 });

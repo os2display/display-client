@@ -7,24 +7,26 @@ function TextBox({ content }) {
   const textBoxStyle = {};
 
   // Set background image.
-  if (content?.media) {
-    rootStyle['background-image'] = `url("${content.media[0].url}")`;
+  if (content?.media?.length > 0) {
+    rootStyle.backgroundImage = `url("${content.media[0].url}")`;
   }
 
+  // Position text-box.
   if (content.boxAlign === 'left' || content.boxAlign === 'right') {
-    rootStyle['flex-direction'] = 'column';
+    rootStyle.flexDirection = 'column';
   }
-
   if (content?.boxAlign === 'bottom' || content.boxAlign === 'right') {
-    textBoxStyle['align-self'] = 'flex-end';
+    textBoxStyle.alignSelf = 'flex-end';
   }
 
   return (
     <div className="template-text-box" style={rootStyle}>
-      <div className="box" style={textBoxStyle}>
-        <h1>{content.title}</h1>
-        <div>{content.text}</div>
-      </div>
+      {content.title && content.text && (
+        <div className="box" style={textBoxStyle}>
+          {content.title && <h1 className="headline">{content.title}</h1>}
+          {content.text && <div className="text">{content.text}</div>}
+        </div>
+      )}
     </div>
   );
 }
