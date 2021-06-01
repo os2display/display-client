@@ -1,4 +1,6 @@
 import { React, useEffect, useState } from 'react';
+import TextBox from './templates/text-box/text-box';
+import './app.scss';
 
 function App() {
   const [content, setContent] = useState('');
@@ -14,12 +16,23 @@ function App() {
     );
   }, []);
 
-  const name = content?.name ?? 'no name';
+  const slide1 = {
+    title: 'Cool headline',
+    text:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    media: [
+      {
+        id: 'uniqueMedia1',
+        url: './fixtures/mountain1.jpeg',
+      },
+    ],
+    boxAlign: 'right',
+  };
 
   return (
     <div className="App">
-      <div>Display client</div>
-      <div>{name}</div>
+      <TextBox content={slide1} />
+      {content && <div>{content.text}</div>}
     </div>
   );
 }
