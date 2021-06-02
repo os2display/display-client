@@ -32,7 +32,7 @@ class PullStrategy {
   }
 
   /**
-   * Pull data from endpoint.
+   * Fetch screen.
    */
   fetchScreen() {
     // @TODO: Cache data in indexedDB.
@@ -43,9 +43,6 @@ class PullStrategy {
         if (screenData?.regions?.length > 0) {
           screenData.regions.forEach((regionData) => {
             this.fetchRegion(regionData).then((channels) => {
-              console.log(`Found channels for region: ${regionData.id}`);
-              console.log(channels);
-
               const event = new CustomEvent('content', {
                 detail: {
                   regionId: regionData.id,
@@ -63,6 +60,12 @@ class PullStrategy {
       });
   }
 
+  /**
+   * Fetch channels in a region of the screen.
+   *
+   * @param regionData
+   * @returns {Promise<unknown>}
+   */
   fetchRegion(regionData) {
     return new Promise((resolve, reject) => {
       const promises = [];
@@ -77,6 +80,12 @@ class PullStrategy {
     });
   }
 
+  /**
+   * Fetch channel.
+   *
+   * @param channelUrl
+   * @returns {Promise<unknown>}
+   */
   fetchChannel(channelUrl) {
     return new Promise((resolve, reject) => {
       fetch(channelUrl)
@@ -99,13 +108,16 @@ class PullStrategy {
             })
             .catch((err) => reject(err));
         })
-        .catch((err) => {
-          console.log('Error pulling channel.');
-          reject(err);
-        });
+        .catch((err) => reject(err));
     });
   }
 
+  /**
+   * Fetch slide.
+   *
+   * @param slideUrl
+   * @returns {Promise<unknown>}
+   */
   // eslint-disable-next-line class-methods-use-this
   fetchSlide(slideUrl) {
     return new Promise((resolve, reject) => {
@@ -114,10 +126,7 @@ class PullStrategy {
         .then((slideData) => {
           resolve(slideData);
         })
-        .catch((err) => {
-          console.log('Error pulling slide.');
-          reject(err);
-        });
+        .catch((err) => reject(err));
     });
   }
 
