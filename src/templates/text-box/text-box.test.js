@@ -29,4 +29,12 @@ describe('Make sure text-box loads', () => {
     cy.get('#debug-bar-fixture-4').click();
     cy.get('.template-text-box .box').should('have.css', 'align-self', 'flex-end');
   });
+
+  it('Should have colors set', () => {
+    cy.visit('http://localhost:3000');
+    cy.get('#debug-bar-fixture-5').click();
+    cy.get('.template-text-box').should('have.css', 'background-color', 'rgb(255, 0, 0)');
+    cy.get('.template-text-box .box').should('have.css', 'background-color', 'rgb(0, 255, 0)');
+    cy.get('.template-text-box .box').should('have.css', 'color', 'rgb(0, 0, 255)');
+  });
 });

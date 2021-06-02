@@ -24,6 +24,11 @@ function DebugBar() {
       key: 'debug-bar-fixture-4',
       title: 'slide: text-box bottom',
       file: './fixtures/slide4.json'
+    },
+    {
+      key: 'debug-bar-fixture-5',
+      title: 'slide: text-box colors',
+      file: './fixtures/slide5.json'
     }
   ];
 
