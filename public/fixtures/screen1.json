@@ -3,11 +3,12 @@
   "regions": [
     {
       "id": "region1",
-      "slide": "uniqueSlide1"
-    },
-    {
-      "id": "region2",
-      "slide": "uniqueSlide2"
+      "channels": [
+        {
+          "id": "uniqueChannel1",
+          "url": "./fixtures/channel1.json"
+        }
+      ]
     }
   ]
 }

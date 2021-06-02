@@ -12,9 +12,9 @@ class PullStrategy {
    */
   constructor(config) {
     this.initialize = this.initialize.bind(this);
-    this.pull = this.pull.bind(this);
     this.start = this.start.bind(this);
     this.stop = this.stop.bind(this);
+    this.fetchScreen = this.fetchScreen.bind(this);
 
     this.config = config;
 
@@ -34,18 +34,28 @@ class PullStrategy {
   /**
    * Pull data from endpoint.
    */
-  pull() {
-    // @TODO: Fetch with ID of screen.
-    // @TODO: Handle fetching screen,channels,slides and assemble array.
+  fetchScreen() {
     // @TODO: Cache data in indexedDB.
     // @TODO: Prefetching assets to allow service worker to cache.
     fetch(this.endpoint)
       .then((response) => response.json())
-      .then((slideData) => {
-        const event = new CustomEvent('content', {
-          detail: slideData
-        });
-        document.dispatchEvent(event);
+      .then((screenData) => {
+        if (screenData?.regions?.length > 0) {
+          screenData.regions.forEach((regionData) => {
+            this.fetchRegion(regionData).then((channels) => {
+              console.log(`Found channels for region: ${regionData.id}`);
+              console.log(channels);
+
+              const event = new CustomEvent('content', {
+                detail: {
+                  regionId: regionData.id,
+                  channels
+                }
+              });
+              document.dispatchEvent(event);
+            });
+          });
+        }
       })
       .catch((err) => {
         console.log('Error pulling data. Retrying based on selected interval.');
@@ -53,18 +63,76 @@ class PullStrategy {
       });
   }
 
+  fetchRegion(regionData) {
+    return new Promise((resolve, reject) => {
+      const promises = [];
+
+      regionData.channels.forEach((channel) => {
+        promises.push(this.fetchChannel(channel.url));
+      });
+
+      Promise.all(promises)
+        .then((values) => resolve(values))
+        .catch((err) => reject(err));
+    });
+  }
+
+  fetchChannel(channelUrl) {
+    return new Promise((resolve, reject) => {
+      fetch(channelUrl)
+        .then((response) => response.json())
+        .then((channelData) => {
+          const promises = [];
+
+          channelData.slides.forEach((slideData) => {
+            promises.push(this.fetchSlide(slideData.url));
+          });
+
+          Promise.all(promises)
+            .then((values) => {
+              values.forEach((slide) => {
+                const slideDataIndex = channelData.slides.findIndex((element) => element.id === slide.id);
+                // eslint-disable-next-line no-param-reassign
+                channelData.slides[slideDataIndex] = slide;
+              });
+              resolve(channelData);
+            })
+            .catch((err) => reject(err));
+        })
+        .catch((err) => {
+          console.log('Error pulling channel.');
+          reject(err);
+        });
+    });
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  fetchSlide(slideUrl) {
+    return new Promise((resolve, reject) => {
+      fetch(slideUrl)
+        .then((response) => response.json())
+        .then((slideData) => {
+          resolve(slideData);
+        })
+        .catch((err) => {
+          console.log('Error pulling slide.');
+          reject(err);
+        });
+    });
+  }
+
   /**
    * Start the data synchronization.
    */
   start() {
     // Pull now.
-    this.pull();
+    this.fetchScreen();
 
     // Make sure nothing is running.
     this.stop();
 
     // Start interval for pull periodically.
-    this.activeInterval = setInterval(this.pull, this.interval);
+    this.activeInterval = setInterval(this.fetchScreen, this.interval);
   }
 
   /**

@@ -1,0 +1,27 @@
+{
+  "title": "Screen 2",
+  "regions": [
+    {
+      "id": "region1",
+      "channels": [
+        {
+          "id": "uniqueChannel1",
+          "url": "./fixtures/channel1.json"
+        }
+      ]
+    },
+    {
+      "id": "region2",
+      "channels": [
+        {
+          "id": "uniqueChannel2",
+          "url": "./fixtures/channel2.json"
+        },
+        {
+          "id": "uniqueChannel1",
+          "url": "./fixtures/channel1.json"
+        }
+      ]
+    }
+  ]
+}

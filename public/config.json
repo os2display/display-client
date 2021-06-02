@@ -3,7 +3,7 @@
     "type": "pull",
     "config": {
       "interval": 30000,
-      "endpoint": "./fixtures/slide1.json"
+      "endpoint": "./fixtures/screen1.json"
     }
   }
 }

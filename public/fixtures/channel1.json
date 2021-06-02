@@ -1,13 +1,16 @@
 {
+  "id": "uniqueChannel1",
   "title": "Channel 1",
   "slides": [
     {
       "weight": 1,
-      "slide": "uniqueSlide1"
+      "id": "uniqueSlide1",
+      "url": "./fixtures/slide1.json"
     },
     {
       "weight": 2,
-      "slide": "uniqueSlide2"
+      "id": "uniqueSlide2",
+      "url": "./fixtures/slide2.json"
     }
   ]
 }

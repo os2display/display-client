@@ -38,7 +38,15 @@ function DebugBar() {
       .then((response) => response.json())
       .then((jsonData) => {
         const event = new CustomEvent('content', {
-          detail: jsonData
+          detail: {
+            regionId: 'region1',
+            channels: [
+              {
+                id: 'uniqueChannel1',
+                slides: [jsonData]
+              }
+            ]
+          }
         });
         document.dispatchEvent(event);
       });
