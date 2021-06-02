@@ -27,6 +27,12 @@ function DebugBar() {
     }
   ];
 
+  /**
+   * Load content from fixture.
+   *
+   * @param fixture
+   *   The path to the fixture.
+   */
   function loadContent(fixture) {
     fetch(fixture)
       .then((response) => response.json())
@@ -38,12 +44,50 @@ function DebugBar() {
       });
   }
 
+  /**
+   * Set data synchronization enabled or disabled.
+   *
+   * @param enabled
+   *   Boolean. Enabled or disable data synchronization.
+   */
+  function setDataSync(enabled) {
+    if (enabled) {
+      document.dispatchEvent(new Event('startDataSync'));
+    } else {
+      document.dispatchEvent(new Event('stopDataSync'));
+    }
+  }
+
   return (
     <>
       {show && (
         <div className="debug-bar">
           <div className="debug-bar-header">Debug</div>
           <div className="debug-bar-content">
+            <button
+              className="debug-bar-button"
+              type="button"
+              id="startDataSync"
+              key="startDataSync"
+              onClick={() => {
+                setDataSync(true);
+              }}
+            >
+              Start data sync
+            </button>
+
+            <button
+              className="debug-bar-button"
+              type="button"
+              id="stopDataSync"
+              key="stopDataSync"
+              onClick={() => {
+                setDataSync(false);
+              }}
+            >
+              Stop data sync
+            </button>
+
             {fixtures.map((fixture) => (
               <button
                 className="debug-bar-button"
