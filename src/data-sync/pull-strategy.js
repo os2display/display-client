@@ -41,17 +41,27 @@ class PullStrategy {
       .then((response) => response.json())
       .then((screenData) => {
         if (screenData?.regions?.length > 0) {
+          const promises = [];
+
           screenData.regions.forEach((regionData) => {
-            this.fetchRegion(regionData).then((channels) => {
+            promises.push(this.fetchRegion(regionData));
+          });
+
+          Promise.all(promises)
+            .then((values) => {
+              console.log(values);
+              values.forEach((region) => {
+                const regionIndex = screenData.regions.findIndex((element) => element.id === region.id);
+                // eslint-disable-next-line no-param-reassign
+                screenData.regions[regionIndex] = region;
+              });
+
               const event = new CustomEvent('content', {
-                detail: {
-                  regionId: regionData.id,
-                  channels
-                }
+                detail: screenData
               });
               document.dispatchEvent(event);
-            });
-          });
+            })
+            .catch((err) => console.error(err));
         }
       })
       .catch((err) => {
@@ -61,7 +71,7 @@ class PullStrategy {
   }
 
   /**
-   * Fetch channels in a region of the screen.
+   * Fetch playlists in a region of the screen.
    *
    * @param regionData
    * @returns {Promise<unknown>}
@@ -70,41 +80,45 @@ class PullStrategy {
     return new Promise((resolve, reject) => {
       const promises = [];
 
-      regionData.channels.forEach((channel) => {
-        promises.push(this.fetchChannel(channel.url));
+      regionData.playlists.forEach((playlist) => {
+        promises.push(this.fetchPlaylist(playlist.url));
       });
 
       Promise.all(promises)
-        .then((values) => resolve(values))
+        .then((values) => {
+          // eslint-disable-next-line no-param-reassign
+          regionData.playlists = values;
+          resolve(regionData);
+        })
         .catch((err) => reject(err));
     });
   }
 
   /**
-   * Fetch channel.
+   * Fetch playlist.
    *
-   * @param channelUrl
+   * @param playlistUrl
    * @returns {Promise<unknown>}
    */
-  fetchChannel(channelUrl) {
+  fetchPlaylist(playlistUrl) {
     return new Promise((resolve, reject) => {
-      fetch(channelUrl)
+      fetch(playlistUrl)
         .then((response) => response.json())
-        .then((channelData) => {
+        .then((playlistData) => {
           const promises = [];
 
-          channelData.slides.forEach((slideData) => {
+          playlistData.slides.forEach((slideData) => {
             promises.push(this.fetchSlide(slideData.url));
           });
 
           Promise.all(promises)
             .then((values) => {
               values.forEach((slide) => {
-                const slideDataIndex = channelData.slides.findIndex((element) => element.id === slide.id);
+                const slideDataIndex = playlistData.slides.findIndex((element) => element.id === slide.id);
                 // eslint-disable-next-line no-param-reassign
-                channelData.slides[slideDataIndex] = slide;
+                playlistData.slides[slideDataIndex] = slide;
               });
-              resolve(channelData);
+              resolve(playlistData);
             })
             .catch((err) => reject(err));
         })

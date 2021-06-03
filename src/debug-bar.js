@@ -40,9 +40,9 @@ function DebugBar() {
         const event = new CustomEvent('content', {
           detail: {
             regionId: 'region1',
-            channels: [
+            playlists: [
               {
-                id: 'uniqueChannel1',
+                id: 'uniquePlaylist1',
                 slides: [jsonData]
               }
             ]

@@ -3,23 +3,23 @@
   "regions": [
     {
       "id": "region1",
-      "channels": [
+      "playlists": [
         {
-          "id": "uniqueChannel1",
-          "url": "./fixtures/channel1.json"
+          "id": "uniquePlaylist1",
+          "url": "./fixtures/playlist1.json"
         }
       ]
     },
     {
       "id": "region2",
-      "channels": [
+      "playlists": [
         {
-          "id": "uniqueChannel2",
-          "url": "./fixtures/channel2.json"
+          "id": "uniquePlaylist2",
+          "url": "./fixtures/playlist2.json"
         },
         {
-          "id": "uniqueChannel1",
-          "url": "./fixtures/channel1.json"
+          "id": "uniquePlaylist1",
+          "url": "./fixtures/playlist1.json"
         }
       ]
     }

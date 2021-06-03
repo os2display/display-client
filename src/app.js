@@ -1,41 +1,6 @@
-/* eslint-disable react/prop-types */
 import { React, useEffect, useState } from 'react';
 import './app.scss';
-import TextBox from './templates/text-box/text-box';
-
-const style = {
-  width: '100%',
-  height: '100%',
-  margin: '0',
-  padding: '0'
-};
-
-function Slide({ slide }) {
-  console.log('Slide', slide);
-  return <div style={style}>{slide?.content && <TextBox content={slide.content} />}</div>;
-}
-
-function Channel({ channel, id }) {
-  console.log('Channel', channel);
-  return (
-    <div style={style}>
-      {channel?.slides?.length > 0 &&
-        channel.slides.map((slide) => <Slide key={`${id}-${slide.id}`} id={`${id}-${slide.id}`} slide={slide} />)}
-    </div>
-  );
-}
-
-function Region({ region }) {
-  console.log('Region', region);
-  return (
-    <div style={style}>
-      {region?.channels?.length > 0 &&
-        region.channels.map((channel) => (
-          <Channel key={`${region.id}-${channel.id}`} id={`${region.id}-${channel.id}`} channel={channel} />
-        ))}
-    </div>
-  );
-}
+import Screen from './screen';
 
 function App() {
   const [content, setContent] = useState('');
@@ -51,8 +16,7 @@ function App() {
     );
   }, []);
 
-  // return <div className="App">{content?.content && <TextBox content={content.content} />}</div>;
-  return <>{content && <Region region={content} />}</>;
+  return <>{content && <Screen screen={content} />}</>;
 }
 
 export default App;

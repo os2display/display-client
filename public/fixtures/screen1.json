@@ -3,10 +3,10 @@
   "regions": [
     {
       "id": "region1",
-      "channels": [
+      "playlists": [
         {
-          "id": "uniqueChannel1",
-          "url": "./fixtures/channel1.json"
+          "id": "uniquePlaylist1",
+          "url": "./fixtures/playlist1.json"
         }
       ]
     }
