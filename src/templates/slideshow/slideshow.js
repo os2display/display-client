@@ -1,6 +1,7 @@
 import { React, useState, useRef, useEffect } from 'react';
-import './slideshow.scss';
+import PropTypes from 'prop-types';
 import styled, { keyframes } from 'styled-components';
+import './slideshow.scss';
 
 function Slideshow({ content }) {
   const { images, transitions, animations, logo } = content;
@@ -9,12 +10,13 @@ function Slideshow({ content }) {
   const [Slide, setSlide] = useState();
   const timeoutRef = useRef(null);
   const classes = `image ${transitions} ${animations}`;
-  function resetTimeout() {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-    }
+
+  // A random function to simplify the code where random is used
+  function random(multiplier) {
+    return Math.floor(Math.random() * multiplier);
   }
 
+  // Creates the animation using keyframes from styled components
   function createAnimation(grow, transform) {
     const transformOrigin = transform || '50% 50%';
     const startSize = grow ? 1 : 1.2;
@@ -44,10 +46,7 @@ function Slideshow({ content }) {
   `;
   }
 
-  function random(multiplier) {
-    return Math.floor(Math.random() * multiplier);
-  }
-
+  // Determines which animation should be used
   function getCurrentAnimation(animationType) {
     const animationTypes = ['zoom-in-middle', 'zoom-out-middle', 'zoom-out-random', 'zoom-in-random'];
     const randomPercent = `${random(100) + 1}% ${random(100) + 1}%`;
@@ -65,18 +64,7 @@ function Slideshow({ content }) {
     }
   }
 
-  useEffect(() => {
-    createSlide();
-    resetTimeout();
-    timeoutRef.current = setTimeout(() => {
-      setIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
-      createSlide();
-    }, images[index].duration);
-    return () => {
-      resetTimeout();
-    };
-  }, [index]);
-
+  // Creates a slide with the animation.
   function createSlide() {
     const slide = styled.div`
       background-image: url(${images[index].url});
@@ -87,11 +75,42 @@ function Slideshow({ content }) {
     setSlide(slide);
   }
 
+  // Reset the timeout.
+  function resetTimeout() {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+  }
+
+  useEffect(() => {
+    // Create slides and reset the timeout.
+    createSlide();
+    resetTimeout();
+    timeoutRef.current = setTimeout(() => {
+      setIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
+    }, images[index].duration);
+    return () => {
+      resetTimeout();
+    };
+  }, [index]);
+
   return (
     <div className="slideshow">
       {Slide && <Slide className={classes} />}
-      {logo && <img className={logoClasses} src={logo.url} />}
+      {logo && <img className={logoClasses} alt="slide" src={logo.url} />}
     </div>
   );
 }
+
+Slideshow.propTypes = {
+  content: PropTypes.shape({
+    // eslint-disable-next-line react/forbid-prop-types
+    images: PropTypes.array,
+    // eslint-disable-next-line react/forbid-prop-types
+    logo: PropTypes.object,
+    animations: PropTypes.string,
+    transitions: PropTypes.string
+  }).isRequired
+};
+
 export default Slideshow;

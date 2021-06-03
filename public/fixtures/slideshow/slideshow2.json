@@ -27,7 +27,7 @@
     "logo": {
       "id": "uniqueMedia5",
       "url": "./fixtures/images/logo.png",
-      "position": "bottom left",
+      "position": "bottom right",
       "size": "s"
     },
     "transitions": "fade",

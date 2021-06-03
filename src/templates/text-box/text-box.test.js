@@ -7,7 +7,7 @@ describe('Make sure text-box loads', () => {
     cy.get('.template-text-box').should(
       'have.css',
       'background-image',
-      'url("http://localhost:3000/fixtures/mountain1.jpeg")'
+      'url("http://localhost:3000/fixtures/images/mountain1.jpeg")'
     );
   });
 

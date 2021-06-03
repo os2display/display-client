@@ -7,7 +7,7 @@
     "media": [
       {
         "id": "uniqueMedia4",
-        "url": "./fixtures/mountain4.jpeg"
+        "url": "./fixtures/images/mountain4.jpeg"
       }
     ],
     "boxAlign": "bottom"
