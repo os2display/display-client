@@ -29,6 +29,16 @@ function DebugBar() {
       key: 'debug-bar-fixture-5',
       title: 'slide: text-box colors',
       file: './fixtures/slide5.json'
+    },
+    {
+      key: 'debug-bar-fixture-6',
+      title: 'slideshow1',
+      file: './fixtures/slideshow1.json'
+    },
+    {
+      key: 'debug-bar-fixture-7',
+      title: 'slideshow1',
+      file: './fixtures/slideshow2.json'
     }
   ];
 
