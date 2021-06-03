@@ -1,6 +1,6 @@
 import { React, useEffect, useState } from 'react';
-import './app.scss';
 import Screen from './screen';
+import './app.scss';
 
 function App() {
   const [content, setContent] = useState('');
@@ -16,7 +16,7 @@ function App() {
     );
   }, []);
 
-  return <>{content && <Screen screen={content} />}</>;
+  return <div className="App">{content && <Screen screen={content} />}</div>;
 }
 
 export default App;
