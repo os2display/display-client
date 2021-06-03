@@ -49,7 +49,6 @@ class PullStrategy {
 
           Promise.all(promises)
             .then((values) => {
-              console.log(values);
               values.forEach((region) => {
                 const regionIndex = screenData.regions.findIndex((element) => element.id === region.id);
                 // eslint-disable-next-line no-param-reassign

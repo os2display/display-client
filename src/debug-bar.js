@@ -39,11 +39,15 @@ function DebugBar() {
       .then((jsonData) => {
         const event = new CustomEvent('content', {
           detail: {
-            regionId: 'region1',
-            playlists: [
+            regions: [
               {
-                id: 'uniquePlaylist1',
-                slides: [jsonData]
+                id: 'region1',
+                playlists: [
+                  {
+                    id: 'uniquePlaylist1',
+                    slides: [jsonData]
+                  }
+                ]
               }
             ]
           }
