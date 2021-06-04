@@ -72,13 +72,12 @@ function DebugBar() {
                 {fixture.title}
               </button>
             ))}
+            <button className="debug-bar-toggle-button" type="button" onClick={() => setShow(!show)}>
+              {show ? 'Hide' : 'Debug'}
+            </button>
           </div>
         </div>
       )}
-
-      <button className="debug-bar-toggle-button" type="button" onClick={() => setShow(!show)}>
-        {show ? 'Hide' : 'Debug'}
-      </button>
     </>
   );
 }
