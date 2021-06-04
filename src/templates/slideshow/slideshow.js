@@ -13,6 +13,8 @@ function Slideshow({ content }) {
 
   /**
    * A random function to simplify the code where random is used
+   *
+   * @param {number} multiplier
    */
   function random(multiplier) {
     return Math.floor(Math.random() * multiplier);
@@ -20,6 +22,9 @@ function Slideshow({ content }) {
 
   /**
    * Creates the animation using keyframes from styled components
+   *
+   * @param {boolean} grow
+   * @param {string} transform
    */
   function createAnimation(grow, transform) {
     const transformOrigin = transform || '50% 50%';
@@ -52,6 +57,8 @@ function Slideshow({ content }) {
 
   /**
    * Determines which animation should be used
+   *
+   * @param {string} animationType
    */
   function getCurrentAnimation(animationType) {
     const animationTypes = ['zoom-in-middle', 'zoom-out-middle', 'zoom-out-random', 'zoom-in-random'];
@@ -93,9 +100,7 @@ function Slideshow({ content }) {
   }
 
   useEffect(() => {
-    /**
-     * Create slides and reset the timeout.
-     */
+    // Create slides and reset the timeout.
     createImage();
     resetTimeout();
     timeoutRef.current = setTimeout(() => {
