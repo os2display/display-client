@@ -1,7 +1,11 @@
 .debug-bar {
   background: khaki;
+  bottom: 0;
+  left: 0;
+  right: 0;
   height: 50px;
   padding: 5px;
+  position: aboslute;
 }
 
 .debug-bar-header {
