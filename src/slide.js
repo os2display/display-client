@@ -4,12 +4,21 @@ import TextBox from './templates/text-box/text-box';
 import './slide.scss';
 
 function Slide({ slide }) {
+  let slideComponent;
+
+  if (slide.template === 'template-text-box') {
+    slideComponent = <TextBox content={slide.content} />;
+  } else {
+    slideComponent = <>Unknown template</>;
+  }
+
   // @TODO: Load template.
-  return <div className="Slide">{slide?.content && <TextBox content={slide.content} />}</div>;
+  return <div className="Slide">{slideComponent}</div>;
 }
 
 Slide.propTypes = {
   slide: PropTypes.shape({
+    template: PropTypes.string.isRequired,
     content: PropTypes.objectOf(PropTypes.any).isRequired
   }).isRequired
 };
