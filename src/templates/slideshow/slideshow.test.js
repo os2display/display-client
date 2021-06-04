@@ -15,11 +15,9 @@ describe('Make sure slideshow loads', () => {
     cy.get('.logo').should('have.class', 'bottom', 'right');
   });
 
-
   it('Should have size l class on logo', () => {
     cy.visit('http://localhost:3000');
     cy.get('#debug-bar-fixture-6').click();
     cy.get('.logo').should('have.class', 'l');
   });
-
 });
