@@ -7,16 +7,20 @@ function Slideshow({ content }) {
   const { images, transitions, animations, logo } = content;
   const logoClasses = `logo ${logo.position} ${logo.size}`;
   const [index, setIndex] = useState(0);
-  const [Slide, setSlide] = useState();
+  const [Image, setImage] = useState();
   const timeoutRef = useRef(null);
   const classes = `image ${transitions} ${animations}`;
 
-  // A random function to simplify the code where random is used
+  /**
+   * A random function to simplify the code where random is used
+   */
   function random(multiplier) {
     return Math.floor(Math.random() * multiplier);
   }
 
-  // Creates the animation using keyframes from styled components
+  /**
+   * Creates the animation using keyframes from styled components
+   */
   function createAnimation(grow, transform) {
     const transformOrigin = transform || '50% 50%';
     const startSize = grow ? 1 : 1.2;
@@ -46,7 +50,9 @@ function Slideshow({ content }) {
   `;
   }
 
-  // Determines which animation should be used
+  /**
+   * Determines which animation should be used
+   */
   function getCurrentAnimation(animationType) {
     const animationTypes = ['zoom-in-middle', 'zoom-out-middle', 'zoom-out-random', 'zoom-in-random'];
     const randomPercent = `${random(100) + 1}% ${random(100) + 1}%`;
@@ -64,18 +70,22 @@ function Slideshow({ content }) {
     }
   }
 
-  // Creates a slide with the animation.
-  function createSlide() {
-    const slide = styled.div`
+  /**
+   * Creates a slide with the animation.
+   */
+  function createImage() {
+    const image = styled.div`
       background-image: url(${images[index].url});
       animation-name: ${getCurrentAnimation(animations)};
       animation-duration: ${images[index].duration / 1000}s;
       animation-iteration-count: infinite;
     `;
-    setSlide(slide);
+    setImage(image);
   }
 
-  // Reset the timeout.
+  /**
+   * Reset the timeout.
+   */
   function resetTimeout() {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
@@ -83,8 +93,10 @@ function Slideshow({ content }) {
   }
 
   useEffect(() => {
-    // Create slides and reset the timeout.
-    createSlide();
+    /**
+     * Create slides and reset the timeout.
+     */
+    createImage();
     resetTimeout();
     timeoutRef.current = setTimeout(() => {
       setIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
@@ -95,8 +107,8 @@ function Slideshow({ content }) {
   }, [index]);
 
   return (
-    <div className="slideshow">
-      {Slide && <Slide className={classes} />}
+    <div className="template-slideshow">
+      {Image && <Image className={classes} />}
       {logo && <img className={logoClasses} alt="slide" src={logo.url} />}
     </div>
   );
@@ -104,10 +116,21 @@ function Slideshow({ content }) {
 
 Slideshow.propTypes = {
   content: PropTypes.shape({
-    // eslint-disable-next-line react/forbid-prop-types
-    images: PropTypes.array,
-    // eslint-disable-next-line react/forbid-prop-types
-    logo: PropTypes.object,
+    images: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        url: PropTypes.string.isRequired,
+        duration: PropTypes.number.isRequired
+      })
+    ),
+    logo: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        url: PropTypes.string.isRequired,
+        position: PropTypes.string,
+        size: PropTypes.string
+      })
+    ),
     animations: PropTypes.string,
     transitions: PropTypes.string
   }).isRequired
