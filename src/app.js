@@ -14,6 +14,7 @@ function App() {
         const data = event.detail;
         setContent(null);
         setSlideshow(false);
+        // @todo: Remove this when slides are loaded according to template.
         if (data.title.includes('Slideshow')) {
           setSlideshow(true);
         }
