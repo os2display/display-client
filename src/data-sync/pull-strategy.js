@@ -35,22 +35,25 @@ class PullStrategy {
       .then((response) => response.json())
       .then((screenData) => {
         if (screenData?.regions?.length > 0) {
+          const newScreenData = { ...screenData };
           const promises = [];
 
-          screenData.regions.forEach((regionData) => {
+          newScreenData.regions.forEach((regionData) => {
             promises.push(this.fetchRegion(regionData));
           });
 
-          Promise.all(promises)
-            .then((values) => {
-              values.forEach((region) => {
-                const regionIndex = screenData.regions.findIndex((element) => element.id === region.id);
-                // eslint-disable-next-line no-param-reassign
-                screenData.regions[regionIndex] = region;
+          Promise.allSettled(promises)
+            .then((results) => {
+              results.forEach((result) => {
+                if (result.status === 'fulfilled') {
+                  const region = result.value;
+                  const regionIndex = newScreenData.regions.findIndex((element) => element.id === region.id);
+                  newScreenData.regions[regionIndex] = region;
+                }
               });
 
               const event = new CustomEvent('content', {
-                detail: screenData
+                detail: newScreenData
               });
               document.dispatchEvent(event);
             })
@@ -74,16 +77,21 @@ class PullStrategy {
   fetchRegion(regionData) {
     return new Promise((resolve, reject) => {
       const promises = [];
+      const newRegionData = { ...regionData };
 
-      regionData.playlists.forEach((playlist) => {
+      newRegionData.playlists.forEach((playlist) => {
         promises.push(this.fetchPlaylist(playlist.url));
       });
 
-      Promise.all(promises)
-        .then((values) => {
-          // eslint-disable-next-line no-param-reassign
-          regionData.playlists = values;
-          resolve(regionData);
+      Promise.allSettled(promises)
+        .then((results) => {
+          newRegionData.playlists = results.map((result) => {
+            if (result.status === 'fulfilled') {
+              return result.value;
+            }
+            return null;
+          });
+          resolve(newRegionData);
         })
         .catch((err) => reject(err));
     });
@@ -103,17 +111,20 @@ class PullStrategy {
         .then((response) => response.json())
         .then((playlistData) => {
           const promises = [];
+          const newPlaylistData = { ...playlistData };
 
-          playlistData.slides.forEach((slideData) => {
+          newPlaylistData.slides.forEach((slideData) => {
             promises.push(this.fetchSlide(slideData.url));
           });
 
-          Promise.all(promises)
-            .then((values) => {
-              values.forEach((slide) => {
-                const slideDataIndex = playlistData.slides.findIndex((element) => element.id === slide.id);
-                // eslint-disable-next-line no-param-reassign
-                playlistData.slides[slideDataIndex] = slide;
+          Promise.allSettled(promises)
+            .then((results) => {
+              results.forEach((result) => {
+                if (result.status === 'fulfilled') {
+                  const slide = result.value;
+                  const slideDataIndex = newPlaylistData.slides.findIndex((element) => element.id === slide.id);
+                  newPlaylistData.slides[slideDataIndex] = slide;
+                }
               });
               resolve(playlistData);
             })
