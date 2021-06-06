@@ -1,6 +1,6 @@
 import { React, useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes, Keyframes } from 'styled-components';
 import './slideshow.scss';
 
 /**
@@ -25,6 +25,9 @@ function Slideshow({ content }) {
    * A random function to simplify the code where random is used
    *
    * @param {number} multiplier
+   *   The multiplier.
+   * @returns {number}
+   *   Random number.
    */
   function random(multiplier) {
     return Math.floor(Math.random() * multiplier);
@@ -34,10 +37,14 @@ function Slideshow({ content }) {
    * Creates the animation using keyframes from styled components
    *
    * @param {boolean} grow
+   *   Grow boolean.
    * @param {string} transform
+   *   The transform.
+   * @returns {Keyframes}
+   *   The animation.
    */
-  function createAnimation(grow, transform) {
-    const transformOrigin = transform || '50% 50%';
+  function createAnimation(grow, transform = '50% 50%') {
+    const transformOrigin = transform;
     const startSize = grow ? 1 : 1.2;
     const finishSize = grow ? 1.2 : 1;
     const startFinishOpacity = transitions === 'fade' ? 0 : 1;
@@ -69,6 +76,9 @@ function Slideshow({ content }) {
    * Determines which animation should be used
    *
    * @param {string} animationType
+   *   The animation type.
+   * @returns {Keyframes}
+   *   The current animation.
    */
   function getCurrentAnimation(animationType) {
     const animationTypes = ['zoom-in-middle', 'zoom-out-middle', 'zoom-out-random', 'zoom-in-random'];
