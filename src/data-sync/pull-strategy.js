@@ -1,3 +1,5 @@
+import cloneDeep from 'lodash.clonedeep';
+
 /**
  * PullStrategy.
  *
@@ -35,7 +37,7 @@ class PullStrategy {
       .then((response) => response.json())
       .then((screenData) => {
         if (screenData?.regions?.length > 0) {
-          const newScreenData = { ...screenData };
+          const newScreenData = cloneDeep(screenData);
           const promises = [];
 
           newScreenData.regions.forEach((regionData) => {
@@ -77,7 +79,7 @@ class PullStrategy {
   fetchRegion(regionData) {
     return new Promise((resolve, reject) => {
       const promises = [];
-      const newRegionData = { ...regionData };
+      const newRegionData = cloneDeep(regionData);
 
       newRegionData.playlists.forEach((playlist) => {
         promises.push(this.fetchPlaylist(playlist.url));
@@ -111,7 +113,7 @@ class PullStrategy {
         .then((response) => response.json())
         .then((playlistData) => {
           const promises = [];
-          const newPlaylistData = { ...playlistData };
+          const newPlaylistData = cloneDeep(playlistData);
 
           newPlaylistData.slides.forEach((slideData) => {
             promises.push(this.fetchSlide(slideData.url));
@@ -126,7 +128,7 @@ class PullStrategy {
                   newPlaylistData.slides[slideDataIndex] = slide;
                 }
               });
-              resolve(playlistData);
+              resolve(newPlaylistData);
             })
             .catch((err) => reject(err));
         })
