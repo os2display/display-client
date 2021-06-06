@@ -45,8 +45,7 @@ TextBox.propTypes = {
   content: PropTypes.shape({
     title: PropTypes.string,
     text: PropTypes.string,
-    // eslint-disable-next-line react/forbid-prop-types
-    media: PropTypes.array,
+    media: PropTypes.arrayOf(PropTypes.shape({ url: PropTypes.string })),
     // Accepted values: top, bottom, left, right.
     boxAlign: PropTypes.string
   }).isRequired
