@@ -1,0 +1,36 @@
+{
+  "title": "Slideshow 2",
+  "template": "template-slideshow",
+  "content": {
+    "images": [
+      {
+        "id": "uniqueMedia1",
+        "url": "./fixtures/images/mountain1.jpeg",
+        "duration": 1000
+      },
+      {
+        "id": "uniqueMedia2",
+        "url": "./fixtures/images/mountain2.jpeg",
+        "duration": 1000
+      },
+      {
+        "id": "uniqueMedia3",
+        "url": "./fixtures/images/mountain3.jpeg",
+        "duration": 1000
+      },
+      {
+        "id": "uniqueMedia4",
+        "url": "./fixtures/images/mountain4.jpeg",
+        "duration": 1000
+      }
+    ],
+    "logo": {
+      "id": "uniqueMedia5",
+      "url": "./fixtures/images/logo.png",
+      "position": "bottom left",
+      "size": "l"
+    },
+    "transitions": "fade",
+    "animations": "random"
+  }
+}

@@ -5,12 +5,12 @@
     {
       "weight": 3,
       "id": "uniqueSlide3",
-      "url": "./fixtures/slide3.json"
+      "url": "./fixtures/text-box/slide3.json"
     },
     {
       "weight": 4,
       "id": "uniqueSlide4",
-      "url": "./fixtures/slide4.json"
+      "url": "./fixtures/text-box/slide4.json"
     }
   ]
 }

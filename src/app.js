@@ -16,6 +16,7 @@ function App() {
       'content',
       function newContent(event) {
         const data = event.detail;
+        setContent(null);
         setContent(data);
       },
       false

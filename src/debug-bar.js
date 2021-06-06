@@ -14,22 +14,37 @@ function DebugBar() {
     {
       key: 'debug-bar-fixture-1',
       title: 'slide: text-box top',
-      file: './fixtures/slide1.json'
+      file: './fixtures/text-box/slide1.json'
     },
     {
       key: 'debug-bar-fixture-2',
       title: 'slide: text-box left',
-      file: './fixtures/slide2.json'
+      file: './fixtures/text-box/slide2.json'
     },
     {
       key: 'debug-bar-fixture-3',
       title: 'slide: text-box right',
-      file: './fixtures/slide3.json'
+      file: './fixtures/text-box/slide3.json'
     },
     {
       key: 'debug-bar-fixture-4',
       title: 'slide: text-box bottom',
-      file: './fixtures/slide4.json'
+      file: './fixtures/text-box/slide4.json'
+    },
+    {
+      key: 'debug-bar-fixture-5',
+      title: 'slide: text-box colors',
+      file: './fixtures/text-box/slide5.json'
+    },
+    {
+      key: 'debug-bar-fixture-6',
+      title: 'slideshow1',
+      file: './fixtures/slideshow/slideshow1.json'
+    },
+    {
+      key: 'debug-bar-fixture-7',
+      title: 'slideshow2',
+      file: './fixtures/slideshow/slideshow2.json'
     }
   ];
 
@@ -119,13 +134,17 @@ function DebugBar() {
                 {fixture.title}
               </button>
             ))}
+            <button className="debug-bar-button" type="button" onClick={() => setShow(false)}>
+              Hide
+            </button>
           </div>
         </div>
       )}
-
-      <button className="debug-bar-toggle-button" type="button" onClick={() => setShow(!show)}>
-        {show ? 'Hide' : 'Debug'}
-      </button>
+      {!show && (
+        <button className="debug-bar-toggle-button-show" type="button" onClick={() => setShow(true)}>
+          Debug
+        </button>
+      )}
     </>
   );
 }

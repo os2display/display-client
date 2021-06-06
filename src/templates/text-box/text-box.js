@@ -16,9 +16,20 @@ function TextBox({ content }) {
   const rootStyle = {};
   const textBoxStyle = {};
 
-  // Set background image.
+  // Set background image and background color.
   if (content?.media?.length > 0) {
     rootStyle.backgroundImage = `url("${content.media[0].url}")`;
+  }
+  if (content?.backgroundColor) {
+    rootStyle.backgroundColor = content.backgroundColor;
+  }
+
+  // Set box colors.
+  if (content?.boxColor) {
+    textBoxStyle.backgroundColor = content.boxColor;
+  }
+  if (content?.textColor) {
+    textBoxStyle.color = content.textColor;
   }
 
   // Position text-box.
@@ -47,7 +58,10 @@ TextBox.propTypes = {
     text: PropTypes.string,
     media: PropTypes.arrayOf(PropTypes.shape({ url: PropTypes.string })),
     // Accepted values: top, bottom, left, right.
-    boxAlign: PropTypes.string
+    boxAlign: PropTypes.string,
+    backgroundColor: PropTypes.string,
+    textColor: PropTypes.string,
+    boxColor: PropTypes.string
   }).isRequired
 };
 

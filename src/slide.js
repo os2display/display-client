@@ -2,6 +2,7 @@ import { React } from 'react';
 import PropTypes from 'prop-types';
 import TextBox from './templates/text-box/text-box';
 import './slide.scss';
+import Slideshow from './templates/slideshow/slideshow';
 
 /**
  * Slide component.
@@ -18,6 +19,8 @@ function Slide({ slide }) {
 
   if (slide.template === 'template-text-box') {
     slideComponent = <TextBox content={slide.content} />;
+  } else if (slide.template === 'template-slideshow') {
+    slideComponent = <Slideshow content={slide.content} />;
   } else {
     slideComponent = <>Unknown template</>;
   }
