@@ -3,6 +3,16 @@ import PropTypes from 'prop-types';
 import Region from './region';
 import './screen.scss';
 
+/**
+ * Screen component.
+ *
+ * @param {object} props
+ *   Props.
+ * @param {object} props.screen
+ *   The screen data.
+ * @returns {JSX.Element}
+ *   The component.
+ */
 function Screen({ screen }) {
   return (
     <div className="Screen">

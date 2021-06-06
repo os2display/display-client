@@ -1,8 +1,12 @@
 {
+  "globals": {
+    "JSX": "readonly"
+  },
   "extends": [
     "airbnb",
     "plugin:prettier/recommended",
-    "plugin:cypress/recommended"
+    "plugin:cypress/recommended",
+    "plugin:jsdoc/recommended"
   ],
   "env": {
     "browser": true,
@@ -44,5 +48,8 @@
         "ignoreRegExpLiterals": true
       }
     ]
-  }
+  },
+  "plugins": [
+    "jsdoc"
+  ]
 }

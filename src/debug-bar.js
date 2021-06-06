@@ -1,6 +1,12 @@
 import { React, useState } from 'react';
 import './debug-bar.scss';
 
+/**
+ * DebugBar component.
+ *
+ * @returns {JSX.Element}
+ *   The component.
+ */
 function DebugBar() {
   const [show, setShow] = useState(true);
 
@@ -30,7 +36,7 @@ function DebugBar() {
   /**
    * Load content from fixture.
    *
-   * @param fixture
+   * @param {string} fixture
    *   The path to the fixture.
    */
   function loadContent(fixture) {
@@ -59,7 +65,7 @@ function DebugBar() {
   /**
    * Set data synchronization enabled or disabled.
    *
-   * @param enabled
+   * @param {boolean} enabled
    *   Boolean. Enabled or disable data synchronization.
    */
   function setDataSync(enabled) {

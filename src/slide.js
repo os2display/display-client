@@ -3,6 +3,16 @@ import PropTypes from 'prop-types';
 import TextBox from './templates/text-box/text-box';
 import './slide.scss';
 
+/**
+ * Slide component.
+ *
+ * @param {object} props
+ *   Props.
+ * @param {object} props.slide
+ *   The slide data.
+ * @returns {JSX.Element}
+ *   The component.
+ */
 function Slide({ slide }) {
   let slideComponent;
 

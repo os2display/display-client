@@ -2,6 +2,16 @@ import { React } from 'react';
 import './text-box.scss';
 import PropTypes from 'prop-types';
 
+/**
+ * TextBox component.
+ *
+ * @param {object} props
+ *   Props.
+ * @param {object} props.content
+ *   The slide data.
+ * @returns {JSX.Element}
+ *   The component.
+ */
 function TextBox({ content }) {
   const rootStyle = {};
   const textBoxStyle = {};

@@ -3,6 +3,16 @@ import PropTypes from 'prop-types';
 import Playlist from './playlist';
 import './region.scss';
 
+/**
+ * Region component.
+ *
+ * @param {object} props
+ *   Props.
+ * @param {object} props.region
+ *   The region content.
+ * @returns {JSX.Element}
+ *   The component.
+ */
 function Region({ region }) {
   return (
     <div className="Region">

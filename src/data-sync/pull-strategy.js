@@ -4,31 +4,25 @@
  * Handles pull strategy.
  */
 class PullStrategy {
+  // The endpoint where the screen can be fetched.
+  endpoint = '';
+
+  // Fetch-inteval in ms.
+  interval = 5000;
+
   /**
    * Constructor.
    *
-   * @param config
+   * @param {object} config
    *   The config object.
    */
   constructor(config) {
-    this.initialize = this.initialize.bind(this);
     this.start = this.start.bind(this);
     this.stop = this.stop.bind(this);
     this.fetchScreen = this.fetchScreen.bind(this);
 
-    this.config = config;
-
-    this.initialize();
-  }
-
-  /**
-   * Initialize the strategy.
-   */
-  initialize() {
-    this.interval = this.config?.interval ?? 5000;
-
-    // @TODO: Validate that an endpoint has been set. Otherwise, throw an error.
-    this.endpoint = this.config?.endpoint ?? '';
+    this.interval = config?.interval ?? 5000;
+    this.endpoint = config?.endpoint ?? '';
   }
 
   /**
@@ -72,8 +66,10 @@ class PullStrategy {
   /**
    * Fetch playlists in a region of the screen.
    *
-   * @param regionData
-   * @returns {Promise<unknown>}
+   * @param {object} regionData
+   *   The data for the region.
+   * @returns {Promise<object>}
+   *   Promise with region with playlists attached.
    */
   fetchRegion(regionData) {
     return new Promise((resolve, reject) => {
@@ -96,8 +92,10 @@ class PullStrategy {
   /**
    * Fetch playlist.
    *
-   * @param playlistUrl
-   * @returns {Promise<unknown>}
+   * @param {string} playlistUrl
+   *   The url where the playlist can be fetched.
+   * @returns {Promise<object>}
+   *   The promise.
    */
   fetchPlaylist(playlistUrl) {
     return new Promise((resolve, reject) => {
@@ -128,8 +126,10 @@ class PullStrategy {
   /**
    * Fetch slide.
    *
-   * @param slideUrl
-   * @returns {Promise<unknown>}
+   * @param {string} slideUrl
+   *   The url where the slide can be fetched.
+   * @returns {Promise<object>}
+   *   The promise.
    */
   // eslint-disable-next-line class-methods-use-this
   fetchSlide(slideUrl) {

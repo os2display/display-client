@@ -9,11 +9,10 @@ class DataSync {
   /**
    * Constructor.
    *
-   * @param config
+   * @param {object} config
    *   The config object.
    */
   constructor(config) {
-    this.initialize = this.initialize.bind(this);
     this.start = this.start.bind(this);
 
     this.config = config.config;
@@ -24,15 +23,6 @@ class DataSync {
       default:
         this.strategy = new PullStrategy(this.config);
     }
-
-    this.strategy.initialize();
-  }
-
-  /**
-   * Initialize the strategy.
-   */
-  initialize() {
-    this.strategy.initialize();
   }
 
   /**
