@@ -148,14 +148,12 @@ Slideshow.propTypes = {
         duration: PropTypes.number.isRequired
       })
     ),
-    logo: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        url: PropTypes.string.isRequired,
-        position: PropTypes.string,
-        size: PropTypes.string
-      })
-    ),
+    logo: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      url: PropTypes.string.isRequired,
+      position: PropTypes.string,
+      size: PropTypes.string
+    }),
     animations: PropTypes.string,
     transitions: PropTypes.string
   }).isRequired
