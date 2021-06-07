@@ -3,11 +3,12 @@
   "regions": [
     {
       "id": "region1",
-      "slide": "uniqueSlide1"
-    },
-    {
-      "id": "region2",
-      "slide": "uniqueSlide2"
+      "playlists": [
+        {
+          "id": "uniquePlaylist1",
+          "url": "./fixtures/playlist1.json"
+        }
+      ]
     }
   ]
 }

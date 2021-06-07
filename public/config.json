@@ -1,0 +1,9 @@
+{
+  "dataStrategy": {
+    "type": "pull",
+    "config": {
+      "interval": 30000,
+      "endpoint": "./fixtures/screen1.json"
+    }
+  }
+}

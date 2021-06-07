@@ -2,6 +2,16 @@ import { React } from 'react';
 import './text-box.scss';
 import PropTypes from 'prop-types';
 
+/**
+ * TextBox component.
+ *
+ * @param {object} props
+ *   Props.
+ * @param {object} props.content
+ *   The slide data.
+ * @returns {JSX.Element}
+ *   The component.
+ */
 function TextBox({ content }) {
   const rootStyle = {};
   const textBoxStyle = {};
@@ -46,8 +56,7 @@ TextBox.propTypes = {
   content: PropTypes.shape({
     title: PropTypes.string,
     text: PropTypes.string,
-    // eslint-disable-next-line react/forbid-prop-types
-    media: PropTypes.array,
+    media: PropTypes.arrayOf(PropTypes.shape({ url: PropTypes.string })),
     // Accepted values: top, bottom, left, right.
     boxAlign: PropTypes.string,
     backgroundColor: PropTypes.string,
