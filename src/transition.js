@@ -15,6 +15,7 @@ const Transition = ({ show, children }) => {
 
   return (
     shouldRender && (
+      // Todo now it only fades, should have changing transitions
       <div
         className="transition-component"
         style={{ animation: `${show ? 'fadeIn' : 'fadeOut'} 1s` }}
