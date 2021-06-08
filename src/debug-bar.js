@@ -96,6 +96,17 @@ function DebugBar() {
     }
   }
 
+   /**
+   * Loads the content from json-file.
+   *
+   * @param {event} event
+   *   The event.
+   */
+  function handleChange(event){
+    let file = fixtures.find(x => x.title === event.target.value).file;
+    loadContent(file);
+  }
+
   return (
     <>
       {show && (
@@ -125,23 +136,18 @@ function DebugBar() {
             >
               Stop data sync
             </button>
-
-            {fixtures.map((fixture) => (
-              <button
-                className="debug-bar-button"
-                type="button"
-                id={fixture.key}
-                key={fixture.key}
-                onClick={() => {
-                  loadContent(fixture.file);
-                }}
-              >
-                {fixture.title}
-              </button>
-            ))}
             <button className="debug-bar-button" type="button" onClick={() => setShow(false)}>
               Hide
             </button>
+            <select onChange={handleChange}>
+            {fixtures.map((fixture) => (
+              <option
+              id={fixture.title}
+              >
+                {fixture.title}
+              </option>
+            ))}
+            </select>
           </div>
         </div>
       )}
