@@ -1,25 +1,25 @@
 $padding: 2%;
-$font-border-color: #fff;
-$background-color: #444;
+$font-border-color: #000;
+$background-color: #b4b4b4;
 
 @mixin grid-item($title: false, $text-align: start) {
-  color: $font-border-color;
   padding: $padding 0;
   font-size: 2em;
   text-align: $text-align;
+  border-color: $font-border-color;
 
   // Title does not have borders.
   @if not $title {
-    border-bottom: 1px solid $font-border-color;
+    border-bottom: 1px solid;
     border-right: 0px;
 
     // Remove padding and border left on first element in grid.
     @for $i from 1 through 2 {
-      &:nth-last-of-type(3n+#{$i}) {
-        border-left: 1px solid $font-border-color;
+      &:nth-last-of-type(3n + #{$i}) {
+        border-left: 1px solid;
         padding-left: 2%;
       }
-  }
+    }
 
     @for $i from 1 through 3 {
       &:nth-of-type(#{$i}) {
@@ -33,6 +33,7 @@ $background-color: #444;
 .template-calendar {
   height: 100%;
   background-color: $background-color;
+  color: $font-border-color;
 
   .grid-container-title-date {
     display: grid;
@@ -55,5 +56,21 @@ $background-color: #444;
     .grid-item {
       @include grid-item();
     }
+  }
+
+  &.red {
+    background-color: #d2421e;
+    color: white;
+    border-color: white;
+  }
+
+  &.blue {
+    background-color: #235587;
+    color: white;
+    border-color: white;
+  }
+
+  &.yellow {
+    background-color: #ffb400;
   }
 }
