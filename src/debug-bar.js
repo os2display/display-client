@@ -96,14 +96,14 @@ function DebugBar() {
     }
   }
 
-   /**
+  /**
    * Loads the content from json-file.
    *
    * @param {event} event
    *   The event.
    */
-  function handleChange(event){
-    let file = fixtures.find(x => x.title === event.target.value).file;
+  function handleChange(event) {
+    const { file } = fixtures.find((x) => x.title === event.target.value);
     loadContent(file);
   }
 
@@ -140,13 +140,9 @@ function DebugBar() {
               Hide
             </button>
             <select onChange={handleChange}>
-            {fixtures.map((fixture) => (
-              <option
-              id={fixture.title}
-              >
-                {fixture.title}
-              </option>
-            ))}
+              {fixtures.map((fixture) => (
+                <option id={fixture.title}>{fixture.title}</option>
+              ))}
             </select>
           </div>
         </div>

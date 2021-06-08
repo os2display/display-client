@@ -13,7 +13,26 @@ import './calendar.scss';
  *   The component.
  */
 function Calendar({ content }) {
-  return <div>calendar</div>;
+  return (
+    <div className="template-calendar">
+      <div className="grid-container-title-date">
+        <div className="grid-item">{content.title}</div>
+        <div className="grid-item-end">{content.date}</div>
+      </div>
+      <div className="grid-container">
+      <div className="grid-item">Hvad</div>
+      <div className="grid-item">Hvornår</div>
+      <div className="grid-item">Hvor</div>
+        {content.entries.map((entry) => (
+          <>
+            <div className="grid-item">{entry.what}</div>
+            <div className="grid-item">{entry.when}</div>
+            <div className="grid-item">{entry.where}</div>
+          </>
+        ))}
+      </div>
+    </div>
+  );
 }
 
 Calendar.propTypes = {

@@ -22,9 +22,9 @@ function Slide({ slide }) {
     slideComponent = <TextBox content={slide.content} />;
   } else if (slide.template === 'template-slideshow') {
     slideComponent = <Slideshow content={slide.content} />;
-  }else if (slide.template === 'template-calendar') {
+  } else if (slide.template === 'template-calendar') {
     slideComponent = <Calendar content={slide.content} />;
-  }  else {
+  } else {
     slideComponent = <>Unknown template</>;
   }
 
