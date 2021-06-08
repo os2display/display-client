@@ -28,9 +28,9 @@ function Calendar({ content }) {
         <div className="grid-item-end">{date}</div>
       </div>
       <div className="grid-container">
-        <div className="grid-item">Hvad</div>
-        <div className="grid-item">Hvornår</div>
-        <div className="grid-item">Hvor</div>
+        <div className="grid-item" key={1}>Hvad</div>
+        <div className="grid-item" key={2}>Hvornår</div>
+        <div className="grid-item" key={3}>Hvor</div>
         {content.entries.map((entry) => (
           <>
             <div className="grid-item" key={entry.what + entry.id}>
