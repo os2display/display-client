@@ -45,6 +45,11 @@ function DebugBar() {
       key: 'debug-bar-fixture-7',
       title: 'slideshow2',
       file: './fixtures/slideshow/slideshow2.json'
+    },
+    {
+      key: 'debug-bar-fixture-8',
+      title: 'calendar1',
+      file: './fixtures/calendar/calendar1.json'
     }
   ];
 
