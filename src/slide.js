@@ -1,8 +1,9 @@
 import { React } from 'react';
 import PropTypes from 'prop-types';
 import TextBox from './templates/text-box/text-box';
-import './slide.scss';
 import Slideshow from './templates/slideshow/slideshow';
+import Calendar from './templates/calendar/calendar';
+import './slide.scss';
 
 /**
  * Slide component.
@@ -25,7 +26,9 @@ function Slide({ slide, id, display }) {
     slideComponent = <TextBox content={slide.content} />;
   } else if (slide.template === 'template-slideshow') {
     slideComponent = <Slideshow content={slide.content} />;
-  } else {
+  }else if (slide.template === 'template-calendar') {
+    slideComponent = <Calendar content={slide.content} />;
+  }  else {
     slideComponent = <>Unknown template</>;
   }
 
