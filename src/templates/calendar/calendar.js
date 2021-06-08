@@ -1,8 +1,8 @@
 import { React } from 'react';
 import PropTypes from 'prop-types';
 import './calendar.scss';
-import moment from 'moment'
-import 'moment/locale/da'
+import moment from 'moment';
+import 'moment/locale/da';
 /**
  * Slideshow component.
  *
@@ -14,12 +14,12 @@ import 'moment/locale/da'
  *   The component.
  */
 function Calendar({ content }) {
-const classes = `template-calendar ${content.backgroundColor}`;
+  const classes = `template-calendar ${content.backgroundColor}`;
 
   const capitalize = (s) => {
     return s.charAt(0).toUpperCase() + s.slice(1);
-  }
-  let date = capitalize(moment().locale('da').format('llll'));
+  };
+  const date = capitalize(moment().locale('da').format('llll'));
 
   return (
     <div className={classes}>
@@ -28,14 +28,20 @@ const classes = `template-calendar ${content.backgroundColor}`;
         <div className="grid-item-end">{date}</div>
       </div>
       <div className="grid-container">
-      <div className="grid-item">Hvad</div>
-      <div className="grid-item">Hvornår</div>
-      <div className="grid-item">Hvor</div>
+        <div className="grid-item">Hvad</div>
+        <div className="grid-item">Hvornår</div>
+        <div className="grid-item">Hvor</div>
         {content.entries.map((entry) => (
           <>
-            <div className="grid-item" key={entry.what+entry.id}>{entry.what}</div>
-            <div className="grid-item" key={entry.when+entry.id}>{moment(entry.when).locale('da').format('LT')}</div>
-            <div className="grid-item" key={entry.where+entry.id}>{entry.where}</div>
+            <div className="grid-item" key={entry.what + entry.id}>
+              {entry.what}
+            </div>
+            <div className="grid-item" key={entry.when + entry.id}>
+              {moment(entry.when).locale('da').format('LT')}
+            </div>
+            <div className="grid-item" key={entry.where + entry.id}>
+              {entry.where}
+            </div>
           </>
         ))}
       </div>
@@ -53,7 +59,7 @@ Calendar.propTypes = {
       })
     ),
     title: PropTypes.string.isRequired,
-    backgroundColor: PropTypes.string.isRequired,
+    backgroundColor: PropTypes.string.isRequired
   }).isRequired
 };
 
