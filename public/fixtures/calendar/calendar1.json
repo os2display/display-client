@@ -1,0 +1,22 @@
+{
+  "id": "uniqueCalendar1",
+  "title": "Calendar1 1",
+  "template": "template-calendar",
+  "content": {
+    "title": "Calendar 1",
+    "date": "Tir. 8. juni 11:35",
+    "entries": [
+      {
+        "what": "Møde om spændende ting",
+        "when": "10:30",
+        "where": "Dokk1"
+      },
+      {
+        "what": "Møde om kedelige ting",
+        "when": "12:20",
+        "where": "E-23"
+      }
+
+    ]
+  }
+}
