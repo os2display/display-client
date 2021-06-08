@@ -33,13 +33,13 @@ function Calendar({ content }) {
         <div className="grid-item" key={3}>Hvor</div>
         {content.entries.map((entry) => (
           <>
-            <div className="grid-item" key={entry.what + entry.id}>
+            <div className="grid-item" key={entry.what}>
               {entry.what}
             </div>
-            <div className="grid-item" key={entry.when + entry.id}>
+            <div className="grid-item" key={entry.when}>
               {moment(entry.when).locale('da').format('LT')}
             </div>
-            <div className="grid-item" key={entry.where + entry.id}>
+            <div className="grid-item" key={entry.where}>
               {entry.where}
             </div>
           </>
