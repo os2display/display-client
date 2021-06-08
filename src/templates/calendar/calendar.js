@@ -1,7 +1,8 @@
 import { React } from 'react';
 import PropTypes from 'prop-types';
 import './calendar.scss';
-
+import moment from 'moment'
+import 'moment/locale/da'
 /**
  * Slideshow component.
  *
@@ -15,11 +16,16 @@ import './calendar.scss';
 function Calendar({ content }) {
 const classes = `template-calendar ${content.backgroundColor}`;
 
+  const capitalize = (s) => {
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  }
+  let date = capitalize(moment().locale('da').format('llll'));
+
   return (
     <div className={classes}>
       <div className="grid-container-title-date">
         <div className="grid-item">{content.title}</div>
-        <div className="grid-item-end">{content.date}</div>
+        <div className="grid-item-end">{date}</div>
       </div>
       <div className="grid-container">
       <div className="grid-item">Hvad</div>
@@ -27,9 +33,9 @@ const classes = `template-calendar ${content.backgroundColor}`;
       <div className="grid-item">Hvor</div>
         {content.entries.map((entry) => (
           <>
-            <div className="grid-item">{entry.what}</div>
-            <div className="grid-item">{entry.when}</div>
-            <div className="grid-item">{entry.where}</div>
+            <div className="grid-item" key={entry.what+entry.id}>{entry.what}</div>
+            <div className="grid-item" key={entry.when+entry.id}>{moment(entry.when).locale('da').format('LT')}</div>
+            <div className="grid-item" key={entry.where+entry.id}>{entry.where}</div>
           </>
         ))}
       </div>
@@ -43,17 +49,10 @@ Calendar.propTypes = {
       PropTypes.shape({
         what: PropTypes.string.isRequired,
         when: PropTypes.string.isRequired,
-        where: PropTypes.number.isRequired
+        where: PropTypes.string.isRequired
       })
     ),
-    logo: PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      url: PropTypes.string.isRequired,
-      position: PropTypes.string,
-      size: PropTypes.string
-    }),
     title: PropTypes.string.isRequired,
-    date: PropTypes.string.isRequired,
     backgroundColor: PropTypes.string.isRequired,
   }).isRequired
 };
