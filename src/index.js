@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './app';
 import DebugBar from './debug-bar';
 import DataSync from './data-sync/data-sync';
+import Logger from './logger/logger';
 
 let dataSync = null;
 
@@ -18,7 +19,7 @@ ReactDOM.render(
  * Start data synchronization.
  */
 function startSyncing() {
-  console.log('Starting data synchronization');
+  Logger.log('info', 'Starting data synchronization');
 
   // Fetch config and launch data synchronization.
   fetch('./config.json')
@@ -28,8 +29,8 @@ function startSyncing() {
       dataSync.start();
     })
     .catch((err) => {
-      console.log('Error staring data synchronization');
-      console.error(err);
+      Logger.log('info', 'Error staring data synchronization');
+      Logger.log('error', err);
 
       // Retry starting synchronization after 1 min.
       setTimeout(startSyncing, 60 * 1000);
@@ -38,7 +39,7 @@ function startSyncing() {
 
 document.addEventListener('stopDataSync', function stopDataSync() {
   if (dataSync !== null) {
-    console.log('Stopping data synchronization');
+    Logger.log('info', 'Stopping data synchronization');
     dataSync.stop();
     dataSync = null;
   }

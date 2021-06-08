@@ -17,7 +17,8 @@
     "stylelint-config-recommended-scss": "^4.2.0",
     "stylelint-prettier": "^1.2.0",
     "stylelint-scss": "^3.19.0",
-    "web-vitals": "^1.0.1"
+    "web-vitals": "^1.0.1",
+    "winston": "^3.3.3"
   },
   "scripts": {
     "lint:js": "eslint --ext .js --ext .jsx ./src",

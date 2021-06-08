@@ -1,4 +1,5 @@
 import cloneDeep from 'lodash.clonedeep';
+import Logger from '../logger/logger';
 
 /**
  * PullStrategy.
@@ -59,12 +60,12 @@ class PullStrategy {
               });
               document.dispatchEvent(event);
             })
-            .catch((err) => console.error(err));
+            .catch((err) => Logger.log('error', err));
         }
       })
       .catch((err) => {
-        console.log('Error pulling data. Retrying based on selected interval.');
-        console.error(err);
+        Logger.log('info', 'Error pulling data. Retrying based on selected interval.');
+        Logger.log('error', err);
       });
   }
 
