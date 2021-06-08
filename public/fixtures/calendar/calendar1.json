@@ -3,6 +3,7 @@
   "title": "Calendar 1",
   "template": "template-calendar",
   "content": {
+    "backgroundColor": "blue",
     "title": "Calendar 1",
     "date": "Tir. 8. juni 11:35",
     "entries": [

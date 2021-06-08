@@ -13,8 +13,10 @@ import './calendar.scss';
  *   The component.
  */
 function Calendar({ content }) {
+const classes = `template-calendar ${content.backgroundColor}`;
+
   return (
-    <div className="template-calendar">
+    <div className={classes}>
       <div className="grid-container-title-date">
         <div className="grid-item">{content.title}</div>
         <div className="grid-item-end">{content.date}</div>
@@ -50,8 +52,9 @@ Calendar.propTypes = {
       position: PropTypes.string,
       size: PropTypes.string
     }),
-    title: PropTypes.string,
-    date: PropTypes.string
+    title: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired,
+    backgroundColor: PropTypes.string.isRequired,
   }).isRequired
 };
 
