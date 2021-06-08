@@ -141,7 +141,7 @@ function DebugBar() {
             </button>
             <select onChange={handleChange}>
               {fixtures.map((fixture) => (
-                <option id={fixture.title}>{fixture.title}</option>
+                <option id={fixture.title} key={fixture.file}>{fixture.title}</option>
               ))}
             </select>
           </div>

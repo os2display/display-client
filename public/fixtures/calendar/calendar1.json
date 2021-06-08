@@ -5,19 +5,19 @@
   "content": {
     "backgroundColor": "blue",
     "title": "Calendar 1",
-    "date": "Tir. 8. juni 11:35",
     "entries": [
       {
+        "id": "uniqueCalendarEntry1",
         "what": "Møde om spændende ting",
-        "when": "10:30",
+        "when": "2021-06-08T12:15:00.000Z",
         "where": "Dokk1"
       },
       {
+        "id": "uniqueCalendarEntry2",
         "what": "Møde om kedelige ting",
-        "when": "12:20",
+        "when": "2021-03-14T10:30:00.000Z",
         "where": "E-23"
       }
-
     ]
   }
 }
