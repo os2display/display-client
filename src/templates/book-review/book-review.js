@@ -16,10 +16,10 @@ function BookReview({ content }) {
   const {
     authorText,
     media: {
-      author: { url: authorUrl },
+      authorImage: { url: authorUrl },
       bookImage: { url: bookUrl }
     },
-    text
+    bookText
   } = content;
   const authorImage = {};
   authorImage.backgroundImage = `url("${authorUrl}")`;
@@ -29,7 +29,7 @@ function BookReview({ content }) {
   return (
     <>
       <div className="dokk1-book-review">
-        <div className="text-area"><p>{parse(text)}</p></div>
+        <div className="text-area"><p>{parse(bookText)}</p></div>
         <div className="author-area"><div class="author-image" style={authorImage}></div><div class="author">{authorText}</div></div>
         <div className="book-image-area">
           <div class="image-blurry-background" style={bookImage}></div>
