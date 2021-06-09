@@ -8,6 +8,8 @@ import DataSync from '../data-sync/data-sync';
 class Engine {
   dataSync;
 
+  data;
+
   /**
    * Constructor.
    */
@@ -15,6 +17,8 @@ class Engine {
     this.startSyncing = this.startSyncing.bind(this);
     this.stopSyncHandler = this.stopSyncHandler.bind(this);
     this.startDataSyncHandler = this.startDataSyncHandler.bind(this);
+    this.regionReadyHandler = this.regionReadyHandler.bind(this);
+    this.contentHandler = this.contentHandler.bind(this);
     this.start = this.start.bind(this);
   }
 
@@ -68,18 +72,33 @@ class Engine {
    * @param {CustomEvent} event
    *   The event.
    */
-  static contentHandler(event) {
+  contentHandler(event) {
     Logger.log('info', 'Event received: content');
 
     const data = event.detail;
+    this.data = data.screen;
 
-    Engine.emitScreen(data.screen);
+    Engine.emitScreen(this.data);
+  }
 
-    setTimeout(() => {
-      data.screen.regions.forEach((region) => {
+  /**
+   * Region ready handler.
+   *
+   * @param {CustomEvent} event
+   *   The event.
+   */
+  regionReadyHandler(event) {
+    const data = event.detail;
+    const regionId = data.id;
+
+    Logger.log('info', `Event received: regionReady for ${regionId}`);
+
+    if (this.data?.regions?.length > 0) {
+      const foundRegions = this.data.regions.filter((region) => region.id === regionId);
+      foundRegions.forEach((region) => {
         Engine.emitRegion(region);
       });
-    });
+    }
   }
 
   /**
@@ -90,7 +109,8 @@ class Engine {
 
     document.addEventListener('stopDataSync', this.stopSyncHandler);
     document.addEventListener('startDataSync', this.startDataSyncHandler);
-    document.addEventListener('content', Engine.contentHandler);
+    document.addEventListener('content', this.contentHandler);
+    document.addEventListener('regionReady', this.regionReadyHandler);
   }
 
   /**
@@ -101,7 +121,8 @@ class Engine {
 
     document.removeEventListener('stopDataSync', this.stopSyncHandler);
     document.removeEventListener('startDataSync', this.startDataSyncHandler);
-    document.removeEventListener('content', Engine.contentHandler);
+    document.removeEventListener('content', this.contentHandler);
+    document.removeEventListener('regionReady', this.regionReadyHandler);
   }
 
   /**
