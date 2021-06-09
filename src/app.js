@@ -15,7 +15,7 @@ function App() {
     document.addEventListener(
       'screen',
       function screenEvent(event) {
-        const screenData = event.detail?.screenData;
+        const screenData = event.detail?.screen;
 
         if (screenData !== null) {
           setScreen(screenData);

@@ -58,21 +58,26 @@ function DebugBar() {
     fetch(fixture)
       .then((response) => response.json())
       .then((jsonData) => {
-        const event = new CustomEvent('screen', {
+        const screenData = {
+          regions: [
+            {
+              id: 'region1',
+              playlists: [
+                {
+                  id: 'uniquePlaylist1',
+                  slides: [jsonData]
+                }
+              ]
+            }
+          ]
+        };
+
+        const event = new CustomEvent('content', {
           detail: {
-            regions: [
-              {
-                id: 'region1',
-                playlists: [
-                  {
-                    id: 'uniquePlaylist1',
-                    slides: [jsonData]
-                  }
-                ]
-              }
-            ]
+            screen: screenData
           }
         });
+
         document.dispatchEvent(event);
       });
   }

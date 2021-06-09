@@ -93,13 +93,13 @@ class Engine {
   static newContentHandler(event) {
     const data = event.detail;
 
-    Engine.emitScreen(data);
+    Engine.emitScreen(data.screen);
 
     setTimeout(() => {
-      data.regions.forEach((region) => {
+      data.screen.regions.forEach((region) => {
         Engine.emitRegion(region);
       });
-    }, 5000);
+    });
   }
 
   /**
@@ -146,7 +146,7 @@ class Engine {
 
     const event = new CustomEvent('screen', {
       detail: {
-        screenData
+        screen: screenData
       }
     });
     document.dispatchEvent(event);
