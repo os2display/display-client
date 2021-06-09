@@ -29,13 +29,18 @@ function BookReview({ content }) {
   return (
     <>
       <div className="dokk1-book-review">
-        <div className="text-area"><p>{parse(bookText)}</p></div>
-        <div className="author-area"><div class="author-image" style={authorImage}></div><div class="author">{authorText}</div></div>
+        <div className="text-area">
+          <p>{parse(bookText)}</p>
+        </div>
+        <div className="author-area">
+          <div className="author-image" style={authorImage} />
+          <div className="author">{authorText}</div>
+        </div>
         <div className="book-image-area">
-          <div class="image-blurry-background" style={bookImage}></div>
-          <div class="book-image"><img src={bookUrl}></img> </div>
-
-
+          <div className="image-blurry-background" style={bookImage} />
+          <div className="book-image">
+            <img src={bookUrl} />{' '}
+          </div>
         </div>
       </div>
     </>
@@ -51,10 +56,10 @@ BookReview.propTypes = {
   content: PropTypes.shape({
     authorText: PropTypes.string.isRequired,
     media: PropTypes.shape({
-      author: imageShape.isRequired,
+      authorImage: imageShape.isRequired,
       bookImage: imageShape.isRequired
     }).isRequired,
-    text: PropTypes.string.isRequired
+    bookText: PropTypes.string.isRequired
   }).isRequired
 };
 
