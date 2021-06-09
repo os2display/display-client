@@ -58,7 +58,7 @@ function DebugBar() {
     fetch(fixture)
       .then((response) => response.json())
       .then((jsonData) => {
-        const event = new CustomEvent('content', {
+        const event = new CustomEvent('screen', {
           detail: {
             regions: [
               {
