@@ -29,6 +29,12 @@ function Region({ region }) {
   useEffect(() => {
     document.addEventListener(`regionContent-${region.id}`, regionContentListener);
 
+    return function cleanup() {
+      document.removeEventListener(`regionContent-${region.id}`, regionContentListener);
+    };
+  }, []);
+
+  useEffect(() => {
     // Notify that region is ready.
     const event = new CustomEvent('regionReady', {
       detail: {
@@ -36,11 +42,7 @@ function Region({ region }) {
       }
     });
     document.dispatchEvent(event);
-
-    return function cleanup() {
-      document.removeEventListener(`regionContent-${region.id}`, regionContentListener);
-    };
-  }, []);
+  }, [region]);
 
   return (
     <div className="Region">
