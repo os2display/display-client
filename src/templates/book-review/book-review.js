@@ -39,7 +39,7 @@ function BookReview({ content }) {
         <div className="book-image-area">
           <div className="image-blurry-background" style={bookImage} />
           <div className="book-image">
-            <img src={bookUrl} alt="book image" />
+            <img src={bookUrl} alt="book" />
           </div>
         </div>
       </div>
