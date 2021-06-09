@@ -63,6 +63,26 @@ class Engine {
   }
 
   /**
+   * New content event handler.
+   *
+   * @param {CustomEvent} event
+   *   The event.
+   */
+  static contentHandler(event) {
+    Logger.log('info', 'Event received: content');
+
+    const data = event.detail;
+
+    Engine.emitScreen(data.screen);
+
+    setTimeout(() => {
+      data.screen.regions.forEach((region) => {
+        Engine.emitRegion(region);
+      });
+    });
+  }
+
+  /**
    * Start the engine.
    */
   start() {
@@ -70,7 +90,7 @@ class Engine {
 
     document.addEventListener('stopDataSync', this.stopSyncHandler);
     document.addEventListener('startDataSync', this.startDataSyncHandler);
-    document.addEventListener('content', Engine.newContentHandler);
+    document.addEventListener('content', Engine.contentHandler);
   }
 
   /**
@@ -81,25 +101,7 @@ class Engine {
 
     document.removeEventListener('stopDataSync', this.stopSyncHandler);
     document.removeEventListener('startDataSync', this.startDataSyncHandler);
-    document.removeEventListener('content', Engine.newContentHandler);
-  }
-
-  /**
-   * New content event handler.
-   *
-   * @param {CustomEvent} event
-   *   The event.
-   */
-  static newContentHandler(event) {
-    const data = event.detail;
-
-    Engine.emitScreen(data.screen);
-
-    setTimeout(() => {
-      data.screen.regions.forEach((region) => {
-        Engine.emitRegion(region);
-      });
-    });
+    document.removeEventListener('content', Engine.contentHandler);
   }
 
   /**
@@ -142,7 +144,7 @@ class Engine {
       delete region.playlists;
     }
 
-    Logger.log('info', 'Dispatching screen');
+    Logger.log('info', 'Emitting screen');
 
     const event = new CustomEvent('screen', {
       detail: {
