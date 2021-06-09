@@ -3,6 +3,7 @@
   "title": "Calendar 1",
   "template": "template-calendar",
   "content": {
+    "hasDateAndTime": true,
     "backgroundColor": "blue",
     "title": "Calendar 1",
     "entries": [
