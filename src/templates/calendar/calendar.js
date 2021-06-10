@@ -20,10 +20,10 @@ function Calendar({ content }) {
 
   const { backgroundColor, hasDateAndTime, title, events } = content;
   const classes = `template-calendar ${backgroundColor}`;
+  // Sort events by datetime and filter away events that are done.
   let sortedEvents = events.filter(function (e) {
     return new Date(e.datetime).getTime() > new Date().getTime();
-  });
-  sortedEvents = sortedEvents.sort((a, b) => a.datetime.localeCompare(b.datetime));
+  }).sort((a, b) => a.datetime.localeCompare(b.datetime));
 
   /**
    * Creates and updates the datestring.
