@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 import localeDa from 'dayjs/locale/da'; // With a custom alias for the locale object
 import localizedFormat from 'dayjs/plugin/localizedFormat';
+import { IntlProvider, FormattedMessage } from 'react-intl';
 import './calendar.scss';
 
 /**
@@ -17,13 +18,22 @@ import './calendar.scss';
  */
 function Calendar({ content }) {
   dayjs.extend(localizedFormat);
-
+  const [translations, setTranslations] = useState();
   const { backgroundColor, hasDateAndTime, title, events } = content;
   const classes = `template-calendar ${backgroundColor}`;
+
+  useEffect(() => {
+    import('./lang/da.json').then((data) => {
+      setTranslations(data);
+    });
+  }, []);
+
   // Sort events by datetime and filter away events that are done.
-  let sortedEvents = events.filter(function (e) {
-    return new Date(e.datetime).getTime() > new Date().getTime();
-  }).sort((a, b) => a.datetime.localeCompare(b.datetime));
+  const sortedEvents = events
+    .filter(function (e) {
+      return new Date(e.datetime).getTime() > new Date().getTime();
+    })
+    .sort((a, b) => a.datetime.localeCompare(b.datetime));
 
   /**
    * Creates and updates the datestring.
@@ -43,6 +53,7 @@ function Calendar({ content }) {
     const capitalize = (s) => {
       return s.charAt(0).toUpperCase() + s.slice(1);
     };
+
     const [date, setDate] = useState();
 
     /**
@@ -69,36 +80,38 @@ function Calendar({ content }) {
   const date = hasDateAndTime ? useNewTimer() : undefined;
 
   return (
-    <div className={classes}>
-      <div className="grid-container-title-date">
-        <div className="grid-item">{title}</div>
-        <div className="grid-item-end">{date && date}</div>
+    <IntlProvider messages={translations} locale="da" defaultLocale="da">
+      <div className={classes}>
+        <div className="grid-container-title-date">
+          <div className="grid-item">{title}</div>
+          <div className="grid-item-end">{date}</div>
+        </div>
+        <div className="grid-container">
+          <div className="grid-item" key={1}>
+            <FormattedMessage id="what" defaultMessage="what" />
+          </div>
+          <div className="grid-item" key={2}>
+            <FormattedMessage id="when" defaultMessage="when" />
+          </div>
+          <div className="grid-item" key={3}>
+            <FormattedMessage id="where" defaultMessage="where" />
+          </div>
+          {sortedEvents.map((entry) => (
+            <>
+              <div className="grid-item" key={entry.eventName}>
+                {entry.eventName}
+              </div>
+              <div className="grid-item" key={entry.datetime}>
+                {dayjs(entry.datetime).locale(localeDa).format('LT')}
+              </div>
+              <div className="grid-item" key={entry.location}>
+                {entry.location}
+              </div>
+            </>
+          ))}
+        </div>
       </div>
-      <div className="grid-container">
-        <div className="grid-item" key={1}>
-          Hvad
-        </div>
-        <div className="grid-item" key={2}>
-          Hvornår
-        </div>
-        <div className="grid-item" key={3}>
-          Hvor
-        </div>
-        {sortedEvents.map((entry) => (
-          <>
-            <div className="grid-item" key={entry.eventName}>
-              {entry.eventName}
-            </div>
-            <div className="grid-item" key={entry.datetime}>
-              {dayjs(entry.datetime).locale(localeDa).format('LT')}
-            </div>
-            <div className="grid-item" key={entry.location}>
-              {entry.location}
-            </div>
-          </>
-        ))}
-      </div>
-    </div>
+    </IntlProvider>
   );
 }
 
