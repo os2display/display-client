@@ -1,8 +1,10 @@
 import { React, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import dayjs from 'dayjs';
+import localeDa from 'dayjs/locale/da'; // With a custom alias for the locale object
+import localizedFormat from 'dayjs/plugin/localizedFormat';
 import './calendar.scss';
-import moment from 'moment';
-import 'moment/locale/da';
+
 /**
  * Slideshow component.
  *
@@ -14,6 +16,8 @@ import 'moment/locale/da';
  *   The component.
  */
 function Calendar({ content }) {
+  dayjs.extend(localizedFormat);
+
   const { backgroundColor, hasDateAndTime, title, entries } = content;
   const classes = `template-calendar ${backgroundColor}`;
 
@@ -41,7 +45,7 @@ function Calendar({ content }) {
      * Updates the date string.
      */
     const displayTime = () => {
-      setDate(capitalize(moment().locale('da').format('llll')));
+      setDate(capitalize(dayjs().locale(localeDa).format('LLLL')));
     };
 
     /**
@@ -82,7 +86,7 @@ function Calendar({ content }) {
               {entry.what}
             </div>
             <div className="grid-item" key={entry.when}>
-              {moment(entry.when).locale('da').format('LT')}
+              {dayjs(entry.when).locale(localeDa).format('LT')}
             </div>
             <div className="grid-item" key={entry.where}>
               {entry.where}
