@@ -75,7 +75,7 @@ function Calendar({ content }) {
       return function cleanup() {
         clearInterval(timer);
       };
-    });
+    }, []);
 
     return date;
   }
