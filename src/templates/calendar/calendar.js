@@ -18,7 +18,10 @@ import './calendar.scss';
  */
 function Calendar({ content }) {
   dayjs.extend(localizedFormat);
+
+  const [currentDate, setCurrentDate] = useState(null);
   const [translations, setTranslations] = useState();
+
   const { backgroundColor, hasDateAndTime, title, events } = content;
   const classes = `template-calendar ${backgroundColor}`;
 
@@ -31,6 +34,21 @@ function Calendar({ content }) {
     });
   }, []);
 
+  /**
+   * Setup date interval.
+   */
+  useEffect(() => {
+    let timer = null;
+    if (hasDateAndTime) {
+      timer = setInterval(() => setCurrentDate(new Date()), 1000);
+    }
+    return function cleanup() {
+      if (timer !== null) {
+        clearInterval(timer);
+      }
+    };
+  }, []);
+
   // Sort events by datetime and filter away events that are done.
   const sortedEvents = events
     .filter((e) => {
@@ -39,55 +57,23 @@ function Calendar({ content }) {
     .sort((a, b) => a.datetime.localeCompare(b.datetime));
 
   /**
-   * Creates and updates the datestring.
+   * Capitalize the datestring, as it starts with the weekday.
    *
+   * @param {string} s
+   *    The string to capitalize.
    * @returns {string}
-   *    Returns an updated datestring.
+   *    The capitalized string.
    */
-  function useNewTimer() {
-    /**
-     * Capitalize the datestring, as it starts with the weekday.
-     *
-     * @param {string} s
-     *    The string to capitalize.
-     * @returns {string}
-     *    The capitalized string.
-     */
-    const capitalize = (s) => {
-      return s.charAt(0).toUpperCase() + s.slice(1);
-    };
-
-    const [date, setDate] = useState();
-
-    /**
-     * Updates the date string.
-     */
-    const displayTime = () => {
-      setDate(capitalize(dayjs().locale(localeDa).format('LLLL')));
-    };
-
-    /**
-     * Has timer, that calls displaytime to update date.
-     */
-    useEffect(() => {
-      displayTime();
-      const timer = setInterval(() => displayTime(), 1000);
-      return function cleanup() {
-        clearInterval(timer);
-      };
-    }, []);
-
-    return date;
-  }
-
-  const date = hasDateAndTime ? useNewTimer() : undefined;
+  const capitalize = (s) => {
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  };
 
   return (
     <IntlProvider messages={translations} locale="da" defaultLocale="da">
       <div className={classes}>
         <div className="grid-container-title-date">
           <div className="grid-item">{title}</div>
-          <div className="grid-item-end">{date}</div>
+          <div className="grid-item-end">{currentDate && capitalize(dayjs().locale(localeDa).format('LLLL'))}</div>
         </div>
         <div className="grid-container">
           <div className="grid-item" key={1}>
