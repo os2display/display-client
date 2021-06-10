@@ -102,7 +102,7 @@ function DebugBar() {
    * @param {event} event
    *   The event.
    */
-  function handleChange(event) {
+  function handleFixtureSelectChange(event) {
     loadContent(event.target.value);
   }
 
@@ -138,7 +138,7 @@ function DebugBar() {
             <button className="debug-bar-button" type="button" onClick={() => setShow(false)}>
               Hide
             </button>
-            <select className="debug-select" onChange={handleChange}>
+            <select className="debug-select" onChange={handleFixtureSelectChange}>
               {fixtures.map((fixture) => (
                 <option value={fixture.file} id={fixture.title} key={fixture.file}>
                   {fixture.title}
