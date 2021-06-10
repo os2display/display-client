@@ -3,7 +3,7 @@
   "title": "Calendar 1",
   "template": "template-calendar",
   "content": {
-    "hasDateAndTime": true,
+    "hasDateAndTime": false,
     "backgroundColor": "blue",
     "title": "Calendar 1",
     "events": [
