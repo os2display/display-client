@@ -103,8 +103,7 @@ function DebugBar() {
    *   The event.
    */
   function handleChange(event) {
-    const { file } = fixtures.find((x) => x.title === event.target.value);
-    loadContent(file);
+    loadContent(event.target.value);
   }
 
   return (
@@ -141,7 +140,7 @@ function DebugBar() {
             </button>
             <select className="debug-select" onChange={handleChange}>
               {fixtures.map((fixture) => (
-                <option id={fixture.title} key={fixture.file}>
+                <option value={fixture.file} id={fixture.title} key={fixture.file}>
                   {fixture.title}
                 </option>
               ))}
