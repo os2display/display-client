@@ -4,6 +4,8 @@ import DataSync from '../data-sync/data-sync';
 
 /**
  * Engine.
+ *
+ * The central component responsible for receiving data and sending data to the react component.
  */
 class Engine {
   dataSync;
@@ -161,8 +163,7 @@ class Engine {
 
     // Remove playlist data.
     for (let i = 0; i < screenData.regions.length; i += 1) {
-      const region = screenData.regions[i];
-      delete region.playlists;
+      delete screenData.regions[i].playlists;
     }
 
     Logger.log('info', 'Emitting screen');
