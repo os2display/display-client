@@ -22,6 +22,9 @@ function Calendar({ content }) {
   const { backgroundColor, hasDateAndTime, title, events } = content;
   const classes = `template-calendar ${backgroundColor}`;
 
+  /**
+   * Imports language strings.
+   */
   useEffect(() => {
     import('./lang/da.json').then((data) => {
       setTranslations(data);
@@ -30,7 +33,7 @@ function Calendar({ content }) {
 
   // Sort events by datetime and filter away events that are done.
   const sortedEvents = events
-    .filter(function (e) {
+    .filter((e) => {
       return new Date(e.datetime).getTime() > new Date().getTime();
     })
     .sort((a, b) => a.datetime.localeCompare(b.datetime));
