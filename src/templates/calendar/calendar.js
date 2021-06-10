@@ -18,8 +18,12 @@ import './calendar.scss';
 function Calendar({ content }) {
   dayjs.extend(localizedFormat);
 
-  const { backgroundColor, hasDateAndTime, title, entries } = content;
+  const { backgroundColor, hasDateAndTime, title, events } = content;
   const classes = `template-calendar ${backgroundColor}`;
+  let sortedEvents = events.filter(function (e) {
+    return new Date(e.datetime).getTime() > new Date().getTime();
+  });
+  sortedEvents = sortedEvents.sort((a, b) => a.datetime.localeCompare(b.datetime));
 
   /**
    * Creates and updates the datestring.
@@ -80,16 +84,16 @@ function Calendar({ content }) {
         <div className="grid-item" key={3}>
           Hvor
         </div>
-        {entries.map((entry) => (
+        {sortedEvents.map((entry) => (
           <>
-            <div className="grid-item" key={entry.what}>
-              {entry.what}
+            <div className="grid-item" key={entry.eventName}>
+              {entry.eventName}
             </div>
-            <div className="grid-item" key={entry.when}>
-              {dayjs(entry.when).locale(localeDa).format('LT')}
+            <div className="grid-item" key={entry.datetime}>
+              {dayjs(entry.datetime).locale(localeDa).format('LT')}
             </div>
-            <div className="grid-item" key={entry.where}>
-              {entry.where}
+            <div className="grid-item" key={entry.location}>
+              {entry.location}
             </div>
           </>
         ))}
@@ -100,11 +104,11 @@ function Calendar({ content }) {
 
 Calendar.propTypes = {
   content: PropTypes.shape({
-    entries: PropTypes.arrayOf(
+    events: PropTypes.arrayOf(
       PropTypes.shape({
-        what: PropTypes.string.isRequired,
-        when: PropTypes.string.isRequired,
-        where: PropTypes.string.isRequired
+        eventName: PropTypes.string.isRequired,
+        datetime: PropTypes.string.isRequired,
+        location: PropTypes.string.isRequired
       })
     ),
     title: PropTypes.string.isRequired,
