@@ -7,7 +7,7 @@ import { IntlProvider, FormattedMessage } from 'react-intl';
 import './calendar.scss';
 
 /**
- * Slideshow component.
+ * Calendar component.
  *
  * @param {object} props
  *   Props.
