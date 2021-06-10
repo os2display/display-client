@@ -139,7 +139,7 @@ function DebugBar() {
             <button className="debug-bar-button" type="button" onClick={() => setShow(false)}>
               Hide
             </button>
-            <select onChange={handleChange}>
+            <select className="debug-select" onChange={handleChange}>
               {fixtures.map((fixture) => (
                 <option id={fixture.title} key={fixture.file}>
                   {fixture.title}
