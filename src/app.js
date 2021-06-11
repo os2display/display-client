@@ -9,21 +9,23 @@ import './app.scss';
  *   The component.
  */
 function App() {
-  const [content, setContent] = useState('');
+  const [screen, setScreen] = useState('');
 
   useEffect(function initialize() {
     document.addEventListener(
-      'content',
-      function newContent(event) {
-        const data = event.detail;
-        setContent(null);
-        setContent(data);
+      'screen',
+      function screenEvent(event) {
+        const screenData = event.detail?.screen;
+
+        if (screenData !== null) {
+          setScreen(screenData);
+        }
       },
       false
     );
   }, []);
 
-  return <div className="App">{content && <Screen screen={content} />}</div>;
+  return <div className="App">{screen && <Screen screen={screen} />}</div>;
 }
 
 export default App;

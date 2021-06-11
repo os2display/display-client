@@ -1,7 +1,7 @@
-import { React } from 'react';
+import { React, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import Playlist from './playlist';
 import './region.scss';
+import Slide from './slide';
 
 /**
  * Region component.
@@ -14,11 +14,41 @@ import './region.scss';
  *   The component.
  */
 function Region({ region }) {
+  const [slides, setSlides] = useState([]);
+
+  /**
+   * Handle region content event.
+   *
+   * @param {CustomEvent} event
+   *   The event. The data is contained in detail.
+   */
+  function regionContentListener(event) {
+    setSlides(event.detail.slides);
+  }
+
+  useEffect(() => {
+    document.addEventListener(`regionContent-${region.id}`, regionContentListener);
+
+    return function cleanup() {
+      document.removeEventListener(`regionContent-${region.id}`, regionContentListener);
+    };
+  }, []);
+
+  useEffect(() => {
+    // Notify that region is ready.
+    const event = new CustomEvent('regionReady', {
+      detail: {
+        id: region.id
+      }
+    });
+    document.dispatchEvent(event);
+  }, [region]);
+
   return (
     <div className="Region">
-      {region?.playlists?.length > 0 &&
-        region.playlists.map((playlist) => (
-          <Playlist key={`${region.id}-${playlist.id}`} id={`${region.id}-${playlist.id}`} playlist={playlist} />
+      {slides &&
+        slides.map((slide, index) => (
+          <Slide slide={slide} id={`${region.id}-${slide.id}`} key={`${region.id}-${slide.id}`} display={index === 0} />
         ))}
     </div>
   );
@@ -26,8 +56,7 @@ function Region({ region }) {
 
 Region.propTypes = {
   region: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    playlists: PropTypes.arrayOf(PropTypes.any).isRequired
+    id: PropTypes.string.isRequired
   }).isRequired
 };
 

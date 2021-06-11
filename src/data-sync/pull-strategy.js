@@ -56,7 +56,9 @@ class PullStrategy {
               });
 
               const event = new CustomEvent('content', {
-                detail: newScreenData
+                detail: {
+                  screen: newScreenData
+                }
               });
               document.dispatchEvent(event);
             })
