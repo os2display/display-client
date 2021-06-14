@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import TextBox from './templates/text-box/text-box';
 import Slideshow from './templates/slideshow/slideshow';
 import Calendar from './templates/calendar/calendar';
-import './slide.scss';
 import BookReview from './templates/book-review/book-review';
+import './slide.scss';
 
 /**
  * Slide component.

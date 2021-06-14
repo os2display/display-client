@@ -21,10 +21,8 @@ function BookReview({ content }) {
     },
     bookText
   } = content;
-  const authorImage = {};
-  authorImage.backgroundImage = `url("${authorUrl}")`;
-  const bookImage = {};
-  bookImage.backgroundImage = `url("${bookUrl}")`;
+  const authorImage = { backgroundImage: `url("${authorUrl}")` };
+  const bookImage = { backgroundImage: `url("${bookUrl}")` };
 
   return (
     <>
