@@ -1,7 +1,7 @@
 describe('Make sure book-review', () => {
   it('should have background-image', () => {
     cy.visit('http://localhost:3000');
-    cy.get('#debug-bar-fixture-8').click();
+    cy.get('.debug-select').select('bookreview1');
     cy.get('.image-blurry-background').should(
       'have.css',
       'background-image',
@@ -11,7 +11,7 @@ describe('Make sure book-review', () => {
 
   it('should have title', () => {
     cy.visit('http://localhost:3000');
-    cy.get('#debug-bar-fixture-8').click();
+    cy.get('.debug-select').select('bookreview1');
     cy.get('h1')
       .first()
       .invoke('text')
