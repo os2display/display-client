@@ -1,4 +1,4 @@
-describe('Make sure book-review', () => {
+describe('Make sure book-review loads', () => {
   it('should have background-image', () => {
     cy.visit('http://localhost:3000');
     cy.get('.debug-select').select('bookreview1');
