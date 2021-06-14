@@ -2,8 +2,9 @@ import { React } from 'react';
 import PropTypes from 'prop-types';
 import parse from 'html-react-parser';
 import './book-review.scss';
+
 /**
- * Slideshow component.
+ * Book review component.
  *
  * @param {object} props
  *   Props.
@@ -26,7 +27,7 @@ function BookReview({ content }) {
 
   return (
     <>
-      <div className="dokk1-book-review">
+      <div className="template-book-review">
         <div className="text-area">
           <p>{parse(bookText)}</p>
         </div>
@@ -52,12 +53,12 @@ const imageShape = PropTypes.shape({
 
 BookReview.propTypes = {
   content: PropTypes.shape({
-    authorText: PropTypes.string.isRequired,
+    authorText: PropTypes.string,
     media: PropTypes.shape({
-      authorImage: imageShape.isRequired,
-      bookImage: imageShape.isRequired
+      authorImage: imageShape,
+      bookImage: imageShape
     }).isRequired,
-    bookText: PropTypes.string.isRequired
+    bookText: PropTypes.string
   }).isRequired
 };
 
