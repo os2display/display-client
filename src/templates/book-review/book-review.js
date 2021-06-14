@@ -2,6 +2,7 @@ import { React } from 'react';
 import PropTypes from 'prop-types';
 import parse from 'html-react-parser';
 import './book-review.scss';
+import DOMPurify from 'dompurify';
 
 /**
  * Book review component.
@@ -24,12 +25,13 @@ function BookReview({ content }) {
   } = content;
   const authorImage = { backgroundImage: `url("${authorUrl}")` };
   const bookImage = { backgroundImage: `url("${bookUrl}")` };
+  const clean = DOMPurify.sanitize(bookText);
 
   return (
     <>
       <div className="template-book-review">
         <div className="text-area">
-          <p>{parse(bookText)}</p>
+          <p>{parse(clean)}</p>
         </div>
         <div className="author-area">
           <div className="author-image" style={authorImage} />
