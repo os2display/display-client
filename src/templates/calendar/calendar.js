@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from 'react';
+import { React, useState, useEffect, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 import localeDa from 'dayjs/locale/da'; // With a custom alias for the locale object
@@ -52,7 +52,9 @@ function Calendar({ content }) {
   // Sort events by datetime and filter away events that are done.
   const sortedEvents = events
     .filter((e) => {
-      return new Date(e.datetime).getTime() > new Date().getTime();
+      return (
+        new Date(e.datetime).getTime() > new Date().getTime() && new Date(e.datetime).getDay() === new Date().getDay()
+      );
     })
     .sort((a, b) => a.datetime.localeCompare(b.datetime));
 
@@ -86,17 +88,11 @@ function Calendar({ content }) {
             <FormattedMessage id="where" defaultMessage="where" />
           </div>
           {sortedEvents.map((entry) => (
-            <>
-              <div className="grid-item" key={entry.eventName}>
-                {entry.eventName}
-              </div>
-              <div className="grid-item" key={entry.datetime}>
-                {dayjs(entry.datetime).locale(localeDa).format('LT')}
-              </div>
-              <div className="grid-item" key={entry.location}>
-                {entry.location}
-              </div>
-            </>
+            <Fragment key={entry.id}>
+              <div className="grid-item">{entry.eventName}</div>
+              <div className="grid-item">{dayjs(entry.datetime).locale(localeDa).format('LT')}</div>
+              <div className="grid-item">{entry.location}</div>
+            </Fragment>
           ))}
         </div>
       </div>
