@@ -1,4 +1,6 @@
 import cloneDeep from 'lodash.clonedeep';
+import sha256 from 'crypto-js/sha256';
+import Base64 from 'crypto-js/enc-base64';
 import Logger from '../logger/logger';
 import DataSync from '../data-sync/data-sync';
 import ScheduleService from './scheduleService';
@@ -14,6 +16,8 @@ class ContentService {
   currentScreen;
 
   scheduleService;
+
+  screenHash;
 
   /**
    * Constructor.
@@ -92,7 +96,15 @@ class ContentService {
       delete screenData.regions[i].playlists;
     }
 
-    ContentService.emitScreen(screenData);
+    const newHash = Base64.stringify(sha256(JSON.stringify(screenData)));
+
+    if (newHash !== this.screenHash) {
+      Logger.log('info', 'Screen has changed. Emitting screen.');
+      this.screenHash = newHash;
+      ContentService.emitScreen(screenData);
+    } else {
+      Logger.log('info', 'Screen has not changed. Not emitting screen.');
+    }
   }
 
   /**

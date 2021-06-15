@@ -28,7 +28,10 @@ class ScheduleService {
    *   The region, with playlists and slides, to start scheduling.
    */
   startRegion(region) {
+    Logger.log('info', 'Invoking startRegion');
+
     const slides = [];
+    const firstRun = !this.regions[region.id] ?? false;
 
     // @TODO: Handle schedules for each playlist and slides instead of just extracting slides from playlists.
     region.playlists.forEach((playlist) => {
@@ -43,7 +46,11 @@ class ScheduleService {
       region
     };
 
-    this.nextSlide(region.id, null);
+    if (firstRun) {
+      Logger.log('info', 'First run. Invoking nextSlide.');
+
+      this.nextSlide(region.id, null);
+    }
   }
 
   /**
@@ -117,7 +124,7 @@ class ScheduleService {
     // @TODO: Preserve slideExecutionId for secondSlide when it becomes firstSlide.
     // @TODO: Find slide duration from playlist or slide.
     firstSlide.slideExecutionId = uuidv4();
-    firstSlide.duration = 4500;
+    firstSlide.duration = 5000 + Math.floor(Math.random() * 10000);
     secondSlide.slideExecutionId = uuidv4();
     secondSlide.duration = 6000;
 

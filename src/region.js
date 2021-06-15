@@ -15,12 +15,24 @@ import Slide from './slide';
  */
 function Region({ region }) {
   const [slides, setSlides] = useState([]);
+  const [currentSlideExecutionId, setCurrentSlideExecutionId] = useState(null);
+
+  /**
+   * Play given slide.
+   *
+   * @param {object} slide
+   *   The slide.
+   */
+  function playSlide(slide) {
+    setCurrentSlideExecutionId(slide.slideExecutionId);
+    // eslint-disable-next-line no-use-before-define
+    setTimeout(() => slideDone(slide), slide.duration);
+  }
 
   /**
    * @param {object} slide
    *   The slide.
    */
-  // eslint-disable-next-line no-unused-vars
   function slideDone(slide) {
     const slideDoneEvent = new CustomEvent('slideDone', {
       detail: {
@@ -39,9 +51,14 @@ function Region({ region }) {
    */
   function regionContentListener(event) {
     setSlides(event.detail.slides);
-
-    setTimeout(() => slideDone(event.detail.slides[0]), event.detail.slides[0].duration);
   }
+
+  useEffect(() => {
+    if (slides?.length > 0) {
+      const firstSlide = slides[0];
+      playSlide(firstSlide);
+    }
+  }, [slides]);
 
   useEffect(() => {
     document.addEventListener(`regionContent-${region.id}`, regionContentListener);
@@ -64,12 +81,12 @@ function Region({ region }) {
   return (
     <div className="Region">
       {slides &&
-        slides.map((slide, index) => (
+        slides.map((slide) => (
           <Slide
             slide={slide}
             id={`${slide.slideExecutionId}`}
             key={`${slide.slideExecutionId}`}
-            display={index === 0}
+            display={slide.slideExecutionId === currentSlideExecutionId}
           />
         ))}
     </div>
