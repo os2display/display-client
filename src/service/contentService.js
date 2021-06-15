@@ -1,16 +1,19 @@
 import cloneDeep from 'lodash.clonedeep';
 import Logger from '../logger/logger';
 import DataSync from '../data-sync/data-sync';
+import ScheduleService from './scheduleService';
 
 /**
- * Engine.
+ * ContentService.
  *
- * The central component responsible for receiving data and sending data to the react component.
+ * The central component responsible for receiving data from DataSync and sending data to the react components.
  */
-class Engine {
+class ContentService {
   dataSync;
 
-  data;
+  currentScreen;
+
+  scheduleService;
 
   /**
    * Constructor.
@@ -29,6 +32,8 @@ class Engine {
    */
   startSyncing() {
     Logger.log('info', 'Starting data synchronization');
+
+    this.scheduleService = new ScheduleService();
 
     // Fetch config and launch data synchronization.
     fetch('./config.json')
@@ -78,9 +83,16 @@ class Engine {
     Logger.log('info', 'Event received: content');
 
     const data = event.detail;
-    this.data = data.screen;
+    this.currentScreen = data.screen;
 
-    Engine.emitScreen(this.data);
+    const screenData = cloneDeep(this.currentScreen);
+
+    // Remove playlist data.
+    for (let i = 0; i < screenData.regions.length; i += 1) {
+      delete screenData.regions[i].playlists;
+    }
+
+    ContentService.emitScreen(screenData);
   }
 
   /**
@@ -95,10 +107,11 @@ class Engine {
 
     Logger.log('info', `Event received: regionReady for ${regionId}`);
 
-    if (this.data?.regions?.length > 0) {
-      const foundRegions = this.data.regions.filter((region) => region.id === regionId);
+    if (this.currentScreen?.regions?.length > 0) {
+      const foundRegions = this.currentScreen.regions.filter((region) => region.id === regionId);
       foundRegions.forEach((region) => {
-        Engine.emitRegion(region);
+        this.scheduleService.startRegion(region);
+        // ContentService.emitRegion(region);
       });
     }
   }
@@ -136,6 +149,7 @@ class Engine {
   static emitRegion(region) {
     const slides = [];
 
+    // @TODO: Handle schedules for each playlist instead of just extracting slides from playlists.
     region.playlists.forEach((playlist) => {
       playlist.slides.forEach((slide) => {
         slides.push(slide);
@@ -159,22 +173,15 @@ class Engine {
    *   Screen data.
    */
   static emitScreen(screen) {
-    const screenData = cloneDeep(screen);
-
-    // Remove playlist data.
-    for (let i = 0; i < screenData.regions.length; i += 1) {
-      delete screenData.regions[i].playlists;
-    }
-
     Logger.log('info', 'Emitting screen');
 
     const event = new CustomEvent('screen', {
       detail: {
-        screen: screenData
+        screen
       }
     });
     document.dispatchEvent(event);
   }
 }
 
-export default Engine;
+export default ContentService;

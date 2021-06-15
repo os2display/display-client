@@ -11,6 +11,11 @@
       "weight": 2,
       "id": "uniqueSlide2",
       "url": "./fixtures/text-box/slide2.json"
+    },
+    {
+      "weight": 3,
+      "id": "uniqueSlide4",
+      "url": "./fixtures/text-box/slide4.json"
     }
   ]
 }

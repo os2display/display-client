@@ -17,6 +17,21 @@ function Region({ region }) {
   const [slides, setSlides] = useState([]);
 
   /**
+   * @param {object} slide
+   *   The slide.
+   */
+  // eslint-disable-next-line no-unused-vars
+  function slideDone(slide) {
+    const slideDoneEvent = new CustomEvent('slideDone', {
+      detail: {
+        regionId: region.id,
+        slideExecutionId: slide.slideExecutionId
+      }
+    });
+    document.dispatchEvent(slideDoneEvent);
+  }
+
+  /**
    * Handle region content event.
    *
    * @param {CustomEvent} event
@@ -24,6 +39,8 @@ function Region({ region }) {
    */
   function regionContentListener(event) {
     setSlides(event.detail.slides);
+
+    setTimeout(() => slideDone(event.detail.slides[0]), event.detail.slides[0].duration);
   }
 
   useEffect(() => {
@@ -48,7 +65,12 @@ function Region({ region }) {
     <div className="Region">
       {slides &&
         slides.map((slide, index) => (
-          <Slide slide={slide} id={`${region.id}-${slide.id}`} key={`${region.id}-${slide.id}`} display={index === 0} />
+          <Slide
+            slide={slide}
+            id={`${slide.slideExecutionId}`}
+            key={`${slide.slideExecutionId}`}
+            display={index === 0}
+          />
         ))}
     </div>
   );

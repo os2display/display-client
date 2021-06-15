@@ -69,3 +69,7 @@ Builds the app for production to the build folder.
 
 @TODO: Add production build instructions.
 
+
+## Event Model
+
+![Event model](docs/EventModel.png)
