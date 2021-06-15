@@ -15,33 +15,32 @@ import DOMPurify from 'dompurify';
  *   The component.
  */
 function BookReview({ content }) {
-  const {
-    authorText,
-    media: {
-      authorImage: { url: authorUrl },
-      bookImage: { url: bookUrl }
-    },
-    bookText
-  } = content;
-  const authorImage = { backgroundImage: `url("${authorUrl}")` };
-  const bookImage = { backgroundImage: `url("${bookUrl}")` };
-  const clean = DOMPurify.sanitize(bookText);
+  const { authorText, bookText } = content;
+  const authorUrl = content.media?.authorImage?.url;
+  const bookUrl = content.media?.bookImage?.url;
+  const authorImage = authorUrl ? { backgroundImage: `url("${authorUrl}")` } : '';
+  const bookImage = bookUrl ? { backgroundImage: `url("${bookUrl}")` } : '';
+  const sanitizedBookText = DOMPurify.sanitize(bookText);
 
   return (
     <>
       <div className="template-book-review">
         <div className="text-area">
-          <p>{parse(clean)}</p>
+          <p>{parse(sanitizedBookText)}</p>
         </div>
         <div className="author-area">
-          <div className="author-image" style={authorImage} />
+          {authorImage && <div className="author-image" style={authorImage} />}
           <div className="author">{authorText}</div>
         </div>
         <div className="book-image-area">
-          <div className="image-blurry-background" style={bookImage} />
-          <div className="book-image">
-            <img src={bookUrl} alt="book" />
-          </div>
+          {bookImage && (
+            <>
+              <div className="image-blurry-background" style={bookImage} />
+              <div className="book-image">
+                <img src={bookUrl} alt="book" />
+              </div>
+            </>
+          )}
         </div>
       </div>
     </>
