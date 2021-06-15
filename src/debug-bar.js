@@ -50,6 +50,11 @@ function DebugBar() {
       key: 'debug-bar-fixture-8',
       title: 'calendar1',
       file: './fixtures/calendar/calendar1.json'
+    },
+    {
+      key: 'debug-bar-fixture-9',
+      title: 'bookreview1',
+      file: './fixtures/book-review/book-review1.json'
     }
   ];
 

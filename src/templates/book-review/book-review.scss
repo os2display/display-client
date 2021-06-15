@@ -1,0 +1,110 @@
+$text-area-background: #fff;
+$author-area-background: #f5f5f5;
+$author-text-color: #454545;
+
+.template-book-review {
+  position: relative;
+  text-align: left;
+  height: 100%;
+  width: 100%;
+  color: #333333;
+  display: grid;
+  grid-template-columns: 64% 36%;
+  grid-template-rows: 80% 20%;
+  grid-template-areas: 'a c' 'b c';
+  grid-gap: 0;
+
+  .text-area {
+    background: $text-area-background;
+    grid-area: a;
+    padding: 8% 10% 0 10%;
+    word-wrap: break-word;
+    font-size: 2em;
+
+    dfn {
+      font-style: italic;
+    }
+
+    h1 {
+      font-size: 1.5em;
+      margin: 0 0 2% 0;
+      text-align: left;
+    }
+
+    p {
+      margin: 0 0 2% 0;
+      text-align: left;
+      line-height: 1.1em;
+    }
+
+    strong {
+      font-weight: bold;
+    }
+  }
+
+  .author-area {
+    background-color: $author-area-background;
+    position: relative;
+    grid-area: b;
+
+    .author-image {
+      position: absolute;
+      top: -5em;
+      left: calc(50% - 5em);
+      width: 10em;
+      height: 10em;
+      border-radius: 50%;
+      overflow: hidden;
+      background-size: cover;
+      background-position: center center;
+    }
+
+    .author {
+      padding: 5% 1% 1% 1%;
+      text-align: center;
+      color: $author-text-color;
+      font-size: 1.5em;
+      margin-top: 2em;
+      margin-bottom: 1em;
+    }
+  }
+
+  .book-image-area {
+    position: relative;
+    background: #111;
+    display: grid;
+    overflow: hidden;
+    grid-area: c;
+
+    .image-blurry-background {
+      position: absolute;
+      top: -5%;
+      left: -5%;
+      width: 110%;
+      height: 110%;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      filter: blur(10px);
+
+      &:after {
+        content: '';
+        width: 100%;
+        height: 100%;
+        display: block;
+        background-color: rgba(0, 0, 0, 0.3);
+      }
+    }
+    .book-image {
+      align-self: center;
+      justify-self: center;
+      z-index: 2;
+      width: 80%;
+      box-shadow: 0 0 2em rgba(0, 0, 0, 0.3);
+
+      img {
+        width: 100%;
+      }
+    }
+  }
+}
