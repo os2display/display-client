@@ -1,7 +1,7 @@
 import { React, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './region.scss';
-// import uniqBy from 'lodash.uniqby';
+import uniqBy from 'lodash.uniqby';
 import Slide from './slide';
 
 /**
@@ -78,9 +78,8 @@ function Region({ region }) {
    */
   // eslint-disable-next-line no-unused-vars
   function regionContentListener(event) {
-    setSlides(() => {
-      return [...event.detail.slides];
-      // return uniqBy([...oldArray, ...event.detail.slides]);
+    setSlides((oldArray) => {
+      return uniqBy([...oldArray, ...event.detail.slides]);
     }, 'slideExecutionId');
   }
 
@@ -103,9 +102,8 @@ function Region({ region }) {
   }, [region]);
 
   useEffect(() => {
-    if (slides?.length > 0 && currentSlideExecutionId === null) {
-      playSlide(slides[0]);
-    }
+    // @TODO: Handle cleanup of slides.
+    setCurrentIndex(0);
   }, [slides]);
 
   console.log(slides);
@@ -118,7 +116,7 @@ function Region({ region }) {
             slide={slide}
             id={`${slide.slideExecutionId}`}
             key={`${slide.slideExecutionId}`}
-            display={slide.slideExecutionId === currentSlideExecutionId}
+            display={index === currentIndex}
           />
         ))}
     </div>

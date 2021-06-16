@@ -122,8 +122,7 @@ class ContentService {
     if (this.currentScreen?.regions?.length > 0) {
       const foundRegions = this.currentScreen.regions.filter((region) => region.id === regionId);
       foundRegions.forEach((region) => {
-        this.scheduleService.startRegion(region);
-        // ContentService.emitRegion(region);
+        this.scheduleService.updateRegion(region);
       });
     }
   }
@@ -132,7 +131,7 @@ class ContentService {
    * Start the engine.
    */
   start() {
-    Logger.log('info', 'Engine started.');
+    Logger.log('info', 'Content service started.');
 
     document.addEventListener('stopDataSync', this.stopSyncHandler);
     document.addEventListener('startDataSync', this.startDataSyncHandler);
@@ -144,38 +143,12 @@ class ContentService {
    * Stop the engine.
    */
   stop() {
-    Logger.log('info', 'Engine stopped.');
+    Logger.log('info', 'Content service stopped.');
 
     document.removeEventListener('stopDataSync', this.stopSyncHandler);
     document.removeEventListener('startDataSync', this.startDataSyncHandler);
     document.removeEventListener('content', this.contentHandler);
     document.removeEventListener('regionReady', this.regionReadyHandler);
-  }
-
-  /**
-   * Emit data for region.
-   *
-   * @param {object} region
-   *   The region to emit data to.
-   */
-  static emitRegion(region) {
-    const slides = [];
-
-    // @TODO: Handle schedules for each playlist instead of just extracting slides from playlists.
-    region.playlists.forEach((playlist) => {
-      playlist.slides.forEach((slide) => {
-        slides.push(slide);
-      });
-    });
-
-    Logger.log('info', `Emitting data for region ${region.id}`);
-
-    const event = new CustomEvent(`regionContent-${region.id}`, {
-      detail: {
-        slides
-      }
-    });
-    document.dispatchEvent(event);
   }
 
   /**
