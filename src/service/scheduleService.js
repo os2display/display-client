@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
+import cloneDeep from 'lodash.clonedeep';
 import Logger from '../logger/logger';
 
 /**
@@ -117,8 +118,8 @@ class ScheduleService {
     regionData.slideIndex = (regionData.slideIndex !== null ? regionData.slideIndex + 1 : 0) % slides.length;
 
     // Find next 2 slides to execute with durations. This can be the same slide if the region only contains that slide.
-    const firstSlide = slides[regionData.slideIndex];
-    const secondSlide = slides[(regionData.slideIndex + 1) % slides.length];
+    const firstSlide = cloneDeep(slides[regionData.slideIndex]);
+    const secondSlide = cloneDeep(slides[(regionData.slideIndex + 1) % slides.length]);
 
     // Add slideExecutionId to each of the 2 slides.
     // @TODO: Preserve slideExecutionId for secondSlide when it becomes firstSlide.

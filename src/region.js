@@ -1,6 +1,7 @@
 import { React, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './region.scss';
+// import uniqBy from 'lodash.uniqby';
 import Slide from './slide';
 
 /**
@@ -16,6 +17,7 @@ import Slide from './slide';
 function Region({ region }) {
   const [slides, setSlides] = useState([]);
   const [currentSlideExecutionId, setCurrentSlideExecutionId] = useState(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   /**
    * Play given slide.
@@ -25,6 +27,10 @@ function Region({ region }) {
    */
   function playSlide(slide) {
     setCurrentSlideExecutionId(slide.slideExecutionId);
+
+    console.log(`Playing: ${slide.slideExecutionId}`);
+
+    // @TODO: Handle slides that have an unknown duration.
     // eslint-disable-next-line no-use-before-define
     setTimeout(() => slideDone(slide), slide.duration);
   }
@@ -34,6 +40,9 @@ function Region({ region }) {
    *   The slide.
    */
   function slideDone(slide) {
+    console.log('Slide done');
+    console.log(slide);
+
     const slideDoneEvent = new CustomEvent('slideDone', {
       detail: {
         regionId: region.id,
@@ -41,6 +50,24 @@ function Region({ region }) {
       }
     });
     document.dispatchEvent(slideDoneEvent);
+
+    console.log(`currentSlideExecutionId: ${currentSlideExecutionId}`);
+    console.log('fisk');
+
+    console.log(slides);
+
+    let indexOf = slides.findIndex((value) => value.slideExecutionId === currentSlideExecutionId);
+    if (indexOf === -1) {
+      indexOf = 0;
+    }
+    console.log(`indexOf: ${indexOf}`);
+    console.log(`nextIndex: ${(indexOf + 1) % slides.length}`);
+    const nextSlide = slides[(indexOf + 1) % slides.length];
+
+    console.log('nextSlide:');
+    console.log(nextSlide);
+
+    playSlide(nextSlide);
   }
 
   /**
@@ -49,16 +76,13 @@ function Region({ region }) {
    * @param {CustomEvent} event
    *   The event. The data is contained in detail.
    */
+  // eslint-disable-next-line no-unused-vars
   function regionContentListener(event) {
-    setSlides(event.detail.slides);
+    setSlides(() => {
+      return [...event.detail.slides];
+      // return uniqBy([...oldArray, ...event.detail.slides]);
+    }, 'slideExecutionId');
   }
-
-  useEffect(() => {
-    if (slides?.length > 0) {
-      const firstSlide = slides[0];
-      playSlide(firstSlide);
-    }
-  }, [slides]);
 
   useEffect(() => {
     document.addEventListener(`regionContent-${region.id}`, regionContentListener);
@@ -78,10 +102,18 @@ function Region({ region }) {
     document.dispatchEvent(event);
   }, [region]);
 
+  useEffect(() => {
+    if (slides?.length > 0 && currentSlideExecutionId === null) {
+      playSlide(slides[0]);
+    }
+  }, [slides]);
+
+  console.log(slides);
+
   return (
     <div className="Region">
       {slides &&
-        slides.map((slide) => (
+        slides.map((slide, index) => (
           <Slide
             slide={slide}
             id={`${slide.slideExecutionId}`}
