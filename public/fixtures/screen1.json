@@ -1,11 +1,12 @@
 {
   "title": "Screen 1",
+  "id": "screen-1",
   "regions": [
     {
-      "id": "region1",
+      "id": "screen-1-region",
       "playlists": [
         {
-          "id": "uniquePlaylist1",
+          "id": "screen-1-playlist",
           "url": "./fixtures/playlist1.json"
         }
       ]

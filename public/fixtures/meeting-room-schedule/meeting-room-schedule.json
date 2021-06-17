@@ -1,5 +1,5 @@
 {
-  "id": "unique-meeting-room-schedule-1",
+  "id": "meeting-room-schedule-1",
   "title": "meeting-room-schedule 1",
   "template": "template-meeting-room-schedule",
   "content": {
@@ -9,33 +9,33 @@
     "occupiedText": "Optaget",
     "availableText": "Lokalet er ledigt",
     "backgroundImage": {
-      "id": "unique-meeting-room-schedule-background-image",
+      "id": "meeting-room-schedule-background-image",
       "url": "./fixtures/images/mountain1.jpeg"
     },
     "title": "Meeting room schedule 1",
     "events": [
       {
-        "id": "unique-meeting-room-schedule-event-1",
+        "id": "meeting-room-schedule-event-1",
         "eventName": "Cake",
         "from": "2021-06-17T07:55:28.478Z",
         "to": "2021-06-17T08:55:28.478Z",
         "location": "M2"
       },
       {
-        "id": "unique-meeting-room-schedule-event-2",
+        "id": "meeting-room-schedule-event-2",
         "from": "2021-06-17T10:30:00.202Z",
         "to": "2021-06-17T21:00:00.202Z",
         "location": "Home"
       },
       {
-        "id": "unique-meeting-room-schedule-event-3",
+        "id": "meeting-room-schedule-event-3",
         "eventName": "GDPR",
         "from": "2021-06-17T20:00:00.202Z",
         "to": "2021-06-17T20:30:00.202Z",
         "location": "M3-4"
       },
       {
-        "id": "unique-meeting-room-schedule-event-4",
+        "id": "meeting-room-schedule-event-4",
         "eventName": "Meeting",
         "from": "2021-06-17T19:30:00.202Z",
         "to": "2021-06-17T20:00:00.202Z",

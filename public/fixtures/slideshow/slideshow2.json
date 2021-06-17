@@ -1,31 +1,32 @@
 {
   "title": "Slideshow 2",
+  "id": "slideshow-2",
   "template": "template-slideshow",
   "content": {
     "images": [
       {
-        "id": "uniqueMedia1",
+        "id": "slideshow-image-1",
         "url": "./fixtures/images/mountain1.jpeg",
         "duration": 10000
       },
       {
-        "id": "uniqueMedia2",
+        "id": "slideshow-image-2",
         "url": "./fixtures/images/mountain2.jpeg",
         "duration": 10000
       },
       {
-        "id": "uniqueMedia3",
+        "id": "slideshow-image-3",
         "url": "./fixtures/images/mountain3.jpeg",
         "duration": 10000
       },
       {
-        "id": "uniqueMedia4",
+        "id": "slideshow-image-4",
         "url": "./fixtures/images/mountain4.jpeg",
         "duration": 10000
       }
     ],
     "logo": {
-      "id": "uniqueMedia5",
+      "id": "slideshow-2-logo",
       "url": "./fixtures/images/logo.png",
       "position": "bottom right",
       "size": "s"
