@@ -1,8 +1,9 @@
 import { React, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './region.scss';
-import uniqBy from 'lodash.uniqby';
+// import uniqBy from 'lodash.uniqby';
 import Slide from './slide';
+import Logger from './logger/logger';
 
 /**
  * Region component.
@@ -16,58 +17,29 @@ import Slide from './slide';
  */
 function Region({ region }) {
   const [slides, setSlides] = useState([]);
-  const [currentSlideExecutionId, setCurrentSlideExecutionId] = useState(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  /**
-   * Play given slide.
-   *
-   * @param {object} slide
-   *   The slide.
-   */
-  function playSlide(slide) {
-    setCurrentSlideExecutionId(slide.slideExecutionId);
-
-    console.log(`Playing: ${slide.slideExecutionId}`);
-
-    // @TODO: Handle slides that have an unknown duration.
-    // eslint-disable-next-line no-use-before-define
-    setTimeout(() => slideDone(slide), slide.duration);
-  }
+  const [currentInstanceId, setCurrentInstanceId] = useState(null);
 
   /**
    * @param {object} slide
    *   The slide.
    */
   function slideDone(slide) {
-    console.log('Slide done');
-    console.log(slide);
-
+    // Emit slideDone event.
     const slideDoneEvent = new CustomEvent('slideDone', {
       detail: {
         regionId: region.id,
-        slideExecutionId: slide.slideExecutionId
+        instanceId: slide.instanceId,
+        executionId: slide.executionId
       }
     });
     document.dispatchEvent(slideDoneEvent);
 
-    console.log(`currentSlideExecutionId: ${currentSlideExecutionId}`);
-    console.log('fisk');
-
-    console.log(slides);
-
-    let indexOf = slides.findIndex((value) => value.slideExecutionId === currentSlideExecutionId);
-    if (indexOf === -1) {
-      indexOf = 0;
-    }
-    console.log(`indexOf: ${indexOf}`);
-    console.log(`nextIndex: ${(indexOf + 1) % slides.length}`);
-    const nextSlide = slides[(indexOf + 1) % slides.length];
-
-    console.log('nextSlide:');
-    console.log(nextSlide);
-
-    playSlide(nextSlide);
+    // Go to next slide.
+    setCurrentInstanceId((oldInstanceId) => {
+      const slideIndex = slides.findIndex((slideElement) => slideElement.instanceId === oldInstanceId);
+      const nextSlide = slides[(slideIndex + 1) % slides.length];
+      return nextSlide.instanceId;
+    });
   }
 
   /**
@@ -76,11 +48,36 @@ function Region({ region }) {
    * @param {CustomEvent} event
    *   The event. The data is contained in detail.
    */
-  // eslint-disable-next-line no-unused-vars
   function regionContentListener(event) {
+    Logger.log('info', 'Region: received new data');
+    setSlides([...event.detail.slides]);
+    /*
     setSlides((oldArray) => {
-      return uniqBy([...oldArray, ...event.detail.slides]);
+      return uniqBy([...oldArray, ...event.detail.slides], 'executionId');
+      let newArray = [];
+
+      let addRest = false;
+      for (let i = 0; i < oldArray.length; i += 1) {
+        const slide = oldArray[i];
+        if (addRest) {
+          newArray.push(slide);
+        } else if (slide.executionId === currentExecutionId) {
+          newArray.push(slide);
+          addRest = true;
+        }
+      }
+
+      newArray = uniqBy([...newArray, ...event.detail.slides], 'executionId');
+
+      const newArray = uniqBy([...oldArray, ...event.detail.slides], 'executionId');
+
+      if (currentExecutionId === null && newArray?.length > 0) {
+        playSlide(newArray[0]);
+      }
+
+      return newArray;
     }, 'slideExecutionId');
+      */
   }
 
   useEffect(() => {
@@ -102,21 +99,35 @@ function Region({ region }) {
   }, [region]);
 
   useEffect(() => {
-    // @TODO: Handle cleanup of slides.
-    setCurrentIndex(0);
-  }, [slides]);
+    Logger.log('info', `Playing: ${currentInstanceId}`);
 
-  console.log(slides);
+    if (currentInstanceId !== null) {
+      const currentSlide = slides.find((slide) => currentInstanceId === slide.instanceId);
+
+      // @TODO: Move this timeout into Slide.
+      setTimeout(() => {
+        slideDone(currentSlide);
+      }, currentSlide.duration);
+    }
+  }, [currentInstanceId]);
+
+  useEffect(() => {
+    if (currentInstanceId === null && slides?.length > 0) {
+      const nextSlide = slides[0];
+      setCurrentInstanceId(nextSlide.instanceId);
+    }
+  }, [slides]);
 
   return (
     <div className="Region">
       {slides &&
-        slides.map((slide, index) => (
+        currentInstanceId &&
+        slides.map((slide) => (
           <Slide
             slide={slide}
-            id={`${slide.slideExecutionId}`}
-            key={`${slide.slideExecutionId}`}
-            display={index === currentIndex}
+            id={`${slide.executionId}`}
+            key={`${slide.executionId}`}
+            display={currentInstanceId === slide.instanceId}
           />
         ))}
     </div>

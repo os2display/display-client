@@ -1,6 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
 import cloneDeep from 'lodash.clonedeep';
-import tail from 'lodash.tail';
 import last from 'lodash.last';
 import Logger from '../logger/logger';
 
@@ -15,6 +14,7 @@ class ScheduleService {
 
   constructor() {
     this.slideDoneHandler = this.slideDoneHandler.bind(this);
+    this.findNextSlides = this.findNextSlides.bind(this);
     this.updateRegion = this.updateRegion.bind(this);
 
     document.addEventListener('slideDone', this.slideDoneHandler);
@@ -31,31 +31,38 @@ class ScheduleService {
 
     const firstRun = !this.regions[region.id] ?? false;
 
-    this.regions[region.id] = {
-      scheduledSlides: [],
-      region
-    };
+    // Extract slides from playlists.
+    // @TODO: Handle schedules for each playlist and slides instead of just extracting slides from playlists.
+    if (firstRun) {
+      const slides = [];
+      region.playlists.forEach((playlist) => {
+        playlist.slides.forEach((slide) => {
+          const newSlide = cloneDeep(slide);
+          newSlide.instanceId = uuidv4();
+          slides.push(newSlide);
+        });
+      });
+
+      this.regions[region.id] = {
+        scheduledSlides: [],
+        slides,
+        region
+      };
+    }
 
     if (firstRun) {
       Logger.log('info', 'First run. Invoking nextSlide.');
 
-      ScheduleService.findNextSlides(this.regions[region.id]);
+      this.findNextSlides(region.id);
     }
   }
 
-  static findNextSlides(regionData) {
-    const { region, scheduledSlides } = regionData;
+  findNextSlides(regionId, lastExecutionId) {
+    const regionData = this.regions[regionId];
+
+    const { region, scheduledSlides, slides } = regionData;
 
     Logger.log('info', `ScheduleService: Invoking findNextSlides(${region?.id})`);
-
-    // Extract slides from playlists.
-    // @TODO: Handle schedules for each playlist and slides instead of just extracting slides from playlists.
-    const slides = [];
-    region.playlists.forEach((playlist) => {
-      playlist.slides.forEach((slide) => {
-        slides.push(slide);
-      });
-    });
 
     // If no slides are present in region, send empty array of content.
     if (slides.length === 0) {
@@ -63,14 +70,20 @@ class ScheduleService {
       return;
     }
 
-    // Remove first element of scheduledSlides.
-    const nextScheduledSlides = tail(scheduledSlides);
+    let nextScheduledSlides = [];
+
+    // Remove last executed element from scheduledSlides.
+    if (lastExecutionId !== null) {
+      nextScheduledSlides = scheduledSlides.filter((slide) => {
+        return slide.executionId !== lastExecutionId;
+      });
+    }
 
     // Find index of lastScheduledLast in slides.
     let index;
-    if (nextScheduledSlides?.length > 0) {
+    if (scheduledSlides?.length > 0) {
       const lastScheduledLast = last(scheduledSlides);
-      index = slides.findIndex((slide) => slide.id === lastScheduledLast.id);
+      index = slides.findIndex((slide) => slide.instanceId === lastScheduledLast.instanceId);
     } else {
       index = -1;
     }
@@ -79,14 +92,12 @@ class ScheduleService {
     while (nextScheduledSlides.length < 3) {
       index = (index + 1) % slides.length;
       const slide = cloneDeep(slides[index]);
-      slide.slideExecutionId = uuidv4();
+      slide.executionId = uuidv4();
       slide.duration = slide.duration ?? 5000;
       nextScheduledSlides.push(slide);
     }
 
-    region.scheduledSlides = nextScheduledSlides;
-
-    console.log(nextScheduledSlides);
+    this.regions[regionId] = { ...this.regions[regionId], scheduledSlides: nextScheduledSlides };
 
     // Send slides to region.
     ScheduleService.sendSlides(region.id, nextScheduledSlides);
@@ -100,15 +111,11 @@ class ScheduleService {
    */
   slideDoneHandler(event) {
     const data = event.detail;
-    const { regionId, slideExecutionId } = data;
+    const { regionId, executionId } = data;
 
-    Logger.log(
-      'info',
-      `Event received: slideDone with slideExecutionId: ${slideExecutionId} and regionId: ${regionId}`
-    );
+    Logger.log('info', `Event received: slideDone with executionId: ${executionId} and regionId: ${regionId}`);
 
-    const region = this.regions[regionId];
-    ScheduleService.findNextSlides(region);
+    this.findNextSlides(regionId, executionId);
   }
 
   /**
