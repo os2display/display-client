@@ -1,0 +1,33 @@
+{
+  "id": "uniqueCalendar1",
+  "title": "Calendar 1",
+  "template": "template-calendar",
+  "content": {
+    "hasDateAndTime": true,
+    "backgroundColor": "blue",
+    "title": "Calendar 1",
+    "events": [
+      {
+        "id": "1",
+        "eventName": "Cake",
+        "datetime": "2021-06-10T07:55:28.478Z",
+        "location": "M2"
+      }, {
+        "id": "2",
+        "eventName": "Workshop",
+        "datetime": "2021-06-10T08:28:22.450Z",
+        "location": "Home"
+      }, {
+        "id": "3",
+        "eventName": "GDPR",
+        "datetime": "2021-06-10T08:59:05.251Z",
+        "location": "M3-4"
+      }, {
+        "id": "4",
+        "eventName": "Meeting",
+        "datetime": "2021-06-10T09:59:47.264Z",
+        "location": "Workshopzonen"
+      }
+    ]
+  }
+}

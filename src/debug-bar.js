@@ -45,6 +45,16 @@ function DebugBar() {
       key: 'debug-bar-fixture-7',
       title: 'slideshow2',
       file: './fixtures/slideshow/slideshow2.json'
+    },
+    {
+      key: 'debug-bar-fixture-8',
+      title: 'calendar1',
+      file: './fixtures/calendar/calendar1.json'
+    },
+    {
+      key: 'debug-bar-fixture-9',
+      title: 'bookreview1',
+      file: './fixtures/book-review/book-review1.json'
     }
   ];
 
@@ -96,6 +106,16 @@ function DebugBar() {
     }
   }
 
+  /**
+   * Loads the content from json-file.
+   *
+   * @param {event} event
+   *   The event.
+   */
+  function handleFixtureSelectChange(event) {
+    loadContent(event.target.value);
+  }
+
   return (
     <>
       {show && (
@@ -125,23 +145,16 @@ function DebugBar() {
             >
               Stop data sync
             </button>
-
-            {fixtures.map((fixture) => (
-              <button
-                className="debug-bar-button"
-                type="button"
-                id={fixture.key}
-                key={fixture.key}
-                onClick={() => {
-                  loadContent(fixture.file);
-                }}
-              >
-                {fixture.title}
-              </button>
-            ))}
             <button className="debug-bar-button" type="button" onClick={() => setShow(false)}>
               Hide
             </button>
+            <select className="debug-select" onChange={handleFixtureSelectChange}>
+              {fixtures.map((fixture) => (
+                <option value={fixture.file} id={fixture.title} key={fixture.file}>
+                  {fixture.title}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
       )}

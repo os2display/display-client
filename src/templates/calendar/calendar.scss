@@ -1,0 +1,76 @@
+$padding: 2%;
+$font-border-color: #000;
+$background-color: #b4b4b4;
+
+@mixin grid-item($title: false, $text-align: start) {
+  padding: $padding 0;
+  font-size: 2em;
+  text-align: $text-align;
+  border-color: $font-border-color;
+
+  // Title does not have borders.
+  @if not $title {
+    border-bottom: 1px solid;
+    border-right: 0px;
+
+    // Remove padding and border left on first element in grid.
+    @for $i from 1 through 2 {
+      &:nth-last-of-type(3n + #{$i}) {
+        border-left: 1px solid;
+        padding-left: 2%;
+      }
+    }
+
+    @for $i from 1 through 3 {
+      &:nth-of-type(#{$i}) {
+        // Remove border-top from the first elements.
+        border-top: 0px;
+      }
+    }
+  }
+}
+
+.template-calendar {
+  height: 100%;
+  background-color: $background-color;
+  color: $font-border-color;
+
+  .grid-container-title-date {
+    display: grid;
+    grid-template-columns: auto auto;
+    padding: $padding;
+
+    .grid-item {
+      @include grid-item($title: true);
+    }
+
+    .grid-item-end {
+      @include grid-item($title: true, $text-align: end);
+    }
+  }
+  .grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    padding: $padding;
+
+    .grid-item {
+      @include grid-item();
+    }
+  }
+
+  &.red {
+    background-color: #d2421e;
+    color: white;
+    border-color: white;
+  }
+
+  &.blue {
+    background-color: #235587;
+    color: white;
+    border-color: white;
+  }
+
+  &.yellow {
+    background-color: #ffb400;
+  }
+}
