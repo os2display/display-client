@@ -1,10 +1,11 @@
-import { React } from 'react';
+import { forwardRef, React, useImperativeHandle } from 'react';
 import PropTypes from 'prop-types';
 import TextBox from './templates/text-box/text-box';
 import Slideshow from './templates/slideshow/slideshow';
 import Calendar from './templates/calendar/calendar';
 import BookReview from './templates/book-review/book-review';
 import './slide.scss';
+import Logger from './logger/logger';
 
 /**
  * Slide component.
@@ -20,7 +21,7 @@ import './slide.scss';
  * @returns {JSX.Element}
  *   The component.
  */
-function Slide({ slide, id, display }) {
+const Slide = forwardRef(function Slide({ slide, id, display, slideDone }, ref) {
   let slideComponent;
 
   if (slide.template === 'template-text-box') {
@@ -35,6 +36,21 @@ function Slide({ slide, id, display }) {
     slideComponent = <>Unknown template</>;
   }
 
+  /**
+   *
+   */
+  const startSlide = function startSlide() {
+    Logger.log('info', `StartSlide: ${id}`);
+    setTimeout(() => {
+      slideDone(slide);
+    }, slide.duration);
+  };
+
+  // Expose start slide function.
+  useImperativeHandle(ref, () => ({
+    startSlide
+  }));
+
   const styles = {};
   if (!display) {
     styles.display = 'none';
@@ -42,17 +58,19 @@ function Slide({ slide, id, display }) {
 
   // @TODO: Load template.
   return (
-    <div className="Slide" id={id} style={styles}>
+    <div className="Slide" id={id} style={styles} ref={ref}>
       {slideComponent}
     </div>
   );
-}
+});
 
 Slide.propTypes = {
   id: PropTypes.string.isRequired,
   display: PropTypes.bool,
+  slideDone: PropTypes.func.isRequired,
   slide: PropTypes.shape({
     template: PropTypes.string.isRequired,
+    duration: PropTypes.number.isRequired,
     content: PropTypes.objectOf(PropTypes.any).isRequired
   }).isRequired
 };

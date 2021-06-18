@@ -1,7 +1,6 @@
-import { React, useEffect, useState } from 'react';
+import { createRef, React, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './region.scss';
-// import uniqBy from 'lodash.uniqby';
 import Slide from './slide';
 import Logger from './logger/logger';
 
@@ -18,6 +17,7 @@ import Logger from './logger/logger';
 function Region({ region }) {
   const [slides, setSlides] = useState([]);
   const [currentInstanceId, setCurrentInstanceId] = useState(null);
+  const [slideRefs, setSlideRefs] = useState([]);
 
   /**
    * @param {object} slide
@@ -49,35 +49,8 @@ function Region({ region }) {
    *   The event. The data is contained in detail.
    */
   function regionContentListener(event) {
-    Logger.log('info', 'Region: received new data');
+    Logger.log('info', 'Region: Received new data');
     setSlides([...event.detail.slides]);
-    /*
-    setSlides((oldArray) => {
-      return uniqBy([...oldArray, ...event.detail.slides], 'executionId');
-      let newArray = [];
-
-      let addRest = false;
-      for (let i = 0; i < oldArray.length; i += 1) {
-        const slide = oldArray[i];
-        if (addRest) {
-          newArray.push(slide);
-        } else if (slide.executionId === currentExecutionId) {
-          newArray.push(slide);
-          addRest = true;
-        }
-      }
-
-      newArray = uniqBy([...newArray, ...event.detail.slides], 'executionId');
-
-      const newArray = uniqBy([...oldArray, ...event.detail.slides], 'executionId');
-
-      if (currentExecutionId === null && newArray?.length > 0) {
-        playSlide(newArray[0]);
-      }
-
-      return newArray;
-    }, 'slideExecutionId');
-      */
   }
 
   useEffect(() => {
@@ -99,15 +72,12 @@ function Region({ region }) {
   }, [region]);
 
   useEffect(() => {
-    Logger.log('info', `Playing: ${currentInstanceId}`);
-
     if (currentInstanceId !== null) {
       const currentSlide = slides.find((slide) => currentInstanceId === slide.instanceId);
 
-      // @TODO: Move this timeout into Slide.
-      setTimeout(() => {
-        slideDone(currentSlide);
-      }, currentSlide.duration);
+      if (slideRefs[currentSlide.executionId]?.current) {
+        slideRefs[currentSlide.executionId].current.startSlide();
+      }
     }
   }, [currentInstanceId]);
 
@@ -116,6 +86,16 @@ function Region({ region }) {
       const nextSlide = slides[0];
       setCurrentInstanceId(nextSlide.instanceId);
     }
+
+    // Update slideRefs
+    setSlideRefs((oldRefs) => {
+      const refs = [];
+      slides.forEach((slide) => {
+        refs[slide.executionId] = oldRefs[slide.executionId] || createRef();
+      });
+
+      return refs;
+    });
   }, [slides]);
 
   return (
@@ -125,7 +105,9 @@ function Region({ region }) {
         slides.map((slide) => (
           <Slide
             slide={slide}
+            ref={slideRefs[slide.executionId]}
             id={`${slide.executionId}`}
+            slideDone={slideDone}
             key={`${slide.executionId}`}
             display={currentInstanceId === slide.instanceId}
           />
