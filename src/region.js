@@ -1,8 +1,7 @@
-import { createRef, React, useEffect, useState } from 'react';
+import { React, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './region.scss';
 import Slide from './slide';
-import Logger from './logger/logger';
 
 /**
  * Region component.
@@ -17,7 +16,6 @@ import Logger from './logger/logger';
 function Region({ region }) {
   const [slides, setSlides] = useState([]);
   const [currentInstanceId, setCurrentInstanceId] = useState(null);
-  const [slideRefs, setSlideRefs] = useState([]);
 
   /**
    * @param {object} slide
@@ -49,7 +47,6 @@ function Region({ region }) {
    *   The event. The data is contained in detail.
    */
   function regionContentListener(event) {
-    Logger.log('info', 'Region: Received new data');
     setSlides([...event.detail.slides]);
   }
 
@@ -72,32 +69,13 @@ function Region({ region }) {
   }, [region]);
 
   useEffect(() => {
-    if (currentInstanceId !== null) {
-      const currentSlide = slides.find((slide) => currentInstanceId === slide.instanceId);
-
-      if (slideRefs[currentSlide.executionId]?.current) {
-        slideRefs[currentSlide.executionId].current.startSlide();
-      }
-    }
-  }, [currentInstanceId]);
-
-  useEffect(() => {
     if (currentInstanceId === null && slides?.length > 0) {
       const nextSlide = slides[0];
       setCurrentInstanceId(nextSlide.instanceId);
     }
-
-    // Update slideRefs
-    setSlideRefs((oldRefs) => {
-      const refs = [];
-      slides.forEach((slide) => {
-        refs[slide.executionId] = oldRefs[slide.executionId] || createRef();
-      });
-
-      return refs;
-    });
   }, [slides]);
 
+  // @TODO: Use executionId as key instead of instanceId.
   return (
     <div className="Region">
       {slides &&
@@ -105,11 +83,10 @@ function Region({ region }) {
         slides.map((slide) => (
           <Slide
             slide={slide}
-            ref={slideRefs[slide.executionId]}
             id={`${slide.executionId}`}
             slideDone={slideDone}
             key={`${slide.executionId}`}
-            display={currentInstanceId === slide.instanceId}
+            run={currentInstanceId === slide.instanceId}
           />
         ))}
     </div>

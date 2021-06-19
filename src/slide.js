@@ -1,11 +1,10 @@
-import { forwardRef, React, useImperativeHandle } from 'react';
+import { React } from 'react';
 import PropTypes from 'prop-types';
 import TextBox from './templates/text-box/text-box';
 import Slideshow from './templates/slideshow/slideshow';
 import Calendar from './templates/calendar/calendar';
 import BookReview from './templates/book-review/book-review';
 import './slide.scss';
-import Logger from './logger/logger';
 
 /**
  * Slide component.
@@ -16,67 +15,51 @@ import Logger from './logger/logger';
  *   The slide data.
  * @param {string} props.id
  *   The unique slide id.
- * @param {boolean} props.display
- *   Whether or not the slide should be shown.
+ * @param {boolean} props.run
+ *   Whether or not the slide should run.
+ * @param {Function} props.slideDone
+ *   The function to call when the slide is done running.
  * @returns {JSX.Element}
  *   The component.
  */
-const Slide = forwardRef(function Slide({ slide, id, display, slideDone }, ref) {
+function Slide({ slide, id, run, slideDone }) {
   let slideComponent;
 
   if (slide.template === 'template-text-box') {
-    slideComponent = <TextBox content={slide.content} />;
+    slideComponent = <TextBox slide={slide} content={slide.content} run={run} slideDone={slideDone} />;
   } else if (slide.template === 'template-slideshow') {
-    slideComponent = <Slideshow content={slide.content} />;
+    slideComponent = <Slideshow slide={slide} content={slide.content} run={run} slideDone={slideDone} />;
   } else if (slide.template === 'template-calendar') {
-    slideComponent = <Calendar content={slide.content} />;
+    slideComponent = <Calendar slide={slide} content={slide.content} run={run} slideDone={slideDone} />;
   } else if (slide.template === 'template-book-review') {
-    slideComponent = <BookReview content={slide.content} />;
+    slideComponent = <BookReview slide={slide} content={slide.content} run={run} slideDone={slideDone} />;
   } else {
     slideComponent = <>Unknown template</>;
   }
 
-  /**
-   *
-   */
-  const startSlide = function startSlide() {
-    Logger.log('info', `StartSlide: ${id}`);
-    setTimeout(() => {
-      slideDone(slide);
-    }, slide.duration);
-  };
-
-  // Expose start slide function.
-  useImperativeHandle(ref, () => ({
-    startSlide
-  }));
-
   const styles = {};
-  if (!display) {
+  if (!run) {
     styles.display = 'none';
   }
 
   // @TODO: Load template.
   return (
-    <div className="Slide" id={id} style={styles} ref={ref}>
+    <div className="Slide" id={id} style={styles}>
       {slideComponent}
     </div>
   );
-});
+}
 
 Slide.propTypes = {
   id: PropTypes.string.isRequired,
-  display: PropTypes.bool,
+  run: PropTypes.bool.isRequired,
   slideDone: PropTypes.func.isRequired,
   slide: PropTypes.shape({
     template: PropTypes.string.isRequired,
     duration: PropTypes.number.isRequired,
+    instanceId: PropTypes.string.isRequired,
     content: PropTypes.objectOf(PropTypes.any).isRequired
   }).isRequired
-};
-
-Slide.defaultProps = {
-  display: true
 };
 
 export default Slide;

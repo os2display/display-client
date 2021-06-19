@@ -32,6 +32,7 @@ class ScheduleService {
     const firstRun = !this.regions[region.id] ?? false;
 
     // Extract slides from playlists.
+    // @TODO: Handle change in region playlists after firstRun.
     // @TODO: Handle schedules for each playlist and slides instead of just extracting slides from playlists.
     if (firstRun) {
       const slides = [];
@@ -61,8 +62,6 @@ class ScheduleService {
     const regionData = this.regions[regionId];
 
     const { region, scheduledSlides, slides } = regionData;
-
-    Logger.log('info', `ScheduleService: Invoking findNextSlides(${region?.id})`);
 
     // If no slides are present in region, send empty array of content.
     if (slides.length === 0) {
