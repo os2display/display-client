@@ -46,7 +46,7 @@ $font-color: white;
     text-align: end;
 
     .flex-container .flex-item {
-      border-right: 7px solid $font-color;
+      border-right: 0.5em solid $font-color;
     }
   }
 
@@ -54,7 +54,7 @@ $font-color: white;
     text-align: start;
 
     .flex-container .flex-item {
-      border-left: 7px solid $font-color;
+      border-left: 0.5em solid $font-color;
     }
   }
 }

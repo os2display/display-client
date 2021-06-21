@@ -23,6 +23,7 @@ import './slide.scss';
  */
 function Slide({ slide, id, display }) {
   let slideComponent;
+
   if (slide.template === 'template-text-box') {
     slideComponent = <TextBox content={slide.content} />;
   } else if (slide.template === 'template-slideshow') {

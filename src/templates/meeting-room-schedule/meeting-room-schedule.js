@@ -17,16 +17,27 @@ import './meeting-room-schedule.scss';
  *   The component.
  */
 function MeetingRoomSchedule({ content }) {
-  dayjs.extend(localizedFormat);
-  const [currentDate, setCurrentDate] = useState(new Date());
+  // Props.
   const { backgroundColor, events, title, metaData, textAlign, backgroundImage } = content;
-  const [translations, setTranslations] = useState();
   const occupiedText = content.occupiedText ? (
     content.occupiedText
   ) : (
     <FormattedMessage id="occupiedText" defaultMessage="occupiedText" />
   );
+
+  // State.
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const [translations, setTranslations] = useState();
+
+  // Styling and classes.
   const rootClasses = `template-meeting-room-schedule ${textAlign}`;
+
+  /**
+   * dayjs with localizedformat.
+   */
+  useEffect(() => {
+    dayjs.extend(localizedFormat);
+  }, []);
 
   /**
    * Imports language strings.

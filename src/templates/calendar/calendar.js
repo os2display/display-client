@@ -17,13 +17,18 @@ import './calendar.scss';
  *   The component.
  */
 function Calendar({ content }) {
-  dayjs.extend(localizedFormat);
-
   const [currentDate, setCurrentDate] = useState(null);
   const [translations, setTranslations] = useState();
 
   const { backgroundColor, hasDateAndTime, title, events } = content;
   const classes = `template-calendar ${backgroundColor}`;
+
+  /**
+   * dayjs with localizedformat.
+   */
+  useEffect(() => {
+    dayjs.extend(localizedFormat);
+  }, []);
 
   /**
    * Imports language strings.
