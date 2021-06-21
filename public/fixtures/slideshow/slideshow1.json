@@ -25,7 +25,7 @@
       }
     ],
     "logo": {
-      "id":  "uniqueMedia5",
+      "id": "uniqueMedia5",
       "url": "./fixtures/images/logo.png",
       "position": "bottom left",
       "size": "l"
