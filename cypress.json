@@ -1,4 +1,6 @@
 {
   "integrationFolder": "./src",
-  "testFiles": "**/*.test.js"
+  "testFiles": "**/*.test.js",
+  "pluginsFile": false,
+  "supportFile": false
 }
