@@ -3,7 +3,7 @@
   "id": "screen-2",
   "regions": [
     {
-      "id": "screen-2-region-1",
+      "id": "region1",
       "playlists": [
         {
           "id": "uniquePlaylist1",
@@ -12,7 +12,7 @@
       ]
     },
     {
-      "id": "screen-2-region-2",
+      "id": "region2",
       "playlists": [
         {
           "id": "uniquePlaylist2",

@@ -79,7 +79,7 @@ function DebugBar() {
               id: 'region1',
               playlists: [
                 {
-                  id: 'playlist-1',
+                  id: 'uniquePlaylist1',
                   slides: [jsonData]
                 }
               ]
