@@ -2,7 +2,7 @@ import { React, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 import { IntlProvider, FormattedMessage } from 'react-intl';
-import localeDa from 'dayjs/locale/da'; // With a custom alias for the locale object
+import localeDa from 'dayjs/locale/da';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 import './meeting-room-schedule.scss';
 

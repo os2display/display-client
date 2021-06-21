@@ -11,21 +11,7 @@ $font-color: white;
     padding: $padding;
     font-size: 2em;
   }
-  &.right {
-    text-align: end;
 
-    .flex-container .flex-item {
-      border-right: 7px solid $font-color;
-    }
-  }
-
-  &.left {
-    text-align: start;
-
-    .flex-container .flex-item {
-      border-left: 7px solid $font-color;
-    }
-  }
   .flex-container {
     display: flex;
     flex-direction: column;
@@ -54,6 +40,21 @@ $font-color: white;
           font-size: 3.5em;
         }
       }
+    }
+  }
+  &.right {
+    text-align: end;
+
+    .flex-container .flex-item {
+      border-right: 7px solid $font-color;
+    }
+  }
+
+  &.left {
+    text-align: start;
+
+    .flex-container .flex-item {
+      border-left: 7px solid $font-color;
     }
   }
 }
