@@ -4,22 +4,22 @@
   "slides": [
     {
       "weight": 1,
-      "id": "uniqueSlide1",
+      "id": "textBox1",
       "url": "./fixtures/text-box/slide1.json"
     },
     {
       "weight": 2,
-      "id": "uniqueSlide2",
+      "id": "textBox2",
       "url": "./fixtures/text-box/slide2.json"
     },
     {
       "weight": 3,
-      "id": "uniqueSlide4",
+      "id": "textBox4",
       "url": "./fixtures/text-box/slide4.json"
     },
     {
       "weight": 4,
-      "id": "uniqueSlide3",
+      "id": "textBox3",
       "url": "./fixtures/text-box/slide3.json"
     }
   ]

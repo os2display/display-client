@@ -15,13 +15,20 @@ import Slide from './slide';
  */
 function Region({ region }) {
   const [slides, setSlides] = useState([]);
-  const [currentInstanceId, setCurrentInstanceId] = useState(null);
+  const [currentExecutionId, setCurrentExecutionId] = useState(null);
 
   /**
    * @param {object} slide
    *   The slide.
    */
   function slideDone(slide) {
+    // Go to next slide.
+    setCurrentExecutionId((oldExecutionId) => {
+      const slideIndex = slides.findIndex((slideElement) => slideElement.executionId === oldExecutionId);
+      const nextSlide = slides[(slideIndex + 1) % slides.length];
+      return nextSlide.executionId;
+    });
+
     // Emit slideDone event.
     const slideDoneEvent = new CustomEvent('slideDone', {
       detail: {
@@ -31,13 +38,6 @@ function Region({ region }) {
       }
     });
     document.dispatchEvent(slideDoneEvent);
-
-    // Go to next slide.
-    setCurrentInstanceId((oldInstanceId) => {
-      const slideIndex = slides.findIndex((slideElement) => slideElement.instanceId === oldInstanceId);
-      const nextSlide = slides[(slideIndex + 1) % slides.length];
-      return nextSlide.instanceId;
-    });
   }
 
   /**
@@ -69,24 +69,25 @@ function Region({ region }) {
   }, [region]);
 
   useEffect(() => {
-    if (currentInstanceId === null && slides?.length > 0) {
+    const findCurrent = slides.find((slide) => currentExecutionId === slide.executionId);
+
+    if (!findCurrent && slides?.length > 0) {
       const nextSlide = slides[0];
-      setCurrentInstanceId(nextSlide.instanceId);
+      setCurrentExecutionId(nextSlide.executionId);
     }
   }, [slides]);
 
-  // @TODO: Use executionId as key instead of instanceId.
   return (
     <div className="Region">
       {slides &&
-        currentInstanceId &&
+        currentExecutionId &&
         slides.map((slide) => (
           <Slide
             slide={slide}
             id={`${slide.executionId}`}
             slideDone={slideDone}
             key={`${slide.executionId}`}
-            run={currentInstanceId === slide.instanceId}
+            run={currentExecutionId === slide.executionId}
           />
         ))}
     </div>

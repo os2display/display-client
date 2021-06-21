@@ -23,6 +23,9 @@ class ContentService {
    * Constructor.
    */
   constructor() {
+    // Setup schedule service.
+    this.scheduleService = new ScheduleService();
+
     this.startSyncing = this.startSyncing.bind(this);
     this.stopSyncHandler = this.stopSyncHandler.bind(this);
     this.startDataSyncHandler = this.startDataSyncHandler.bind(this);
@@ -37,8 +40,7 @@ class ContentService {
   startSyncing() {
     Logger.log('info', 'Starting data synchronization');
 
-    this.scheduleService = new ScheduleService();
-
+    // @TODO: Remove config.json from git to allow for configuring backend.
     // Fetch config and launch data synchronization.
     fetch('./config.json')
       .then((response) => response.json())
@@ -104,6 +106,8 @@ class ContentService {
       ContentService.emitScreen(screenData);
     } else {
       Logger.log('info', 'Screen has not changed. Not emitting screen.');
+
+      data.screen.regions.forEach((region) => this.scheduleService.updateRegion(region));
     }
   }
 

@@ -33,6 +33,10 @@ function TextBox({ slide, content, run, slideDone }) {
     } else {
       slideExecution.stop();
     }
+
+    return function cleanup() {
+      slideExecution.stop();
+    };
   }, [run]);
 
   // Set background image and background color.
@@ -75,6 +79,7 @@ TextBox.propTypes = {
   run: PropTypes.bool.isRequired,
   slideDone: PropTypes.func.isRequired,
   slide: PropTypes.shape({
+    instanceId: PropTypes.string,
     duration: PropTypes.number.isRequired
   }).isRequired,
   content: PropTypes.shape({

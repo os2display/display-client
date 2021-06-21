@@ -27,37 +27,41 @@ class ScheduleService {
    *   The region, with playlists and slides, to start scheduling.
    */
   updateRegion(region) {
-    Logger.log('info', 'Invoking startRegion');
+    Logger.log('info', `ScheduleService: updateRegion(${region.id})`);
 
     const firstRun = !this.regions[region.id] ?? false;
 
     // Extract slides from playlists.
-    // @TODO: Handle change in region playlists after firstRun.
+    // @TODO: Make sure changes in region playlists after firstRun is handled correctly instead of replacing region object.
     // @TODO: Handle schedules for each playlist and slides instead of just extracting slides from playlists.
-    if (firstRun) {
-      const slides = [];
-      region.playlists.forEach((playlist) => {
-        playlist.slides.forEach((slide) => {
-          const newSlide = cloneDeep(slide);
-          newSlide.instanceId = uuidv4();
-          slides.push(newSlide);
-        });
+    const slides = [];
+    region?.playlists.forEach((playlist) => {
+      playlist?.slides.forEach((slide) => {
+        const newSlide = cloneDeep(slide);
+        newSlide.instanceId = uuidv4();
+        slides.push(newSlide);
       });
+    });
 
-      this.regions[region.id] = {
-        scheduledSlides: [],
-        slides,
-        region
-      };
-    }
+    this.regions[region.id] = {
+      scheduledSlides: [],
+      slides,
+      region
+    };
 
     if (firstRun) {
-      Logger.log('info', 'First run. Invoking nextSlide.');
-
-      this.findNextSlides(region.id);
+      this.findNextSlides(region.id, null);
     }
   }
 
+  /**
+   * Find the next slides to execute in the given region.
+   *
+   * @param {string} regionId
+   *   The id of the region.
+   * @param {string|null} lastExecutionId
+   *   The last executionId that was run.
+   */
   findNextSlides(regionId, lastExecutionId) {
     const regionData = this.regions[regionId];
 

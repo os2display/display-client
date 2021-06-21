@@ -45,14 +45,13 @@ class BaseSlideExecution {
   }
 
   /**
-   * Stops execution and calls slideDone.
+   * Stops execution timeout.
    */
   stop() {
     if (this.slideTimeout !== null) {
       clearTimeout(this.slideTimeout);
       this.slideTimeout = null;
     }
-    this.slideDone(this.slide);
   }
 }
 

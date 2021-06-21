@@ -8,7 +8,7 @@ describe('Make sure debug-bar loads', () => {
 describe('Load data', () => {
   it('Should load data from fixtures', () => {
     cy.visit('http://localhost:3000');
-    cy.get('.debug-select').select('slide: text-box top');
+    cy.get('.debug-bar-select').select('slide: text-box top');
     cy.contains('Slide 1');
   });
 });
