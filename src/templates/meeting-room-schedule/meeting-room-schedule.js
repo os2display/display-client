@@ -33,19 +33,23 @@ function MeetingRoomSchedule({ content }) {
   const rootClasses = `template-meeting-room-schedule ${textAlign}`;
 
   /**
-   * dayjs with localizedformat.
+   * Imports language strings, sets localized formats
+   * and sets timer.
    */
   useEffect(() => {
     dayjs.extend(localizedFormat);
-  }, []);
 
-  /**
-   * Imports language strings.
-   */
-  useEffect(() => {
     import('./lang/da.json').then((data) => {
       setTranslations(data);
     });
+
+    let timer = null;
+    timer = setInterval(() => setCurrentDate(new Date()), 5000);
+    return function cleanup() {
+      if (timer !== null) {
+        clearInterval(timer);
+      }
+    };
   }, []);
 
   const rootStyle = {};
@@ -73,19 +77,6 @@ function MeetingRoomSchedule({ content }) {
     }
     return 'flex-item';
   }
-
-  /**
-   * Setup date interval.
-   */
-  useEffect(() => {
-    let timer = null;
-    timer = setInterval(() => setCurrentDate(new Date()), 5000);
-    return function cleanup() {
-      if (timer !== null) {
-        clearInterval(timer);
-      }
-    };
-  }, []);
 
   // Sort events by from and filter away events that are done, but not ongoing events.
   const sortedEvents = events
