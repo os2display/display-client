@@ -28,7 +28,7 @@ function TextBox({ slide, content, run, slideDone }) {
    * Setup slide run function.
    */
   useEffect(() => {
-    if (run === true) {
+    if (run) {
       slideExecution.start(slide.duration);
     } else {
       slideExecution.stop();
