@@ -6,7 +6,7 @@ describe('Make sure text-box loads', () => {
     cy.get('.template-text-box .box .text').contains('Lorem ipsum');
     cy.get('.template-text-box')
       .should('have.css', 'background-image')
-      .and('include', '/fixtures/images/mountain1.jpeg')
+      .and('include', '/fixtures/images/mountain1.jpeg');
   });
 
   it('Should have flex-direction set when boxAlign is left', () => {
