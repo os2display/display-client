@@ -7,12 +7,12 @@ import localizedFormat from 'dayjs/plugin/localizedFormat';
 import './meeting-room-schedule.scss';
 
 /**
- * Calendar component.
+ * Meeting room schedule component.
  *
  * @param {object} props
  *   Props.
  * @param {object} props.content
- *   The slide content.
+ *   The meeting room schedule content.
  * @returns {JSX.Element}
  *   The component.
  */
@@ -49,7 +49,7 @@ function MeetingRoomSchedule({ content }) {
   }
 
   /**
-   * Returns if an event is now and should have larger font.
+   * Returns if an event is now and should be highligted.
    *
    * @param {object} event
    *    The event object.
@@ -76,7 +76,7 @@ function MeetingRoomSchedule({ content }) {
     };
   }, []);
 
-  // Sort events by from and filter away events that are done.
+  // Sort events by from and filter away events that are done, but not ongoing events.
   const sortedEvents = events
     .filter((e) => {
       return new Date(e.to).getTime() > new Date().getTime() && new Date(e.to).getDay() === new Date().getDay();
@@ -89,8 +89,8 @@ function MeetingRoomSchedule({ content }) {
         <div className="header">
           {title && <h1>{title}</h1>}
           {metaData && <p>{metaData}</p>}
+          {sortedEvents.length === 0 && <FormattedMessage id="available" defaultMessage="available" />}
         </div>
-        {sortedEvents.length === 0 && <FormattedMessage id="available" defaultMessage="available" />}
         {sortedEvents.length > 0 && (
           <div className="flex-container">
             {currentDate &&
