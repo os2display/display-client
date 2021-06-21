@@ -1,15 +1,15 @@
 {
-  "id": "playlist-2",
+  "id": "uniquePlaylist2",
   "title": "Playlist 2",
   "slides": [
     {
       "weight": 3,
-      "id": "playlist-2-slide-1",
+      "id": "uniqueSlide3",
       "url": "./fixtures/text-box/slide3.json"
     },
     {
       "weight": 4,
-      "id": "playlist-2-slide-2",
+      "id": "uniqueSlide4",
       "url": "./fixtures/text-box/slide4.json"
     }
   ]

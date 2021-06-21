@@ -6,7 +6,7 @@
       "id": "screen-2-region-1",
       "playlists": [
         {
-          "id": "screen-1-playlist-1",
+          "id": "uniquePlaylist1",
           "url": "./fixtures/playlist1.json"
         }
       ]
@@ -15,11 +15,11 @@
       "id": "screen-2-region-2",
       "playlists": [
         {
-          "id": "screen-2-playlist-1",
+          "id": "uniquePlaylist2",
           "url": "./fixtures/playlist2.json"
         },
         {
-          "id": "screen-2-playlist-2",
+          "id": "uniquePlaylist1",
           "url": "./fixtures/playlist1.json"
         }
       ]

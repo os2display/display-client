@@ -1,5 +1,5 @@
 {
-  "id": "calendar",
+  "id": "uniqueCalendar1",
   "title": "Calendar",
   "template": "template-calendar",
   "content": {
@@ -8,22 +8,22 @@
     "title": "Calendar",
     "events": [
       {
-        "id": "calendar-event-1",
+        "id": "uniqueEvent1",
         "eventName": "Cake",
         "datetime": "2021-06-10T07:55:28.478Z",
         "location": "M2"
       }, {
-        "id": "calendar-event-2",
+        "id": "uniqueEvent2",
         "eventName": "Workshop",
         "datetime": "2021-06-10T08:28:22.450Z",
         "location": "Home"
       }, {
-        "id": "calendar-event-3",
+        "id": "uniqueEvent3",
         "eventName": "GDPR",
         "datetime": "2021-06-10T08:59:05.251Z",
         "location": "M3-4"
       }, {
-        "id": "calendar-event-4",
+        "id": "uniqueEvent4",
         "eventName": "Meeting",
         "datetime": "2021-06-10T09:59:47.264Z",
         "location": "Workshopzonen"
