@@ -11,6 +11,6 @@ describe('Make sure calendar loads', () => {
     cy.get('.grid-item')
       .first()
       .invoke('text')
-      .should('match', /^Calendar 1/);
+      .should('match', /^Calendar/);
   });
 });

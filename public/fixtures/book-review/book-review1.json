@@ -1,6 +1,7 @@
 {
   "id": "uniqueBookReview1",
   "title": "Bookreview 1",
+  "id": "uniqueBookReview1",
   "template": "template-book-review",
   "duration": 30000,
   "content": {
@@ -8,7 +9,7 @@
     "authorText": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.",
     "media": {
       "authorImage": {
-        "id": "uniqueMedia1",
+        "id": "uniqueMedia6",
         "url": "./fixtures/images/author.jpg"
       },
       "bookImage": {

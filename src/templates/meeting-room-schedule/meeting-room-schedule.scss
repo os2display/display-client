@@ -1,0 +1,60 @@
+$padding: 2%;
+$background-color: #b4b4b4;
+$font-color: white;
+
+.template-meeting-room-schedule {
+  height: 100%;
+  background-color: $background-color;
+  color: $font-color;
+
+  .header {
+    padding: $padding;
+    font-size: 2em;
+  }
+
+  .flex-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0 $padding;
+
+    .flex-item {
+      padding: 0 $padding;
+      margin: $padding 0;
+      color: $font-color;
+
+      .time {
+        font-size: 2em;
+        font-weight: light;
+        margin-bottom: $padding;
+      }
+
+      .event-name {
+        font-weight: bold;
+        margin-top: $padding;
+        font-size: 2.5em;
+      }
+
+      &.now {
+        .event-name,
+        .time {
+          font-size: 3.5em;
+        }
+      }
+    }
+  }
+  &.right {
+    text-align: end;
+
+    .flex-container .flex-item {
+      border-right: 0.5em solid $font-color;
+    }
+  }
+
+  &.left {
+    text-align: start;
+
+    .flex-container .flex-item {
+      border-left: 0.5em solid $font-color;
+    }
+  }
+}

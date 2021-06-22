@@ -24,8 +24,6 @@ import BaseSlideExecution from '../baseSlideExecution';
  *   The component.
  */
 function Calendar({ slide, content, run, slideDone }) {
-  dayjs.extend(localizedFormat);
-
   const [currentDate, setCurrentDate] = useState(null);
   const [translations, setTranslations] = useState();
 
@@ -46,18 +44,16 @@ function Calendar({ slide, content, run, slideDone }) {
   }, [run]);
 
   /**
-   * Imports language strings.
+   * Imports language strings, sets localized formats
+   * and sets timer.
    */
   useEffect(() => {
+    dayjs.extend(localizedFormat);
+
     import('./lang/da.json').then((data) => {
       setTranslations(data);
     });
-  }, []);
 
-  /**
-   * Setup date interval.
-   */
-  useEffect(() => {
     let timer = null;
     if (hasDateAndTime) {
       timer = setInterval(() => setCurrentDate(new Date()), 1000);
