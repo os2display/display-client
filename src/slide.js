@@ -4,6 +4,7 @@ import TextBox from './templates/text-box/text-box';
 import Slideshow from './templates/slideshow/slideshow';
 import Calendar from './templates/calendar/calendar';
 import BookReview from './templates/book-review/book-review';
+import MeetingRoomSchedule from './templates/meeting-room-schedule/meeting-room-schedule';
 import './slide.scss';
 
 /**
@@ -31,6 +32,8 @@ function Slide({ slide, id, display }) {
     slideComponent = <Calendar content={slide.content} />;
   } else if (slide.template === 'template-book-review') {
     slideComponent = <BookReview content={slide.content} />;
+  } else if (slide.template === 'template-meeting-room-schedule') {
+    slideComponent = <MeetingRoomSchedule content={slide.content} />;
   } else {
     slideComponent = <>Unknown template</>;
   }

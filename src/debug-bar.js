@@ -55,6 +55,11 @@ function DebugBar() {
       key: 'debug-bar-fixture-9',
       title: 'bookreview1',
       file: './fixtures/book-review/book-review1.json'
+    },
+    {
+      key: 'debug-bar-fixture-10',
+      title: 'meeting-room-schedule',
+      file: './fixtures/meeting-room-schedule/meeting-room-schedule.json'
     }
   ];
 

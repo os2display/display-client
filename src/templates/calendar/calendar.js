@@ -17,8 +17,6 @@ import './calendar.scss';
  *   The component.
  */
 function Calendar({ content }) {
-  dayjs.extend(localizedFormat);
-
   const [currentDate, setCurrentDate] = useState(null);
   const [translations, setTranslations] = useState();
 
@@ -26,18 +24,16 @@ function Calendar({ content }) {
   const classes = `template-calendar ${backgroundColor}`;
 
   /**
-   * Imports language strings.
+   * Imports language strings, sets localized formats
+   * and sets timer.
    */
   useEffect(() => {
+    dayjs.extend(localizedFormat);
+
     import('./lang/da.json').then((data) => {
       setTranslations(data);
     });
-  }, []);
 
-  /**
-   * Setup date interval.
-   */
-  useEffect(() => {
     let timer = null;
     if (hasDateAndTime) {
       timer = setInterval(() => setCurrentDate(new Date()), 1000);

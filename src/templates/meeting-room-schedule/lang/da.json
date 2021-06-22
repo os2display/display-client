@@ -1,0 +1,14 @@
+{
+    "available": [
+        {
+            "type": 0,
+            "value": "Lokalet er ledigt"
+        }
+    ],
+    "occupiedText": [
+        {
+            "type": 0,
+            "value": "Lokalet er optaget"
+        }
+    ]
+}
