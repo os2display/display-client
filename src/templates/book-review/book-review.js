@@ -29,11 +29,10 @@ function BookReview({ slide, content, run, slideDone }) {
   const bookImage = bookUrl ? { backgroundImage: `url("${bookUrl}")` } : '';
   const sanitizedBookText = DOMPurify.sanitize(bookText);
 
-  const slideExecution = new BaseSlideExecution(slide, slideDone);
-
   /**
    * Setup slide run function.
    */
+  const slideExecution = new BaseSlideExecution(slide, slideDone);
   useEffect(() => {
     if (run) {
       slideExecution.start(slide.duration);

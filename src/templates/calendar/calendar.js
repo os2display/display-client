@@ -30,11 +30,10 @@ function Calendar({ slide, content, run, slideDone }) {
   const { backgroundColor, hasDateAndTime, title, events } = content;
   const classes = `template-calendar ${backgroundColor}`;
 
-  const slideExecution = new BaseSlideExecution(slide, slideDone);
-
   /**
    * Setup slide run function.
    */
+  const slideExecution = new BaseSlideExecution(slide, slideDone);
   useEffect(() => {
     if (run) {
       slideExecution.start(slide.duration);

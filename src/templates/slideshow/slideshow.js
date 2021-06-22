@@ -28,11 +28,10 @@ function Slideshow({ slide, content, run, slideDone }) {
   const timeoutRef = useRef(null);
   const classes = `image ${transitions} ${animations}`;
 
-  const slideExecution = new BaseSlideExecution(slide, slideDone);
-
   /**
    * Setup slide run function.
    */
+  const slideExecution = new BaseSlideExecution(slide, slideDone);
   useEffect(() => {
     if (run) {
       // @TODO: Make sure each image has been shown the correct duration before transition.

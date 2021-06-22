@@ -22,11 +22,11 @@ import BaseSlideExecution from '../baseSlideExecution';
 function TextBox({ slide, content, run, slideDone }) {
   const rootStyle = {};
   const textBoxStyle = {};
-  const slideExecution = new BaseSlideExecution(slide, slideDone);
 
   /**
    * Setup slide run function.
    */
+  const slideExecution = new BaseSlideExecution(slide, slideDone);
   useEffect(() => {
     if (run) {
       slideExecution.start(slide.duration);
