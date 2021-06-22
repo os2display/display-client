@@ -1,5 +1,6 @@
 import { React, useState } from 'react';
 import './debug-bar.scss';
+import { v4 as uuidv4 } from 'uuid';
 
 /**
  * DebugBar component.
@@ -64,19 +65,43 @@ function DebugBar() {
   ];
 
   /**
+   * Emit screen data.
+   *
+   * @param {object} screen
+   *   The screen data to emit.
+   */
+  function emitContent(screen) {
+    const event = new CustomEvent('content', {
+      detail: {
+        screen
+      }
+    });
+
+    document.dispatchEvent(event);
+  }
+
+  /**
    * Load content from fixture.
    *
    * @param {string} fixture
    *   The path to the fixture.
    */
   function loadContent(fixture) {
+    // Emit empty screen if fixture is null.
+    if (fixture === '') {
+      emitContent({
+        regions: []
+      });
+      return;
+    }
+
     fetch(fixture)
       .then((response) => response.json())
       .then((jsonData) => {
-        const screenData = {
+        const screen = {
           regions: [
             {
-              id: 'region1',
+              id: `region${uuidv4()}`,
               playlists: [
                 {
                   id: 'uniquePlaylist1',
@@ -87,13 +112,7 @@ function DebugBar() {
           ]
         };
 
-        const event = new CustomEvent('content', {
-          detail: {
-            screen: screenData
-          }
-        });
-
-        document.dispatchEvent(event);
+        emitContent(screen);
       });
   }
 
@@ -127,6 +146,9 @@ function DebugBar() {
         <div className="debug-bar">
           <div className="debug-bar-header">Debug</div>
           <div className="debug-bar-content">
+            <button className="debug-bar-button" type="button" onClick={() => setShow(false)}>
+              Hide
+            </button>
             <button
               className="debug-bar-button"
               type="button"
@@ -150,10 +172,8 @@ function DebugBar() {
             >
               Stop data sync
             </button>
-            <button className="debug-bar-button" type="button" onClick={() => setShow(false)}>
-              Hide
-            </button>
-            <select className="debug-select" onChange={handleFixtureSelectChange}>
+            <select className="debug-bar-select" onChange={handleFixtureSelectChange}>
+              <option value="">None selected</option>
               {fixtures.map((fixture) => (
                 <option value={fixture.file} id={fixture.title} key={fixture.file}>
                   {fixture.title}

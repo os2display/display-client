@@ -15,6 +15,30 @@ import Slide from './slide';
  */
 function Region({ region }) {
   const [slides, setSlides] = useState([]);
+  const [currentExecutionId, setCurrentExecutionId] = useState(null);
+
+  /**
+   * @param {object} slide
+   *   The slide.
+   */
+  function slideDone(slide) {
+    // Go to next slide.
+    setCurrentExecutionId((oldExecutionId) => {
+      const slideIndex = slides.findIndex((slideElement) => slideElement.executionId === oldExecutionId);
+      const nextSlide = slides[(slideIndex + 1) % slides.length];
+      return nextSlide.executionId;
+    });
+
+    // Emit slideDone event.
+    const slideDoneEvent = new CustomEvent('slideDone', {
+      detail: {
+        regionId: region.id,
+        instanceId: slide.instanceId,
+        executionId: slide.executionId
+      }
+    });
+    document.dispatchEvent(slideDoneEvent);
+  }
 
   /**
    * Handle region content event.
@@ -23,7 +47,7 @@ function Region({ region }) {
    *   The event. The data is contained in detail.
    */
   function regionContentListener(event) {
-    setSlides(event.detail.slides);
+    setSlides([...event.detail.slides]);
   }
 
   useEffect(() => {
@@ -44,11 +68,27 @@ function Region({ region }) {
     document.dispatchEvent(event);
   }, [region]);
 
+  useEffect(() => {
+    const findCurrent = slides.find((slide) => currentExecutionId === slide.executionId);
+
+    if (!findCurrent && slides?.length > 0) {
+      const nextSlide = slides[0];
+      setCurrentExecutionId(nextSlide.executionId);
+    }
+  }, [slides]);
+
   return (
     <div className="Region">
       {slides &&
-        slides.map((slide, index) => (
-          <Slide slide={slide} id={`${region.id}-${slide.id}`} key={`${region.id}-${slide.id}`} display={index === 0} />
+        currentExecutionId &&
+        slides.map((slide) => (
+          <Slide
+            slide={slide}
+            id={`${slide.executionId}`}
+            slideDone={slideDone}
+            key={`${slide.executionId}`}
+            run={currentExecutionId === slide.executionId}
+          />
         ))}
     </div>
   );

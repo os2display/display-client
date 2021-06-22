@@ -1,27 +1,46 @@
 import { React, useState, useEffect, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
-import localeDa from 'dayjs/locale/da'; // With a custom alias for the locale object
+import localeDa from 'dayjs/locale/da';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 import { IntlProvider, FormattedMessage } from 'react-intl';
 import './calendar.scss';
+import BaseSlideExecution from '../baseSlideExecution';
 
 /**
  * Calendar component.
  *
  * @param {object} props
  *   Props.
+ * @param {object} props.slide
+ *   The slide.
  * @param {object} props.content
  *   The slide content.
+ * @param {boolean} props.run
+ *   Whether or not the slide should start running.
+ * @param {Function} props.slideDone
+ *   Function to invoke when the slide is done playing.
  * @returns {JSX.Element}
  *   The component.
  */
-function Calendar({ content }) {
+function Calendar({ slide, content, run, slideDone }) {
   const [currentDate, setCurrentDate] = useState(null);
   const [translations, setTranslations] = useState();
 
   const { backgroundColor, hasDateAndTime, title, events } = content;
   const classes = `template-calendar ${backgroundColor}`;
+
+  /**
+   * Setup slide run function.
+   */
+  const slideExecution = new BaseSlideExecution(slide, slideDone);
+  useEffect(() => {
+    if (run) {
+      slideExecution.start(slide.duration);
+    } else {
+      slideExecution.stop();
+    }
+  }, [run]);
 
   /**
    * Imports language strings, sets localized formats
@@ -97,6 +116,11 @@ function Calendar({ content }) {
 }
 
 Calendar.propTypes = {
+  run: PropTypes.bool.isRequired,
+  slideDone: PropTypes.func.isRequired,
+  slide: PropTypes.shape({
+    duration: PropTypes.number.isRequired
+  }).isRequired,
   content: PropTypes.shape({
     events: PropTypes.arrayOf(
       PropTypes.shape({

@@ -1,21 +1,31 @@
 import cloneDeep from 'lodash.clonedeep';
+import sha256 from 'crypto-js/sha256';
+import Base64 from 'crypto-js/enc-base64';
 import Logger from '../logger/logger';
 import DataSync from '../data-sync/data-sync';
+import ScheduleService from './scheduleService';
 
 /**
- * Engine.
+ * ContentService.
  *
- * The central component responsible for receiving data and sending data to the react component.
+ * The central component responsible for receiving data from DataSync and sending data to the react components.
  */
-class Engine {
+class ContentService {
   dataSync;
 
-  data;
+  currentScreen;
+
+  scheduleService;
+
+  screenHash;
 
   /**
    * Constructor.
    */
   constructor() {
+    // Setup schedule service.
+    this.scheduleService = new ScheduleService();
+
     this.startSyncing = this.startSyncing.bind(this);
     this.stopSyncHandler = this.stopSyncHandler.bind(this);
     this.startDataSyncHandler = this.startDataSyncHandler.bind(this);
@@ -30,6 +40,7 @@ class Engine {
   startSyncing() {
     Logger.log('info', 'Starting data synchronization');
 
+    // @TODO: Remove config.json from git to allow for configuring backend.
     // Fetch config and launch data synchronization.
     fetch('./config.json')
       .then((response) => response.json())
@@ -78,9 +89,26 @@ class Engine {
     Logger.log('info', 'Event received: content');
 
     const data = event.detail;
-    this.data = data.screen;
+    this.currentScreen = data.screen;
 
-    Engine.emitScreen(this.data);
+    const screenData = cloneDeep(this.currentScreen);
+
+    // Remove playlist data.
+    for (let i = 0; i < screenData.regions.length; i += 1) {
+      delete screenData.regions[i].playlists;
+    }
+
+    const newHash = Base64.stringify(sha256(JSON.stringify(screenData)));
+
+    if (newHash !== this.screenHash) {
+      Logger.log('info', 'Screen has changed. Emitting screen.');
+      this.screenHash = newHash;
+      ContentService.emitScreen(screenData);
+    } else {
+      Logger.log('info', 'Screen has not changed. Not emitting screen.');
+
+      data.screen.regions.forEach((region) => this.scheduleService.updateRegion(region));
+    }
   }
 
   /**
@@ -95,10 +123,10 @@ class Engine {
 
     Logger.log('info', `Event received: regionReady for ${regionId}`);
 
-    if (this.data?.regions?.length > 0) {
-      const foundRegions = this.data.regions.filter((region) => region.id === regionId);
+    if (this.currentScreen?.regions?.length > 0) {
+      const foundRegions = this.currentScreen.regions.filter((region) => region.id === regionId);
       foundRegions.forEach((region) => {
-        Engine.emitRegion(region);
+        this.scheduleService.updateRegion(region);
       });
     }
   }
@@ -107,7 +135,7 @@ class Engine {
    * Start the engine.
    */
   start() {
-    Logger.log('info', 'Engine started.');
+    Logger.log('info', 'Content service started.');
 
     document.addEventListener('stopDataSync', this.stopSyncHandler);
     document.addEventListener('startDataSync', this.startDataSyncHandler);
@@ -119,37 +147,12 @@ class Engine {
    * Stop the engine.
    */
   stop() {
-    Logger.log('info', 'Engine stopped.');
+    Logger.log('info', 'Content service stopped.');
 
     document.removeEventListener('stopDataSync', this.stopSyncHandler);
     document.removeEventListener('startDataSync', this.startDataSyncHandler);
     document.removeEventListener('content', this.contentHandler);
     document.removeEventListener('regionReady', this.regionReadyHandler);
-  }
-
-  /**
-   * Emit data for region.
-   *
-   * @param {object} region
-   *   The region to emit data to.
-   */
-  static emitRegion(region) {
-    const slides = [];
-
-    region.playlists.forEach((playlist) => {
-      playlist.slides.forEach((slide) => {
-        slides.push(slide);
-      });
-    });
-
-    Logger.log('info', `Emitting data for region ${region.id}`);
-
-    const event = new CustomEvent(`regionContent-${region.id}`, {
-      detail: {
-        slides
-      }
-    });
-    document.dispatchEvent(event);
   }
 
   /**
@@ -159,22 +162,15 @@ class Engine {
    *   Screen data.
    */
   static emitScreen(screen) {
-    const screenData = cloneDeep(screen);
-
-    // Remove playlist data.
-    for (let i = 0; i < screenData.regions.length; i += 1) {
-      delete screenData.regions[i].playlists;
-    }
-
     Logger.log('info', 'Emitting screen');
 
     const event = new CustomEvent('screen', {
       detail: {
-        screen: screenData
+        screen
       }
     });
     document.dispatchEvent(event);
   }
 }
 
-export default Engine;
+export default ContentService;

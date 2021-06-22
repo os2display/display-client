@@ -1,20 +1,43 @@
-import { React } from 'react';
+import { React, useEffect } from 'react';
 import './text-box.scss';
 import PropTypes from 'prop-types';
+import BaseSlideExecution from '../baseSlideExecution';
 
 /**
  * TextBox component.
  *
  * @param {object} props
  *   Props.
+ * @param {object} props.slide
+ *   The slide.
  * @param {object} props.content
- *   The slide data.
+ *   The slide content.
+ * @param {boolean} props.run
+ *   Whether or not the slide should start running.
+ * @param {Function} props.slideDone
+ *   Function to invoke when the slide is done playing.
  * @returns {JSX.Element}
  *   The component.
  */
-function TextBox({ content }) {
+function TextBox({ slide, content, run, slideDone }) {
   const rootStyle = {};
   const textBoxStyle = {};
+
+  /**
+   * Setup slide run function.
+   */
+  const slideExecution = new BaseSlideExecution(slide, slideDone);
+  useEffect(() => {
+    if (run) {
+      slideExecution.start(slide.duration);
+    } else {
+      slideExecution.stop();
+    }
+
+    return function cleanup() {
+      slideExecution.stop();
+    };
+  }, [run]);
 
   // Set background image and background color.
   if (content?.media?.length > 0) {
@@ -53,6 +76,12 @@ function TextBox({ content }) {
 }
 
 TextBox.propTypes = {
+  run: PropTypes.bool.isRequired,
+  slideDone: PropTypes.func.isRequired,
+  slide: PropTypes.shape({
+    instanceId: PropTypes.string,
+    duration: PropTypes.number.isRequired
+  }).isRequired,
   content: PropTypes.shape({
     title: PropTypes.string,
     text: PropTypes.string,

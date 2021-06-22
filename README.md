@@ -40,22 +40,9 @@ docker-compose exec node bash -c 'npm run apply-coding-standards'
 
 We use [cypress](https://www.cypress.io/) for testing.
 
-Install cypress requirements in node container (@TODO: make this a part of the docker setup)
+To run cypress tests in the cypress container:
 ```
-docker-compose exec node bash
-apt-get update
-apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
-```
-
-Run tests
-```
-docker-compose exec node bash -c 'npm run test'
-```
-
-Or spinning up electron:
-
-```
-docker-compose exec node bash -c 'test-ui'
+docker-compose run cypress run
 ```
 
 ## Debug bar
@@ -69,3 +56,7 @@ Builds the app for production to the build folder.
 
 @TODO: Add production build instructions.
 
+
+## Event Model
+
+![Event model](docs/EventModel.png)

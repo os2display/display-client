@@ -16,30 +16,32 @@ import './slide.scss';
  *   The slide data.
  * @param {string} props.id
  *   The unique slide id.
- * @param {boolean} props.display
- *   Whether or not the slide should be shown.
+ * @param {boolean} props.run
+ *   Whether or not the slide should run.
+ * @param {Function} props.slideDone
+ *   The function to call when the slide is done running.
  * @returns {JSX.Element}
  *   The component.
  */
-function Slide({ slide, id, display }) {
+function Slide({ slide, id, run, slideDone }) {
   let slideComponent;
 
   if (slide.template === 'template-text-box') {
-    slideComponent = <TextBox content={slide.content} />;
+    slideComponent = <TextBox slide={slide} content={slide.content} run={run} slideDone={slideDone} />;
   } else if (slide.template === 'template-slideshow') {
-    slideComponent = <Slideshow content={slide.content} />;
+    slideComponent = <Slideshow slide={slide} content={slide.content} run={run} slideDone={slideDone} />;
   } else if (slide.template === 'template-calendar') {
-    slideComponent = <Calendar content={slide.content} />;
+    slideComponent = <Calendar slide={slide} content={slide.content} run={run} slideDone={slideDone} />;
   } else if (slide.template === 'template-book-review') {
-    slideComponent = <BookReview content={slide.content} />;
+    slideComponent = <BookReview slide={slide} content={slide.content} run={run} slideDone={slideDone} />;
   } else if (slide.template === 'template-meeting-room-schedule') {
-    slideComponent = <MeetingRoomSchedule content={slide.content} />;
+    slideComponent = <MeetingRoomSchedule slide={slide} content={slide.content} run={run} slideDone={slideDone} />;
   } else {
     slideComponent = <>Unknown template</>;
   }
 
   const styles = {};
-  if (!display) {
+  if (!run) {
     styles.display = 'none';
   }
 
@@ -53,15 +55,14 @@ function Slide({ slide, id, display }) {
 
 Slide.propTypes = {
   id: PropTypes.string.isRequired,
-  display: PropTypes.bool,
+  run: PropTypes.bool.isRequired,
+  slideDone: PropTypes.func.isRequired,
   slide: PropTypes.shape({
     template: PropTypes.string.isRequired,
+    duration: PropTypes.number.isRequired,
+    instanceId: PropTypes.string.isRequired,
     content: PropTypes.objectOf(PropTypes.any).isRequired
   }).isRequired
-};
-
-Slide.defaultProps = {
-  display: true
 };
 
 export default Slide;

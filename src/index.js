@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './app';
 import DebugBar from './debug-bar';
-import Engine from './engine/engine';
+import ContentService from './service/contentService';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -12,6 +12,6 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-// Start the engine.
-const engine = new Engine();
-engine.start();
+// Start the content service.
+const contentService = new ContentService();
+contentService.start();
