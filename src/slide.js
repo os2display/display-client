@@ -1,10 +1,11 @@
-import { React } from 'react';
+import { React, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import TextBox from './templates/text-box/text-box';
 import Slideshow from './templates/slideshow/slideshow';
 import Calendar from './templates/calendar/calendar';
 import BookReview from './templates/book-review/book-review';
 import MeetingRoomSchedule from './templates/meeting-room-schedule/meeting-room-schedule';
+import Transition from './transition';
 import './slide.scss';
 
 /**
@@ -47,9 +48,13 @@ function Slide({ slide, id, run, slideDone }) {
 
   // @TODO: Load template.
   return (
-    <div className="Slide" id={id} style={styles}>
-      {slideComponent}
-    </div>
+    <>
+      {slideComponent && (
+        <div className="Slide" id={id} style={styles}>
+            <Transition duration={slide.duration} run={run}>{slideComponent}</Transition>
+        </div>
+      )}
+    </>
   );
 }
 
