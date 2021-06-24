@@ -15,7 +15,22 @@ import Slide from './slide';
  */
 function Region({ region }) {
   const [slides, setSlides] = useState([]);
-  const [currentExecutionId, setCurrentExecutionId] = useState(null);
+  const [currentSlide, setCurrentSlide] = useState(null);
+  const [nextSlide, setNextSlide] = useState(null);
+
+  /**
+   * Find the slide after the slide with the fromId.
+   *
+   * @param {number} fromId
+   *   The id from which the next slide is determined.
+   * @returns {JSX.Element}
+   *   The slide.
+   */
+  function findNextSlide(fromId) {
+    const slideIndex = slides.findIndex((slideElement) => slideElement.executionId === fromId);
+    const slide = slides[(slideIndex + 1) % slides.length];
+    return slide;
+  }
 
   /**
    * @param {object} slide
@@ -23,10 +38,13 @@ function Region({ region }) {
    */
   function slideDone(slide) {
     // Go to next slide.
-    setCurrentExecutionId((oldExecutionId) => {
-      const slideIndex = slides.findIndex((slideElement) => slideElement.executionId === oldExecutionId);
-      const nextSlide = slides[(slideIndex + 1) % slides.length];
-      return nextSlide.executionId;
+    setCurrentSlide((oldExecutionId) => {
+      return findNextSlide(oldExecutionId);
+    });
+
+    // Go to next slide.
+    setNextSlide((oldExecutionId) => {
+      return findNextSlide(oldExecutionId);
     });
 
     // Emit slideDone event.
@@ -69,25 +87,32 @@ function Region({ region }) {
   }, [region]);
 
   useEffect(() => {
-    const findCurrent = slides.find((slide) => currentExecutionId === slide.executionId);
+    const findCurrent = slides.find((slide) => currentSlide === slide.executionId);
 
     if (!findCurrent && slides?.length > 0) {
-      const nextSlide = slides[0];
-      setCurrentExecutionId(nextSlide.executionId);
+      const slide = slides[0];
+      setCurrentSlide(slide);
+    }
+    const findNext = slides.find((slide) => nextSlide === slide.executionId);
+    if (!findNext && slides?.length > 0) {
+      const slide = slides[1];
+      setNextSlide(slide.executionId);
     }
   }, [slides]);
 
   return (
     <div className="Region">
       {slides &&
-        currentExecutionId &&
+        currentSlide &&
         slides.map((slide) => (
           <Slide
             slide={slide}
-            id={`${slide.executionId}`}
+            id={slide.executionId}
+            run={currentSlide.executionId === slide.executionId}
             slideDone={slideDone}
-            key={`${slide.executionId}`}
-            run={currentExecutionId === slide.executionId}
+            nextSlide={nextSlide === slide.executionId}
+            prevSlideDuration={currentSlide.duration}
+            key={slide.executionId}
           />
         ))}
     </div>

@@ -7,45 +7,59 @@ import './transition.scss';
  *
  * @param {object} props
  *   Props.
+ * @param {boolean} props.run
+ *   Whether or not the slide is visible.
  * @param {number} props.duration
  *   The slide duration.
- * @param {boolean} props.run
- *   Whether or not the slide, and transition, should start running.
+ * @param {number} props.prevSlideDuration
+ *   The previous slide duration.
+ * @param {boolean} props.isNextSlide
+ *   Whether or not the slide is the next slide.
  * @param {JSX.Element} props.children
  *   The children to be rendered.
  * @returns {JSX.Element}
  *   The component.
  */
-const Transition = ({ duration, run, children }) => {
-  const [animation, setAnimation] = useState('fadeIn');
+const Transition = ({ run, duration, prevSlideDuration, isNextSlide, children }) => {
   const animationDuration = 500;
+  const [style, setStyle] = useState({});
 
-    /**
+  /**
    * Setup timer for animation.
    */
   useEffect(() => {
     let timer = null;
+    // If the slide is currently visible, the fadeOut should be prepared.
     if (run) {
       timer = setTimeout(() => {
-        setAnimation('fadeOut');
+        setStyle({ animation: `fadeOut ${animationDuration}ms` });
       }, duration - animationDuration);
+    }
+
+    // If the slide is the next slide, the fadeIn should be prepared.
+    if (isNextSlide) {
+      timer = setTimeout(() => {
+        setStyle({ animation: `fadeIn ${animationDuration}ms` });
+      }, prevSlideDuration - animationDuration);
     }
     return function cleanup() {
       if (timer !== null) {
         clearInterval(timer);
       }
     };
-  }, []);
+  });
 
   return (
-    <div className="transition-component" style={{ animation: `${animation} ${animationDuration}ms` }}>
+    <div className="transition-component" style={style}>
       {children}
     </div>
   );
 };
 Transition.propTypes = {
-  duration: PropTypes.number.isRequired,
   run: PropTypes.bool.isRequired,
+  duration: PropTypes.number.isRequired,
+  prevSlideDuration: PropTypes.number.isRequired,
+  isNextSlide: PropTypes.bool.isRequired,
   children: PropTypes.node.isRequired
 };
 
