@@ -87,14 +87,14 @@ function Region({ region }) {
   }, [region]);
 
   useEffect(() => {
-    const findCurrent = slides.find((slide) => currentSlide === slide.executionId);
+    const findCurrent = slides.find((slide) => currentSlide?.executionId === slide.executionId);
 
     if (!findCurrent && slides?.length > 0) {
       const slide = slides[0];
       setCurrentSlide(slide);
     }
 
-    const findNext = slides.find((slide) => nextSlide === slide.executionId);
+    const findNext = slides.find((slide) => nextSlide?.executionId === slide.executionId);
     if (!findNext && slides?.length > 1) {
       const slide = slides[1];
       setNextSlide(slide.executionId);
