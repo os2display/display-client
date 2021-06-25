@@ -43,6 +43,7 @@ const Transition = ({ run, duration, prevSlideDuration, isNextSlide, children })
         setStyle({ animation: `fadeIn ${animationDuration}ms` });
       }, prevSlideDuration - animationDuration);
     }
+
     return function cleanup() {
       if (timer !== null) {
         clearInterval(timer);
