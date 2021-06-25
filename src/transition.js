@@ -29,6 +29,7 @@ const Transition = ({ run, duration, prevSlideDuration, isNextSlide, children })
    */
   useEffect(() => {
     let timer = null;
+
     // If the slide is currently visible, the fadeOut should be prepared.
     if (run) {
       timer = setTimeout(() => {
