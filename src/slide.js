@@ -45,8 +45,9 @@ function Slide({ slide, id, run, slideDone, nextSlide, prevSlideDuration }) {
   }
 
   const styles = {};
+  let classes = 'Slide';
   if (!run && !nextSlide) {
-    styles.display = 'none';
+    classes = `${classes} invisible`;
   }
 
   if (run) {
@@ -57,7 +58,7 @@ function Slide({ slide, id, run, slideDone, nextSlide, prevSlideDuration }) {
   return (
     <>
       {slideComponent && (
-        <div className="Slide" id={id} style={styles}>
+        <div className="Slide" id={id} style={styles} className={classes}>
           <Transition run={run} duration={slide.duration} prevSlideDuration={prevSlideDuration} isNextSlide={nextSlide}>
             {slideComponent}
           </Transition>
