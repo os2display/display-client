@@ -58,7 +58,7 @@ function Slide({ slide, id, run, slideDone, nextSlide, prevSlideDuration }) {
   return (
     <>
       {slideComponent && (
-        <div className="Slide" id={id} style={styles} className={classes}>
+        <div id={id} style={styles} className={classes}>
           <Transition run={run} duration={slide.duration} prevSlideDuration={prevSlideDuration} isNextSlide={nextSlide}>
             {slideComponent}
           </Transition>
