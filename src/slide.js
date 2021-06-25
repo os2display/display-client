@@ -21,14 +21,14 @@ import './slide.scss';
  *   Whether or not the slide should run.
  * @param {Function} props.slideDone
  *   The function to call when the slide is done running.
- * @param {boolean} props.nextSlide
+ * @param {boolean} props.isNextSlide
  *  A boolean indicating whether this is the next slide.
  * @param {number} props.prevSlideDuration
  *  The previous slide duration.
  * @returns {JSX.Element}
  *   The component.
  */
-function Slide({ slide, id, run, slideDone, nextSlide, prevSlideDuration }) {
+function Slide({ slide, id, run, slideDone, isNextSlide, prevSlideDuration }) {
   let slideComponent;
   if (slide.template === 'template-text-box') {
     slideComponent = <TextBox slide={slide} content={slide.content} run={run} slideDone={slideDone} />;
@@ -46,7 +46,7 @@ function Slide({ slide, id, run, slideDone, nextSlide, prevSlideDuration }) {
 
   const styles = {};
   let classes = 'Slide';
-  if (!run && !nextSlide) {
+  if (!run && !isNextSlide) {
     classes = `${classes} invisible`;
   }
 
@@ -59,7 +59,12 @@ function Slide({ slide, id, run, slideDone, nextSlide, prevSlideDuration }) {
     <>
       {slideComponent && (
         <div id={id} style={styles} className={classes}>
-          <Transition run={run} duration={slide.duration} prevSlideDuration={prevSlideDuration} isNextSlide={nextSlide}>
+          <Transition
+            run={run}
+            duration={slide.duration}
+            prevSlideDuration={prevSlideDuration}
+            isNextSlide={isNextSlide}
+          >
             {slideComponent}
           </Transition>
         </div>
@@ -78,7 +83,7 @@ Slide.propTypes = {
     instanceId: PropTypes.string.isRequired,
     content: PropTypes.objectOf(PropTypes.any).isRequired
   }).isRequired,
-  nextSlide: PropTypes.bool.isRequired,
+  isNextSlide: PropTypes.bool.isRequired,
   prevSlideDuration: PropTypes.number.isRequired
 };
 

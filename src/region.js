@@ -38,13 +38,13 @@ function Region({ region }) {
    */
   function slideDone(slide) {
     // Go to next slide.
-    setCurrentSlide((oldSlide) => {
-      return findNextSlide(oldSlide.executionId);
+    setCurrentSlide((previousSlide) => {
+      return findNextSlide(previousSlide.executionId);
     });
 
     // Go to next slide.
-    setNextSlide((oldSlide) => {
-      return findNextSlide(oldSlide.executionId);
+    setNextSlide((previousSlide) => {
+      return findNextSlide(previousSlide.executionId);
     });
 
     // Emit slideDone event.
@@ -95,6 +95,7 @@ function Region({ region }) {
     }
 
     const findNext = slides.find((slide) => nextSlide?.executionId === slide.executionId);
+
     if (!findNext && slides?.length > 1) {
       const slide = slides[1];
       setNextSlide(slide);
@@ -111,7 +112,7 @@ function Region({ region }) {
             id={slide.executionId}
             run={currentSlide.executionId === slide.executionId}
             slideDone={slideDone}
-            nextSlide={nextSlide.executionId === slide.executionId}
+            isNextSlide={nextSlide.executionId === slide.executionId}
             prevSlideDuration={currentSlide.duration}
             key={slide.executionId}
           />
