@@ -22,7 +22,7 @@ import './transition.scss';
  */
 const Transition = ({ run, duration, prevSlideDuration, isNextSlide, children }) => {
   const animationDuration = 500;
-  const [style, setStyle] = useState({});
+  const [style, setStyle] = useState({ animation: `fadeIn ${animationDuration}ms` });
 
   /**
    * Setup timer for animation.
