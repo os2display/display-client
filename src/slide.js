@@ -5,6 +5,7 @@ import Slideshow from './templates/slideshow/slideshow';
 import Calendar from './templates/calendar/calendar';
 import BookReview from './templates/book-review/book-review';
 import MeetingRoomSchedule from './templates/meeting-room-schedule/meeting-room-schedule';
+import Transition from './transition';
 import './slide.scss';
 
 /**
@@ -20,12 +21,15 @@ import './slide.scss';
  *   Whether or not the slide should run.
  * @param {Function} props.slideDone
  *   The function to call when the slide is done running.
+ * @param {boolean} props.isNextSlide
+ *  A boolean indicating whether this is the next slide.
+ * @param {number} props.prevSlideDuration
+ *  The previous slide duration.
  * @returns {JSX.Element}
  *   The component.
  */
-function Slide({ slide, id, run, slideDone }) {
+function Slide({ slide, id, run, slideDone, isNextSlide, prevSlideDuration }) {
   let slideComponent;
-
   if (slide.template === 'template-image-text') {
     slideComponent = <TextBox slide={slide} content={slide.content} run={run} slideDone={slideDone} />;
   } else if (slide.template === 'template-slideshow') {
@@ -41,15 +45,31 @@ function Slide({ slide, id, run, slideDone }) {
   }
 
   const styles = {};
-  if (!run) {
-    styles.display = 'none';
+  let classes = 'Slide';
+  if (!run && !isNextSlide) {
+    classes = `${classes} invisible`;
+  }
+
+  if (run) {
+    styles.zIndex = 1;
   }
 
   // @TODO: Load template.
   return (
-    <div className="Slide" id={id} style={styles}>
-      {slideComponent}
-    </div>
+    <>
+      {slideComponent && (
+        <div id={id} style={styles} className={classes}>
+          <Transition
+            run={run}
+            duration={slide.duration}
+            prevSlideDuration={prevSlideDuration}
+            isNextSlide={isNextSlide}
+          >
+            {slideComponent}
+          </Transition>
+        </div>
+      )}
+    </>
   );
 }
 
@@ -62,7 +82,9 @@ Slide.propTypes = {
     duration: PropTypes.number.isRequired,
     instanceId: PropTypes.string.isRequired,
     content: PropTypes.objectOf(PropTypes.any).isRequired
-  }).isRequired
+  }).isRequired,
+  isNextSlide: PropTypes.bool.isRequired,
+  prevSlideDuration: PropTypes.number.isRequired
 };
 
 export default Slide;
