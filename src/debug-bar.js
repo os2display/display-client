@@ -14,28 +14,28 @@ function DebugBar() {
   const fixtures = [
     {
       key: 'debug-bar-fixture-1',
-      title: 'slide: text-box top',
-      file: './fixtures/text-box/slide1.json'
+      title: 'slide: image-text top',
+      file: './fixtures/image-text/slide1.json'
     },
     {
       key: 'debug-bar-fixture-2',
-      title: 'slide: text-box left',
-      file: './fixtures/text-box/slide2.json'
+      title: 'slide: image-text left',
+      file: './fixtures/image-text/slide2.json'
     },
     {
       key: 'debug-bar-fixture-3',
-      title: 'slide: text-box right',
-      file: './fixtures/text-box/slide3.json'
+      title: 'slide: image-text right',
+      file: './fixtures/image-text/slide3.json'
     },
     {
       key: 'debug-bar-fixture-4',
-      title: 'slide: text-box bottom',
-      file: './fixtures/text-box/slide4.json'
+      title: 'slide: image-text bottom',
+      file: './fixtures/image-text/slide4.json'
     },
     {
       key: 'debug-bar-fixture-5',
-      title: 'slide: text-box colors',
-      file: './fixtures/text-box/slide5.json'
+      title: 'slide: image-text colors',
+      file: './fixtures/image-text/slide5.json'
     },
     {
       key: 'debug-bar-fixture-6',

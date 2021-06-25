@@ -1,6 +1,6 @@
 import { React } from 'react';
 import PropTypes from 'prop-types';
-import TextBox from './templates/text-box/text-box';
+import TextBox from './templates/image-text/image-text';
 import Slideshow from './templates/slideshow/slideshow';
 import Calendar from './templates/calendar/calendar';
 import BookReview from './templates/book-review/book-review';
@@ -30,7 +30,7 @@ import './slide.scss';
  */
 function Slide({ slide, id, run, slideDone, isNextSlide, prevSlideDuration }) {
   let slideComponent;
-  if (slide.template === 'template-text-box') {
+  if (slide.template === 'template-image-text') {
     slideComponent = <TextBox slide={slide} content={slide.content} run={run} slideDone={slideDone} />;
   } else if (slide.template === 'template-slideshow') {
     slideComponent = <Slideshow slide={slide} content={slide.content} run={run} slideDone={slideDone} />;
