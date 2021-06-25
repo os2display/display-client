@@ -93,6 +93,7 @@ function Region({ region }) {
       const slide = slides[0];
       setCurrentSlide(slide);
     }
+
     const findNext = slides.find((slide) => nextSlide === slide.executionId);
     if (!findNext && slides?.length > 1) {
       const slide = slides[1];
