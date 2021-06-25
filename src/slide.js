@@ -22,7 +22,7 @@ import './slide.scss';
  * @param {Function} props.slideDone
  *   The function to call when the slide is done running.
  * @param {boolean} props.nextSlide
- *  A boolean indication whether this is the next slide.
+ *  A boolean indicating whether this is the next slide.
  * @param {number} props.prevSlideDuration
  *  The previous slide duration.
  * @returns {JSX.Element}
