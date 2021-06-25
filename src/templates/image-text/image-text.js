@@ -1,10 +1,10 @@
 import { React, useEffect } from 'react';
-import './text-box.scss';
+import './image-text.scss';
 import PropTypes from 'prop-types';
 import BaseSlideExecution from '../baseSlideExecution';
 
 /**
- * TextBox component.
+ * ImageText component.
  *
  * @param {object} props
  *   Props.
@@ -19,9 +19,9 @@ import BaseSlideExecution from '../baseSlideExecution';
  * @returns {JSX.Element}
  *   The component.
  */
-function TextBox({ slide, content, run, slideDone }) {
+function ImageText({ slide, content, run, slideDone }) {
   const rootStyle = {};
-  const textBoxStyle = {};
+  const imageTextStyle = {};
 
   /**
    * Setup slide run function.
@@ -49,10 +49,10 @@ function TextBox({ slide, content, run, slideDone }) {
 
   // Set box colors.
   if (content?.boxColor) {
-    textBoxStyle.backgroundColor = content.boxColor;
+    imageTextStyle.backgroundColor = content.boxColor;
   }
   if (content?.textColor) {
-    textBoxStyle.color = content.textColor;
+    imageTextStyle.color = content.textColor;
   }
 
   // Position text-box.
@@ -60,13 +60,13 @@ function TextBox({ slide, content, run, slideDone }) {
     rootStyle.flexDirection = 'column';
   }
   if (content?.boxAlign === 'bottom' || content.boxAlign === 'right') {
-    textBoxStyle.alignSelf = 'flex-end';
+    imageTextStyle.alignSelf = 'flex-end';
   }
 
   return (
-    <div className="template-text-box" style={rootStyle}>
+    <div className="template-image-text" style={rootStyle}>
       {content.title && content.text && (
-        <div className="box" style={textBoxStyle}>
+        <div className="box" style={imageTextStyle}>
           {content.title && <h1 className="headline">{content.title}</h1>}
           {content.text && <div className="text">{content.text}</div>}
         </div>
@@ -75,7 +75,7 @@ function TextBox({ slide, content, run, slideDone }) {
   );
 }
 
-TextBox.propTypes = {
+ImageText.propTypes = {
   run: PropTypes.bool.isRequired,
   slideDone: PropTypes.func.isRequired,
   slide: PropTypes.shape({
@@ -94,4 +94,4 @@ TextBox.propTypes = {
   }).isRequired
 };
 
-export default TextBox;
+export default ImageText;
