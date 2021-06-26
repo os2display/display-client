@@ -48,9 +48,9 @@ $shadow-box: 0 4px 16px $color-shadow;
       }
     }
   }
-  &.half-size{
+  &.half-size {
     .box{
-
+      box-shadow: $shadow-box;
       flex:none;
     }
   }
