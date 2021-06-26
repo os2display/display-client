@@ -48,7 +48,15 @@ $shadow-box: 0 4px 16px $color-shadow;
       }
     }
   }
+  &.half-size{
+    .box{
+
+      flex:none;
+    }
+  }
 }
+
+
 
 @keyframes h1-underline {
   0% {

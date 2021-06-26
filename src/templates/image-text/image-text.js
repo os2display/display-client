@@ -65,10 +65,14 @@ function ImageText({ slide, content, run, slideDone }) {
     imageTextStyle.alignSelf = 'flex-end';
   }
 
+
   if (content.styling?.boxMargin) {
     imageTextStyle.margin = '5%';
   }
+  if (content.styling?.halfSize) {
+    rootClasses = rootClasses.concat(' half-size');
 
+  }
   if (content.styling?.separator) {
     rootClasses = rootClasses.concat(' animated-header');
   }
