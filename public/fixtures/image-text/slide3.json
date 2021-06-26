@@ -12,6 +12,12 @@
         "url": "./fixtures/images/mountain3.jpeg"
       }
     ],
-    "boxAlign": "right"
+    "styling": {
+      "boxAlign": "right",
+      "boxMargin": true,
+      "separator": true,
+      "halfSize": true
+
+    }
   }
 }

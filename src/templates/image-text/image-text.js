@@ -65,16 +65,17 @@ function ImageText({ slide, content, run, slideDone }) {
     imageTextStyle.alignSelf = 'flex-end';
   }
 
-
   if (content.styling?.boxMargin) {
     imageTextStyle.margin = '5%';
   }
   if (content.styling?.halfSize) {
     rootClasses = rootClasses.concat(' half-size');
-
   }
   if (content.styling?.separator) {
     rootClasses = rootClasses.concat(' animated-header');
+  }
+  if (content.styling?.reversed) {
+    rootClasses = rootClasses.concat(' reversed');
   }
 
   return (
@@ -113,7 +114,9 @@ ImageText.propTypes = {
       // Accepted values: top, bottom, left, right.
       boxAlign: PropTypes.string,
       boxMargin: PropTypes.bool,
-      separator: PropTypes.bool
+      separator: PropTypes.bool,
+      reversed: PropTypes.bool,
+      halfSize: PropTypes.bool
     })
   }).isRequired
 };

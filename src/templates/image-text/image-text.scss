@@ -29,9 +29,32 @@ $shadow-box: 0 4px 16px $color-shadow;
     }
   }
 
+  &.reversed {
+    .separator {
+      display: none;
+    }
+    .box {
+      padding: 0;
+      order: 2;
+      height: 90%;
+      justify-content: space-between;
+      background-color: transparent;
+      box-shadow: none;
+      font-size: 2em;
+      flex: 1 0 auto;
+    }
+
+    h1 {
+      order: 1;
+      font-size: 3em;
+    }
+  }
+
   &.animated-header {
     .box {
       box-shadow: $shadow-box;
+      display: flex;
+      flex-direction: column;
     }
     h1 {
       position: relative;
@@ -49,14 +72,12 @@ $shadow-box: 0 4px 16px $color-shadow;
     }
   }
   &.half-size {
-    .box{
+    .box {
       box-shadow: $shadow-box;
-      flex:none;
+      flex: none;
     }
   }
 }
-
-
 
 @keyframes h1-underline {
   0% {

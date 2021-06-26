@@ -12,6 +12,11 @@
         "url": "./fixtures/images/mountain4.jpeg"
       }
     ],
-    "boxAlign": "bottom"
+    "styling": {
+      "boxAlign": "bottom",
+      "boxMargin": false,
+      "halfSize": true
+
+    }
   }
 }
