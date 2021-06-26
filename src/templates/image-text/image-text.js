@@ -22,6 +22,7 @@ import BaseSlideExecution from '../baseSlideExecution';
 function ImageText({ slide, content, run, slideDone }) {
   const rootStyle = {};
   const imageTextStyle = {};
+  let rootClasses = 'template-image-text';
 
   /**
    * Setup slide run function.
@@ -40,34 +41,49 @@ function ImageText({ slide, content, run, slideDone }) {
   }, [run]);
 
   // Set background image and background color.
-  if (content?.media?.length > 0) {
+  if (content.media?.length > 0) {
     rootStyle.backgroundImage = `url("${content.media[0].url}")`;
   }
-  if (content?.backgroundColor) {
+  if (content.backgroundColor) {
     rootStyle.backgroundColor = content.backgroundColor;
   }
 
   // Set box colors.
-  if (content?.boxColor) {
+  if (content.boxColor) {
     imageTextStyle.backgroundColor = content.boxColor;
   }
-  if (content?.textColor) {
+  if (content.textColor) {
     imageTextStyle.color = content.textColor;
   }
 
   // Position text-box.
-  if (content.boxAlign === 'left' || content.boxAlign === 'right') {
+  if (content.styling?.boxAlign === 'left' || content.styling?.boxAlign === 'right') {
     rootStyle.flexDirection = 'column';
   }
-  if (content?.boxAlign === 'bottom' || content.boxAlign === 'right') {
+
+  if (content.styling?.boxAlign === 'bottom' || content.styling?.boxAlign === 'right') {
     imageTextStyle.alignSelf = 'flex-end';
   }
 
+  if (content.styling?.boxMargin) {
+    imageTextStyle.margin = '5%';
+  }
+
+  if (content.styling?.separator) {
+    rootClasses = rootClasses.concat(' animated-header');
+  }
+
   return (
-    <div className="template-image-text" style={rootStyle}>
+    <div className={rootClasses} style={rootStyle}>
       {content.title && content.text && (
         <div className="box" style={imageTextStyle}>
-          {content.title && <h1 className="headline">{content.title}</h1>}
+          {content.title && (
+            <h1>
+              {content.title}
+              {/* Todo theme the color of the below */}
+              {content.styling?.separator && <div className="separator" style={{ backgroundColor: '#ee0043' }} />}
+            </h1>
+          )}
           {content.text && <div className="text">{content.text}</div>}
         </div>
       )}
@@ -86,11 +102,15 @@ ImageText.propTypes = {
     title: PropTypes.string,
     text: PropTypes.string,
     media: PropTypes.arrayOf(PropTypes.shape({ url: PropTypes.string })),
-    // Accepted values: top, bottom, left, right.
-    boxAlign: PropTypes.string,
     backgroundColor: PropTypes.string,
     textColor: PropTypes.string,
-    boxColor: PropTypes.string
+    boxColor: PropTypes.string,
+    styling: PropTypes.shape({
+      // Accepted values: top, bottom, left, right.
+      boxAlign: PropTypes.string,
+      boxMargin: PropTypes.bool,
+      separator: PropTypes.bool
+    })
   }).isRequired
 };
 
