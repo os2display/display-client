@@ -1,4 +1,4 @@
-$color-shadow: rgba(0, 0, 0, .26);
+$color-shadow: rgba(0, 0, 0, 0.26);
 $shadow-box: 0 4px 16px $color-shadow;
 
 .template-image-text {
@@ -30,7 +30,7 @@ $shadow-box: 0 4px 16px $color-shadow;
   }
 
   &.animated-header {
-    .box{
+    .box {
       box-shadow: $shadow-box;
     }
     h1 {
