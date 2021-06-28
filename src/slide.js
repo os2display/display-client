@@ -30,6 +30,7 @@ import './slide.scss';
  */
 function Slide({ slide, id, run, slideDone, isNextSlide, prevSlideDuration }) {
   let slideComponent;
+
   if (slide.template === 'template-image-text') {
     slideComponent = <TextBox slide={slide} content={slide.content} run={run} slideDone={slideDone} />;
   } else if (slide.template === 'template-slideshow') {

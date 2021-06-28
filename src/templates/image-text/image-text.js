@@ -22,15 +22,20 @@ import BaseSlideExecution from '../baseSlideExecution';
 function ImageText({ slide, content, run, slideDone }) {
   const rootStyle = {};
   const imageTextStyle = {};
-  let rootClasses = 'template-image-text';
 
+  const { separator, boxAlign, reversed, boxMargin, halfSize, fontSize } = content.styling || {};
+  const { title, text, textColor, boxColor, backgroundColor } = content;
+  const { duration } = slide;
+  const displaySeparator = separator && !reversed;
+  let rootClasses = 'template-image-text';
+  const boxClasses = fontSize ? `box ${fontSize}` : 'box';
   /**
    * Setup slide run function.
    */
   const slideExecution = new BaseSlideExecution(slide, slideDone);
   useEffect(() => {
     if (run) {
-      slideExecution.start(slide.duration);
+      slideExecution.start(duration);
     } else {
       slideExecution.stop();
     }
@@ -41,55 +46,54 @@ function ImageText({ slide, content, run, slideDone }) {
   }, [run]);
 
   // Set background image and background color.
-  if (content.media?.length > 0) {
-    rootStyle.backgroundImage = `url("${content.media[0].url}")`;
+  if (content.media?.url) {
+    rootStyle.backgroundImage = `url("${content.media?.url}")`;
   }
-  if (content.backgroundColor) {
-    rootStyle.backgroundColor = content.backgroundColor;
+  if (backgroundColor) {
+    rootStyle.backgroundColor = backgroundColor;
   }
 
   // Set box colors.
-  if (content.boxColor) {
-    imageTextStyle.backgroundColor = content.boxColor;
+  if (boxColor) {
+    imageTextStyle.backgroundColor = boxColor;
   }
-  if (content.textColor) {
-    imageTextStyle.color = content.textColor;
+  if (textColor) {
+    imageTextStyle.color = textColor;
   }
 
   // Position text-box.
-  if (content.styling?.boxAlign === 'left' || content.styling?.boxAlign === 'right') {
-    rootStyle.flexDirection = 'column';
+  if (boxAlign === 'left' || boxAlign === 'right') {
+    rootClasses = rootClasses.concat(' column');
   }
 
-  if (content.styling?.boxAlign === 'bottom' || content.styling?.boxAlign === 'right') {
-    imageTextStyle.alignSelf = 'flex-end';
+  if (boxAlign === 'bottom' || boxAlign === 'right') {
+    rootClasses = rootClasses.concat(' flex-end');
   }
-
-  if (content.styling?.boxMargin) {
-    imageTextStyle.margin = '5%';
+  if (reversed) {
+    rootClasses = rootClasses.concat(' reversed');
   }
-  if (content.styling?.halfSize) {
+  if (boxMargin || reversed) {
+    rootClasses = rootClasses.concat(' box-margin');
+  }
+  if (halfSize && !reversed) {
     rootClasses = rootClasses.concat(' half-size');
   }
-  if (content.styling?.separator) {
+  if (separator && !reversed) {
     rootClasses = rootClasses.concat(' animated-header');
-  }
-  if (content.styling?.reversed) {
-    rootClasses = rootClasses.concat(' reversed');
   }
 
   return (
     <div className={rootClasses} style={rootStyle}>
-      {content.title && content.text && (
-        <div className="box" style={imageTextStyle}>
-          {content.title && (
+      {title && text && (
+        <div className={boxClasses} style={imageTextStyle}>
+          {title && (
             <h1>
-              {content.title}
+              {title}
               {/* Todo theme the color of the below */}
-              {content.styling?.separator && <div className="separator" style={{ backgroundColor: '#ee0043' }} />}
+              {displaySeparator && <div className="separator" style={{ backgroundColor: '#ee0043' }} />}
             </h1>
           )}
-          {content.text && <div className="text">{content.text}</div>}
+          {text && <div className="text">{text}</div>}
         </div>
       )}
     </div>
@@ -106,7 +110,7 @@ ImageText.propTypes = {
   content: PropTypes.shape({
     title: PropTypes.string,
     text: PropTypes.string,
-    media: PropTypes.arrayOf(PropTypes.shape({ url: PropTypes.string })),
+    media: PropTypes.shape({ url: PropTypes.string }),
     backgroundColor: PropTypes.string,
     textColor: PropTypes.string,
     boxColor: PropTypes.string,
@@ -116,7 +120,8 @@ ImageText.propTypes = {
       boxMargin: PropTypes.bool,
       separator: PropTypes.bool,
       reversed: PropTypes.bool,
-      halfSize: PropTypes.bool
+      halfSize: PropTypes.bool,
+      fontSize: PropTypes.string
     })
   }).isRequired
 };

@@ -39,26 +39,61 @@ function DebugBar() {
     },
     {
       key: 'debug-bar-fixture-6',
+      title: 'slide: image-text fontsize s',
+      file: './fixtures/image-text/slide6.json'
+    },
+    {
+      key: 'debug-bar-fixture-7',
+      title: 'slide: image-text fontsize m',
+      file: './fixtures/image-text/slide7.json'
+    },
+    {
+      key: 'debug-bar-fixture-8',
+      title: 'slide: image-text fontsize l',
+      file: './fixtures/image-text/slide8.json'
+    },
+    {
+      key: 'debug-bar-fixture-9',
+      title: 'slide: image-text fontsize xl',
+      file: './fixtures/image-text/slide9.json'
+    },
+    {
+      key: 'debug-bar-fixture-10',
+      title: 'slide: margin, separator and half-size',
+      file: './fixtures/image-text/slide10.json'
+    },
+    {
+      key: 'debug-bar-fixture-11',
+      title: 'slide: reversed',
+      file: './fixtures/image-text/slide11.json'
+    },
+    {
+      key: 'debug-bar-fixture-12',
+      title: 'slide: just image',
+      file: './fixtures/image-text/slide12.json'
+    },
+    {
+      key: 'debug-bar-fixture-13',
       title: 'slideshow1',
       file: './fixtures/slideshow/slideshow1.json'
     },
     {
-      key: 'debug-bar-fixture-7',
+      key: 'debug-bar-fixture-14',
       title: 'slideshow2',
       file: './fixtures/slideshow/slideshow2.json'
     },
     {
-      key: 'debug-bar-fixture-8',
+      key: 'debug-bar-fixture-15',
       title: 'calendar1',
       file: './fixtures/calendar/calendar1.json'
     },
     {
-      key: 'debug-bar-fixture-9',
+      key: 'debug-bar-fixture-16',
       title: 'bookreview1',
       file: './fixtures/book-review/book-review1.json'
     },
     {
-      key: 'debug-bar-fixture-10',
+      key: 'debug-bar-fixture-17',
       title: 'meeting-room-schedule',
       file: './fixtures/meeting-room-schedule/meeting-room-schedule.json'
     }

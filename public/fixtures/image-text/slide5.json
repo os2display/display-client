@@ -1,5 +1,5 @@
 {
-  "id": "textBox5",
+  "id": "imageText5",
   "title": "Slide 5",
   "template": "template-image-text",
   "duration": 15000,
@@ -12,8 +12,9 @@
     "styling": {
       "boxAlign": "bottom",
       "boxMargin": false,
-      "halfSize": true
-
+      "separator": false,
+      "halfSize": false,
+      "reversed": false
     }
   }
 }
