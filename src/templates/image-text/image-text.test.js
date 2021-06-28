@@ -94,6 +94,8 @@ describe('Make sure image-text loads', () => {
     cy.get('.template-image-text').should('not.have.class', 'half-size');
     cy.get('.template-image-text').should('not.have.class', 'animated-header');
     cy.get('.template-image-text').should('have.class', 'box-margin');
+    cy.get('.template-image-text .text').should('have.css', 'order', '1');
+    cy.get('.template-image-text h1').should('have.css', 'order', '2');
   });
 
   it('Should have just image', () => {
