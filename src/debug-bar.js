@@ -96,6 +96,11 @@ function DebugBar() {
       key: 'debug-bar-fixture-17',
       title: 'meeting-room-schedule',
       file: './fixtures/meeting-room-schedule/meeting-room-schedule.json'
+    },
+    {
+      key: 'debug-bar-fixture-18',
+      title: 'quote',
+      file: './fixtures/quote/quote.json'
     }
   ];
 

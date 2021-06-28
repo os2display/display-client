@@ -1,0 +1,8 @@
+{
+  "id": "uniqueQuote1",
+  "title": "Quote 1",
+  "template": "template-quote",
+  "duration": 3000,
+  "content": {
+  }
+}
