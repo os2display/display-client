@@ -70,11 +70,6 @@ describe('Make sure image-text loads', () => {
     cy.visit('/');
     cy.get('.debug-bar-select').select('slide: margin, separator and half-size');
     cy.get('.template-image-text').should('have.class', 'box-margin');
-    cy.get('.template-image-text .box .separator').should(
-      'have.css',
-      'animation',
-      '0.7s ease-out 0.5s 1 normal forwards running h1-underline'
-    );
   });
 
   it('Should have half size', () => {
