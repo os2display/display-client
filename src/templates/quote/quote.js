@@ -1,7 +1,8 @@
-import { React, useEffect } from 'react';
+import { React, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './quote.scss';
 import BaseSlideExecution from '../baseSlideExecution';
+import Icon from './icon';
 
 /**
  * Book review component.
@@ -20,6 +21,11 @@ import BaseSlideExecution from '../baseSlideExecution';
  *   The component.
  */
 function Quote({ slide, content, run, slideDone }) {
+  const { quotes, quoteInTwoLines } = content;
+  const quoteClasses = quoteInTwoLines ? 'quote two-lines' : 'quote';
+  const [first] = quotes;
+  const [currentQuote, setCurrentQuote] = useState(first);
+  const [show, setShow] = useState(true);
 
   /**
    * Setup slide run function.
@@ -33,19 +39,41 @@ function Quote({ slide, content, run, slideDone }) {
     }
   }, [run]);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const currentIndex = quotes.indexOf(currentQuote);
+      const nextIndex = (currentIndex + 1) % quotes.length;
+      setCurrentQuote(quotes[nextIndex]);
+      setShow(true);
+    }, currentQuote.duration);
+
+    const animationTimer = setTimeout(() => {
+      setShow(false);
+    }, currentQuote.duration - 1500);
+
+    return function cleanup() {
+      if (timer !== null) {
+        clearInterval(timer);
+      }
+      if (animationTimer !== null) {
+        clearInterval(animationTimer);
+      }
+    };
+  }, [currentQuote]);
+
   return (
     <>
-      <div className="template-quote">
-asdf
+      <div className={show ? 'template-quote show' : 'template-quote hide'}>
+        {/* todo make this themeable */}
+        <Icon stroke="#EE0043" strokeWidth={2} className="quotation-mark" />
+        <div className="quote-container">
+          <div className={quoteClasses}>{currentQuote.quote}</div>
+          <div className="author">{currentQuote.author}</div>
+        </div>
       </div>
     </>
   );
 }
-
-const imageShape = PropTypes.shape({
-  id: PropTypes.string.isRequired,
-  url: PropTypes.string.isRequired
-});
 
 Quote.propTypes = {
   run: PropTypes.bool.isRequired,
@@ -54,8 +82,9 @@ Quote.propTypes = {
     duration: PropTypes.number.isRequired
   }).isRequired,
   content: PropTypes.shape({
-
+    quotes: PropTypes.arrayOf(PropTypes.shape({ quote: PropTypes.string, author: PropTypes.string })),
+    quoteInTwoLines: PropTypes.bool
   }).isRequired
 };
 
-export default BookReview;
+export default Quote;

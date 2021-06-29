@@ -4,6 +4,7 @@ import TextBox from './templates/image-text/image-text';
 import Slideshow from './templates/slideshow/slideshow';
 import Calendar from './templates/calendar/calendar';
 import BookReview from './templates/book-review/book-review';
+import Quote from './templates/quote/quote';
 import MeetingRoomSchedule from './templates/meeting-room-schedule/meeting-room-schedule';
 import Transition from './transition';
 import './slide.scss';
@@ -41,6 +42,8 @@ function Slide({ slide, id, run, slideDone, isNextSlide, prevSlideDuration }) {
     slideComponent = <BookReview slide={slide} content={slide.content} run={run} slideDone={slideDone} />;
   } else if (slide.template === 'template-meeting-room-schedule') {
     slideComponent = <MeetingRoomSchedule slide={slide} content={slide.content} run={run} slideDone={slideDone} />;
+  } else if (slide.template === 'template-quote') {
+    slideComponent = <Quote slide={slide} content={slide.content} run={run} slideDone={slideDone} />;
   } else {
     slideComponent = <>Unknown template</>;
   }
