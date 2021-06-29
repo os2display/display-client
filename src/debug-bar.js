@@ -101,6 +101,11 @@ function DebugBar() {
       key: 'debug-bar-fixture-18',
       title: 'quote',
       file: './fixtures/quote/quote.json'
+    },
+    {
+      key: 'debug-bar-fixture-19',
+      title: 'poster',
+      file: './fixtures/poster/poster.json'
     }
   ];
 
