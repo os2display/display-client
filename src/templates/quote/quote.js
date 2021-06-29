@@ -5,7 +5,7 @@ import BaseSlideExecution from '../baseSlideExecution';
 import Icon from './icon';
 
 /**
- * Book review component.
+ * Quote component.
  *
  * @param {object} props
  *   Props.
