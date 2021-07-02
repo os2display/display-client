@@ -2,7 +2,7 @@ import { React, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './quote.scss';
 import BaseSlideExecution from '../baseSlideExecution';
-import {ReactComponent as Logo} from './citation-mark.svg';
+import { ReactComponent as Logo } from './citation-mark.svg';
 
 /**
  * Quote component.
@@ -65,7 +65,7 @@ function Quote({ slide, content, run, slideDone }) {
     <>
       <div className={show ? 'template-quote show' : 'template-quote hide'}>
         {/* todo make this themeable */}
-        <Logo style={{stroke:"red"}} />
+        <Logo style={{ stroke: 'red' }} />
         <div className="quote-container">
           <div className={quoteClasses}>{currentQuote.quote}</div>
           <div className="author">{currentQuote.author}</div>
