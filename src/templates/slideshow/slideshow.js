@@ -37,7 +37,7 @@ function Slideshow({ slide, content, run, slideDone }) {
       // @TODO: Make sure each image has been shown the correct duration before transition.
       // Extract duration from content.images.
       let duration = 0;
-      content.images.forEach((image) => {
+      images.forEach((image) => {
         // Default to 5 seconds pr. image.
         duration += image.duration > 0 ? image.duration : 5000;
       });
