@@ -44,8 +44,6 @@ function Poster({ slide, content, run, slideDone }) {
   // Dates.
   const singleDayEvent = new Date(endDate).toDateString() === new Date(startDate).toDateString();
 
-
-
   /**
    * Imports language strings, sets localized formats
    * and sets timer.
