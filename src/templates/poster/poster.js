@@ -1,14 +1,14 @@
 import { React, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import './poster.scss';
 import dayjs from 'dayjs';
 import localeDa from 'dayjs/locale/da';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 import { IntlProvider, FormattedMessage } from 'react-intl';
 import BaseSlideExecution from '../baseSlideExecution';
+import './poster.scss';
 
 /**
- * Book review component.
+ * Poster component.
  *
  * @param {object} props
  *   Props.
@@ -24,10 +24,27 @@ import BaseSlideExecution from '../baseSlideExecution';
  *   The component.
  */
 function Poster({ slide, content, run, slideDone }) {
-  const [show, setShow] = useState(true);
+  // Translations.
   const [translations, setTranslations] = useState();
-  const { endDate, startDate } = content;
+
+  // Events.
+  const { events } = content;
+  const [first] = events;
+  const [currentEvent, setCurrentEvent] = useState(first);
+
+  // Animation.
+  const [show, setShow] = useState(true);
+  const animationActive = events.length > 1;
+  const animationDuration = 500;
+  const { duration } = content || 15000; // default 15s.
+
+  // Props from content.
+  const { endDate, startDate, name, image, excerpt, ticketPriceRange, readMoreText, url, place } = currentEvent;
+
+  // Dates.
   const singleDayEvent = new Date(endDate).toDateString() === new Date(startDate).toDateString();
+
+
 
   /**
    * Imports language strings, sets localized formats
@@ -40,6 +57,35 @@ function Poster({ slide, content, run, slideDone }) {
       setTranslations(data);
     });
   }, []);
+
+  /**
+   * Setup event switch and animation, if there are more than one event.
+   */
+  useEffect(() => {
+    let animationTimer;
+    let timer;
+    if (animationActive) {
+      timer = setTimeout(() => {
+        const currentIndex = events.indexOf(currentEvent);
+        const nextIndex = (currentIndex + 1) % events.length;
+        setCurrentEvent(events[nextIndex]);
+        setShow(true);
+      }, duration);
+
+      animationTimer = setTimeout(() => {
+        setShow(false);
+      }, duration - animationDuration);
+    }
+    return function cleanup() {
+      if (timer !== null) {
+        clearInterval(timer);
+      }
+      if (animationTimer !== null) {
+        clearInterval(animationTimer);
+      }
+    };
+  }, [currentEvent]);
+
   /**
    * Setup slide run function.
    */
@@ -68,14 +114,19 @@ function Poster({ slide, content, run, slideDone }) {
     <IntlProvider messages={translations} locale="da" defaultLocale="da">
       <div className="template-poster">
         <div
-          style={{ backgroundImage: `url("${content.image}")` }}
-          className={show ? 'image-area fadeIn' : 'image-area fadeOut'}
+          className="image-area"
+          style={{
+            backgroundImage: `url("${image}")`,
+            ...(show
+              ? { animation: `fade-in ${animationDuration}ms` }
+              : { animation: `fade-out ${animationDuration}ms` })
+          }}
         />
         {/* todo theme color */}
         <div className="header-area" style={{ backgroundColor: 'Azure' }}>
-          <div className="header-area-center">
-            <h1>{content.name}</h1>
-            <p className="lead">{content.excerpt}</p>
+          <div className="center">
+            <h1>{name}</h1>
+            <p className="lead">{excerpt}</p>
           </div>
         </div>
         {/* todo theme color */}
@@ -84,13 +135,13 @@ function Poster({ slide, content, run, slideDone }) {
             <span>
               {singleDayEvent && (
                 <span>
-                  <p className="info-area-date">{capitalize(dayjs(startDate).locale(localeDa).format('LLLL'))}</p>
+                  <p className="date">{capitalize(dayjs(startDate).locale(localeDa).format('LLLL'))}</p>
                 </span>
               )}
               {/* todo if startdate is not equal to enddate */}
               {!singleDayEvent && (
                 <span>
-                  <p className="info-area-date">
+                  <p className="date">
                     {capitalize(dayjs(startDate).locale(localeDa).format('LLLL'))} -{' '}
                     {capitalize(dayjs(endDate).locale(localeDa).format('LLLL'))}
                   </p>
@@ -98,19 +149,20 @@ function Poster({ slide, content, run, slideDone }) {
               )}
             </span>
           )}
-          {content.place && <p className="info-area-place">{content.place.name}</p>}
-          {!content.ticketPriceRange && (
-            <p className="info-area-ticket">
+          {place && <p className="place">{place.name}</p>}
+          {!ticketPriceRange && (
+            <p className="ticket">
               <FormattedMessage id="free" defaultMessage="free" />
             </p>
           )}
-          {content.ticketPriceRange && <p className="info-area-ticket">{content.ticketPriceRange}</p>}
-          {content.readMoreText && content.url && (
-            <p className="info-area-moreinfo">
-              {content.readMoreText} <a href="#">{content.url}</a>
+          {ticketPriceRange && <p className="ticket">{ticketPriceRange}</p>}
+          {/* todo theme color link */}
+          {readMoreText && url && (
+            <p className="moreinfo">
+              {readMoreText} <span className="look-like-link">{url}</span>
             </p>
           )}
-          {content.readMoreText && <p className="info-area-moreinfo">{content.readMoreText}</p>}
+          {readMoreText && !url && <p className="moreinfo">{readMoreText}</p>}
         </div>
       </div>
     </IntlProvider>
@@ -124,23 +176,27 @@ Poster.propTypes = {
     duration: PropTypes.number.isRequired
   }).isRequired,
   content: PropTypes.shape({
-    endDate: PropTypes.string.isRequired,
-    eventStatusText: PropTypes.any,
-    excerpt: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    place: PropTypes.shape({
-      addressLocality: PropTypes.string.isRequired,
-      image: PropTypes.any,
-      name: PropTypes.string.isRequired,
-      postalCode: PropTypes.string.isRequired,
-      streetAddress: PropTypes.string.isRequired,
-      telephone: PropTypes.any
-    }).isRequired,
-    startDate: PropTypes.string.isRequired,
-    ticketPriceRange: PropTypes.string.isRequired,
-    ticketPurchaseUrl: PropTypes.string.isRequired,
-    url: PropTypes.string.isRequired
+    events: PropTypes.arrayOf(
+      PropTypes.shape({
+        endDate: PropTypes.string,
+        eventStatusText: PropTypes.string,
+        excerpt: PropTypes.string,
+        image: PropTypes.string,
+        name: PropTypes.string,
+        place: PropTypes.shape({
+          addressLocality: PropTypes.string,
+          image: PropTypes.string,
+          name: PropTypes.string,
+          postalCode: PropTypes.string,
+          streetAddress: PropTypes.string,
+          telephone: PropTypes.string
+        }),
+        startDate: PropTypes.string,
+        ticketPriceRange: PropTypes.string,
+        ticketPurchaseUrl: PropTypes.string,
+        url: PropTypes.string
+      })
+    )
   }).isRequired
 };
 

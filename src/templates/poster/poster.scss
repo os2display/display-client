@@ -45,17 +45,28 @@ $font-size-p: 1em;
     }
     .moreinfo {
       margin-block-start: 2 * 5;
+
+      span {
+        font-weight: bold;
+      }
     }
   }
 
-  .fadeout {
-    visibility: hidden;
-    opacity: 0;
-    transition: visibility 0s 0.2s, opacity 0.2s ease-in;
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
   }
-  .fadein {
-    visibility: visible;
-    opacity: 1;
-    transition: opacity 0.4s ease-out;
+
+  @keyframes fade-out {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
   }
 }
