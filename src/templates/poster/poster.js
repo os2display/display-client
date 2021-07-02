@@ -1,11 +1,11 @@
 import { React, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './poster.scss';
-import BaseSlideExecution from '../baseSlideExecution';
 import dayjs from 'dayjs';
 import localeDa from 'dayjs/locale/da';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 import { IntlProvider, FormattedMessage } from 'react-intl';
+import BaseSlideExecution from '../baseSlideExecution';
 
 /**
  * Book review component.
@@ -26,20 +26,20 @@ import { IntlProvider, FormattedMessage } from 'react-intl';
 function Poster({ slide, content, run, slideDone }) {
   const [show, setShow] = useState(true);
   const [translations, setTranslations] = useState();
+  const { endDate, startDate } = content;
+  const singleDayEvent = new Date(endDate).toDateString() === new Date(startDate).toDateString();
 
-    /**
+  /**
    * Imports language strings, sets localized formats
    * and sets timer.
    */
-     useEffect(() => {
-      dayjs.extend(localizedFormat);
+  useEffect(() => {
+    dayjs.extend(localizedFormat);
 
-      import('./lang/da.json').then((data) => {
-        setTranslations(data);
-      });
-
-
-    }, []);
+    import('./lang/da.json').then((data) => {
+      setTranslations(data);
+    });
+  }, []);
   /**
    * Setup slide run function.
    */
@@ -52,7 +52,7 @@ function Poster({ slide, content, run, slideDone }) {
     }
   }, [run]);
 
-    /**
+  /**
    * Capitalize the datestring, as it starts with the weekday.
    *
    * @param {string} s
@@ -60,56 +60,62 @@ function Poster({ slide, content, run, slideDone }) {
    * @returns {string}
    *    The capitalized string.
    */
-     const capitalize = (s) => {
-      return s.charAt(0).toUpperCase() + s.slice(1);
-    };
+  const capitalize = (s) => {
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  };
 
   return (
     <IntlProvider messages={translations} locale="da" defaultLocale="da">
-      <div className="template-poster" >
-        <div style={{backgroundImage: `url("${content.image}")` }} className={show ? "image-area fadeIn" : "image-area fadeOut"}>
-      </div>
-      {/* todo theme color */}
-      <div className="header-area" style={{backgroundColor: "Azure"}}>
-        <div className="header-area-center">
-          <h1>{content.name}</h1>
-          <p className="lead">{content.excerpt}</p>
+      <div className="template-poster">
+        <div
+          style={{ backgroundImage: `url("${content.image}")` }}
+          className={show ? 'image-area fadeIn' : 'image-area fadeOut'}
+        />
+        {/* todo theme color */}
+        <div className="header-area" style={{ backgroundColor: 'Azure' }}>
+          <div className="header-area-center">
+            <h1>{content.name}</h1>
+            <p className="lead">{content.excerpt}</p>
+          </div>
+        </div>
+        {/* todo theme color */}
+        <div className="info-area" style={{ backgroundColor: 'Aquamarine' }}>
+          {startDate && endDate && (
+            <span>
+              {singleDayEvent && (
+                <span>
+                  <p className="info-area-date">{capitalize(dayjs(startDate).locale(localeDa).format('LLLL'))}</p>
+                </span>
+              )}
+              {/* todo if startdate is not equal to enddate */}
+              {!singleDayEvent && (
+                <span>
+                  <p className="info-area-date">
+                    {capitalize(dayjs(startDate).locale(localeDa).format('LLLL'))} -{' '}
+                    {capitalize(dayjs(endDate).locale(localeDa).format('LLLL'))}
+                  </p>
+                </span>
+              )}
+            </span>
+          )}
+          {content.place && <p className="info-area-place">{content.place.name}</p>}
+          {!content.ticketPriceRange && (
+            <p className="info-area-ticket">
+              <FormattedMessage id="free" defaultMessage="free" />
+            </p>
+          )}
+          {content.ticketPriceRange && <p className="info-area-ticket">{content.ticketPriceRange}</p>}
+          {content.readMoreText && content.url && (
+            <p className="info-area-moreinfo">
+              {content.readMoreText} <a href="#">{content.url}</a>
+            </p>
+          )}
+          {content.readMoreText && <p className="info-area-moreinfo">{content.readMoreText}</p>}
         </div>
       </div>
-      {/* todo theme color */}
-      <div className="info-area" style={{backgroundColor: "Aquamarine"}}>
-        {content.startDate && content.endDate &&
-          <span>
-            {/* todo if startdate is equal to enddate */}
-            <span>
-              <p className="info-area-date">{capitalize(dayjs(content.startDate).locale(localeDa).format('LLLL'))}</p>
-            </span>
-            {/* todo if startdate is not equal to enddate */}
-            {false &&
-              <span>
-                <p className="info-area-date">{capitalize(dayjs(content.startDate).locale(localeDa).format('LLLL'))} - {capitalize(dayjs(content.endDate).locale(localeDa).format('LLLL'))}</p>
-              </span>
-            }
-          </span>
-        }
-        {content.place &&
-          <p className="info-area-place">{content.place.name}</p>
-        }
-            {!content.ticketPriceRange &&
-          <p className="info-area-ticket"><FormattedMessage id="free" defaultMessage="free" /></p>
-        }
-        {content.ticketPriceRange &&
-          <p className="info-area-ticket">{content.ticketPriceRange}</p>
-        }
-        {content.readMoreText && content.url && <p className="info-area-moreinfo">{content.readMoreText} <a href="#">{content.url}</a></p>}
-        {content.readMoreText && <p className="info-area-moreinfo">{content.readMoreText}</p>}
-      </div>
-
-    </div>
     </IntlProvider>
   );
 }
-
 
 Poster.propTypes = {
   run: PropTypes.bool.isRequired,
@@ -135,7 +141,7 @@ Poster.propTypes = {
     ticketPriceRange: PropTypes.string.isRequired,
     ticketPurchaseUrl: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired
-  }).isRequired,
+  }).isRequired
 };
 
 export default Poster;
