@@ -111,6 +111,10 @@ function DebugBar() {
       key: 'debug-bar-fixture-20',
       title: 'poster with 2 events',
       file: './fixtures/poster/poster2.json'
+    }, {
+      key: 'debug-bar-fixture-21',
+      title: 'sparkle',
+      file: './fixtures/sparkle/sparkle1.json'
     }
   ];
 

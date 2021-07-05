@@ -7,6 +7,7 @@ import BookReview from './templates/book-review/book-review';
 import Quote from './templates/quote/quote';
 import MeetingRoomSchedule from './templates/meeting-room-schedule/meeting-room-schedule';
 import Poster from './templates/poster/poster';
+import Sparkle from './templates/sparkle/sparkle';
 import Transition from './transition';
 import './slide.scss';
 
@@ -47,6 +48,8 @@ function Slide({ slide, id, run, slideDone, isNextSlide, prevSlideDuration }) {
     slideComponent = <Quote slide={slide} content={slide.content} run={run} slideDone={slideDone} />;
   } else if (slide.template === 'template-poster') {
     slideComponent = <Poster slide={slide} content={slide.content} run={run} slideDone={slideDone} />;
+  }  else if (slide.template === 'template-sparkle') {
+    slideComponent = <Sparkle slide={slide} content={slide.content} run={run} slideDone={slideDone} />;
   } else {
     slideComponent = <>Unknown template</>;
   }
