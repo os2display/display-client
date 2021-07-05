@@ -3,5 +3,6 @@ describe('Setup data sync', () => {
     cy.visit('/');
     cy.get('#startDataSync').click();
     cy.contains('Slide 1');
+    cy.contains('Slide 3');
   });
 });
