@@ -4,40 +4,40 @@
   margin: 0;
   padding: 0;
 
-	/* Activate grid layout */
-	display: grid;
+  /* Activate grid layout */
+  display: grid;
   grid-template-columns: 33.334% 33.33% 33.33%;
-  grid-template-rows:33.334% 33.33% 33.33%;
+  grid-template-rows: 33.334% 33.33% 33.33%;
   grid-template-areas:
     'a b c'
     'd e f'
     'g h i';
 
-    .a {
-      grid-area: a;
-    }
-    .b {
-      grid-area: b;
-    }
-    .c {
-      grid-area: c;
-    }
-    .d {
-      grid-area: d;
-    }
-    .e {
-      grid-area: e;
-    }
-    .f {
-      grid-area: f;
-    }
-    .g {
-      grid-area: g;
-    }
-    .h {
-      grid-area: h;
-    }
-    .i {
-      grid-area: i;
-    }
+  .a {
+    grid-area: a;
+  }
+  .b {
+    grid-area: b;
+  }
+  .c {
+    grid-area: c;
+  }
+  .d {
+    grid-area: d;
+  }
+  .e {
+    grid-area: e;
+  }
+  .f {
+    grid-area: f;
+  }
+  .g {
+    grid-area: g;
+  }
+  .h {
+    grid-area: h;
+  }
+  .i {
+    grid-area: i;
+  }
 }
