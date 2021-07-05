@@ -3,10 +3,20 @@
   "regions": [
     {
       "id": "region1",
+      "grid": ["b","c","e","f","h","i"],
       "playlists": [
         {
           "id": "uniquePlaylist1",
           "url": "./fixtures/playlist1.json"
+        }
+      ]
+    },{
+      "id": "region2",
+      "grid": ["a","d","g"],
+      "playlists": [
+        {
+          "id": "uniquePlaylist2",
+          "url": "./fixtures/playlist2.json"
         }
       ]
     }

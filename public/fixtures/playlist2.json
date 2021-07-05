@@ -3,14 +3,14 @@
   "title": "Playlist 2",
   "slides": [
     {
-      "weight": 3,
-      "id": "uniqueSlide3",
-      "url": "./fixtures/image-text/slide3.json"
+      "weight": 1,
+      "id": "textBox1",
+      "url": "./fixtures/image-text/slide1.json"
     },
     {
-      "weight": 4,
-      "id": "uniqueSlide4",
-      "url": "./fixtures/image-text/slide4.json"
+      "weight": 2,
+      "id": "textBox2",
+      "url": "./fixtures/image-text/slide2.json"
     }
   ]
 }

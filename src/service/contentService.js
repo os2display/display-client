@@ -107,7 +107,7 @@ class ContentService {
     } else {
       Logger.log('info', 'Screen has not changed. Not emitting screen.');
 
-      data.screen.regions.forEach((region) => this.scheduleService.updateRegion(region));
+      // data.screen.regions.forEach((region) => this.scheduleService.updateRegion(region));
     }
   }
 

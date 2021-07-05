@@ -17,6 +17,8 @@ function Region({ region }) {
   const [slides, setSlides] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(null);
   const [nextSlide, setNextSlide] = useState(null);
+  const rootStyle = {};
+  rootStyle.gridArea = createGridArea(region.grid);
 
   /**
    * Find the slide after the slide with the fromId.
@@ -32,6 +34,14 @@ function Region({ region }) {
     return slide;
   }
 
+  function createGridArea(grid) {
+    if (grid) {
+      const lastGridCharacter = grid[grid.length - 1];
+      const firstGridCharacter = grid[0];
+      return `${firstGridCharacter} / ${firstGridCharacter} / ${lastGridCharacter} / ${lastGridCharacter}`;
+    }
+    return "a / a / i / i"
+  }
   /**
    * @param {object} slide
    *   The slide.
@@ -103,7 +113,7 @@ function Region({ region }) {
   }, [slides]);
 
   return (
-    <div className="Region">
+    <div className="Region" style={rootStyle}>
       {slides &&
         currentSlide &&
         slides.map((slide) => (
