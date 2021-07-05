@@ -1,0 +1,23 @@
+{
+  "id": "uniqueSparkle1",
+  "title": "Sparkle 1",
+  "template": "template-sparkle",
+  "duration": 30000,
+  "content": {
+    "hashtagText": "",
+    "orientation": "landscape",
+    "imageWidth": 56.25,
+    "duration": 10000,
+    "selectedFeed": 27626,
+    "data": [
+      {
+        "text": "I onsdags blev det annonceret at Metallica kommer til Copenhell 2022. Det fejrer vi med Metallicas måske bedste album - nemlig Master of Puppets fra 1986, der desværre også blev sidste album med den legendariske bassist Cliff Burton, der omkom i en busulykke senere samme år.\n \n #aarhusbibliotekerne #biblioteket #påbiblioteket #biblioteketanbefaler #komoglån #metallica #masterofpuppets #thrashmetal #cliffburton #musicmonday",
+        "textMarkup": "I onsdags blev det annonceret at Metallica kommer til Copenhell 2022. Det fejrer vi med Metallicas måske bedste album - nemlig Master of Puppets fra 1986, der desværre også blev sidste album med den legendariske bassist Cliff Burton, der omkom i en busulykke senere samme år.\n#aarhusbibliotekerne #biblioteket #påbiblioteket #biblioteketanbefaler #komoglån #metallica #masterofpuppets #thrashmetal #cliffburton #musicmonday",
+        "mediaUrl": "https://scontent-arn2-1.cdninstagram.com/v/t51.29350-15/205017008_2871672159816157_3639431227563430033_n.jpg?_nc_cat=109&ccb=1-3&_nc_sid=8ae9d6&_nc_ohc=Bu5Q235CIDcAX9kwkSy&_nc_ht=scontent-arn2-1.cdninstagram.com&oh=64b444fd80f49d143815050f34231e2d&oe=60D49076",
+        "videoUrl": null,
+        "username": "aarhusbibliotekerne",
+        "createdTime": "2021-06-21T10:13:30"
+      }
+    ]
+  }
+}
