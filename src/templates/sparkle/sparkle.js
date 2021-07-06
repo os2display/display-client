@@ -98,13 +98,13 @@ function Sparkle({ slide, content, run, slideDone }) {
           <p>{text}</p>
           <p>{dayjs(createdTime).locale(localeDa).fromNow()}</p>
         </div>
+        <div className="sparkle-background--shape">
+          <Shape style={{ fill: 'black' }}></Shape>
+        </div>
         <div className="sparkle-brand">
           {/* todo make this themeable */}
           <InstagramLogo className="sparkle-brand-insta-icon" style={{ fill: 'white' }} />
           <span style={{ color: 'red' }} className="sparkle-brand-insta-tag">{hashtagText}</span>
-        </div>
-        <div className="sparkle-background--shape">
-          <Shape style={{ fill: 'black' }}></Shape>
         </div>
       </div>
     </>

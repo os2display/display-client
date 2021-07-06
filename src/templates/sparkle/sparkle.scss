@@ -53,7 +53,6 @@
 .sparkle-info-section {
   height: 100%;
   text-align: left;
-  z-index: 1;
 }
 
 .sparkle-info-section--inner {
@@ -86,7 +85,6 @@ h1 {
   position: absolute;
   bottom: 3.5%;
   right: 0;
-  z-index: 2;
   width: 56.75%;
 }
 
@@ -107,7 +105,7 @@ h1 {
   bottom: 0;
   right: 0;
   width: 56.25%;
-  z-index: 1;
+  display: flex;
 }
 
 .sparkle--video-player {
