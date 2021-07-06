@@ -1,12 +1,12 @@
 import { React, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import BaseSlideExecution from '../baseSlideExecution';
-import { ReactComponent as InstagramLogo } from './instagram-logo.svg';
-import { ReactComponent as Shape } from './shape.svg';
 import dayjs from 'dayjs';
 import localeDa from 'dayjs/locale/da';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
+import { ReactComponent as Shape } from './shape.svg';
+import { ReactComponent as InstagramLogo } from './instagram-logo.svg';
+import BaseSlideExecution from '../baseSlideExecution';
 import './sparkle.scss';
 
 /**
@@ -32,13 +32,12 @@ function Sparkle({ slide, content, run, slideDone }) {
   // Props from content and post.
   const { text, textMarkup, mediaUrl, username, createdTime, videoUrl } = currentPost;
   let { duration, hashtagText, imageWidth } = content;
-  duration = duration ? duration : 15000;
-  imageWidth = imageWidth ? imageWidth : 56.25;
+  duration = duration || 15000;
+  imageWidth = imageWidth || 56.25;
 
   dayjs.extend(localizedFormat);
-  dayjs.extend(relativeTime)
+  dayjs.extend(relativeTime);
   // console.log(dayjs().from(dayjs('1990-01-01')))
-
 
   const [show, setShow] = useState(true);
   const animationDuration = 1500;
@@ -80,37 +79,44 @@ function Sparkle({ slide, content, run, slideDone }) {
   return (
     <>
       <div className={show ? 'template-sparkle show' : 'template-sparkle hide'}>
-
-        {!videoUrl && <div className="image" style={{
-          backgroundImage: `url("${mediaUrl}")`,
-          width: `${imageWidth}%`,
-          ...(show
-            ? { animation: `fade-in ${animationDuration}ms` }
-            : { animation: `fade-out ${animationDuration}ms` })
-        }}></div>}
-        {videoUrl && <div style={{ width: `${imageWidth}%` }} class="sparkle--video-player-container">
-          <video muted="muted" autoplay="autoplay">
-            <source src={videoUrl} type="video/mp4" />
-          </video>
-        </div>}
-        <div className="sparkle-author-section" style={{ width: `${100 - imageWidth}%` }}>
+        {!videoUrl && (
+          <div
+            className="image"
+            style={{
+              backgroundImage: `url("${mediaUrl}")`,
+              width: `${imageWidth}%`,
+              ...(show
+                ? { animation: `fade-in ${animationDuration}ms` }
+                : { animation: `fade-out ${animationDuration}ms` })
+            }}
+          />
+        )}
+        {videoUrl && (
+          <div style={{ width: `${imageWidth}%` }} className="video-container">
+            <video muted="muted" autoPlay="autoplay">
+              <source src={videoUrl} type="video/mp4" />
+            </video>
+          </div>
+        )}
+        <div className="author-section" style={{ width: `${100 - imageWidth}%` }}>
           <h1>{username}</h1>
           <p>{text}</p>
           <p>{dayjs(createdTime).locale(localeDa).fromNow()}</p>
         </div>
-        <div className="sparkle-background--shape">
-          <Shape style={{ fill: 'black' }}></Shape>
+        <div className="shape">
+          <Shape style={{ fill: 'black' }} />
         </div>
-        <div className="sparkle-brand">
+        <div className="brand">
           {/* todo make this themeable */}
-          <InstagramLogo className="sparkle-brand-insta-icon" style={{ fill: 'white' }} />
-          <span style={{ color: 'red' }} className="sparkle-brand-insta-tag">{hashtagText}</span>
+          <InstagramLogo className="brand-icon" style={{ fill: 'white' }} />
+          <span style={{ color: 'red' }} className="brand-tag">
+            {hashtagText}
+          </span>
         </div>
       </div>
     </>
   );
 }
-
 
 Sparkle.propTypes = {
   run: PropTypes.bool.isRequired,
@@ -119,7 +125,7 @@ Sparkle.propTypes = {
     duration: PropTypes.number.isRequired
   }).isRequired,
   content: PropTypes.shape({
-    posts: PropTypes.arrayOf(PropTypes.shape({ quote: PropTypes.string, author: PropTypes.string })),
+    posts: PropTypes.arrayOf(PropTypes.shape({ quote: PropTypes.string, author: PropTypes.string }))
   }).isRequired
 };
 

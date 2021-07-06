@@ -48,7 +48,7 @@ function Slide({ slide, id, run, slideDone, isNextSlide, prevSlideDuration }) {
     slideComponent = <Quote slide={slide} content={slide.content} run={run} slideDone={slideDone} />;
   } else if (slide.template === 'template-poster') {
     slideComponent = <Poster slide={slide} content={slide.content} run={run} slideDone={slideDone} />;
-  }  else if (slide.template === 'template-sparkle') {
+  } else if (slide.template === 'template-sparkle') {
     slideComponent = <Sparkle slide={slide} content={slide.content} run={run} slideDone={slideDone} />;
   } else {
     slideComponent = <>Unknown template</>;
