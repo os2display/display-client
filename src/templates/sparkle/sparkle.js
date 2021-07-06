@@ -30,10 +30,10 @@ function Sparkle({ slide, content, run, slideDone }) {
   const [first] = posts;
   const [currentPost, setCurrentPost] = useState(first);
   // Props from content and post.
-  const { text, textMarkup, mediaUrl, userName, createdTime, videoUrl } = currentPost;
+  const { text, textMarkup, mediaUrl, username, createdTime, videoUrl } = currentPost;
   let { duration, hashtagText, imageWidth } = content;
   duration = duration ? duration : 15000;
-  imageWidth = imageWidth ? imageWidth : 55;
+  imageWidth = imageWidth ? imageWidth : 56.25;
 
   dayjs.extend(localizedFormat);
   dayjs.extend(relativeTime)
@@ -81,30 +81,31 @@ function Sparkle({ slide, content, run, slideDone }) {
     <>
       <div className={show ? 'template-sparkle show' : 'template-sparkle hide'}>
 
-        <div className="image" style={{
+        {!videoUrl && <div className="image" style={{
           backgroundImage: `url("${mediaUrl}")`,
           width: `${imageWidth}%`,
           ...(show
             ? { animation: `fade-in ${animationDuration}ms` }
             : { animation: `fade-out ${animationDuration}ms` })
-        }}></div>
-          <div className="sparkle-section sparkle-info-section">
-            <div className="sparkle-info-section--inner">
-              <div className="sparkle-author-section">
-                <span className="sparkle-author">{userName}</span>
-                <span className="sparkle-date">{dayjs(createdTime).locale(localeDa).fromNow()}</span>
-              </div>
-              <div className="sparkle-text-section">{textMarkup}</div>
-            </div>
-          </div>
-          <div className="sparkle-brand">
-            {/* todo make this themeable */}
-            <InstagramLogo className="sparkle-brand-insta-icon" style={{ fill: 'white' }} />
-            <span className="sparkle-brand-insta-tag">{hashtagText}</span>
-          </div>
-          <div className="sparkle-background--shape">
-            <Shape style={{ fill: 'black' }}></Shape>
-          </div>
+        }}></div>}
+        {videoUrl && <div style={{ width: `${imageWidth}%` }} class="sparkle--video-player-container">
+          <video muted="muted" autoplay="autoplay">
+            <source src={videoUrl} type="video/mp4" />
+          </video>
+        </div>}
+        <div className="sparkle-author-section" style={{ width: `${100 - imageWidth}%` }}>
+          <h1>{username}</h1>
+          <p>{text}</p>
+          <p>{dayjs(createdTime).locale(localeDa).fromNow()}</p>
+        </div>
+        <div className="sparkle-brand">
+          {/* todo make this themeable */}
+          <InstagramLogo className="sparkle-brand-insta-icon" style={{ fill: 'white' }} />
+          <span style={{ color: 'red' }} className="sparkle-brand-insta-tag">{hashtagText}</span>
+        </div>
+        <div className="sparkle-background--shape">
+          <Shape style={{ fill: 'black' }}></Shape>
+        </div>
       </div>
     </>
   );

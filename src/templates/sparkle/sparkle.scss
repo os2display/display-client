@@ -1,20 +1,35 @@
 .template-sparkle {
   height: 100%;
   width: 100%;
-  display: block;
+  display: flex;
+
   .image {
     height: 100%;
     background-size: cover;
     background-position: center center;
   }
 
-  &.hide {
-    transition: 1.5s;
-    bottom: -100%;
+  p {
+    font-size: 2.25em;
+    line-height: 1.5;
   }
-  &.show {
-    transition: 1.5s;
-    bottom: 95%;
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeOut {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
   }
 }
 
@@ -45,15 +60,12 @@
   padding: 3em 5em;
 }
 
-.sparkle-text-section {
-  font-size: 2.25em;
-  line-height: 1.5;
-}
+
 
 .sparkle-author-section {
   margin-bottom: 1.5em;
   width: 100%;
-
+  margin: 2% 3%;
   overflow-wrap: break-word;
   word-wrap: break-word;
   -webkit-hyphens: auto;
@@ -62,18 +74,9 @@
   hyphens: auto;
 }
 
-.sparkle-author {
+h1 {
   font-size: 4em;
   font-weight: bold;
-}
-
-.sparkle-date {
-  font-size: 2.25em;
-  padding-left: 0.5em;
-}
-
-.sparkle .tags {
-  margin-top: 1em;
 }
 
 .sparkle-brand {
@@ -95,7 +98,6 @@
 
 .sparkle-brand-insta-tag {
   font-size: 2.5em;
-  color: #858585;
   line-height: 1;
   padding-top: 0.15em;
 }
@@ -132,4 +134,9 @@
 
 .sparkle-landscape .sparkle-section {
   float: left;
+}
+
+video{
+height: 100%;
+width: 100%;
 }
