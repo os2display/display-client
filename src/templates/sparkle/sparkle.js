@@ -4,6 +4,8 @@ import dayjs from 'dayjs';
 import localeDa from 'dayjs/locale/da';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
+import parse from 'html-react-parser';
+import DOMPurify from 'dompurify';
 import { ReactComponent as Shape } from './shape.svg';
 import { ReactComponent as InstagramLogo } from './instagram-logo.svg';
 import BaseSlideExecution from '../baseSlideExecution';
@@ -30,10 +32,12 @@ function Sparkle({ slide, content, run, slideDone }) {
   const [first] = posts;
   const [currentPost, setCurrentPost] = useState(first);
   // Props from content and post.
-  const { text, textMarkup, mediaUrl, username, createdTime, videoUrl } = currentPost;
-  let { duration, hashtagText, imageWidth } = content;
+  const { textMarkup, mediaUrl, username, createdTime, videoUrl } = currentPost;
+  let { duration, imageWidth } = content;
+  const { hashtagText } = content;
   duration = duration || 15000;
   imageWidth = imageWidth || 56.25;
+  const sanitizedTextMarkup = DOMPurify.sanitize(textMarkup);
 
   dayjs.extend(localizedFormat);
   dayjs.extend(relativeTime);
@@ -100,7 +104,7 @@ function Sparkle({ slide, content, run, slideDone }) {
         )}
         <div className="author-section" style={{ width: `${100 - imageWidth}%` }}>
           <h1>{username}</h1>
-          <p>{text}</p>
+          <p>{parse(sanitizedTextMarkup)}</p>
           <p>{dayjs(createdTime).locale(localeDa).fromNow()}</p>
         </div>
         <div className="shape">
@@ -125,6 +129,9 @@ Sparkle.propTypes = {
     duration: PropTypes.number.isRequired
   }).isRequired,
   content: PropTypes.shape({
+    hashtagText: PropTypes.string,
+    imageWidth: PropTypes.number,
+    duration: PropTypes.number,
     posts: PropTypes.arrayOf(PropTypes.shape({ quote: PropTypes.string, author: PropTypes.string }))
   }).isRequired
 };
