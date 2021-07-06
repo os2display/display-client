@@ -1,5 +1,12 @@
-import { React } from 'react';
+import { React, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import BaseSlideExecution from '../baseSlideExecution';
+import { ReactComponent as InstagramLogo } from './instagram-logo.svg';
+import { ReactComponent as Shape } from './shape.svg';
+import dayjs from 'dayjs';
+import localeDa from 'dayjs/locale/da';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import localizedFormat from 'dayjs/plugin/localizedFormat';
 import './sparkle.scss';
 
 /**
@@ -19,12 +26,87 @@ import './sparkle.scss';
  *   The component.
  */
 function Sparkle({ slide, content, run, slideDone }) {
+  const { posts } = content;
+  const [first] = posts;
+  const [currentPost, setCurrentPost] = useState(first);
+  // Props from content and post.
+  const { text, textMarkup, mediaUrl, userName, createdTime, videoUrl } = currentPost;
+  let { duration, hashtagText, imageWidth } = content;
+  duration = duration ? duration : 15000;
+  imageWidth = imageWidth ? imageWidth : 55;
 
+  dayjs.extend(localizedFormat);
+  dayjs.extend(relativeTime)
+  // console.log(dayjs().from(dayjs('1990-01-01')))
+
+
+  const [show, setShow] = useState(true);
+  const animationDuration = 1500;
+
+  /**
+   * Setup slide run function.
+   */
+  const slideExecution = new BaseSlideExecution(slide, slideDone);
+  useEffect(() => {
+    if (run) {
+      slideExecution.start(slide.duration);
+    } else {
+      slideExecution.stop();
+    }
+  }, [run]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const currentIndex = posts.indexOf(currentPost);
+      const nextIndex = (currentIndex + 1) % posts.length;
+      setCurrentPost(posts[nextIndex]);
+      setShow(true);
+    }, duration);
+
+    const animationTimer = setTimeout(() => {
+      setShow(false);
+    }, duration - animationDuration);
+
+    return function cleanup() {
+      if (timer !== null) {
+        clearInterval(timer);
+      }
+      if (animationTimer !== null) {
+        clearInterval(animationTimer);
+      }
+    };
+  }, [currentPost]);
 
   return (
-    <div className="template-sparkle">
-     Sparkle!
-    </div>
+    <>
+      <div className={show ? 'template-sparkle show' : 'template-sparkle hide'}>
+
+        <div className="image" style={{
+          backgroundImage: `url("${mediaUrl}")`,
+          width: `${imageWidth}%`,
+          ...(show
+            ? { animation: `fade-in ${animationDuration}ms` }
+            : { animation: `fade-out ${animationDuration}ms` })
+        }}></div>
+          <div className="sparkle-section sparkle-info-section">
+            <div className="sparkle-info-section--inner">
+              <div className="sparkle-author-section">
+                <span className="sparkle-author">{userName}</span>
+                <span className="sparkle-date">{dayjs(createdTime).locale(localeDa).fromNow()}</span>
+              </div>
+              <div className="sparkle-text-section">{textMarkup}</div>
+            </div>
+          </div>
+          <div className="sparkle-brand">
+            {/* todo make this themeable */}
+            <InstagramLogo className="sparkle-brand-insta-icon" style={{ fill: 'white' }} />
+            <span className="sparkle-brand-insta-tag">{hashtagText}</span>
+          </div>
+          <div className="sparkle-background--shape">
+            <Shape style={{ fill: 'black' }}></Shape>
+          </div>
+      </div>
+    </>
   );
 }
 
@@ -36,6 +118,7 @@ Sparkle.propTypes = {
     duration: PropTypes.number.isRequired
   }).isRequired,
   content: PropTypes.shape({
+    posts: PropTypes.arrayOf(PropTypes.shape({ quote: PropTypes.string, author: PropTypes.string })),
   }).isRequired
 };
 

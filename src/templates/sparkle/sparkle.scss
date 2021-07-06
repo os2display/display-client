@@ -1,3 +1,135 @@
 .template-sparkle {
+  height: 100%;
+  width: 100%;
+  display: block;
+  .image {
+    height: 100%;
+    background-size: cover;
+    background-position: center center;
+  }
 
+  &.hide {
+    transition: 1.5s;
+    bottom: -100%;
+  }
+  &.show {
+    transition: 1.5s;
+    bottom: 95%;
+  }
+}
+
+.sparkle {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  color: #000;
+  position: relative;
+}
+
+.sparkle-wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.sparkle-section {
+  height: 100%;
+}
+
+.sparkle-info-section {
+  height: 100%;
+  text-align: left;
+  z-index: 1;
+}
+
+.sparkle-info-section--inner {
+  padding: 3em 5em;
+}
+
+.sparkle-text-section {
+  font-size: 2.25em;
+  line-height: 1.5;
+}
+
+.sparkle-author-section {
+  margin-bottom: 1.5em;
+  width: 100%;
+
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
+}
+
+.sparkle-author {
+  font-size: 4em;
+  font-weight: bold;
+}
+
+.sparkle-date {
+  font-size: 2.25em;
+  padding-left: 0.5em;
+}
+
+.sparkle .tags {
+  margin-top: 1em;
+}
+
+.sparkle-brand {
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  position: absolute;
+  bottom: 3.5%;
+  right: 0;
+  z-index: 2;
+  width: 56.75%;
+}
+
+.sparkle-brand-insta-icon {
+  display: inline-block;
+  width: 5%;
+  margin-right: 1em;
+}
+
+.sparkle-brand-insta-tag {
+  font-size: 2.5em;
+  color: #858585;
+  line-height: 1;
+  padding-top: 0.15em;
+}
+
+.sparkle-background--shape {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 56.25%;
+  z-index: 1;
+}
+
+.sparkle--video-player {
+  object-fit: cover;
+  object-position: center center;
+  width: 100%;
+  height: 100%;
+}
+
+.sparkle--video-player-container {
+  width: auto;
+  height: 100%;
+  overflow: hidden;
+}
+
+.sparkle-portrait .sparkle-background--shape {
+  width: 100%;
+}
+
+.sparkle-portrait .sparkle-brand {
+  width: 100%;
+  bottom: 2.5%;
+}
+
+.sparkle-landscape .sparkle-section {
+  float: left;
 }

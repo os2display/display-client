@@ -4,8 +4,8 @@
   "template": "template-sparkle",
   "duration": 30000,
   "content": {
-    "hashtagText": "dadaada",
-    "orientation": "landscape",
+    "hashtagText": "",
+    "orientation": "horizontal",
     "imageWidth": 56.25,
     "duration": 10000,
     "selectedFeed": 27626,
@@ -13,7 +13,15 @@
       {
         "text": "I onsdags blev det annonceret at Metallica kommer til Copenhell 2022. Det fejrer vi med Metallicas måske bedste album - nemlig Master of Puppets fra 1986, der desværre også blev sidste album med den legendariske bassist Cliff Burton, der omkom i en busulykke senere samme år.\n \n #aarhusbibliotekerne #biblioteket #påbiblioteket #biblioteketanbefaler #komoglån #metallica #masterofpuppets #thrashmetal #cliffburton #musicmonday",
         "textMarkup": "I onsdags blev det annonceret at Metallica kommer til Copenhell 2022. Det fejrer vi med Metallicas måske bedste album - nemlig Master of Puppets fra 1986, der desværre også blev sidste album med den legendariske bassist Cliff Burton, der omkom i en busulykke senere samme år.\n#aarhusbibliotekerne #biblioteket #påbiblioteket #biblioteketanbefaler #komoglån #metallica #masterofpuppets #thrashmetal #cliffburton #musicmonday",
-        "mediaUrl": "./fixtures/images/mountain3.jpeg",
+        "mediaUrl": "./fixtures/images/mountain1.jpeg",
+        "videoUrl": null,
+        "username": "aarhusbibliotekerne",
+        "createdTime": "2021-06-21T10:13:30"
+      },
+      {
+        "text": "I onsdags blev det annonceret at Metallica kommer til Copenhell 2022. Det fejrer vi med Metallicas måske bedste album - nemlig Master of Puppets fra 1986, der desværre også blev sidste album med den legendariske bassist Cliff Burton, der omkom i en busulykke senere samme år.\n \n #aarhusbibliotekerne #biblioteket #påbiblioteket #biblioteketanbefaler #komoglån #metallica #masterofpuppets #thrashmetal #cliffburton #musicmonday",
+        "textMarkup": "I onsdags blev det annonceret at Metallica kommer til Copenhell 2022. Det fejrer vi med Metallicas måske bedste album - nemlig Master of Puppets fra 1986, der desværre også blev sidste album med den legendariske bassist Cliff Burton, der omkom i en busulykke senere samme år.\n#aarhusbibliotekerne #biblioteket #påbiblioteket #biblioteketanbefaler #komoglån #metallica #masterofpuppets #thrashmetal #cliffburton #musicmonday",
+        "mediaUrl": "./fixtures/images/mountain2.jpeg",
         "videoUrl": null,
         "username": "aarhusbibliotekerne",
         "createdTime": "2021-06-21T10:13:30"

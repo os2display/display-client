@@ -115,6 +115,11 @@ function DebugBar() {
       key: 'debug-bar-fixture-21',
       title: 'sparkle',
       file: './fixtures/sparkle/sparkle1.json'
+    },
+    {
+      key: 'debug-bar-fixture-22',
+      title: 'sparkle more posts',
+      file: './fixtures/sparkle/sparkle2.json'
     }
   ];
 
