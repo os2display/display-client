@@ -61,7 +61,7 @@ function Sparkle({ slide, content, run, slideDone }) {
   }, [run]);
 
   /**
-   * Setup event switch and animation, if there is more than one post.
+   * Setup post switch and animation, if there is more than one post.
    */
   useEffect(() => {
     const timer = setTimeout(() => {
