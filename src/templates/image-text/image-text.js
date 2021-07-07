@@ -84,7 +84,7 @@ function ImageText({ slide, content, run, slideDone }) {
 
   return (
     <div className={rootClasses} style={rootStyle}>
-      {title &&
+      {title && (
         <div className={boxClasses} style={imageTextStyle}>
           {title && (
             <h1>
@@ -95,7 +95,7 @@ function ImageText({ slide, content, run, slideDone }) {
           )}
           {text && <div className="text">{text}</div>}
         </div>
-      }
+      )}
     </div>
   );
 }
