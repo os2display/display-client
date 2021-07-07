@@ -48,7 +48,7 @@ function Region({ region }) {
     return 'a / a / i / i';
   }
 
-  rootStyle.gridArea = createGridArea(region.grid);
+  rootStyle.gridArea = createGridArea(region.gridArea);
 
   /**
    * @param {object} slide
@@ -142,7 +142,7 @@ function Region({ region }) {
 Region.propTypes = {
   region: PropTypes.shape({
     id: PropTypes.string.isRequired,
-    grid: PropTypes.arrayOf(PropTypes.string.isRequired)
+    gridArea: PropTypes.arrayOf(PropTypes.string.isRequired)
   }).isRequired
 };
 

@@ -1,18 +1,29 @@
 {
   "title": "Screen 1",
+  "grid": {
+    "rows": 2,
+    "columns": 2
+  },
   "regions": [
     {
       "id": "region1",
-      "grid": ["b","c","e","f","h","i"],
+      "gridArea": [
+        "a",
+        "b"
+      ],
       "playlists": [
         {
           "id": "uniquePlaylist1",
           "url": "./fixtures/playlist1.json"
         }
       ]
-    },{
+    },
+    {
       "id": "region2",
-      "grid": ["a","d","g"],
+      "gridArea": [
+        "c",
+        "d"
+      ],
       "playlists": [
         {
           "id": "uniquePlaylist2",
