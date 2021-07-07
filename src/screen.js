@@ -14,6 +14,7 @@ import './screen.scss';
  *   The component.
  */
 function Screen({ screen }) {
+  // TODO, find a more elegant solution for grid layout.
   const alphabet = [
     'a',
     'b',
