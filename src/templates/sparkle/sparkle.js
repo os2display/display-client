@@ -12,7 +12,7 @@ import BaseSlideExecution from '../baseSlideExecution';
 import './sparkle.scss';
 
 /**
- * Book review component.
+ * Sparkle component.
  *
  * @param {object} props
  *   Props.
