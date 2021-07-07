@@ -1,17 +1,21 @@
 {
-  "id": "textBox2",
+  "id": "imageText2",
   "title": "Slide 2",
   "template": "template-image-text",
   "duration": 15000,
   "content": {
     "title": "Slide 2",
     "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-    "media": [
-      {
-        "id": "uniqueMedia2",
-        "url": "./fixtures/images/mountain2.jpeg"
-      }
-    ],
-    "boxAlign": "left"
+    "media": {
+      "id": "uniqueMedia2",
+      "url": "./fixtures/images/mountain2.jpeg"
+    },
+    "styling": {
+      "boxAlign": "left",
+      "boxMargin": false,
+      "separator": false,
+      "halfSize": false,
+      "reversed": false
+    }
   }
 }

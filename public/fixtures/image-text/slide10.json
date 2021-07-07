@@ -1,20 +1,20 @@
 {
-  "id": "imageText3",
-  "title": "Slide 3",
+  "id": "imageText10",
+  "title": "Slide 10 margin and separator",
   "template": "template-image-text",
-  "duration": 15000,
+  "duration": 4000,
   "content": {
-    "title": "Slide 3",
+    "title": "Slide 10",
     "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
     "media": {
-      "id": "uniqueMedia3",
-      "url": "./fixtures/images/mountain3.jpeg"
+      "id": "uniqueMedia1",
+      "url": "./fixtures/images/mountain4.jpeg"
     },
     "styling": {
-      "boxAlign": "right",
-      "boxMargin": false,
-      "separator": false,
-      "halfSize": false,
+      "boxAlign": "top",
+      "boxMargin": true,
+      "separator": true,
+      "halfSize": true,
       "reversed": false
     }
   }

@@ -1,21 +1,22 @@
 {
-  "id": "imageText3",
-  "title": "Slide 3",
+  "id": "imageText7",
+  "title": "Slide 7 fontsize m",
   "template": "template-image-text",
-  "duration": 15000,
+  "duration": 4000,
   "content": {
-    "title": "Slide 3",
+    "title": "Slide 7",
     "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
     "media": {
-      "id": "uniqueMedia3",
-      "url": "./fixtures/images/mountain3.jpeg"
+      "id": "uniqueMedia1",
+      "url": "./fixtures/images/mountain2.jpeg"
     },
     "styling": {
-      "boxAlign": "right",
+      "boxAlign": "top",
       "boxMargin": false,
       "separator": false,
       "halfSize": false,
-      "reversed": false
+      "reversed": false,
+      "fontSize": "m"
     }
   }
 }
