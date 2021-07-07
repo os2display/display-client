@@ -28,21 +28,23 @@ import './sparkle.scss';
  *   The component.
  */
 function Sparkle({ slide, content, run, slideDone }) {
+  dayjs.extend(localizedFormat);
+  dayjs.extend(relativeTime);
+
+  // Posts
   const { posts } = content;
   const [first] = posts;
   const [currentPost, setCurrentPost] = useState(first);
+
   // Props from content and post.
   const { textMarkup, mediaUrl, username, createdTime, videoUrl } = currentPost;
   let { duration, imageWidth } = content;
   const { hashtagText } = content;
-  duration = duration || 15000;
-  imageWidth = imageWidth || 56.25;
+  duration = duration || 15000; // Add a default
+  imageWidth = imageWidth || 56.25; // Add a default
   const sanitizedTextMarkup = DOMPurify.sanitize(textMarkup);
 
-  dayjs.extend(localizedFormat);
-  dayjs.extend(relativeTime);
-  // console.log(dayjs().from(dayjs('1990-01-01')))
-
+  // Animation
   const [show, setShow] = useState(true);
   const animationDuration = 1500;
 
@@ -58,6 +60,9 @@ function Sparkle({ slide, content, run, slideDone }) {
     }
   }, [run]);
 
+  /**
+   * Setup event switch and animation, if there is more than one post.
+   */
   useEffect(() => {
     const timer = setTimeout(() => {
       const currentIndex = posts.indexOf(currentPost);
