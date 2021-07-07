@@ -1,15 +1,15 @@
 {
   "title": "Screen 1",
   "grid": {
-    "rows": 2,
-    "columns": 2
+    "rows": 4,
+    "columns": 12
   },
   "regions": [
     {
       "id": "region1",
       "gridArea": [
         "a",
-        "b"
+        "d"
       ],
       "playlists": [
         {
@@ -21,13 +21,65 @@
     {
       "id": "region2",
       "gridArea": [
-        "c",
-        "d"
+        "e",
+        "m"
       ],
       "playlists": [
         {
           "id": "uniquePlaylist2",
           "url": "./fixtures/playlist2.json"
+        }
+      ]
+    },
+    {
+      "id": "region3",
+      "gridArea": [
+        "q",
+        "z"
+      ],
+      "playlists": [
+        {
+          "id": "uniquePlaylist3",
+          "url": "./fixtures/playlist3.json"
+        }
+      ]
+    },
+    {
+      "id": "region4",
+      "gridArea": [
+        "dd",
+        "pp"
+      ],
+      "playlists": [
+        {
+          "id": "uniquePlaylist4",
+          "url": "./fixtures/playlist4.json"
+        }
+      ]
+    },
+    {
+      "id": "region5",
+      "gridArea": [
+        "tt",
+        "xx"
+      ],
+      "playlists": [
+        {
+          "id": "uniquePlaylist5",
+          "url": "./fixtures/playlist5.json"
+        }
+      ]
+    },
+    {
+      "id": "region6",
+      "gridArea": [
+        "f",
+        "ss"
+      ],
+      "playlists": [
+        {
+          "id": "uniquePlaylist6",
+          "url": "./fixtures/playlist6.json"
         }
       ]
     }

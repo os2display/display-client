@@ -4,6 +4,7 @@ $shadow-box: 0 4px 16px $color-shadow;
 .template-image-text {
   height: 100%;
   width: 100%;
+  overflow: hidden;
 
   background-size: cover;
   background-position: center;

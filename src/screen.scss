@@ -3,11 +3,6 @@
   height: 100%;
   margin: 0;
   padding: 0;
-
-  /* Activate grid layout */
+  overflow: hidden;
   display: grid;
-  // grid-template-areas:
-  //   'a b c'
-  //   'd e f'
-  //   'g h i';
 }

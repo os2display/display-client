@@ -61,6 +61,10 @@ function Slide({ slide, id, run, slideDone, isNextSlide, prevSlideDuration }) {
     styles.zIndex = 1;
   }
 
+  if (isNextSlide) {
+    styles.zIndex = -1;
+  }
+
   // @TODO: Load template.
   return (
     <>

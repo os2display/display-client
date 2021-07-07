@@ -4,13 +4,8 @@
   "slides": [
     {
       "weight": 1,
-      "id": "textBox1",
-      "url": "./fixtures/image-text/slide1.json"
-    },
-    {
-      "weight": 2,
-      "id": "textBox2",
-      "url": "./fixtures/image-text/slide2.json"
+      "id": "imageText12",
+      "url": "./fixtures/image-text/slide12.json"
     }
   ]
 }

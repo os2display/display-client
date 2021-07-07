@@ -67,9 +67,8 @@ function Screen({ screen }) {
     'zz'
   ];
 
-  const {
-    grid: { columns: configColumns, rows: configRows }
-  } = screen;
+  const configColumns = screen.grid?.columns || 1;
+  const configRows = screen.grid?.rows || 1;
   const rootStyle = {};
 
   /**

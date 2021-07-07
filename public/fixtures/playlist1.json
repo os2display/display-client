@@ -4,8 +4,8 @@
   "slides": [
     {
       "weight": 1,
-      "id": "uniqueQuotes1",
-      "url": "./fixtures/quote/quote.json"
+      "id": "imageText15",
+      "url": "./fixtures/image-text/slide15.json"
     }
   ]
 }
