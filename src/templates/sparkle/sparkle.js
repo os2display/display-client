@@ -28,6 +28,7 @@ import './sparkle.scss';
  *   The component.
  */
 function Sparkle({ slide, content, run, slideDone }) {
+  // TODO what does horizontal/portrait/vertical do? Ask Troels!
   dayjs.extend(localizedFormat);
   dayjs.extend(relativeTime);
 
