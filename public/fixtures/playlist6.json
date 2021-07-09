@@ -1,0 +1,16 @@
+{
+  "id": "uniquePlaylist6",
+  "title": "Playlist 6",
+  "slides": [
+    {
+      "weight": 1,
+      "id": "uniquePoster",
+      "url": "./fixtures/poster/poster.json"
+    },
+    {
+      "weight": 1,
+      "id": "uniqueBookReview1",
+      "url": "./fixtures/book-review/book-review1.json"
+    }
+  ]
+}

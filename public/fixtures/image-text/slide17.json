@@ -1,0 +1,20 @@
+{
+  "id": "imageText17",
+  "title": "Slide 17 just image",
+  "template": "template-image-text",
+  "duration": 3500,
+  "content": {
+    "title": "Title",
+    "text": "text",
+    "backgroundColor": "rgb(255, 0, 0)",
+    "textColor": "rgb(0, 0, 255)",
+    "boxColor": "rgb(0, 255, 0)",
+    "styling": {
+      "boxAlign": "bottom",
+      "boxMargin": false,
+      "separator": false,
+      "halfSize": false,
+      "reversed": true
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "id": "imageText16",
+  "title": "Slide 16 just text",
+  "template": "template-image-text",
+  "duration": 30000,
+  "content": {
+    "title": "Footer"
+  }
+}

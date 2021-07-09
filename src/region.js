@@ -17,6 +17,7 @@ function Region({ region }) {
   const [slides, setSlides] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(null);
   const [nextSlide, setNextSlide] = useState(null);
+  const rootStyle = {};
 
   /**
    * Find the slide after the slide with the fromId.
@@ -31,6 +32,23 @@ function Region({ region }) {
     const slide = slides[(slideIndex + 1) % slides.length];
     return slide;
   }
+
+  /**
+   * @param {Array} grid
+   *  The grid array.
+   * @returns {string}
+   *   The grid-area strings.
+   */
+  function createGridArea(grid) {
+    if (grid) {
+      const lastGridCharacter = grid[grid.length - 1];
+      const firstGridCharacter = grid[0];
+      return `${firstGridCharacter} / ${firstGridCharacter} / ${lastGridCharacter} / ${lastGridCharacter}`;
+    }
+    return 'a / a / i / i';
+  }
+
+  rootStyle.gridArea = createGridArea(region.gridArea);
 
   /**
    * @param {object} slide
@@ -103,7 +121,7 @@ function Region({ region }) {
   }, [slides]);
 
   return (
-    <div className="Region">
+    <div className="Region" style={rootStyle}>
       {slides &&
         currentSlide &&
         slides.map((slide) => (
@@ -123,7 +141,8 @@ function Region({ region }) {
 
 Region.propTypes = {
   region: PropTypes.shape({
-    id: PropTypes.string.isRequired
+    id: PropTypes.string.isRequired,
+    gridArea: PropTypes.arrayOf(PropTypes.string.isRequired)
   }).isRequired
 };
 

@@ -4,23 +4,8 @@
   "slides": [
     {
       "weight": 1,
-      "id": "imageText1",
-      "url": "./fixtures/image-text/slide1.json"
-    },
-    {
-      "weight": 2,
-      "id": "imageText2",
-      "url": "./fixtures/image-text/slide2.json"
-    },
-    {
-      "weight": 3,
-      "id": "imageText4",
-      "url": "./fixtures/image-text/slide4.json"
-    },
-    {
-      "weight": 4,
-      "id": "imageText3",
-      "url": "./fixtures/image-text/slide3.json"
+      "id": "imageText15",
+      "url": "./fixtures/image-text/slide15.json"
     }
   ]
 }

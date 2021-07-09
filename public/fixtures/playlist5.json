@@ -1,0 +1,11 @@
+{
+  "id": "uniquePlaylist5",
+  "title": "Playlist 5",
+  "slides": [
+    {
+      "weight": 1,
+      "id": "imageText16",
+      "url": "./fixtures/image-text/slide16.json"
+    }
+  ]
+}
