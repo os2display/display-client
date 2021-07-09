@@ -13,6 +13,7 @@ $author-text-color: #454545;
   grid-template-rows: 80% 20%;
   grid-template-areas: 'a c' 'b c';
   grid-gap: 0;
+  overflow: hidden;
 
   .text-area {
     background: $text-area-background;
