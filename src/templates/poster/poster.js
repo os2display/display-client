@@ -57,7 +57,7 @@ function Poster({ slide, content, run, slideDone }) {
   }, []);
 
   /**
-   * Setup event switch and animation, if there are more than one event.
+   * Setup event switch and animation, if there is more than one event.
    */
   useEffect(() => {
     let animationTimer;
