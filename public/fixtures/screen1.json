@@ -34,8 +34,8 @@
     {
       "id": "region3",
       "gridArea": [
-        "q",
-        "z"
+        "x",
+        "y"
       ],
       "playlists": [
         {
@@ -47,8 +47,8 @@
     {
       "id": "region4",
       "gridArea": [
-        "dd",
-        "pp"
+        "cc",
+        "oo"
       ],
       "playlists": [
         {
@@ -60,8 +60,8 @@
     {
       "id": "region5",
       "gridArea": [
-        "tt",
-        "xx"
+        "ss",
+        "vv"
       ],
       "playlists": [
         {
@@ -74,7 +74,7 @@
       "id": "region6",
       "gridArea": [
         "f",
-        "ss"
+        "rr"
       ],
       "playlists": [
         {
