@@ -1,6 +1,7 @@
 import { React, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './region.scss';
+import { createGridArea } from 'os2display-grid-generator';
 import Slide from './slide';
 
 /**
@@ -31,21 +32,6 @@ function Region({ region }) {
     const slideIndex = slides.findIndex((slideElement) => slideElement.executionId === fromId);
     const slide = slides[(slideIndex + 1) % slides.length];
     return slide;
-  }
-
-  /**
-   * @param {Array} grid
-   *  The grid array.
-   * @returns {string}
-   *   The grid-area strings.
-   */
-  function createGridArea(grid) {
-    if (grid) {
-      const lastGridCharacter = grid[grid.length - 1];
-      const firstGridCharacter = grid[0];
-      return `${firstGridCharacter} / ${firstGridCharacter} / ${lastGridCharacter} / ${lastGridCharacter}`;
-    }
-    return 'a / a / i / i';
   }
 
   rootStyle.gridArea = createGridArea(region.gridArea);
