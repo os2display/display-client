@@ -25,14 +25,12 @@
     "winston": "^3.3.3"
   },
   "scripts": {
-    "check-coding-standards/markdownlint": "markdownlint README.md",
-    "apply-coding-standards/markdownlint": "markdownlint --fix README.md",
     "lint:js": "eslint --ext .js --ext .jsx ./src",
     "lint:js:fix": "eslint --ext .js --ext .jsx --fix ./src",
     "lint:scss": "stylelint \"./src/**/*.scss\"",
     "lint:scss:fix": "stylelint --fix \"./src/**/*.scss\"",
-    "check-coding-standards": "yarn check-coding-standards/markdownlint && yarn lint:js && yarn lint:scss",
-    "apply-coding-standards": "yarn apply-coding-standards/markdownlint && yarn lint:js:fix && yarn lint:scss:fix",
+    "check-coding-standards": "npm run lint:js && npm run lint:scss",
+    "apply-coding-standards": "npm run lint:js:fix && npm run lint:scss:fix",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "eject": "react-scripts eject"
@@ -73,7 +71,6 @@
     "stylelint-config-recommended-scss": "^4.3.0",
     "stylelint-prettier": "^1.2.0",
     "stylelint-scss": "^3.19.0",
-    "prettier": "^2.2.1",
-    "sass": "^1.32.12"
+    "prettier": "^2.2.1"
   }
 }
