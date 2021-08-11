@@ -28,7 +28,7 @@ import './slide.scss';
  *  A boolean indicating whether this is the next slide.
  * @param {number} props.prevSlideDuration
  *  The previous slide duration.
- * @returns {JSX.Element}
+ * @returns {object}
  *   The component.
  */
 function Slide({ slide, id, run, slideDone, isNextSlide, prevSlideDuration }) {

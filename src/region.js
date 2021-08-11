@@ -11,7 +11,7 @@ import Slide from './slide';
  *   Props.
  * @param {object} props.region
  *   The region content.
- * @returns {JSX.Element}
+ * @returns {object}
  *   The component.
  */
 function Region({ region }) {
@@ -25,7 +25,7 @@ function Region({ region }) {
    *
    * @param {number} fromId
    *   The id from which the next slide is determined.
-   * @returns {JSX.Element}
+   * @returns {object}
    *   The slide.
    */
   function findNextSlide(fromId) {

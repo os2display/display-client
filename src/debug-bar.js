@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 /**
  * DebugBar component.
  *
- * @returns {JSX.Element}
+ * @returns {object}
  *   The component.
  */
 function DebugBar() {

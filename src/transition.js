@@ -15,9 +15,9 @@ import './transition.scss';
  *   The previous slide duration.
  * @param {boolean} props.isNextSlide
  *   Whether or not the slide is the next slide.
- * @param {JSX.Element} props.children
+ * @param {object} props.children
  *   The children to be rendered.
- * @returns {JSX.Element}
+ * @returns {object}
  *   The component.
  */
 const Transition = ({

@@ -11,7 +11,7 @@ import './screen.scss';
  *   Props.
  * @param {object} props.screen
  *   The screen data.
- * @returns {JSX.Element}
+ * @returns {object}
  *   The component.
  */
 function Screen({ screen }) {

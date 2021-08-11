@@ -17,7 +17,7 @@ import BaseSlideExecution from '../baseSlideExecution';
  *   Whether or not the slide should start running.
  * @param {Function} props.slideDone
  *   Function to invoke when the slide is done playing.
- * @returns {JSX.Element}
+ * @returns {object}
  *   The component.
  */
 function Slideshow({ slide, content, run, slideDone }) {

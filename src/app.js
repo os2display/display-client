@@ -5,7 +5,7 @@ import './app.scss';
 /**
  * App component.
  *
- * @returns {JSX.Element}
+ * @returns {object}
  *   The component.
  */
 function App() {

@@ -24,7 +24,7 @@ import './sparkle.scss';
  *   Whether or not the slide should start running.
  * @param {Function} props.slideDone
  *   Function to invoke when the slide is done playing.
- * @returns {JSX.Element}
+ * @returns {object}
  *   The component.
  */
 function Sparkle({ slide, content, run, slideDone }) {
@@ -106,6 +106,7 @@ function Sparkle({ slide, content, run, slideDone }) {
           <div style={{ width: `${imageWidth}%` }} className="video-container">
             <video muted="muted" autoPlay="autoplay">
               <source src={videoUrl} type="video/mp4" />
+              <track kind="captions" />
             </video>
           </div>
         )}
