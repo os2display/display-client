@@ -79,12 +79,14 @@ Quote.propTypes = {
   run: PropTypes.bool.isRequired,
   slideDone: PropTypes.func.isRequired,
   slide: PropTypes.shape({
-    duration: PropTypes.number.isRequired
+    duration: PropTypes.number.isRequired,
   }).isRequired,
   content: PropTypes.shape({
-    quotes: PropTypes.arrayOf(PropTypes.shape({ quote: PropTypes.string, author: PropTypes.string })),
-    quoteInTwoLines: PropTypes.bool
-  }).isRequired
+    quotes: PropTypes.arrayOf(
+      PropTypes.shape({ quote: PropTypes.string, author: PropTypes.string })
+    ),
+    quoteInTwoLines: PropTypes.bool,
+  }).isRequired,
 };
 
 export default Quote;

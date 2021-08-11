@@ -1,58 +1,24 @@
 {
-  "globals": {
-    "JSX": "readonly"
-  },
+  "plugins": ["react", "prettier", "only-warn"],
   "extends": [
     "airbnb",
+    "prettier",
+    "plugin:jsdoc/recommended",
     "plugin:prettier/recommended",
-    "plugin:cypress/recommended",
-    "plugin:jsdoc/recommended"
+    "plugin:cypress/recommended"
   ],
-  "env": {
-    "browser": true,
-    "commonjs": true,
-    "es6": true,
-    "jest": true,
-    "node": true
-  },
+  "ignorePatterns": ["*.yml"],
   "parser": "babel-eslint",
   "parserOptions": {
     "sourceType": "module",
     "allowImportExportEverywhere": true
   },
   "rules": {
-    "no-console": "off",
-    "jsx-a11y/href-no-hash": [
-      "off"
-    ],
-    "jsx-a11y/media-has-caption": [
-      "off"
-    ],
     "react/jsx-filename-extension": [
       "warn",
       {
-        "extensions": [
-          ".js",
-          ".jsx"
-        ]
-      }
-    ],
-    "max-len": [
-      "warn",
-      {
-        "code": 160,
-        "tabWidth": 2,
-        "comments": 160,
-        "ignoreComments": false,
-        "ignoreTrailingComments": false,
-        "ignoreUrls": true,
-        "ignoreStrings": true,
-        "ignoreTemplateLiterals": true,
-        "ignoreRegExpLiterals": true
+        "extensions": [".js", ".jsx"]
       }
     ]
-  },
-  "plugins": [
-    "jsdoc"
-  ]
+  }
 }

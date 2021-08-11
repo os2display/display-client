@@ -35,21 +35,77 @@ function Slide({ slide, id, run, slideDone, isNextSlide, prevSlideDuration }) {
   let slideComponent;
 
   if (slide.template === 'template-image-text') {
-    slideComponent = <TextBox slide={slide} content={slide.content} run={run} slideDone={slideDone} />;
+    slideComponent = (
+      <TextBox
+        slide={slide}
+        content={slide.content}
+        run={run}
+        slideDone={slideDone}
+      />
+    );
   } else if (slide.template === 'template-slideshow') {
-    slideComponent = <Slideshow slide={slide} content={slide.content} run={run} slideDone={slideDone} />;
+    slideComponent = (
+      <Slideshow
+        slide={slide}
+        content={slide.content}
+        run={run}
+        slideDone={slideDone}
+      />
+    );
   } else if (slide.template === 'template-calendar') {
-    slideComponent = <Calendar slide={slide} content={slide.content} run={run} slideDone={slideDone} />;
+    slideComponent = (
+      <Calendar
+        slide={slide}
+        content={slide.content}
+        run={run}
+        slideDone={slideDone}
+      />
+    );
   } else if (slide.template === 'template-book-review') {
-    slideComponent = <BookReview slide={slide} content={slide.content} run={run} slideDone={slideDone} />;
+    slideComponent = (
+      <BookReview
+        slide={slide}
+        content={slide.content}
+        run={run}
+        slideDone={slideDone}
+      />
+    );
   } else if (slide.template === 'template-meeting-room-schedule') {
-    slideComponent = <MeetingRoomSchedule slide={slide} content={slide.content} run={run} slideDone={slideDone} />;
+    slideComponent = (
+      <MeetingRoomSchedule
+        slide={slide}
+        content={slide.content}
+        run={run}
+        slideDone={slideDone}
+      />
+    );
   } else if (slide.template === 'template-quote') {
-    slideComponent = <Quote slide={slide} content={slide.content} run={run} slideDone={slideDone} />;
+    slideComponent = (
+      <Quote
+        slide={slide}
+        content={slide.content}
+        run={run}
+        slideDone={slideDone}
+      />
+    );
   } else if (slide.template === 'template-poster') {
-    slideComponent = <Poster slide={slide} content={slide.content} run={run} slideDone={slideDone} />;
+    slideComponent = (
+      <Poster
+        slide={slide}
+        content={slide.content}
+        run={run}
+        slideDone={slideDone}
+      />
+    );
   } else if (slide.template === 'template-sparkle') {
-    slideComponent = <Sparkle slide={slide} content={slide.content} run={run} slideDone={slideDone} />;
+    slideComponent = (
+      <Sparkle
+        slide={slide}
+        content={slide.content}
+        run={run}
+        slideDone={slideDone}
+      />
+    );
   } else {
     slideComponent = <>Unknown template</>;
   }
@@ -95,10 +151,10 @@ Slide.propTypes = {
     template: PropTypes.string.isRequired,
     duration: PropTypes.number.isRequired,
     instanceId: PropTypes.string.isRequired,
-    content: PropTypes.objectOf(PropTypes.any).isRequired
+    content: PropTypes.objectOf(PropTypes.any).isRequired,
   }).isRequired,
   isNextSlide: PropTypes.bool.isRequired,
-  prevSlideDuration: PropTypes.number.isRequired
+  prevSlideDuration: PropTypes.number.isRequired,
 };
 
 export default Slide;

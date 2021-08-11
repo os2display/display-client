@@ -29,7 +29,9 @@ function Region({ region }) {
    *   The slide.
    */
   function findNextSlide(fromId) {
-    const slideIndex = slides.findIndex((slideElement) => slideElement.executionId === fromId);
+    const slideIndex = slides.findIndex(
+      (slideElement) => slideElement.executionId === fromId
+    );
     const slide = slides[(slideIndex + 1) % slides.length];
     return slide;
   }
@@ -56,8 +58,8 @@ function Region({ region }) {
       detail: {
         regionId: region.id,
         instanceId: slide.instanceId,
-        executionId: slide.executionId
-      }
+        executionId: slide.executionId,
+      },
     });
     document.dispatchEvent(slideDoneEvent);
   }
@@ -73,10 +75,16 @@ function Region({ region }) {
   }
 
   useEffect(() => {
-    document.addEventListener(`regionContent-${region.id}`, regionContentListener);
+    document.addEventListener(
+      `regionContent-${region.id}`,
+      regionContentListener
+    );
 
     return function cleanup() {
-      document.removeEventListener(`regionContent-${region.id}`, regionContentListener);
+      document.removeEventListener(
+        `regionContent-${region.id}`,
+        regionContentListener
+      );
     };
   }, []);
 
@@ -84,21 +92,25 @@ function Region({ region }) {
     // Notify that region is ready.
     const event = new CustomEvent('regionReady', {
       detail: {
-        id: region.id
-      }
+        id: region.id,
+      },
     });
     document.dispatchEvent(event);
   }, [region]);
 
   useEffect(() => {
-    const findCurrent = slides.find((slide) => currentSlide?.executionId === slide.executionId);
+    const findCurrent = slides.find(
+      (slide) => currentSlide?.executionId === slide.executionId
+    );
 
     if (!findCurrent && slides?.length > 0) {
       const slide = slides[0];
       setCurrentSlide(slide);
     }
 
-    const findNext = slides.find((slide) => nextSlide?.executionId === slide.executionId);
+    const findNext = slides.find(
+      (slide) => nextSlide?.executionId === slide.executionId
+    );
 
     if (!findNext && slides?.length > 1) {
       const slide = slides[1];
@@ -128,8 +140,8 @@ function Region({ region }) {
 Region.propTypes = {
   region: PropTypes.shape({
     id: PropTypes.string.isRequired,
-    gridArea: PropTypes.arrayOf(PropTypes.string.isRequired)
-  }).isRequired
+    gridArea: PropTypes.arrayOf(PropTypes.string.isRequired),
+  }).isRequired,
 };
 
 export default Region;

@@ -20,7 +20,13 @@ import './transition.scss';
  * @returns {JSX.Element}
  *   The component.
  */
-const Transition = ({ run, duration, prevSlideDuration, isNextSlide, children }) => {
+const Transition = ({
+  run,
+  duration,
+  prevSlideDuration,
+  isNextSlide,
+  children,
+}) => {
   const animationDuration = 500;
   const [style, setStyle] = useState({});
 
@@ -62,7 +68,7 @@ Transition.propTypes = {
   duration: PropTypes.number.isRequired,
   prevSlideDuration: PropTypes.number.isRequired,
   isNextSlide: PropTypes.bool.isRequired,
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 };
 
 export default Transition;

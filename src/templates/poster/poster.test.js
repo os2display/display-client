@@ -32,6 +32,9 @@ describe('Make sure poster loads', () => {
     cy.get('.info-area .date')
       .first()
       .invoke('text')
-      .should('match', /^Mandag d. 21. juni 2021 kl. 14:00 - Tirsdag d. 22. juni 2021 kl. 15:00/);
+      .should(
+        'match',
+        /^Mandag d. 21. juni 2021 kl. 14:00 - Tirsdag d. 22. juni 2021 kl. 15:00/
+      );
   });
 });

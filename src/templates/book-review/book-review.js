@@ -25,7 +25,9 @@ function BookReview({ slide, content, run, slideDone }) {
   const { authorText, bookText } = content;
   const authorUrl = content.media?.authorImage?.url;
   const bookUrl = content.media?.bookImage?.url;
-  const authorImage = authorUrl ? { backgroundImage: `url("${authorUrl}")` } : '';
+  const authorImage = authorUrl
+    ? { backgroundImage: `url("${authorUrl}")` }
+    : '';
   const bookImage = bookUrl ? { backgroundImage: `url("${bookUrl}")` } : '';
   const sanitizedBookText = DOMPurify.sanitize(bookText);
 
@@ -68,23 +70,23 @@ function BookReview({ slide, content, run, slideDone }) {
 
 const imageShape = PropTypes.shape({
   id: PropTypes.string.isRequired,
-  url: PropTypes.string.isRequired
+  url: PropTypes.string.isRequired,
 });
 
 BookReview.propTypes = {
   run: PropTypes.bool.isRequired,
   slideDone: PropTypes.func.isRequired,
   slide: PropTypes.shape({
-    duration: PropTypes.number.isRequired
+    duration: PropTypes.number.isRequired,
   }).isRequired,
   content: PropTypes.shape({
     authorText: PropTypes.string,
     media: PropTypes.shape({
       authorImage: imageShape,
-      bookImage: imageShape
+      bookImage: imageShape,
     }).isRequired,
-    bookText: PropTypes.string
-  }).isRequired
+    bookText: PropTypes.string,
+  }).isRequired,
 };
 
 export default BookReview;

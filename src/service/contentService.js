@@ -107,7 +107,9 @@ class ContentService {
     } else {
       Logger.log('info', 'Screen has not changed. Not emitting screen.');
 
-      data.screen.regions.forEach((region) => this.scheduleService.updateRegion(region));
+      data.screen.regions.forEach((region) =>
+        this.scheduleService.updateRegion(region)
+      );
     }
   }
 
@@ -124,7 +126,9 @@ class ContentService {
     Logger.log('info', `Event received: regionReady for ${regionId}`);
 
     if (this.currentScreen?.regions?.length > 0) {
-      const foundRegions = this.currentScreen.regions.filter((region) => region.id === regionId);
+      const foundRegions = this.currentScreen.regions.filter(
+        (region) => region.id === regionId
+      );
       foundRegions.forEach((region) => {
         this.scheduleService.updateRegion(region);
       });
@@ -166,8 +170,8 @@ class ContentService {
 
     const event = new CustomEvent('screen', {
       detail: {
-        screen
-      }
+        screen,
+      },
     });
     document.dispatchEvent(event);
   }
