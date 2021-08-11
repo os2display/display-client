@@ -50,15 +50,17 @@ class PullStrategy {
               results.forEach((result) => {
                 if (result.status === 'fulfilled') {
                   const region = result.value;
-                  const regionIndex = newScreenData.regions.findIndex((element) => element.id === region.id);
+                  const regionIndex = newScreenData.regions.findIndex(
+                    (element) => element.id === region.id
+                  );
                   newScreenData.regions[regionIndex] = region;
                 }
               });
 
               const event = new CustomEvent('content', {
                 detail: {
-                  screen: newScreenData
-                }
+                  screen: newScreenData,
+                },
               });
               document.dispatchEvent(event);
             })
@@ -66,7 +68,10 @@ class PullStrategy {
         }
       })
       .catch((err) => {
-        Logger.log('info', 'Error pulling data. Retrying based on selected interval.');
+        Logger.log(
+          'info',
+          'Error pulling data. Retrying based on selected interval.'
+        );
         Logger.log('error', err);
       });
   }
@@ -127,7 +132,9 @@ class PullStrategy {
               results.forEach((result) => {
                 if (result.status === 'fulfilled') {
                   const slide = result.value;
-                  const slideDataIndex = newPlaylistData.slides.findIndex((element) => element.id === slide.id);
+                  const slideDataIndex = newPlaylistData.slides.findIndex(
+                    (element) => element.id === slide.id
+                  );
                   newPlaylistData.slides[slideDataIndex] = slide;
                 }
               });

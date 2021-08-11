@@ -10,7 +10,9 @@ describe('Make sure sparkle loads', () => {
   it('Should have background-image', () => {
     cy.visit('/');
     cy.get('.debug-bar-select').select('sparkle');
-    cy.get('.image').should('have.css', 'background-image').and('include', '/fixtures/images/mountain3.jpeg');
+    cy.get('.image')
+      .should('have.css', 'background-image')
+      .and('include', '/fixtures/images/mountain3.jpeg');
   });
 
   it('Should have video', () => {

@@ -15,12 +15,18 @@ import './transition.scss';
  *   The previous slide duration.
  * @param {boolean} props.isNextSlide
  *   Whether or not the slide is the next slide.
- * @param {JSX.Element} props.children
+ * @param {object} props.children
  *   The children to be rendered.
- * @returns {JSX.Element}
+ * @returns {object}
  *   The component.
  */
-const Transition = ({ run, duration, prevSlideDuration, isNextSlide, children }) => {
+const Transition = ({
+  run,
+  duration,
+  prevSlideDuration,
+  isNextSlide,
+  children,
+}) => {
   const animationDuration = 500;
   const [style, setStyle] = useState({});
 
@@ -62,7 +68,7 @@ Transition.propTypes = {
   duration: PropTypes.number.isRequired,
   prevSlideDuration: PropTypes.number.isRequired,
   isNextSlide: PropTypes.bool.isRequired,
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 };
 
 export default Transition;

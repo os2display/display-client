@@ -20,12 +20,19 @@ import BaseSlideExecution from '../baseSlideExecution';
  *   Whether or not the slide should start running.
  * @param {Function} props.slideDone
  *   Function to invoke when the slide is done playing.
- * @returns {JSX.Element}
+ * @returns {object}
  *   The component.
  */
 function MeetingRoomSchedule({ slide, content, run, slideDone }) {
   // Props.
-  const { backgroundColor, events, title, metaData, textAlign, backgroundImage } = content;
+  const {
+    backgroundColor,
+    events,
+    title,
+    metaData,
+    textAlign,
+    backgroundImage,
+  } = content;
   const occupiedText = content.occupiedText ? (
     content.occupiedText
   ) : (
@@ -95,7 +102,10 @@ function MeetingRoomSchedule({ slide, content, run, slideDone }) {
    *    The classes to return.
    */
   function isNow(event) {
-    if (new Date().getTime() > new Date(event.from).getTime() && new Date(event.to).getDay() < new Date().getTime()) {
+    if (
+      new Date().getTime() > new Date(event.from).getTime() &&
+      new Date(event.to).getDay() < new Date().getTime()
+    ) {
       return 'flex-item now';
     }
     return 'flex-item';
@@ -104,7 +114,10 @@ function MeetingRoomSchedule({ slide, content, run, slideDone }) {
   // Sort events by from and filter away events that are done, but not ongoing events.
   const sortedEvents = events
     .filter((e) => {
-      return new Date(e.to).getTime() > new Date().getTime() && new Date(e.to).getDay() === new Date().getDay();
+      return (
+        new Date(e.to).getTime() > new Date().getTime() &&
+        new Date(e.to).getDay() === new Date().getDay()
+      );
     })
     .sort((a, b) => a.from.localeCompare(b.from));
 
@@ -114,7 +127,9 @@ function MeetingRoomSchedule({ slide, content, run, slideDone }) {
         <div className="header">
           {title && <h1>{title}</h1>}
           {metaData && <p>{metaData}</p>}
-          {sortedEvents.length === 0 && <FormattedMessage id="available" defaultMessage="available" />}
+          {sortedEvents.length === 0 && (
+            <FormattedMessage id="available" defaultMessage="available" />
+          )}
         </div>
         {sortedEvents.length > 0 && (
           <div className="flex-container">
@@ -122,9 +137,12 @@ function MeetingRoomSchedule({ slide, content, run, slideDone }) {
               sortedEvents.map((event) => (
                 <div className={isNow(event)} key={event.id}>
                   <div className="time">
-                    {dayjs(event.from).locale(localeDa).format('LT')} - {dayjs(event.to).locale(localeDa).format('LT')}
+                    {dayjs(event.from).locale(localeDa).format('LT')} -{' '}
+                    {dayjs(event.to).locale(localeDa).format('LT')}
                   </div>
-                  <div className="event-name">{event.eventName ? event.eventName : occupiedText}</div>
+                  <div className="event-name">
+                    {event.eventName ? event.eventName : occupiedText}
+                  </div>
                 </div>
               ))}
           </div>
@@ -138,14 +156,14 @@ MeetingRoomSchedule.propTypes = {
   slideDone: PropTypes.func.isRequired,
   slide: PropTypes.shape({
     instanceId: PropTypes.string,
-    duration: PropTypes.number.isRequired
+    duration: PropTypes.number.isRequired,
   }).isRequired,
   content: PropTypes.shape({
     availableText: PropTypes.string.isRequired,
     backgroundColor: PropTypes.string,
     backgroundImage: PropTypes.shape({
       id: PropTypes.string,
-      url: PropTypes.string
+      url: PropTypes.string,
     }),
     events: PropTypes.arrayOf(
       PropTypes.shape({
@@ -153,13 +171,13 @@ MeetingRoomSchedule.propTypes = {
         from: PropTypes.string.isRequired,
         id: PropTypes.string.isRequired,
         location: PropTypes.string.isRequired,
-        to: PropTypes.string.isRequired
+        to: PropTypes.string.isRequired,
       }).isRequired
     ).isRequired,
     occupiedText: PropTypes.string.isRequired,
     metaData: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    textAlign: PropTypes.string.isRequired
-  }).isRequired
+    textAlign: PropTypes.string.isRequired,
+  }).isRequired,
 };
 export default MeetingRoomSchedule;

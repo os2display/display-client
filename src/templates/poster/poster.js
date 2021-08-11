@@ -20,7 +20,7 @@ import './poster.scss';
  *   Whether or not the slide should start running.
  * @param {Function} props.slideDone
  *   Function to invoke when the slide is done playing.
- * @returns {JSX.Element}
+ * @returns {object}
  *   The component.
  */
 function Poster({ slide, content, run, slideDone }) {
@@ -39,10 +39,21 @@ function Poster({ slide, content, run, slideDone }) {
   const { duration } = content || 15000; // default 15s.
 
   // Props from content.
-  const { endDate, startDate, name, image, excerpt, ticketPriceRange, readMoreText, url, place } = currentEvent;
+  const {
+    endDate,
+    startDate,
+    name,
+    image,
+    excerpt,
+    ticketPriceRange,
+    readMoreText,
+    url,
+    place,
+  } = currentEvent;
 
   // Dates.
-  const singleDayEvent = new Date(endDate).toDateString() === new Date(startDate).toDateString();
+  const singleDayEvent =
+    new Date(endDate).toDateString() === new Date(startDate).toDateString();
 
   /**
    * Imports language strings, sets localized formats
@@ -117,7 +128,7 @@ function Poster({ slide, content, run, slideDone }) {
             backgroundImage: `url("${image}")`,
             ...(show
               ? { animation: `fade-in ${animationDuration}ms` }
-              : { animation: `fade-out ${animationDuration}ms` })
+              : { animation: `fade-out ${animationDuration}ms` }),
           }}
         />
         {/* todo theme color */}
@@ -133,14 +144,21 @@ function Poster({ slide, content, run, slideDone }) {
             <span>
               {singleDayEvent && (
                 <span>
-                  <p className="date">{capitalize(dayjs(startDate).locale(localeDa).format('LLLL'))}</p>
+                  <p className="date">
+                    {capitalize(
+                      dayjs(startDate).locale(localeDa).format('LLLL')
+                    )}
+                  </p>
                 </span>
               )}
               {/* todo if startdate is not equal to enddate */}
               {!singleDayEvent && (
                 <span>
                   <p className="date">
-                    {capitalize(dayjs(startDate).locale(localeDa).format('LLLL'))} -{' '}
+                    {capitalize(
+                      dayjs(startDate).locale(localeDa).format('LLLL')
+                    )}{' '}
+                    -{' '}
                     {capitalize(dayjs(endDate).locale(localeDa).format('LLLL'))}
                   </p>
                 </span>
@@ -171,7 +189,7 @@ Poster.propTypes = {
   run: PropTypes.bool.isRequired,
   slideDone: PropTypes.func.isRequired,
   slide: PropTypes.shape({
-    duration: PropTypes.number.isRequired
+    duration: PropTypes.number.isRequired,
   }).isRequired,
   content: PropTypes.shape({
     events: PropTypes.arrayOf(
@@ -187,15 +205,15 @@ Poster.propTypes = {
           name: PropTypes.string,
           postalCode: PropTypes.string,
           streetAddress: PropTypes.string,
-          telephone: PropTypes.string
+          telephone: PropTypes.string,
         }),
         startDate: PropTypes.string,
         ticketPriceRange: PropTypes.string,
         ticketPurchaseUrl: PropTypes.string,
-        url: PropTypes.string
+        url: PropTypes.string,
       })
-    )
-  }).isRequired
+    ),
+  }).isRequired,
 };
 
 export default Poster;

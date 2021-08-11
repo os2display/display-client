@@ -24,7 +24,7 @@ import './sparkle.scss';
  *   Whether or not the slide should start running.
  * @param {Function} props.slideDone
  *   Function to invoke when the slide is done playing.
- * @returns {JSX.Element}
+ * @returns {object}
  *   The component.
  */
 function Sparkle({ slide, content, run, slideDone }) {
@@ -98,7 +98,7 @@ function Sparkle({ slide, content, run, slideDone }) {
               width: `${imageWidth}%`,
               ...(show
                 ? { animation: `fade-in ${animationDuration}ms` }
-                : { animation: `fade-out ${animationDuration}ms` })
+                : { animation: `fade-out ${animationDuration}ms` }),
             }}
           />
         )}
@@ -106,10 +106,14 @@ function Sparkle({ slide, content, run, slideDone }) {
           <div style={{ width: `${imageWidth}%` }} className="video-container">
             <video muted="muted" autoPlay="autoplay">
               <source src={videoUrl} type="video/mp4" />
+              <track kind="captions" />
             </video>
           </div>
         )}
-        <div className="author-section" style={{ width: `${100 - imageWidth}%` }}>
+        <div
+          className="author-section"
+          style={{ width: `${100 - imageWidth}%` }}
+        >
           <h1>{username}</h1>
           <p>{parse(sanitizedTextMarkup)}</p>
           <p>{dayjs(createdTime).locale(localeDa).fromNow()}</p>
@@ -133,14 +137,16 @@ Sparkle.propTypes = {
   run: PropTypes.bool.isRequired,
   slideDone: PropTypes.func.isRequired,
   slide: PropTypes.shape({
-    duration: PropTypes.number.isRequired
+    duration: PropTypes.number.isRequired,
   }).isRequired,
   content: PropTypes.shape({
     hashtagText: PropTypes.string,
     imageWidth: PropTypes.number,
     duration: PropTypes.number,
-    posts: PropTypes.arrayOf(PropTypes.shape({ quote: PropTypes.string, author: PropTypes.string }))
-  }).isRequired
+    posts: PropTypes.arrayOf(
+      PropTypes.shape({ quote: PropTypes.string, author: PropTypes.string })
+    ),
+  }).isRequired,
 };
 
 export default Sparkle;

@@ -17,7 +17,7 @@ import { ReactComponent as Logo } from './citation-mark.svg';
  *   Whether or not the slide should start running.
  * @param {Function} props.slideDone
  *   Function to invoke when the slide is done playing.
- * @returns {JSX.Element}
+ * @returns {object}
  *   The component.
  */
 function Quote({ slide, content, run, slideDone }) {
@@ -79,12 +79,14 @@ Quote.propTypes = {
   run: PropTypes.bool.isRequired,
   slideDone: PropTypes.func.isRequired,
   slide: PropTypes.shape({
-    duration: PropTypes.number.isRequired
+    duration: PropTypes.number.isRequired,
   }).isRequired,
   content: PropTypes.shape({
-    quotes: PropTypes.arrayOf(PropTypes.shape({ quote: PropTypes.string, author: PropTypes.string })),
-    quoteInTwoLines: PropTypes.bool
-  }).isRequired
+    quotes: PropTypes.arrayOf(
+      PropTypes.shape({ quote: PropTypes.string, author: PropTypes.string })
+    ),
+    quoteInTwoLines: PropTypes.bool,
+  }).isRequired,
 };
 
 export default Quote;

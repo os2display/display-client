@@ -20,7 +20,7 @@ import BaseSlideExecution from '../baseSlideExecution';
  *   Whether or not the slide should start running.
  * @param {Function} props.slideDone
  *   Function to invoke when the slide is done playing.
- * @returns {JSX.Element}
+ * @returns {object}
  *   The component.
  */
 function Calendar({ slide, content, run, slideDone }) {
@@ -68,7 +68,8 @@ function Calendar({ slide, content, run, slideDone }) {
   const sortedEvents = events
     .filter((e) => {
       return (
-        new Date(e.datetime).getTime() > new Date().getTime() && new Date(e.datetime).getDay() === new Date().getDay()
+        new Date(e.datetime).getTime() > new Date().getTime() &&
+        new Date(e.datetime).getDay() === new Date().getDay()
       );
     })
     .sort((a, b) => a.datetime.localeCompare(b.datetime));
@@ -90,7 +91,9 @@ function Calendar({ slide, content, run, slideDone }) {
       <div className={classes}>
         <div className="grid-container-title-date">
           <div className="grid-item">{title}</div>
-          <div className="grid-item-end">{currentDate && capitalize(dayjs().locale(localeDa).format('LLLL'))}</div>
+          <div className="grid-item-end">
+            {currentDate && capitalize(dayjs().locale(localeDa).format('LLLL'))}
+          </div>
         </div>
         <div className="grid-container">
           <div className="grid-item" key={1}>
@@ -105,7 +108,9 @@ function Calendar({ slide, content, run, slideDone }) {
           {sortedEvents.map((entry) => (
             <Fragment key={entry.id}>
               <div className="grid-item">{entry.eventName}</div>
-              <div className="grid-item">{dayjs(entry.datetime).locale(localeDa).format('LT')}</div>
+              <div className="grid-item">
+                {dayjs(entry.datetime).locale(localeDa).format('LT')}
+              </div>
               <div className="grid-item">{entry.location}</div>
             </Fragment>
           ))}
@@ -119,20 +124,20 @@ Calendar.propTypes = {
   run: PropTypes.bool.isRequired,
   slideDone: PropTypes.func.isRequired,
   slide: PropTypes.shape({
-    duration: PropTypes.number.isRequired
+    duration: PropTypes.number.isRequired,
   }).isRequired,
   content: PropTypes.shape({
     events: PropTypes.arrayOf(
       PropTypes.shape({
         eventName: PropTypes.string.isRequired,
         datetime: PropTypes.string.isRequired,
-        location: PropTypes.string.isRequired
+        location: PropTypes.string.isRequired,
       })
     ),
     title: PropTypes.string.isRequired,
     backgroundColor: PropTypes.string.isRequired,
-    hasDateAndTime: PropTypes.bool
-  }).isRequired
+    hasDateAndTime: PropTypes.bool,
+  }).isRequired,
 };
 
 export default Calendar;

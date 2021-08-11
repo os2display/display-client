@@ -12,28 +12,56 @@ describe('Make sure image-text loads', () => {
   it('Should have flex-direction set when boxAlign is left', () => {
     cy.visit('/');
     cy.get('.debug-bar-select').select('slide: image-text left');
-    cy.get('.template-image-text').should('have.css', 'flex-direction', 'column');
+    cy.get('.template-image-text').should(
+      'have.css',
+      'flex-direction',
+      'column'
+    );
   });
 
   it('Should have flex-direction, align-self set when boxAlign is right', () => {
     cy.visit('/');
     cy.get('.debug-bar-select').select('slide: image-text right');
-    cy.get('.template-image-text').should('have.css', 'flex-direction', 'column');
-    cy.get('.template-image-text .box').should('have.css', 'align-self', 'flex-end');
+    cy.get('.template-image-text').should(
+      'have.css',
+      'flex-direction',
+      'column'
+    );
+    cy.get('.template-image-text .box').should(
+      'have.css',
+      'align-self',
+      'flex-end'
+    );
   });
 
   it('Should have align-self set when boxAlign is bottom', () => {
     cy.visit('/');
     cy.get('.debug-bar-select').select('slide: image-text bottom');
-    cy.get('.template-image-text .box').should('have.css', 'align-self', 'flex-end');
+    cy.get('.template-image-text .box').should(
+      'have.css',
+      'align-self',
+      'flex-end'
+    );
   });
 
   it('Should have colors set', () => {
     cy.visit('/');
     cy.get('.debug-bar-select').select('slide: image-text colors');
-    cy.get('.template-image-text').should('have.css', 'background-color', 'rgb(255, 0, 0)');
-    cy.get('.template-image-text .box').should('have.css', 'background-color', 'rgb(0, 255, 0)');
-    cy.get('.template-image-text .box').should('have.css', 'color', 'rgb(0, 0, 255)');
+    cy.get('.template-image-text').should(
+      'have.css',
+      'background-color',
+      'rgb(255, 0, 0)'
+    );
+    cy.get('.template-image-text .box').should(
+      'have.css',
+      'background-color',
+      'rgb(0, 255, 0)'
+    );
+    cy.get('.template-image-text .box').should(
+      'have.css',
+      'color',
+      'rgb(0, 0, 255)'
+    );
   });
 
   it('Should have fontsize s set', () => {
@@ -62,19 +90,28 @@ describe('Make sure image-text loads', () => {
 
   it('Should have animated separator', () => {
     cy.visit('/');
-    cy.get('.debug-bar-select').select('slide: margin, separator and half-size');
-    cy.get('.template-image-text .box .separator').should('have.css', 'animation');
+    cy.get('.debug-bar-select').select(
+      'slide: margin, separator and half-size'
+    );
+    cy.get('.template-image-text .box .separator').should(
+      'have.css',
+      'animation'
+    );
   });
 
   it('Should have margin', () => {
     cy.visit('/');
-    cy.get('.debug-bar-select').select('slide: margin, separator and half-size');
+    cy.get('.debug-bar-select').select(
+      'slide: margin, separator and half-size'
+    );
     cy.get('.template-image-text').should('have.class', 'box-margin');
   });
 
   it('Should have half size', () => {
     cy.visit('/');
-    cy.get('.debug-bar-select').select('slide: margin, separator and half-size');
+    cy.get('.debug-bar-select').select(
+      'slide: margin, separator and half-size'
+    );
     cy.get('.template-image-text').should('have.class', 'half-size');
   });
 

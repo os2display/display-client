@@ -11,7 +11,7 @@ $author-text-color: #454545;
   display: grid;
   grid-template-columns: 64% 36%;
   grid-template-rows: 80% 20%;
-  grid-template-areas: 'a c' 'b c';
+  grid-template-areas: "a c" "b c";
   grid-gap: 0;
   overflow: hidden;
 
@@ -89,7 +89,7 @@ $author-text-color: #454545;
       filter: blur(10px);
 
       &:after {
-        content: '';
+        content: "";
         width: 100%;
         height: 100%;
         display: block;

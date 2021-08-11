@@ -46,7 +46,7 @@ class ScheduleService {
     this.regions[region.id] = {
       scheduledSlides: [],
       slides,
-      region
+      region,
     };
 
     if (firstRun) {
@@ -86,7 +86,9 @@ class ScheduleService {
     let index;
     if (scheduledSlides?.length > 0) {
       const lastScheduledLast = last(scheduledSlides);
-      index = slides.findIndex((slide) => slide.instanceId === lastScheduledLast.instanceId);
+      index = slides.findIndex(
+        (slide) => slide.instanceId === lastScheduledLast.instanceId
+      );
     } else {
       index = -1;
     }
@@ -100,7 +102,10 @@ class ScheduleService {
       nextScheduledSlides.push(slide);
     }
 
-    this.regions[regionId] = { ...this.regions[regionId], scheduledSlides: nextScheduledSlides };
+    this.regions[regionId] = {
+      ...this.regions[regionId],
+      scheduledSlides: nextScheduledSlides,
+    };
 
     // Send slides to region.
     ScheduleService.sendSlides(region.id, nextScheduledSlides);
@@ -116,7 +121,10 @@ class ScheduleService {
     const data = event.detail;
     const { regionId, executionId } = data;
 
-    Logger.log('info', `Event received: slideDone with executionId: ${executionId} and regionId: ${regionId}`);
+    Logger.log(
+      'info',
+      `Event received: slideDone with executionId: ${executionId} and regionId: ${regionId}`
+    );
 
     this.findNextSlides(regionId, executionId);
   }
@@ -132,8 +140,8 @@ class ScheduleService {
   static sendSlides(regionId, nextSlides) {
     const event = new CustomEvent(`regionContent-${regionId}`, {
       detail: {
-        slides: nextSlides
-      }
+        slides: nextSlides,
+      },
     });
     document.dispatchEvent(event);
   }

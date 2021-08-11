@@ -17,7 +17,7 @@ import BaseSlideExecution from '../baseSlideExecution';
  *   Whether or not the slide should start running.
  * @param {Function} props.slideDone
  *   Function to invoke when the slide is done playing.
- * @returns {JSX.Element}
+ * @returns {object}
  *   The component.
  */
 function Slideshow({ slide, content, run, slideDone }) {
@@ -108,7 +108,12 @@ function Slideshow({ slide, content, run, slideDone }) {
    *   The current animation.
    */
   function getCurrentAnimation(animationType) {
-    const animationTypes = ['zoom-in-middle', 'zoom-out-middle', 'zoom-out-random', 'zoom-in-random'];
+    const animationTypes = [
+      'zoom-in-middle',
+      'zoom-out-middle',
+      'zoom-out-random',
+      'zoom-in-random',
+    ];
     const randomPercent = `${random(100) + 1}% ${random(100) + 1}%`;
     switch (animationType) {
       case 'zoom-in-middle':
@@ -120,7 +125,9 @@ function Slideshow({ slide, content, run, slideDone }) {
       case 'zoom-out-random':
         return createAnimation(false, randomPercent);
       default:
-        return getCurrentAnimation(animationTypes[random(animationTypes.length)]);
+        return getCurrentAnimation(
+          animationTypes[random(animationTypes.length)]
+        );
     }
   }
 
@@ -151,7 +158,9 @@ function Slideshow({ slide, content, run, slideDone }) {
     createImage();
     resetTimeout();
     timeoutRef.current = setTimeout(() => {
-      setIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
+      setIndex((prevIndex) =>
+        prevIndex === images.length - 1 ? 0 : prevIndex + 1
+      );
     }, images[index].duration);
     return () => {
       resetTimeout();
@@ -175,18 +184,18 @@ Slideshow.propTypes = {
       PropTypes.shape({
         id: PropTypes.string.isRequired,
         url: PropTypes.string.isRequired,
-        duration: PropTypes.number.isRequired
+        duration: PropTypes.number.isRequired,
       })
     ),
     logo: PropTypes.shape({
       id: PropTypes.string.isRequired,
       url: PropTypes.string.isRequired,
       position: PropTypes.string,
-      size: PropTypes.string
+      size: PropTypes.string,
     }),
     animations: PropTypes.string,
-    transitions: PropTypes.string
-  }).isRequired
+    transitions: PropTypes.string,
+  }).isRequired,
 };
 
 export default Slideshow;

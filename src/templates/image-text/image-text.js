@@ -16,14 +16,15 @@ import BaseSlideExecution from '../baseSlideExecution';
  *   Whether or not the slide should start running.
  * @param {Function} props.slideDone
  *   Function to invoke when the slide is done playing.
- * @returns {JSX.Element}
+ * @returns {object}
  *   The component.
  */
 function ImageText({ slide, content, run, slideDone }) {
   const rootStyle = {};
   const imageTextStyle = {};
 
-  const { separator, boxAlign, reversed, boxMargin, halfSize, fontSize } = content.styling || {};
+  const { separator, boxAlign, reversed, boxMargin, halfSize, fontSize } =
+    content.styling || {};
   const { title, text, textColor, boxColor, backgroundColor } = content;
   const { duration } = slide;
   const displaySeparator = separator && !reversed;
@@ -90,7 +91,12 @@ function ImageText({ slide, content, run, slideDone }) {
             <h1>
               {title}
               {/* Todo theme the color of the below */}
-              {displaySeparator && <div className="separator" style={{ backgroundColor: '#ee0043' }} />}
+              {displaySeparator && (
+                <div
+                  className="separator"
+                  style={{ backgroundColor: '#ee0043' }}
+                />
+              )}
             </h1>
           )}
           {text && <div className="text">{text}</div>}
@@ -105,7 +111,7 @@ ImageText.propTypes = {
   slideDone: PropTypes.func.isRequired,
   slide: PropTypes.shape({
     instanceId: PropTypes.string,
-    duration: PropTypes.number.isRequired
+    duration: PropTypes.number.isRequired,
   }).isRequired,
   content: PropTypes.shape({
     title: PropTypes.string,
@@ -121,9 +127,9 @@ ImageText.propTypes = {
       separator: PropTypes.bool,
       reversed: PropTypes.bool,
       halfSize: PropTypes.bool,
-      fontSize: PropTypes.string
-    })
-  }).isRequired
+      fontSize: PropTypes.string,
+    }),
+  }).isRequired,
 };
 
 export default ImageText;
