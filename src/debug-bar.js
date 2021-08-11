@@ -127,6 +127,11 @@ function DebugBar() {
       title: 'sparkle with video',
       file: './fixtures/sparkle/sparkle3.json',
     },
+    {
+      key: 'debug-bar-fixture-24',
+      title: 'rssfeed',
+      file: './fixtures/rss/rss.json',
+    },
   ];
 
   /**

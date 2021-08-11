@@ -37,7 +37,7 @@ Screen.propTypes = {
     grid: PropTypes.shape({
       columns: PropTypes.number.isRequired,
       rows: PropTypes.number.isRequired,
-    }).isRequired,
+    }),
   }).isRequired,
 };
 

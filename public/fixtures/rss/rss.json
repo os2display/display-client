@@ -1,0 +1,19 @@
+{
+  "template": "template-rss",
+  "id": "uniqueRSS1",
+  "title": "RSS",
+  "duration": 300000,
+  "content": {
+    "fontsize": 60,
+    "responsive_fontsize": 4,
+    "rssNumber": 5,
+    "rssDuration": 10,
+    "source": "./fixtures/rss/feed.json",
+    "logopos": {
+      "top": "0",
+      "bottom": "auto",
+      "left": "0",
+      "right": "auto"
+    }
+  }
+}

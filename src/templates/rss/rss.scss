@@ -1,0 +1,33 @@
+.rss-slide {
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  height: 100%;
+  position: relative;
+
+  .progress {
+    font-size: 2em;
+    padding: 2%;
+  }
+
+  .title {
+    font-size: 3em;
+    padding: 1% 2%;
+  }
+  .date {
+    font-size: 1em;
+    padding: 1% 2%;
+  }
+  .description {
+    padding: 1% 2%;
+    a,
+    a:link,
+    a:visited,
+    a:hover,
+    a:focus,
+    a:active {
+      text-decoration: none;
+      color: white;
+    }
+  }
+}
