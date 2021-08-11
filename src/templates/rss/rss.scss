@@ -5,29 +5,46 @@
   height: 100%;
   position: relative;
 
-  .progress {
-    font-size: 2em;
-    padding: 2%;
+  @mixin text($font-size) {
+    .progress {
+      padding: 2%;
+      font-size: 1em * $font-size;
+    }
+
+    .title {
+      font-size: 2.5em * $font-size;
+      padding: 1% 2%;
+    }
+
+    .date {
+      font-size: 1em * $font-size;
+      padding: 1% 2%;
+    }
+    .description {
+      font-size: 1.5em * $font-size;
+      padding: 1% 2%;
+      a,
+      a:link,
+      a:visited,
+      a:hover,
+      a:focus,
+      a:active {
+        text-decoration: none;
+        color: white;
+      }
+    }
   }
 
-  .title {
-    font-size: 3em;
-    padding: 1% 2%;
+  &.s {
+    @include text(1);
   }
-  .date {
-    font-size: 1em;
-    padding: 1% 2%;
+  &.m {
+    @include text(2);
   }
-  .description {
-    padding: 1% 2%;
-    a,
-    a:link,
-    a:visited,
-    a:hover,
-    a:focus,
-    a:active {
-      text-decoration: none;
-      color: white;
-    }
+  &.l {
+    @include text(3);
+  }
+  &.xl {
+    @include text(3.5);
   }
 }

@@ -1,10 +1,10 @@
 import { React, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import BaseSlideExecution from '../baseSlideExecution';
 import dayjs from 'dayjs';
 import localeDa from 'dayjs/locale/da';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
-import "./rss.scss"
+import BaseSlideExecution from '../baseSlideExecution';
+import './rss.scss';
 
 /**
  * RSS component.
@@ -19,24 +19,25 @@ import "./rss.scss"
  *   Whether or not the slide should start running.
  * @param {Function} props.slideDone
  *   Function to invoke when the slide is done playing.
- * @returns {Object}
+ * @returns {object}
  *   The component.
  */
 function RSS({ slide, content, run, slideDone }) {
-  const { source, rssDuration, rssNumber } = content;
+  const { source, rssDuration, rssNumber, fontSize } = content;
   const [currentRSS, setCurrentRSS] = useState([]);
   const [feed, setFeed] = useState([]);
   const [dataLoaded, setDataLoaded] = useState(false);
   const [index, setIndex] = useState(1);
+  const [feedTitle, setFeedTitle] = useState('');
 
   /**
- * Capitalize the datestring, as it starts with the weekday.
- *
- * @param {string} s
- *    The string to capitalize.
- * @returns {string}
- *    The capitalized string.
- */
+   * Capitalize the datestring, as it starts with the weekday.
+   *
+   * @param {string} s
+   *    The string to capitalize.
+   * @returns {string}
+   *    The capitalized string.
+   */
   const capitalize = (s) => {
     return s.charAt(0).toUpperCase() + s.slice(1);
   };
@@ -47,24 +48,20 @@ function RSS({ slide, content, run, slideDone }) {
   useEffect(() => {
     fetch(source)
       .then((response) => response.json())
-      .then(({ feed }) => {
-        setFeed(feed.slice(0, rssNumber))
-        const [first] = feed;
-        setDataLoaded(true)
-        setCurrentRSS(first)
-      })
+      .then((jsonData) => {
+        setFeed(jsonData.feed.slice(0, rssNumber));
+        setFeedTitle(jsonData.feedTitle);
+        const [first] = jsonData.feed;
+        setDataLoaded(true);
+        setCurrentRSS(first);
+      });
   }, []);
 
   /**
-   * Imports language strings, sets localized formats
+   * Sets localized formats (dayjs)
    */
   useEffect(() => {
     dayjs.extend(localizedFormat);
-
-    // import('./lang/da.json').then((data) => {
-    //   setTranslations(data);
-    // });
-
   }, []);
 
   /**
@@ -85,7 +82,7 @@ function RSS({ slide, content, run, slideDone }) {
       timer = setTimeout(() => {
         const currentIndex = feed.indexOf(currentRSS);
         const nextIndex = (currentIndex + 1) % feed.length;
-        setIndex(nextIndex + 1)
+        setIndex(nextIndex + 1);
         setCurrentRSS(feed[nextIndex]);
       }, rssDuration * 1000);
     }
@@ -94,18 +91,28 @@ function RSS({ slide, content, run, slideDone }) {
       if (timer !== null) {
         clearInterval(timer);
       }
-
     };
   }, [currentRSS]);
-  {/* Todo theme the color of the below */ }
-  let { title, date, description } = currentRSS;
+
+  const { title, date, description } = currentRSS;
+  // todo theme the color of the below
   return (
-    <div className="rss-slide" style={{ backgroundColor: "aliceblue", color: "navy" }}>
-      <div className="progress">slide {index} / {feed.length}</div>
+    <div
+      className={`rss-slide ${fontSize}`}
+      style={{ backgroundColor: 'aliceblue', color: 'navy' }}
+    >
+      <div className="progress">
+        {feedTitle} {index} / {feed.length}
+      </div>
       <div className="title">{title}</div>
-      {date && <div className="date">{capitalize(dayjs(date).locale(localeDa).format('LLLL'))}</div>}
+      {date && (
+        <div className="date">
+          {capitalize(dayjs(date).locale(localeDa).format('LLLL'))}
+        </div>
+      )}
       <div className="description">{description}</div>
-    </div>);
+    </div>
+  );
 }
 
 RSS.propTypes = {
@@ -116,6 +123,9 @@ RSS.propTypes = {
   }).isRequired,
   content: PropTypes.shape({
     source: PropTypes.string.isRequired,
+    rssDuration: PropTypes.number,
+    rssNumber: PropTypes.number,
+    fontSize: PropTypes.string,
   }).isRequired,
 };
 

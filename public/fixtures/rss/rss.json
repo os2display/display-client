@@ -4,8 +4,7 @@
   "title": "RSS",
   "duration": 300000,
   "content": {
-    "fontsize": 60,
-    "responsive_fontsize": 4,
+    "fontSize": "xl",
     "rssNumber": 5,
     "rssDuration": 10,
     "source": "./fixtures/rss/feed.json",
