@@ -32,8 +32,8 @@ class PullStrategy {
    * Fetch screen.
    */
   fetchScreen() {
-    // @TODO:Cache data in indexedDB.
-    // @TODO:Prefetching assets to allow service worker to cache.
+    // @TODO: Cache data in indexedDB.
+    // @TODO: Prefetching assets to allow service worker to cache.
     fetch(this.endpoint)
       .then((response) => response.json())
       .then((screenData) => {
