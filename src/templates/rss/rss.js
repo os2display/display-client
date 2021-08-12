@@ -25,7 +25,11 @@ import './rss.scss';
 function RSS({ slide, content, run, slideDone }) {
   const { source, rssDuration, rssNumber, fontSize, media } = content;
   // todo theme the color of the below
-  const rootStyle = { backgroundColor: 'aliceblue', color: 'navy', backgroundImage: `url("${media?.url}")` }
+  const rootStyle = {
+    backgroundColor: 'aliceblue',
+    color: 'navy',
+    backgroundImage: `url("${media?.url}")`,
+  };
   const [currentRSS, setCurrentRSS] = useState([]);
   const [feed, setFeed] = useState([]);
   const [dataLoaded, setDataLoaded] = useState(false);
@@ -99,10 +103,7 @@ function RSS({ slide, content, run, slideDone }) {
   const { title, date, description } = currentRSS;
 
   return (
-    <div
-      className={`rss-slide ${fontSize}`}
-      style={rootStyle}
-    >
+    <div className={`rss-slide ${fontSize}`} style={rootStyle}>
       <div className="progress">
         {feedTitle} {index} / {feed.length}
       </div>
@@ -130,7 +131,7 @@ RSS.propTypes = {
     fontSize: PropTypes.string,
     media: PropTypes.shape({
       url: PropTypes.string,
-    })
+    }),
   }).isRequired,
 };
 
