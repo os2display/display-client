@@ -20,6 +20,8 @@ class BaseSlideExecution {
    *   The slide to execute.
    * @param {Function} slideDone
    *   The function to invoke when execution is done.
+   * @param {number} duration
+   * The duration of the slide.
    */
   constructor(slide, slideDone, duration) {
     this.slide = slide;

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 /**
  * ImageText component.
+ *
  * @param {object} props
  *   Props.
  * @param {object} props.slideExecution
@@ -105,6 +106,8 @@ ImageText.propTypes = {
   slideExecution: PropTypes.shape({
     duration: PropTypes.number,
     slideDone: PropTypes.func,
+    start: PropTypes.func,
+    stop: PropTypes.func,
   }).isRequired,
   content: PropTypes.shape({
     title: PropTypes.string,

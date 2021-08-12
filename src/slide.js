@@ -35,7 +35,11 @@ import './slide.scss';
  */
 function Slide({ slide, id, run, slideDone, isNextSlide, prevSlideDuration }) {
   let slideComponent;
-  const slideExecution = new BaseSlideExecution(slide, slideDone, slide.duration);
+  const slideExecution = new BaseSlideExecution(
+    slide,
+    slideDone,
+    slide.duration
+  );
   if (slide.template === 'template-image-text') {
     slideComponent = (
       <ImageText
@@ -102,11 +106,7 @@ function Slide({ slide, id, run, slideDone, isNextSlide, prevSlideDuration }) {
     );
   } else if (slide.template === 'template-rss') {
     slideComponent = (
-      <RSS
-        slideExecution={slideExecution}
-        content={slide.content}
-        run={run}
-      />
+      <RSS slideExecution={slideExecution} content={slide.content} run={run} />
     );
   } else {
     slideComponent = <>Unknown template</>;

@@ -8,6 +8,7 @@ import './meeting-room-schedule.scss';
 
 /**
  * Meeting room schedule component.
+ *
  * @param {object} props
  *   Props.
  * @param {object} props.slideExecution
@@ -151,6 +152,8 @@ MeetingRoomSchedule.propTypes = {
   slideExecution: PropTypes.shape({
     duration: PropTypes.number,
     slideDone: PropTypes.func,
+    start: PropTypes.func,
+    stop: PropTypes.func,
   }).isRequired,
   content: PropTypes.shape({
     availableText: PropTypes.string.isRequired,

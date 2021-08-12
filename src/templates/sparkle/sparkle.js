@@ -134,6 +134,8 @@ Sparkle.propTypes = {
   slideExecution: PropTypes.shape({
     duration: PropTypes.number,
     slideDone: PropTypes.func,
+    start: PropTypes.func,
+    stop: PropTypes.func,
   }).isRequired,
   content: PropTypes.shape({
     hashtagText: PropTypes.string,
