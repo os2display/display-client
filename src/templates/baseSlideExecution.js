@@ -21,18 +21,23 @@ class BaseSlideExecution {
    * @param {Function} slideDone
    *   The function to invoke when execution is done.
    */
-  constructor(slide, slideDone) {
+  constructor(slide, slideDone, duration) {
     this.slide = slide;
     this.slideDone = slideDone;
+    this.duration = duration;
   }
 
   /**
    * Start execution of slide.
    *
-   * @param {number} duration
+   * @param {number} alternativeDuration
    *   Slide duration in milliseconds.
    */
-  start(duration) {
+  start(alternativeDuration) {
+    let useDuration = this.duration;
+    if (alternativeDuration) {
+      useDuration = alternativeDuration;
+    }
     if (this.slideTimeout !== null) {
       clearTimeout(this.slideTimeout);
     }
@@ -41,7 +46,7 @@ class BaseSlideExecution {
     this.slideTimeout = setTimeout(() => {
       this.slideDone(this.slide);
       this.slideTimeout = null;
-    }, duration);
+    }, useDuration);
   }
 
   /**

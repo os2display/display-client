@@ -3,26 +3,22 @@ import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 import localeDa from 'dayjs/locale/da';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
-import BaseSlideExecution from '../baseSlideExecution';
 import './rss.scss';
 
 /**
  * RSS component.
- *
  * @param {object} props
  *   Props.
- * @param {object} props.slide
+ * @param {object} props.slideExecution
  *   The slide.
  * @param {object} props.content
  *   The slide content.
  * @param {boolean} props.run
  *   Whether or not the slide should start running.
- * @param {Function} props.slideDone
- *   Function to invoke when the slide is done playing.
  * @returns {object}
  *   The component.
  */
-function RSS({ slide, content, run, slideDone }) {
+function RSS({ slideExecution, content, run }) {
   const { source, rssDuration, rssNumber, fontSize, media } = content;
   // @TODO: theme the color of the below
   const rootStyle = {
@@ -73,10 +69,9 @@ function RSS({ slide, content, run, slideDone }) {
   /**
    * Setup slide run function.
    */
-  const slideExecution = new BaseSlideExecution(slide, slideDone);
   useEffect(() => {
     if (run) {
-      slideExecution.start(slide.duration);
+      slideExecution.start();
     } else {
       slideExecution.stop();
     }
@@ -120,9 +115,9 @@ function RSS({ slide, content, run, slideDone }) {
 
 RSS.propTypes = {
   run: PropTypes.bool.isRequired,
-  slideDone: PropTypes.func.isRequired,
-  slide: PropTypes.shape({
-    duration: PropTypes.number.isRequired,
+  slideExecution: PropTypes.shape({
+    duration: PropTypes.number,
+    slideDone: PropTypes.func,
   }).isRequired,
   content: PropTypes.shape({
     source: PropTypes.string.isRequired,

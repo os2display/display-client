@@ -1,9 +1,10 @@
 import { React } from 'react';
 import PropTypes from 'prop-types';
-import TextBox from './templates/image-text/image-text';
+import ImageText from './templates/image-text/image-text';
 import Slideshow from './templates/slideshow/slideshow';
 import Calendar from './templates/calendar/calendar';
 import BookReview from './templates/book-review/book-review';
+import BaseSlideExecution from './templates/baseSlideExecution';
 import Quote from './templates/quote/quote';
 import MeetingRoomSchedule from './templates/meeting-room-schedule/meeting-room-schedule';
 import Poster from './templates/poster/poster';
@@ -34,86 +35,77 @@ import './slide.scss';
  */
 function Slide({ slide, id, run, slideDone, isNextSlide, prevSlideDuration }) {
   let slideComponent;
-
+  const slideExecution = new BaseSlideExecution(slide, slideDone, slide.duration);
   if (slide.template === 'template-image-text') {
     slideComponent = (
-      <TextBox
-        slide={slide}
+      <ImageText
+        slideExecution={slideExecution}
         content={slide.content}
         run={run}
-        slideDone={slideDone}
       />
     );
   } else if (slide.template === 'template-slideshow') {
     slideComponent = (
       <Slideshow
-        slide={slide}
+        slideExecution={slideExecution}
         content={slide.content}
         run={run}
-        slideDone={slideDone}
       />
     );
   } else if (slide.template === 'template-calendar') {
     slideComponent = (
       <Calendar
-        slide={slide}
+        slideExecution={slideExecution}
         content={slide.content}
         run={run}
-        slideDone={slideDone}
       />
     );
   } else if (slide.template === 'template-book-review') {
     slideComponent = (
       <BookReview
-        slide={slide}
+        slideExecution={slideExecution}
         content={slide.content}
         run={run}
-        slideDone={slideDone}
       />
     );
   } else if (slide.template === 'template-meeting-room-schedule') {
     slideComponent = (
       <MeetingRoomSchedule
-        slide={slide}
+        slideExecution={slideExecution}
         content={slide.content}
         run={run}
-        slideDone={slideDone}
       />
     );
   } else if (slide.template === 'template-quote') {
     slideComponent = (
       <Quote
-        slide={slide}
+        slideExecution={slideExecution}
         content={slide.content}
         run={run}
-        slideDone={slideDone}
       />
     );
   } else if (slide.template === 'template-poster') {
     slideComponent = (
       <Poster
-        slide={slide}
+        slideExecution={slideExecution}
         content={slide.content}
         run={run}
-        slideDone={slideDone}
       />
     );
   } else if (slide.template === 'template-sparkle') {
     slideComponent = (
       <Sparkle
-        slide={slide}
+        slideExecution={slideExecution}
         content={slide.content}
         run={run}
-        slideDone={slideDone}
       />
     );
   } else if (slide.template === 'template-rss') {
     slideComponent = (
       <RSS
-        slide={slide}
+        slideExecution={slideExecution}
         content={slide.content}
         run={run}
-        slideDone={slideDone}
       />
     );
   } else {

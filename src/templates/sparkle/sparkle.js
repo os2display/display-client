@@ -8,7 +8,6 @@ import parse from 'html-react-parser';
 import DOMPurify from 'dompurify';
 import { ReactComponent as Shape } from './shape.svg';
 import { ReactComponent as InstagramLogo } from './instagram-logo.svg';
-import BaseSlideExecution from '../baseSlideExecution';
 import './sparkle.scss';
 
 /**
@@ -16,18 +15,16 @@ import './sparkle.scss';
  *
  * @param {object} props
  *   Props.
- * @param {object} props.slide
+ * @param {object} props.slideExecution
  *   The slide.
  * @param {object} props.content
  *   The slide content.
  * @param {boolean} props.run
  *   Whether or not the slide should start running.
- * @param {Function} props.slideDone
- *   Function to invoke when the slide is done playing.
  * @returns {object}
  *   The component.
  */
-function Sparkle({ slide, content, run, slideDone }) {
+function Sparkle({ slideExecution, content, run }) {
   // TODO what does horizontal/portrait/vertical do? Ask Troels!
   dayjs.extend(localizedFormat);
   dayjs.extend(relativeTime);
@@ -53,10 +50,9 @@ function Sparkle({ slide, content, run, slideDone }) {
   /**
    * Setup slide run function.
    */
-  const slideExecution = new BaseSlideExecution(slide, slideDone);
   useEffect(() => {
     if (run) {
-      slideExecution.start(slide.duration);
+      slideExecution.start();
     } else {
       slideExecution.stop();
     }
@@ -135,9 +131,9 @@ function Sparkle({ slide, content, run, slideDone }) {
 
 Sparkle.propTypes = {
   run: PropTypes.bool.isRequired,
-  slideDone: PropTypes.func.isRequired,
-  slide: PropTypes.shape({
-    duration: PropTypes.number.isRequired,
+  slideExecution: PropTypes.shape({
+    duration: PropTypes.number,
+    slideDone: PropTypes.func,
   }).isRequired,
   content: PropTypes.shape({
     hashtagText: PropTypes.string,

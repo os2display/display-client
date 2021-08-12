@@ -2,25 +2,21 @@ import { React, useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled, { keyframes, Keyframes } from 'styled-components';
 import './slideshow.scss';
-import BaseSlideExecution from '../baseSlideExecution';
 
 /**
  * Slideshow component.
- *
  * @param {object} props
  *   Props.
- * @param {object} props.slide
+ * @param {object} props.slideExecution
  *   The slide.
  * @param {object} props.content
  *   The slide content.
  * @param {boolean} props.run
  *   Whether or not the slide should start running.
- * @param {Function} props.slideDone
- *   Function to invoke when the slide is done playing.
  * @returns {object}
  *   The component.
  */
-function Slideshow({ slide, content, run, slideDone }) {
+function Slideshow({ slideExecution, content, run }) {
   const { images, transitions, animations, logo } = content;
   const logoClasses = `logo ${logo.position} ${logo.size}`;
   const [index, setIndex] = useState(0);
@@ -31,7 +27,6 @@ function Slideshow({ slide, content, run, slideDone }) {
   /**
    * Setup slide run function.
    */
-  const slideExecution = new BaseSlideExecution(slide, slideDone);
   useEffect(() => {
     if (run) {
       // @TODO: Make sure each image has been shown the correct duration before transition.
@@ -177,8 +172,10 @@ function Slideshow({ slide, content, run, slideDone }) {
 
 Slideshow.propTypes = {
   run: PropTypes.bool.isRequired,
-  slideDone: PropTypes.func.isRequired,
-  slide: PropTypes.shape({}).isRequired,
+  slideExecution: PropTypes.shape({
+    duration: PropTypes.number,
+    slideDone: PropTypes.func,
+  }).isRequired,
   content: PropTypes.shape({
     images: PropTypes.arrayOf(
       PropTypes.shape({
