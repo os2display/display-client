@@ -3,25 +3,21 @@ import PropTypes from 'prop-types';
 import parse from 'html-react-parser';
 import './book-review.scss';
 import DOMPurify from 'dompurify';
-import BaseSlideExecution from '../baseSlideExecution';
 
 /**
  * Book review component.
- *
  * @param {object} props
  *   Props.
- * @param {object} props.slide
+ * @param {object} props.slideExecution
  *   The slide.
  * @param {object} props.content
  *   The slide content.
  * @param {boolean} props.run
  *   Whether or not the slide should start running.
- * @param {Function} props.slideDone
- *   Function to invoke when the slide is done playing.
  * @returns {object}
  *   The component.
  */
-function BookReview({ slide, content, run, slideDone }) {
+function BookReview({ slideExecution, content, run }) {
   const { authorText, bookText } = content;
   const authorUrl = content.media?.authorImage?.url;
   const bookUrl = content.media?.bookImage?.url;
@@ -34,10 +30,9 @@ function BookReview({ slide, content, run, slideDone }) {
   /**
    * Setup slide run function.
    */
-  const slideExecution = new BaseSlideExecution(slide, slideDone);
   useEffect(() => {
     if (run) {
-      slideExecution.start(slide.duration);
+      slideExecution.start();
     } else {
       slideExecution.stop();
     }
@@ -75,9 +70,9 @@ const imageShape = PropTypes.shape({
 
 BookReview.propTypes = {
   run: PropTypes.bool.isRequired,
-  slideDone: PropTypes.func.isRequired,
-  slide: PropTypes.shape({
-    duration: PropTypes.number.isRequired,
+  slideExecution: PropTypes.shape({
+    duration: PropTypes.number,
+    slideDone: PropTypes.func,
   }).isRequired,
   content: PropTypes.shape({
     authorText: PropTypes.string,

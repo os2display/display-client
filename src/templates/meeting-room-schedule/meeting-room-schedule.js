@@ -5,25 +5,21 @@ import { IntlProvider, FormattedMessage } from 'react-intl';
 import localeDa from 'dayjs/locale/da';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 import './meeting-room-schedule.scss';
-import BaseSlideExecution from '../baseSlideExecution';
 
 /**
  * Meeting room schedule component.
- *
  * @param {object} props
  *   Props.
- * @param {object} props.slide
+ * @param {object} props.slideExecution
  *   The slide.
  * @param {object} props.content
  *   The slide content.
  * @param {boolean} props.run
  *   Whether or not the slide should start running.
- * @param {Function} props.slideDone
- *   Function to invoke when the slide is done playing.
  * @returns {object}
  *   The component.
  */
-function MeetingRoomSchedule({ slide, content, run, slideDone }) {
+function MeetingRoomSchedule({ slideExecution, content, run }) {
   // Props.
   const {
     backgroundColor,
@@ -49,10 +45,9 @@ function MeetingRoomSchedule({ slide, content, run, slideDone }) {
   /**
    * Setup slide run function.
    */
-  const slideExecution = new BaseSlideExecution(slide, slideDone);
   useEffect(() => {
     if (run) {
-      slideExecution.start(slide.duration);
+      slideExecution.start();
     } else {
       slideExecution.stop();
     }
@@ -153,10 +148,9 @@ function MeetingRoomSchedule({ slide, content, run, slideDone }) {
 }
 MeetingRoomSchedule.propTypes = {
   run: PropTypes.bool.isRequired,
-  slideDone: PropTypes.func.isRequired,
-  slide: PropTypes.shape({
-    instanceId: PropTypes.string,
-    duration: PropTypes.number.isRequired,
+  slideExecution: PropTypes.shape({
+    duration: PropTypes.number,
+    slideDone: PropTypes.func,
   }).isRequired,
   content: PropTypes.shape({
     availableText: PropTypes.string.isRequired,
