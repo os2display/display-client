@@ -34,7 +34,7 @@ function Slideshow({ slide, content, run, slideDone }) {
   const slideExecution = new BaseSlideExecution(slide, slideDone);
   useEffect(() => {
     if (run) {
-      // @TODO: Make sure each image has been shown the correct duration before transition.
+      // todo Make sure each image has been shown the correct duration before transition.
       // Extract duration from content.images.
       let duration = 0;
       images.forEach((image) => {

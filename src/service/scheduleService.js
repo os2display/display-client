@@ -32,8 +32,8 @@ class ScheduleService {
     const firstRun = !this.regions[region.id] ?? false;
 
     // Extract slides from playlists.
-    // @TODO: Make sure changes in region playlists after firstRun is handled correctly instead of replacing region object.
-    // @TODO: Handle schedules for each playlist and slides instead of just extracting slides from playlists.
+    // todo Make sure changes in region playlists after firstRun is handled correctly instead of replacing region object.
+    // todo Handle schedules for each playlist and slides instead of just extracting slides from playlists.
     const slides = [];
     region?.playlists.forEach((playlist) => {
       playlist?.slides.forEach((slide) => {

@@ -7,12 +7,6 @@
     "fontSize": "xl",
     "rssNumber": 5,
     "rssDuration": 10,
-    "source": "./fixtures/rss/feed.json",
-    "logopos": {
-      "top": "0",
-      "bottom": "auto",
-      "left": "0",
-      "right": "auto"
-    }
+    "source": "./fixtures/rss/feed.json"
   }
 }

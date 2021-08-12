@@ -4,8 +4,8 @@ import dayjs from 'dayjs';
 import localeDa from 'dayjs/locale/da';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 import { IntlProvider, FormattedMessage } from 'react-intl';
-import './calendar.scss';
 import BaseSlideExecution from '../baseSlideExecution';
+import './calendar.scss';
 
 /**
  * Calendar component.

@@ -40,7 +40,7 @@ class ContentService {
   startSyncing() {
     Logger.log('info', 'Starting data synchronization');
 
-    // @TODO: Remove config.json from git to allow for configuring backend.
+    // todo Remove config.json from git to allow for configuring backend.
     // Fetch config and launch data synchronization.
     fetch('./config.json')
       .then((response) => response.json())

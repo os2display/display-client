@@ -132,6 +132,11 @@ function DebugBar() {
       title: 'rssfeed',
       file: './fixtures/rss/rss.json',
     },
+    {
+      key: 'debug-bar-fixture-25',
+      title: 'rssfeed2',
+      file: './fixtures/rss/rss2.json',
+    },
   ];
 
   /**
