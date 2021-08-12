@@ -1,13 +1,13 @@
 const winston = require('winston');
 
-// todo Enabled configuration of the logger.
+// @TODO:Enabled configuration of the logger.
 
 const logger = winston.createLogger({
   level: 'info',
   format: winston.format.json(),
   defaultMeta: { service: 'user-service' },
   transports: [
-    // todo Add production logging transports.
+    // @TODO:Add production logging transports.
   ],
 });
 

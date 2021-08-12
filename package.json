@@ -65,7 +65,6 @@
     "eslint-plugin-only-warn": "^1.0.3",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.23.2",
-    "markdownlint-cli": "^0.27.1",
     "stylelint": "^13.13.1",
     "stylelint-config-prettier": "^8.0.2",
     "stylelint-config-recommended-scss": "^4.3.0",
