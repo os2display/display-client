@@ -6,6 +6,7 @@ import DOMPurify from 'dompurify';
 
 /**
  * Book review component.
+ *
  * @param {object} props
  *   Props.
  * @param {object} props.slideExecution
@@ -73,6 +74,8 @@ BookReview.propTypes = {
   slideExecution: PropTypes.shape({
     duration: PropTypes.number,
     slideDone: PropTypes.func,
+    start: PropTypes.func,
+    stop: PropTypes.func,
   }).isRequired,
   content: PropTypes.shape({
     authorText: PropTypes.string,
