@@ -28,7 +28,7 @@ import './sparkle.scss';
  *   The component.
  */
 function Sparkle({ slide, content, run, slideDone }) {
-  // TODO what does horizontal/portrait/vertical do? Ask Troels!
+  // @TODO: what does horizontal/portrait/vertical do? Ask Troels!
   dayjs.extend(localizedFormat);
   dayjs.extend(relativeTime);
 
@@ -39,7 +39,7 @@ function Sparkle({ slide, content, run, slideDone }) {
 
   // Props from content and post.
   const { textMarkup, mediaUrl, username, createdTime, videoUrl } = currentPost;
-  // TODO should duration depend on number of instagram posts to show? Ask Troels!
+  // @TODO: should duration depend on number of instagram posts to show? Ask Troels!
   let { duration, imageWidth } = content;
   const { hashtagText } = content;
   duration = duration || 15000; // Add a default

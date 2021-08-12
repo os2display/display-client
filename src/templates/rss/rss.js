@@ -24,7 +24,7 @@ import './rss.scss';
  */
 function RSS({ slide, content, run, slideDone }) {
   const { source, rssDuration, rssNumber, fontSize, media } = content;
-  // todo theme the color of the below
+  // @TODO: theme the color of the below
   const rootStyle = {
     backgroundColor: 'aliceblue',
     color: 'navy',

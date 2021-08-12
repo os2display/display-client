@@ -134,7 +134,7 @@ function Slide({ slide, id, run, slideDone, isNextSlide, prevSlideDuration }) {
     styles.zIndex = -1;
   }
 
-  // todo Load template.
+  // @TODO: Load template.
   return (
     <>
       {slideComponent && (
