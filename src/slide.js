@@ -9,6 +9,7 @@ import MeetingRoomSchedule from './templates/meeting-room-schedule/meeting-room-
 import Poster from './templates/poster/poster';
 import Sparkle from './templates/sparkle/sparkle';
 import Transition from './transition';
+import RSS from './templates/rss/rss';
 import './slide.scss';
 
 /**
@@ -100,6 +101,15 @@ function Slide({ slide, id, run, slideDone, isNextSlide, prevSlideDuration }) {
   } else if (slide.template === 'template-sparkle') {
     slideComponent = (
       <Sparkle
+        slide={slide}
+        content={slide.content}
+        run={run}
+        slideDone={slideDone}
+      />
+    );
+  } else if (slide.template === 'template-rss') {
+    slideComponent = (
+      <RSS
         slide={slide}
         content={slide.content}
         run={run}

@@ -1,0 +1,16 @@
+{
+  "template": "template-rss",
+  "id": "uniqueRSS1",
+  "title": "RSS",
+  "duration": 300000,
+  "content": {
+    "media": {
+      "id": "uniqueMedia6",
+      "url": "./fixtures/images/mountain1.jpeg"
+    },
+    "fontSize": "s",
+    "rssNumber": 2,
+    "rssDuration": 2,
+    "source": "./fixtures/rss/feed.json"
+  }
+}

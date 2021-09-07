@@ -1,0 +1,50 @@
+.rss-slide {
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  height: 100%;
+  position: relative;
+
+  @mixin text($font-size) {
+    .progress {
+      padding: 2%;
+      font-size: 1em * $font-size;
+    }
+
+    .title {
+      font-size: 2.5em * $font-size;
+      padding: 1% 2%;
+    }
+
+    .date {
+      font-size: 1em * $font-size;
+      padding: 1% 2%;
+    }
+    .description {
+      font-size: 1.5em * $font-size;
+      padding: 1% 2%;
+      a,
+      a:link,
+      a:visited,
+      a:hover,
+      a:focus,
+      a:active {
+        text-decoration: none;
+        color: white;
+      }
+    }
+  }
+
+  &.s {
+    @include text(1);
+  }
+  &.m {
+    @include text(2);
+  }
+  &.l {
+    @include text(3);
+  }
+  &.xl {
+    @include text(3.5);
+  }
+}
