@@ -13,6 +13,7 @@
     "styling": {
       "boxAlign": "top",
       "boxMargin": false,
+      "shadow": true,
       "separator": false,
       "halfSize": false,
       "reversed": false

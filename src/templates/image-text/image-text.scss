@@ -58,10 +58,16 @@ $shadow-box: 0 4px 16px $color-shadow;
   &.column {
     flex-direction: column;
   }
+
   &.half-size {
     .box {
-      box-shadow: $shadow-box;
       flex: none;
+    }
+  }
+
+  &.shadow {
+    .box {
+      box-shadow: $shadow-box;
     }
   }
 

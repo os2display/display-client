@@ -1,5 +1,7 @@
 import { React, useEffect } from 'react';
 import './image-text.scss';
+import parse from 'html-react-parser';
+import DOMPurify from 'dompurify';
 import PropTypes from 'prop-types';
 import BaseSlideExecution from '../baseSlideExecution';
 
@@ -20,16 +22,33 @@ import BaseSlideExecution from '../baseSlideExecution';
  *   The component.
  */
 function ImageText({ slide, content, run, slideDone }) {
+  // Styling from content
+  const {
+    separator,
+    boxAlign,
+    reversed,
+    boxMargin,
+    halfSize,
+    fontSize,
+    shadow,
+  } = content.styling || {};
+  const fontSizeClass = fontSize ? `box ${fontSize}` : 'box';
+  let rootClasses = 'template-image-text';
+
+  // Styling objects
   const rootStyle = {};
   const imageTextStyle = {};
 
-  const { separator, boxAlign, reversed, boxMargin, halfSize, fontSize } =
-    content.styling || {};
+  // Content from content
   const { title, text, textColor, boxColor, backgroundColor } = content;
+  const sanitizedText = DOMPurify.sanitize(text);
+
+  // Duration
   const { duration } = slide;
+
+  // Display separator depends on whether the slide is reversed.
   const displaySeparator = separator && !reversed;
-  let rootClasses = 'template-image-text';
-  const boxClasses = fontSize ? `box ${fontSize}` : 'box';
+
   /**
    * Setup slide run function.
    */
@@ -83,10 +102,14 @@ function ImageText({ slide, content, run, slideDone }) {
     rootClasses = rootClasses.concat(' animated-header');
   }
 
+  if (shadow) {
+    rootClasses = rootClasses.concat(' shadow');
+  }
+
   return (
     <div className={rootClasses} style={rootStyle}>
       {title && (
-        <div className={boxClasses} style={imageTextStyle}>
+        <div className={fontSizeClass} style={imageTextStyle}>
           {title && (
             <h1>
               {title}
@@ -99,7 +122,7 @@ function ImageText({ slide, content, run, slideDone }) {
               )}
             </h1>
           )}
-          {text && <div className="text">{text}</div>}
+          {text && <div className="text">{parse(sanitizedText)}</div>}
         </div>
       )}
     </div>
