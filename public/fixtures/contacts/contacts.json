@@ -1,0 +1,49 @@
+{
+  "id": "uniqueContacts",
+  "title": "Contacts",
+  "template": "template-contacts",
+  "duration": 100000,
+  "content": {
+    "contacts": [
+      {
+        "title": "Pedel",
+        "name": "John Michael Dorian",
+        "phone": "12341234",
+        "email": "mail@mail.dk",
+        "id": "uniqueContact1"
+      },
+      {
+        "title": "Forstander",
+        "name": "Janitor",
+        "phone": "12341234",
+        "email": "mail@mail.dk",
+        "id": "uniqueContact2"
+      },
+      {
+        "title": "Lady",
+        "name": "Dr. Cox",
+        "phone": "12341234",
+        "email": "mail@mail.dk",
+        "id": "uniqueContact3"
+      },
+      {
+        "name": "Dr. Cox",
+        "phone": "12341234",
+        "email": "mail@mail.dk",
+        "id": "uniqueContact3"
+      },
+      {
+        "name": "Dr. Cox",
+        "phone": "12341234",
+        "email": "mail@mail.dk",
+        "id": "uniqueContact4"
+      },
+      {
+        "name": "Dr. Cox",
+        "phone": "12341234",
+        "email": "mail@mail.dk",
+        "id": "uniqueContact5"
+      }
+    ]
+  }
+}

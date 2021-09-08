@@ -9,6 +9,7 @@ import MeetingRoomSchedule from './templates/meeting-room-schedule/meeting-room-
 import Poster from './templates/poster/poster';
 import Sparkle from './templates/sparkle/sparkle';
 import Transition from './transition';
+import Contacts from './templates/contacts/contacts';
 import RSS from './templates/rss/rss';
 import './slide.scss';
 
@@ -53,7 +54,16 @@ function Slide({ slide, id, run, slideDone, isNextSlide, prevSlideDuration }) {
         slideDone={slideDone}
       />
     );
-  } else if (slide.templateData.templateKey === 'template-calendar') {
+  } else if (slide.template === 'template-contacts') {
+    slideComponent = (
+      <Contacts
+        slide={slide}
+        content={slide.content}
+        run={run}
+        slideDone={slideDone}
+      />
+    );
+  } else if (slide.template === 'template-calendar') {
     slideComponent = (
       <Calendar
         slide={slide}
