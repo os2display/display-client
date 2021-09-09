@@ -1,0 +1,37 @@
+.contacts-template {
+  h1 {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 5%;
+
+    .separator {
+      opacity: 0;
+      position: absolute;
+      height: 0.2em;
+      width: 100%;
+      transition: width 0.3s ease-out;
+      animation: 0.7s normal 0.5s forwards 1 h1-underline ease-out;
+    }
+  }
+
+  margin: 5%;
+  .contacts {
+    display: flex;
+    flex-wrap: wrap;
+    .text-container {
+      margin-left: 5%;
+    }
+    .contact {
+      margin-bottom: 5%;
+      flex: 0 0 33.333333%;
+      display: flex;
+      .image-area {
+        background-size: cover;
+        background-position: center center;
+        width: 50%;
+        height: 200px;
+        background-image: url("./person.svg");
+      }
+    }
+  }
+}

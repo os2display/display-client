@@ -10,11 +10,19 @@
         "name": "John Michael Dorian",
         "phone": "12341234",
         "email": "mail@mail.dk",
-        "id": "uniqueContact1"
+        "id": "uniqueContact1",
+        "image": {
+          "id": "uniqueMedia6",
+          "url": "./fixtures/images/author.jpg"
+        }
       },
       {
         "title": "Forstander",
         "name": "Janitor",
+        "image": {
+          "id": "uniqueMedia6",
+          "url": "./fixtures/images/author.jpg"
+        },
         "phone": "12341234",
         "email": "mail@mail.dk",
         "id": "uniqueContact2"
@@ -23,6 +31,10 @@
         "title": "Lady",
         "name": "Dr. Cox",
         "phone": "12341234",
+        "image": {
+          "id": "uniqueMedia6",
+          "url": "./fixtures/images/author.jpg"
+        },
         "email": "mail@mail.dk",
         "id": "uniqueContact3"
       },
@@ -44,6 +56,9 @@
         "email": "mail@mail.dk",
         "id": "uniqueContact5"
       }
-    ]
+    ],
+    "styling": {
+      "separator": true
+    }
   }
 }

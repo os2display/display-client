@@ -1,6 +1,7 @@
-import { React, useEffect } from 'react';
+import { React, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import BaseSlideExecution from '../baseSlideExecution';
+import { IntlProvider, FormattedMessage } from 'react-intl';
 import './contacts.scss';
 
 /**
@@ -20,9 +21,21 @@ import './contacts.scss';
  *   The component.
  */
 function Contacts({ slide, content, run, slideDone }) {
-
-
   const { contacts } = content;
+  const [translations, setTranslations] = useState();
+  const { separator } =
+    content.styling || {};
+
+  /**
+    * Imports language strings, sets localized formats
+    * and sets timer.
+    */
+  useEffect(() => {
+    import('./lang/da.json').then((data) => {
+      setTranslations(data);
+    });
+  }, []);
+
   /**
    * Setup slide run function.
    */
@@ -35,15 +48,35 @@ function Contacts({ slide, content, run, slideDone }) {
     }
   }, [run]);
 
-  return (
-    <>
-      {contacts.map((contact) => (<>
-        <div>{contact.title}</div>
-        <div>{contact.name}</div>
-        <div>{contact.email}</div>
-        <div>{contact.phone}</div></>
+  return (<IntlProvider messages={translations} locale="da" defaultLocale="da"><div className="contacts-template">
+    <h1> <FormattedMessage id="contacts" defaultMessage="contacts" />
+      {separator && (
+        <div
+          className="separator"
+          style={{ backgroundColor: '#ee0043' }}
+        />
+      )}</h1>
+    <div className="contacts">
+      {contacts.map((contact) => (<div className="contact">
+        {contact.image &&
+          <div
+            className="image-area"
+            style={{
+              backgroundImage: `url("${contact.image.url}")`,
+            }}
+          />}
+        {!contact.image &&
+          <div
+            className="image-area"
+
+          />
+        }<div className="text-container">
+          <div>{contact.title}</div>
+          <div>{contact.name}</div>
+          <div>{contact.email}</div>
+          <div>{contact.phone}</div></div></div>
       ))}
-    </>
+    </div></div></IntlProvider>
   );
 }
 
