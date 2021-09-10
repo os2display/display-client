@@ -49,10 +49,11 @@ function Contacts({ slide, content, run, slideDone }) {
 
   return (
     <IntlProvider messages={translations} locale="da" defaultLocale="da">
-      <div className="contacts-template">
+      {/* todo add theme styling below */}
+      <div className="contacts-template" style={{ backgroundColor: 'yellow' }}>
         <h1>
-          {' '}
           <FormattedMessage id="contacts" defaultMessage="contacts" />
+          {/* todo add theme styling below */}
           {separator && (
             <div className="separator" style={{ backgroundColor: '#ee0043' }} />
           )}
