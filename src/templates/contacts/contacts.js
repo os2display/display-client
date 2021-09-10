@@ -89,7 +89,23 @@ Contacts.propTypes = {
   slide: PropTypes.shape({
     duration: PropTypes.number.isRequired,
   }).isRequired,
-  content: PropTypes.shape({}).isRequired,
+  content: PropTypes.shape({
+    contacts: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        phone: PropTypes.string.isRequired,
+        email: PropTypes.string.isRequired,
+        id: PropTypes.string.isRequired,
+        image: PropTypes.shape({
+          id: PropTypes.string.isRequired,
+          url: PropTypes.string.isRequired,
+        }),
+      })
+    ),
+    styling: PropTypes.shape({
+      separator: PropTypes.bool,
+    }),
+  }).isRequired,
 };
 
 export default Contacts;
