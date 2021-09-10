@@ -5,7 +5,7 @@ import BaseSlideExecution from '../baseSlideExecution';
 import './contacts.scss';
 
 /**
- * Book review component.
+ * Contacts component.
  *
  * @param {object} props
  *   Props.
