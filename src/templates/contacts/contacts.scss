@@ -1,4 +1,6 @@
 .contacts-template {
+  margin: 5%;
+
   h1 {
     position: relative;
     display: inline-block;
@@ -14,7 +16,6 @@
     }
   }
 
-  margin: 5%;
   .contacts {
     display: flex;
     flex-wrap: wrap;
