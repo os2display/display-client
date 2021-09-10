@@ -44,12 +44,14 @@ function Region({ region }) {
    */
   function slideDone(slide) {
     // Go to next slide.
-    const currentSlideToShow = findNextSlide(currentSlide.executionId)
-    setCurrentSlide(currentSlideToShow);
+    setCurrentSlide((previousSlide) => {
+      return findNextSlide(previousSlide.executionId);
+    });
 
-    const nextSlideToShow = findNextSlide(currentSlide.executionId)
     // Go to next slide.
-    setNextSlide(nextSlideToShow);
+    setNextSlide((previousSlide) => {
+      return findNextSlide(previousSlide.executionId);
+    });
 
     // Emit slideDone event.
     const slideDoneEvent = new CustomEvent('slideDone', {
