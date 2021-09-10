@@ -43,15 +43,6 @@ function Region({ region }) {
    *   The slide.
    */
   function slideDone(slide) {
-    // Go to next slide.
-    setCurrentSlide((previousSlide) => {
-      return findNextSlide(previousSlide.executionId);
-    });
-
-    // Go to next slide.
-    setNextSlide((previousSlide) => {
-      return findNextSlide(previousSlide.executionId);
-    });
 
     // Emit slideDone event.
     const slideDoneEvent = new CustomEvent('slideDone', {
