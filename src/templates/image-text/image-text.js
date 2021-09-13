@@ -33,7 +33,7 @@ function ImageText({ slide, content, run, slideDone }) {
     shadow,
   } = content.styling || {};
   const fontSizeClass = fontSize ? `box ${fontSize}` : 'box';
-  let rootClasses = ['template-image-text'];
+  const rootClasses = ['template-image-text'];
 
   // Styling objects
   const rootStyle = {};
@@ -107,7 +107,7 @@ function ImageText({ slide, content, run, slideDone }) {
   }
 
   return (
-    <div className={rootClasses} style={rootStyle.join(" ")}>
+    <div className={rootClasses} style={rootStyle.join(' ')}>
       {title && (
         <div className={fontSizeClass} style={imageTextStyle}>
           {title && (
