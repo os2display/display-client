@@ -107,7 +107,7 @@ function ImageText({ slide, content, run, slideDone }) {
   }
 
   return (
-    <div className={rootClasses} style={rootStyle.join(' ')}>
+    <div className={rootClasses.join(' ')} style={rootStyle}>
       {title && (
         <div className={boxClasses} style={imageTextStyle}>
           {title && (
