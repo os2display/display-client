@@ -7,23 +7,22 @@ jobs:
     container: node:14
     steps:
       - uses: actions/checkout@v2
-     
       - name: Cache node modules
         uses: actions/cache@v2
         env:
           cache-name: cache-node-modules
         with:
-          path: ~/.npm
+          path: ~/.yarn
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
       - name: install
-        run: npm install
-     
+        run: yarn
+
       - name: Build production assets
-        run: npm run build
+        run: yarn build
 
   frontend-coding-standards:
     name: Frontend coding standards
@@ -31,24 +30,23 @@ jobs:
     container: node:14
     steps:
       - uses: actions/checkout@v2
-     
+
       - name: Cache node modules
         uses: actions/cache@v2
         env:
           cache-name: cache-node-modules
         with:
-          path: ~/.npm
+          path: ~/.yarn
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
-     
       - name: install
-        run: npm install
-     
+        run: yarn
+
       - name: React coding standards
-        run: npm run check-coding-standards
+        run: yarn check-coding-standards
 
   cypress:
     name: Cypress
@@ -56,16 +54,16 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        browser: ['chrome', 'firefox']
+        browser: ["chrome", "firefox"]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-     
+
       - name: Setup network
         run: docker network create frontend
-        
-      - name: Install 
-        run: docker-compose run node npm install
+
+      - name: Install
+        run: docker-compose run node yarn
 
       - name: Cypress run
         run: docker-compose run cypress run --browser ${{ matrix.browser }}
@@ -77,4 +75,3 @@ jobs:
           name: cypress-screenhosts-${{ matrix.browser }}
           path: cypress/screenshots
           retention-days: 7
-
