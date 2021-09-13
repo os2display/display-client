@@ -1,0 +1,1247 @@
+{
+  "playlists": [
+    {
+      "jsonServerId": "29ff6eca-8778-6789-bfeb-53e4bf4a6457",
+      "@context": "/contexts/playlist",
+      "@id": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf4a6457",
+      "title": "The first playlist",
+      "description": "This is an playlist wiht image and video",
+      "modified": "2021-09-21T17:32:28Z",
+      "created": "2021-09-21T17:00:01Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen",
+      "onScreens": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf4a6457/screens",
+      "published": {
+        "from": "2021-09-21T17:00:01Z",
+        "to": "2021-07-22T17:00:01Z"
+      }
+    }
+  ],
+  "templates": [
+    {
+      "jsonServerId": "457d6ecb-6378-4299-bfcb-53cbaaaa6f65",
+      "@id": "/v1/template/457d6ecb-6378-4299-bfcb-53cbaaaa6f65",
+      "title": "Book review",
+      "description": "This is a template for book reviews",
+      "modified": "2021-09-03T10:04:59Z",
+      "created": "2021-08-21T11:22:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olensen",
+      "icon": "http://templates.itkdev.dk/image/icon.png",
+      "resources": {
+        "admin": "http://templates.itkdev.dk/image/form.json",
+        "schema": "http://templates.itkdev.dk/image/schema.json",
+        "component": "http://templates.itkdev.dk/image/image.js",
+        "assets": [
+          {
+            "type": "css",
+            "url": "http://templates.itkdev.dk/image/image.css"
+          }
+        ],
+        "options": {
+          "fade": true
+        },
+        "content": {}
+      }
+    },
+    {
+      "jsonServerId": "457d6ecb-6378-4299-bfcb-53cbaaaa6f66",
+      "@id": "/v1/template/457d6ecb-6378-4299-bfcb-53cbaaaa6f66",
+      "title": "Calendar",
+      "description": "This is a template for calendars",
+      "modified": "2021-09-03T10:04:59Z",
+      "created": "2021-08-21T11:22:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olensen",
+      "icon": "http://templates.itkdev.dk/image/icon.png",
+      "resources": {
+        "admin": "http://templates.itkdev.dk/image/form.json",
+        "schema": "http://templates.itkdev.dk/image/schema.json",
+        "component": "http://templates.itkdev.dk/image/image.js",
+        "assets": [
+          {
+            "type": "css",
+            "url": "http://templates.itkdev.dk/image/image.css"
+          }
+        ],
+        "options": {
+          "fade": true
+        },
+        "content": {}
+      }
+    },
+    {
+      "jsonServerId": "457d6ecb-6378-4299-bfcb-53cbaaaa6f10",
+      "@id": "/v1/template/457d6ecb-6378-4299-bfcb-53cbaaaa6f10",
+      "title": "Image/Text",
+      "description": "This is a template for image and text",
+      "modified": "2021-09-03T10:04:59Z",
+      "created": "2021-08-21T11:22:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olensen",
+      "icon": "http://templates.itkdev.dk/image/icon.png",
+      "resources": {
+        "admin": "http://templates.itkdev.dk/image/form.json",
+        "schema": "http://templates.itkdev.dk/image/schema.json",
+        "component": "http://templates.itkdev.dk/image/image.js",
+        "assets": [
+          {
+            "type": "css",
+            "url": "http://templates.itkdev.dk/image/image.css"
+          }
+        ],
+        "options": {
+          "fade": true
+        },
+        "content": {}
+      }
+    },
+    {
+      "jsonServerId": "457d6ecb-6378-4299-bfcb-53cbaaaa6f11",
+      "@id": "/v1/template/457d6ecb-6378-4299-bfcb-53cbaaaa6f11",
+      "title": "Meeting room",
+      "description": "This is a template for meeting room",
+      "modified": "2021-09-03T10:04:59Z",
+      "created": "2021-08-21T11:22:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olensen",
+      "icon": "http://templates.itkdev.dk/image/icon.png",
+      "resources": {
+        "admin": "http://templates.itkdev.dk/image/form.json",
+        "schema": "http://templates.itkdev.dk/image/schema.json",
+        "component": "http://templates.itkdev.dk/image/image.js",
+        "assets": [
+          {
+            "type": "css",
+            "url": "http://templates.itkdev.dk/image/image.css"
+          }
+        ],
+        "options": {
+          "fade": true
+        },
+        "content": {}
+      }
+    }
+  ],
+  "slides": [
+    {
+      "jsonServerId": "a97f6ec4-5278-4993-bfeb-53cdedea6d10",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cdedea6d10",
+      "title": "Bookreview 1",
+      "description": "This is the first slide named one",
+      "modified": "2012-09-03T12:21:56Z",
+      "created": "2021-09-01T10:04:00Z",
+      "modifiedBy": "Ole Olesen",
+      "createdBy": "Jens Jensen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f65",
+        "options": [
+          {
+            "fade": false
+          },
+          {
+            "icon": true,
+            "url": "http://test.local.itkdev.dk/icon.png"
+          }
+        ]
+      },
+      "onScreens": "/v1/screens?slideId=a97f6ec4-5278-4993-bfeb-53cdedea6d10",
+      "onPlaylists": "/v1/playlists?slideId=a97f6ec4-5278-4993-bfeb-53cdedea6d10",
+      "duration": 30000,
+      "published": 1622555123,
+      "content": {
+        "bookText": "<h1>Lorem Ipsum</h1>...Is simply <strong>dummy text</strong> of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        "authorText": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.",
+        "media": {
+          "authorImage": {
+            "id": "uniqueMedia6",
+            "url": "./fixtures/images/author.jpg"
+          },
+          "bookImage": {
+            "id": "uniqueMedia1",
+            "url": "./fixtures/images/mountain1.jpeg"
+          }
+        }
+      }
+    },
+    {
+      "jsonServerId": "787f6ece-6276-5982-beeb-53cba4f36f12",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/787f6ece-6276-5982-beeb-53cba4f36f12",
+      "title": "Calendar",
+      "description": "This is the next slide named two",
+      "modified": "2012-09-03T12:32:04Z",
+      "created": "2021-08-14T10:54:43Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f66",
+        "options": [
+          {
+            "fade": true
+          }
+        ]
+      },
+      "onScreens": "/v1/screens?slideId=787f6ece-6276-5982-beeb-53cba4f36f12",
+      "onPlaylists": "/v1/playlists?slideId=787f6ece-6276-5982-beeb-53cba4f36f12",
+      "duration": 30000,
+      "published": 1622555475,
+      "id": "uniqueCalendar1",
+      "content": {
+        "hasDateAndTime": true,
+        "backgroundColor": "blue",
+        "title": "Calendar",
+        "events": [
+          {
+            "id": "uniqueEvent1",
+            "eventName": "Cake",
+            "datetime": "2021-06-10T07:55:28.478Z",
+            "location": "M2"
+          }, {
+            "id": "uniqueEvent2",
+            "eventName": "Workshop",
+            "datetime": "2021-06-10T08:28:22.450Z",
+            "location": "Home"
+          }, {
+            "id": "uniqueEvent3",
+            "eventName": "GDPR",
+            "datetime": "2021-06-10T08:59:05.251Z",
+            "location": "M3-4"
+          }, {
+            "id": "uniqueEvent4",
+            "eventName": "Meeting",
+            "datetime": "2021-06-10T09:59:47.264Z",
+            "location": "Workshopzonen"
+          }
+        ]
+      }
+    },
+    {
+      "jsonServerId": "a97f6ec4-5278-4993-bfeb-53cdedea6d11",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cdedea6d11",
+      "title": "Image/Text 1",
+      "description": "This is the first slide named one",
+      "modified": "2012-09-03T12:21:56Z",
+      "created": "2021-09-01T10:04:00Z",
+      "modifiedBy": "Ole Olesen",
+      "createdBy": "Jens Jensen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f10",
+        "options": [
+          {
+            "fade": false
+          },
+          {
+            "icon": true,
+            "url": "http://test.local.itkdev.dk/icon.png"
+          }
+        ]
+      },
+      "onScreens": "/v1/screens?slideId=a97f6ec4-5278-4993-bfeb-53cdedea6d10",
+      "onPlaylists": "/v1/playlists?slideId=a97f6ec4-5278-4993-bfeb-53cdedea6d10",
+      "duration": 5000,
+      "published": 1622555123,
+      "content": {
+        "title": "Slide 1",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+        "media": {
+          "id": "uniqueMedia1",
+          "url": "./fixtures/images/mountain1.jpeg"
+        },
+        "styling": {
+          "boxAlign": "top",
+          "boxMargin": false,
+          "shadow": true,
+          "separator": false,
+          "halfSize": false,
+          "reversed": false
+        }
+      }
+    },
+    {
+      "jsonServerId": "a97f6ec4-5278-4993-bfeb-53cdedea6d12",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cdedea6d12",
+      "title": "Image/Text 2",
+      "description": "This is the first slide named one",
+      "modified": "2012-09-03T12:21:56Z",
+      "created": "2021-09-01T10:04:00Z",
+      "modifiedBy": "Ole Olesen",
+      "createdBy": "Jens Jensen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f10",
+        "options": [
+          {
+            "fade": false
+          },
+          {
+            "icon": true,
+            "url": "http://test.local.itkdev.dk/icon.png"
+          }
+        ]
+      },
+      "onScreens": "/v1/screens?slideId=a97f6ec4-5278-4993-bfeb-53cdedea6d10",
+      "onPlaylists": "/v1/playlists?slideId=a97f6ec4-5278-4993-bfeb-53cdedea6d10",
+      "published": 1622555123,
+      "duration": 15000,
+      "content": {
+        "title": "Slide 2",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+        "media": {
+          "id": "uniqueMedia2",
+          "url": "./fixtures/images/mountain2.jpeg"
+        },
+        "styling": {
+          "boxAlign": "left",
+          "boxMargin": false,
+          "separator": false,
+          "halfSize": false,
+          "reversed": false
+        }
+      }
+    },
+    {
+      "jsonServerId": "a97f6ec4-5278-4993-bfeb-53cdedea6d13",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cdedea6d13",
+      "title": "Image/Text 3",
+      "description": "This is the first slide named one",
+      "modified": "2012-09-03T12:21:56Z",
+      "created": "2021-09-01T10:04:00Z",
+      "modifiedBy": "Ole Olesen",
+      "createdBy": "Jens Jensen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f10",
+        "options": [
+          {
+            "fade": false
+          },
+          {
+            "icon": true,
+            "url": "http://test.local.itkdev.dk/icon.png"
+          }
+        ]
+      },
+      "onScreens": "/v1/screens?slideId=a97f6ec4-5278-4993-bfeb-53cdedea6d10",
+      "onPlaylists": "/v1/playlists?slideId=a97f6ec4-5278-4993-bfeb-53cdedea6d10",
+      "published": 1622555123,
+      "duration": 15000,
+      "content": {
+        "title": "Slide 3",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+        "media": {
+          "id": "uniqueMedia3",
+          "url": "./fixtures/images/mountain3.jpeg"
+        },
+        "styling": {
+          "boxAlign": "right",
+          "boxMargin": false,
+          "separator": false,
+          "halfSize": false,
+          "reversed": false
+        }
+      }
+    },
+    {
+      "jsonServerId": "a97f6ec4-5278-4993-bfeb-53cdedea6d14",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cdedea6d14",
+      "title": "Image/Text 4",
+      "description": "This is the first slide named one",
+      "modified": "2012-09-03T12:21:56Z",
+      "created": "2021-09-01T10:04:00Z",
+      "modifiedBy": "Ole Olesen",
+      "createdBy": "Jens Jensen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f10",
+        "options": [
+          {
+            "fade": false
+          },
+          {
+            "icon": true,
+            "url": "http://test.local.itkdev.dk/icon.png"
+          }
+        ]
+      },
+      "onScreens": "/v1/screens?slideId=a97f6ec4-5278-4993-bfeb-53cdedea6d10",
+      "onPlaylists": "/v1/playlists?slideId=a97f6ec4-5278-4993-bfeb-53cdedea6d10",
+      "published": 1622555123,
+      "duration": 15000,
+      "content": {
+        "title": "Slide 4",
+        "text": "<b>Lorem ipsum dolor</b> sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+        "media": {
+          "id": "uniqueMedia4",
+          "url": "./fixtures/images/mountain4.jpeg"
+        },
+        "styling": {
+          "boxAlign": "bottom",
+          "boxMargin": false,
+          "separator": false,
+          "halfSize": false,
+          "reversed": false
+        }
+      }
+    },
+    {
+      "jsonServerId": "a97f6ec4-5278-4993-bfeb-53cdedea6d15",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cdedea6d15",
+      "title": "Image/Text 5",
+      "description": "This is the first slide named one",
+      "modified": "2012-09-03T12:21:56Z",
+      "created": "2021-09-01T10:04:00Z",
+      "modifiedBy": "Ole Olesen",
+      "createdBy": "Jens Jensen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f10",
+        "options": [
+          {
+            "fade": false
+          },
+          {
+            "icon": true,
+            "url": "http://test.local.itkdev.dk/icon.png"
+          }
+        ]
+      },
+      "onScreens": "/v1/screens?slideId=a97f6ec4-5278-4993-bfeb-53cdedea6d10",
+      "onPlaylists": "/v1/playlists?slideId=a97f6ec4-5278-4993-bfeb-53cdedea6d10",
+      "published": 1622555123,
+      "duration": 15000,
+      "content": {
+        "title": "Slide 5",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+        "backgroundColor": "rgb(255, 0, 0)",
+        "textColor": "rgb(0, 0, 255)",
+        "boxColor": "rgb(0, 255, 0)",
+        "styling": {
+          "boxAlign": "bottom",
+          "boxMargin": false,
+          "separator": false,
+          "halfSize": false,
+          "reversed": false
+        }
+      }
+    },
+    {
+      "jsonServerId": "a97f6ec4-5278-4993-bfeb-53cdedea6d16",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cdedea6d16",
+      "title": "Image/Text 6 - fontsize s",
+      "description": "This is the first slide named one",
+      "modified": "2012-09-03T12:21:56Z",
+      "created": "2021-09-01T10:04:00Z",
+      "modifiedBy": "Ole Olesen",
+      "createdBy": "Jens Jensen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f10",
+        "options": [
+          {
+            "fade": false
+          },
+          {
+            "icon": true,
+            "url": "http://test.local.itkdev.dk/icon.png"
+          }
+        ]
+      },
+      "onScreens": "/v1/screens?slideId=a97f6ec4-5278-4993-bfeb-53cdedea6d10",
+      "onPlaylists": "/v1/playlists?slideId=a97f6ec4-5278-4993-bfeb-53cdedea6d10",
+      "published": 1622555123,
+      "duration": 4000,
+      "content": {
+        "title": "Slide 6",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+        "media": {
+          "id": "uniqueMedia1",
+          "url": "./fixtures/images/mountain1.jpeg"
+        },
+        "styling": {
+          "boxAlign": "top",
+          "boxMargin": false,
+          "separator": false,
+          "halfSize": false,
+          "reversed": false,
+          "fontSize": "s"
+        }
+      }
+    },
+    {
+      "jsonServerId": "a97f6ec4-5278-4993-bfeb-53cdedea6d17",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cdedea6d17",
+      "title": "Image/Text 7 - fontsize m",
+      "description": "This is the first slide named one",
+      "modified": "2012-09-03T12:21:56Z",
+      "created": "2021-09-01T10:04:00Z",
+      "modifiedBy": "Ole Olesen",
+      "createdBy": "Jens Jensen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f10",
+        "options": [
+          {
+            "fade": false
+          },
+          {
+            "icon": true,
+            "url": "http://test.local.itkdev.dk/icon.png"
+          }
+        ]
+      },
+      "onScreens": "/v1/screens?slideId=a97f6ec4-5278-4993-bfeb-53cdedea6d10",
+      "onPlaylists": "/v1/playlists?slideId=a97f6ec4-5278-4993-bfeb-53cdedea6d10",
+      "published": 1622555123,
+      "duration": 4000,
+      "content": {
+        "title": "Slide 7",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+        "media": {
+          "id": "uniqueMedia1",
+          "url": "./fixtures/images/mountain2.jpeg"
+        },
+        "styling": {
+          "boxAlign": "top",
+          "boxMargin": false,
+          "separator": false,
+          "halfSize": false,
+          "reversed": false,
+          "fontSize": "m"
+        }
+      }
+    },
+    {
+      "jsonServerId": "a97f6ec4-5278-4993-bfeb-53cdedea6d18",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cdedea6d18",
+      "title": "Image/Text 8 - fontsize l",
+      "description": "This is the first slide named one",
+      "modified": "2012-09-03T12:21:56Z",
+      "created": "2021-09-01T10:04:00Z",
+      "modifiedBy": "Ole Olesen",
+      "createdBy": "Jens Jensen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f10",
+        "options": [
+          {
+            "fade": false
+          },
+          {
+            "icon": true,
+            "url": "http://test.local.itkdev.dk/icon.png"
+          }
+        ]
+      },
+      "onScreens": "/v1/screens?slideId=a97f6ec4-5278-4993-bfeb-53cdedea6d10",
+      "onPlaylists": "/v1/playlists?slideId=a97f6ec4-5278-4993-bfeb-53cdedea6d10",
+      "published": 1622555123,
+      "duration": 4000,
+      "content": {
+        "title": "Slide 8",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+        "media": {
+          "id": "uniqueMedia1",
+          "url": "./fixtures/images/mountain3.jpeg"
+        },
+        "styling": {
+          "boxAlign": "top",
+          "boxMargin": false,
+          "separator": false,
+          "halfSize": false,
+          "reversed": false,
+          "fontSize": "l"
+        }
+      }
+    },
+    {
+      "jsonServerId": "a97f6ec4-5278-4993-bfeb-53cdedea6d19",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cdedea6d19",
+      "title": "Image/Text 9 - fontsize xl",
+      "description": "This is the first slide named one",
+      "modified": "2012-09-03T12:21:56Z",
+      "created": "2021-09-01T10:04:00Z",
+      "modifiedBy": "Ole Olesen",
+      "createdBy": "Jens Jensen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f10",
+        "options": [
+          {
+            "fade": false
+          },
+          {
+            "icon": true,
+            "url": "http://test.local.itkdev.dk/icon.png"
+          }
+        ]
+      },
+      "onScreens": "/v1/screens?slideId=a97f6ec4-5278-4993-bfeb-53cdedea6d10",
+      "onPlaylists": "/v1/playlists?slideId=a97f6ec4-5278-4993-bfeb-53cdedea6d10",
+      "published": 1622555123,
+      "duration": 4000,
+      "content": {
+        "title": "Slide 9",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+        "media": {
+          "id": "uniqueMedia1",
+          "url": "./fixtures/images/mountain4.jpeg"
+        },
+        "styling": {
+          "boxAlign": "top",
+          "boxMargin": false,
+          "separator": false,
+          "halfSize": false,
+          "reversed": false,
+          "fontSize": "xl"
+        }
+      }
+    },
+    {
+      "jsonServerId": "a97f6ec4-5278-4993-bfeb-53cdedea6d20",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cdedea6d20",
+      "title": "Image/Text 10 - margin and separator",
+      "description": "This is the first slide named one",
+      "modified": "2012-09-03T12:21:56Z",
+      "created": "2021-09-01T10:04:00Z",
+      "modifiedBy": "Ole Olesen",
+      "createdBy": "Jens Jensen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f10",
+        "options": [
+          {
+            "fade": false
+          },
+          {
+            "icon": true,
+            "url": "http://test.local.itkdev.dk/icon.png"
+          }
+        ]
+      },
+      "onScreens": "/v1/screens?slideId=a97f6ec4-5278-4993-bfeb-53cdedea6d20",
+      "onPlaylists": "/v1/playlists?slideId=a97f6ec4-5278-4993-bfeb-53cdedea6d20",
+      "published": 1622555123,
+      "duration": 4000,
+      "content": {
+        "title": "Slide 10",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+        "media": {
+          "id": "uniqueMedia1",
+          "url": "./fixtures/images/mountain4.jpeg"
+        },
+        "styling": {
+          "boxAlign": "top",
+          "boxMargin": true,
+          "separator": true,
+          "halfSize": true,
+          "reversed": false
+        }
+      }
+    },
+    {
+      "jsonServerId": "a97f6ec4-5278-4993-bfeb-53cdedea6d21",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cdedea6d21",
+      "title": "Image/Text 11 - reversed",
+      "description": "This is the first slide named one",
+      "modified": "2012-09-03T12:21:56Z",
+      "created": "2021-09-01T10:04:00Z",
+      "modifiedBy": "Ole Olesen",
+      "createdBy": "Jens Jensen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f10",
+        "options": [
+          {
+            "fade": false
+          },
+          {
+            "icon": true,
+            "url": "http://test.local.itkdev.dk/icon.png"
+          }
+        ]
+      },
+      "onScreens": "/v1/screens?slideId=a97f6ec4-5278-4993-bfeb-53cdedea6d21",
+      "onPlaylists": "/v1/playlists?slideId=a97f6ec4-5278-4993-bfeb-53cdedea6d21",
+      "published": 1622555123,
+      "duration": 4000,
+      "content": {
+        "title": "Slide 11",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+        "media": {
+          "id": "uniqueMedia1",
+          "url": "./fixtures/images/mountain4.jpeg"
+        },
+        "styling": {
+          "boxAlign": "top",
+          "boxMargin": false,
+          "separator": true,
+          "halfSize": true,
+          "reversed": true
+        }
+      }
+    },
+    {
+      "jsonServerId": "a97f6ec4-5278-4993-bfeb-53cdedea6d22",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cdedea6d22",
+      "title": "Image/Text 12 - just image",
+      "description": "This is the first slide named one",
+      "modified": "2012-09-03T12:21:56Z",
+      "created": "2021-09-01T10:04:00Z",
+      "modifiedBy": "Ole Olesen",
+      "createdBy": "Jens Jensen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f10",
+        "options": [
+          {
+            "fade": false
+          },
+          {
+            "icon": true,
+            "url": "http://test.local.itkdev.dk/icon.png"
+          }
+        ]
+      },
+      "onScreens": "/v1/screens?slideId=a97f6ec4-5278-4993-bfeb-53cdedea6d22",
+      "onPlaylists": "/v1/playlists?slideId=a97f6ec4-5278-4993-bfeb-53cdedea6d22",
+      "published": 1622555123,
+      "duration": 4000,
+      "content": {
+        "media": {
+          "id": "uniqueMedia1",
+          "url": "./fixtures/images/mountain4.jpeg"
+        }
+      }
+    },
+    {
+      "jsonServerId": "a97f6ec4-5278-4993-bfeb-53cdedea6d23",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cdedea6d23",
+      "title": "Image/Text 13 - just image",
+      "description": "This is the first slide named one",
+      "modified": "2012-09-03T12:21:56Z",
+      "created": "2021-09-01T10:04:00Z",
+      "modifiedBy": "Ole Olesen",
+      "createdBy": "Jens Jensen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f10",
+        "options": [
+          {
+            "fade": false
+          },
+          {
+            "icon": true,
+            "url": "http://test.local.itkdev.dk/icon.png"
+          }
+        ]
+      },
+      "onScreens": "/v1/screens?slideId=a97f6ec4-5278-4993-bfeb-53cdedea6d23",
+      "onPlaylists": "/v1/playlists?slideId=a97f6ec4-5278-4993-bfeb-53cdedea6d23",
+      "published": 1622555123,
+      "duration": 5000,
+      "content": {
+        "media": {
+          "id": "uniqueMedia1",
+          "url": "./fixtures/images/mountain1.jpeg"
+        }
+      }
+    },
+    {
+      "jsonServerId": "a97f6ec4-5278-4993-bfeb-53cdedea6d24",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cdedea6d24",
+      "title": "Image/Text 14 - just image",
+      "description": "This is the first slide named one",
+      "modified": "2012-09-03T12:21:56Z",
+      "created": "2021-09-01T10:04:00Z",
+      "modifiedBy": "Ole Olesen",
+      "createdBy": "Jens Jensen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f10",
+        "options": [
+          {
+            "fade": false
+          },
+          {
+            "icon": true,
+            "url": "http://test.local.itkdev.dk/icon.png"
+          }
+        ]
+      },
+      "onScreens": "/v1/screens?slideId=a97f6ec4-5278-4993-bfeb-53cdedea6d24",
+      "onPlaylists": "/v1/playlists?slideId=a97f6ec4-5278-4993-bfeb-53cdedea6d24",
+      "published": 1622555123,
+      "duration": 3500,
+      "content": {
+        "media": {
+          "id": "uniqueMedia1",
+          "url": "./fixtures/images/mountain2.jpeg"
+        }
+      }
+    },
+    {
+      "jsonServerId": "a97f6ec4-5278-4993-bfeb-53cdedea6d25",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cdedea6d25",
+      "title": "Image/Text 15 - just text",
+      "description": "This is the first slide named one",
+      "modified": "2012-09-03T12:21:56Z",
+      "created": "2021-09-01T10:04:00Z",
+      "modifiedBy": "Ole Olesen",
+      "createdBy": "Jens Jensen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f10",
+        "options": [
+          {
+            "fade": false
+          },
+          {
+            "icon": true,
+            "url": "http://test.local.itkdev.dk/icon.png"
+          }
+        ]
+      },
+      "onScreens": "/v1/screens?slideId=a97f6ec4-5278-4993-bfeb-53cdedea6d25",
+      "onPlaylists": "/v1/playlists?slideId=a97f6ec4-5278-4993-bfeb-53cdedea6d25",
+      "published": 1622555123,
+      "duration": 30000,
+      "content": {
+        "title": "Header"
+      }
+    },
+    {
+      "jsonServerId": "a97f6ec4-5278-4993-bfeb-53cdedea6d26",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cdedea6d26",
+      "title": "Image/Text 16 - just text",
+      "description": "This is the first slide named one",
+      "modified": "2012-09-03T12:21:56Z",
+      "created": "2021-09-01T10:04:00Z",
+      "modifiedBy": "Ole Olesen",
+      "createdBy": "Jens Jensen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f10",
+        "options": [
+          {
+            "fade": false
+          },
+          {
+            "icon": true,
+            "url": "http://test.local.itkdev.dk/icon.png"
+          }
+        ]
+      },
+      "onScreens": "/v1/screens?slideId=a97f6ec4-5278-4993-bfeb-53cdedea6d26",
+      "onPlaylists": "/v1/playlists?slideId=a97f6ec4-5278-4993-bfeb-53cdedea6d26",
+      "published": 1622555123,
+      "duration": 30000,
+      "content": {
+        "title": "Footer"
+      }
+    },
+    {
+      "jsonServerId": "a97f6ec4-5278-4993-bfeb-53cdedea6d27",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cdedea6d27",
+      "title": "Image/Text 17 - just image",
+      "description": "This is the first slide named one",
+      "modified": "2012-09-03T12:21:56Z",
+      "created": "2021-09-01T10:04:00Z",
+      "modifiedBy": "Ole Olesen",
+      "createdBy": "Jens Jensen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f10",
+        "options": [
+          {
+            "fade": false
+          },
+          {
+            "icon": true,
+            "url": "http://test.local.itkdev.dk/icon.png"
+          }
+        ]
+      },
+      "onScreens": "/v1/screens?slideId=a97f6ec4-5278-4993-bfeb-53cdedea6d27",
+      "onPlaylists": "/v1/playlists?slideId=a97f6ec4-5278-4993-bfeb-53cdedea6d27",
+      "published": 1622555123,
+      "duration": 3500,
+      "content": {
+        "title": "Title",
+        "text": "text",
+        "backgroundColor": "rgb(255, 0, 0)",
+        "textColor": "rgb(0, 0, 255)",
+        "boxColor": "rgb(0, 255, 0)",
+        "styling": {
+          "boxAlign": "bottom",
+          "boxMargin": false,
+          "separator": false,
+          "halfSize": false,
+          "reversed": true
+        }
+      }
+    },
+    {
+      "jsonServerId": "a97f6ec4-5278-4993-bfeb-53cdedea6d30",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cdedea6d30",
+      "title": "Meeting room schedule 1",
+      "description": "This is the first slide named one",
+      "modified": "2012-09-03T12:21:56Z",
+      "created": "2021-09-01T10:04:00Z",
+      "modifiedBy": "Ole Olesen",
+      "createdBy": "Jens Jensen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f11",
+        "options": [
+          {
+            "fade": false
+          },
+          {
+            "icon": true,
+            "url": "http://test.local.itkdev.dk/icon.png"
+          }
+        ]
+      },
+      "onScreens": "/v1/screens?slideId=a97f6ec4-5278-4993-bfeb-53cdedea6d30",
+      "onPlaylists": "/v1/playlists?slideId=a97f6ec4-5278-4993-bfeb-53cdedea6d30",
+      "published": 1622555123,
+      "duration": 15000,
+      "content": {
+        "backgroundColor": "#d2421e",
+        "metaData": "Ekstra info!",
+        "textAlign": "right",
+        "occupiedText": "Optaget",
+        "availableText": "Lokalet er ledigt",
+        "backgroundImage": {
+          "id": "uniqueMedia1",
+          "url": "./fixtures/images/mountain1.jpeg"
+        },
+        "title": "Meeting room schedule 1",
+        "events": [
+          {
+            "id": "uniqueRoomEvent1",
+            "eventName": "Cake",
+            "from": "2021-06-17T07:55:28.478Z",
+            "to": "2021-06-17T08:55:28.478Z",
+            "location": "M2"
+          },
+          {
+            "id": "uniqueRoomEvent2",
+            "from": "2021-06-17T10:30:00.202Z",
+            "to": "2021-06-17T21:00:00.202Z",
+            "location": "Home"
+          },
+          {
+            "id": "uniqueRoomEvent3",
+            "eventName": "GDPR",
+            "from": "2021-06-17T20:00:00.202Z",
+            "to": "2021-06-17T20:30:00.202Z",
+            "location": "M3-4"
+          },
+          {
+            "id": "uniqueRoomEvent4",
+            "eventName": "Meeting",
+            "from": "2021-06-17T19:30:00.202Z",
+            "to": "2021-06-17T20:00:00.202Z",
+            "location": "Workshopzonen"
+          }
+        ]
+      }
+    },
+    {
+      "id": "uniquePoster",
+      "title": "Poster 1",
+      "template": "template-poster",
+      "duration": 10000,
+      "content": {
+        "events": [
+          {
+            "ticketPurchaseUrl": "www.buyeventtickets.dk",
+            "excerpt": "Det bevaringsværdige og kulturhistoriske skib MS TUNØ tager dig med på en historisk og humoristisk rejse på vandet rundt om Aarhus",
+            "name": "Havnerundfart med MS TUNØ",
+            "url": "www.eventurl.dk",
+            "image": "./fixtures/images/mountain1.jpeg",
+            "startDate": "2021-06-21T14:00:00+00:00",
+            "endDate": "2021-06-21T15:00:00+00:00",
+            "readMoreText":"læs mere her",
+            "ticketPriceRange": "75-150 kr.",
+            "eventStatusText": null,
+            "place": {
+              "name": "Havnepladsen, Midtbyen Aarhus",
+              "streetAddress": "Havnepladsen 2",
+              "addressLocality": "Aarhus",
+              "postalCode": "8000",
+              "image": null,
+              "telephone": null
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "uniquePoster",
+      "title": "Poster 1",
+      "template": "template-poster",
+      "duration": 300000,
+      "content": {
+        "duration": 5000,
+        "events": [
+          {
+            "ticketPurchaseUrl": "www.buyeventtickets.dk",
+            "excerpt": "Det bevaringsværdige og kulturhistoriske skib MS TUNØ tager dig med på en historisk og humoristisk rejse på vandet rundt om Aarhus",
+            "name": "Havnerundfart med MS TUNØ",
+            "url": "www.eventurl.dk",
+            "image": "./fixtures/images/mountain1.jpeg",
+            "startDate": "2021-06-21T14:00:00+00:00",
+            "endDate": "2021-06-22T15:00:00+00:00",
+            "ticketPriceRange": "75-150 kr.",
+            "eventStatusText": null,
+            "place": {
+              "name": "Havnepladsen, Midtbyen Aarhus",
+              "streetAddress": "Havnepladsen 2",
+              "addressLocality": "Aarhus",
+              "postalCode": "8000",
+              "image": null,
+              "telephone": null
+            }
+          },
+          {
+            "ticketPurchaseUrl": "www.buyeventtickets.dk",
+            "excerpt": "Det bevaringsværdige og kulturhistoriske skib MS SAMSØ tager dig med på en historisk og humoristisk rejse på vandet rundt om Aarhus",
+            "name": "Havnerundfart med MS SAMSØ",
+            "url": "www.eventurl.dk",
+            "image": "./fixtures/images/mountain2.jpeg",
+            "startDate": "2021-06-21T14:00:00+00:00",
+            "endDate": "2021-06-22T15:00:00+00:00",
+            "ticketPriceRange": "75-150 kr.",
+            "eventStatusText": null,
+            "place": {
+              "name": "Havnepladsen, Midtbyen Aarhus",
+              "streetAddress": "Havnepladsen 2",
+              "addressLocality": "Aarhus",
+              "postalCode": "8000",
+              "image": null,
+              "telephone": null
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "uniqueQuotes1",
+      "title": "Quote 1",
+      "template": "template-quote",
+      "duration": 100000,
+      "content": {
+        "quoteInTwoLines": true,
+        "quotes": [
+          {
+            "quote": "I Miss You So Much, It Hurts Sometimes.",
+            "author": "John Michael Dorian",
+            "duration": 5000,
+            "id": "uniqueQuote1"
+          },
+          {
+            "quote": "I Shouldn't Be Mopping Here Anyways...This Is A Rug.",
+            "author": "Janitor",
+            "duration": 5000,
+            "id": "uniqueQuote2"
+          },
+          {
+            "quote": "Ladies and gentlemen, allow me to present, Man Not Caring.",
+            "author": "Dr. Cox",
+            "duration": 5000,
+            "id": "uniqueQuote3"
+          },
+          {
+            "quote": "You Would Hear Cricket's Chirping, But They Were Too Uncomfortable About Just How Unfunny That Actually Was.",
+            "author": "Dr. Cox",
+            "duration": 7000,
+            "id": "uniqueQuote3"
+          }
+        ]
+      }
+    },
+    {
+      "template": "template-rss",
+      "id": "uniqueRSS1",
+      "title": "RSS",
+      "duration": 300000,
+      "content": {
+        "fontSize": "xl",
+        "rssNumber": 5,
+        "rssDuration": 10,
+        "source": "./fixtures/rss/feed.json"
+      }
+    },
+    {
+      "template": "template-rss",
+      "id": "uniqueRSS1",
+      "title": "RSS",
+      "duration": 300000,
+      "content": {
+        "media": {
+          "id": "uniqueMedia6",
+          "url": "./fixtures/images/mountain1.jpeg"
+        },
+        "fontSize": "s",
+        "rssNumber": 2,
+        "rssDuration": 2,
+        "source": "./fixtures/rss/feed.json"
+      }
+    },
+    {
+      "title": "Slideshow 1",
+      "template": "template-slideshow",
+      "content": {
+        "images": [
+          {
+            "id": "uniqueMedia1",
+            "url": "./fixtures/images/mountain1.jpeg",
+            "duration": 1000
+          },
+          {
+            "id": "uniqueMedia2",
+            "url": "./fixtures/images/mountain2.jpeg",
+            "duration": 1000
+          },
+          {
+            "id": "uniqueMedia3",
+            "url": "./fixtures/images/mountain3.jpeg",
+            "duration": 1000
+          },
+          {
+            "id": "uniqueMedia4",
+            "url": "./fixtures/images/mountain4.jpeg",
+            "duration": 1000
+          }
+        ],
+        "logo": {
+          "id": "uniqueMedia5",
+          "url": "./fixtures/images/logo.png",
+          "position": "bottom left",
+          "size": "l"
+        },
+        "transitions": "fade",
+        "animations": "random"
+      }
+    },
+    {
+      "title": "Slideshow 2",
+      "template": "template-slideshow",
+      "content": {
+        "images": [
+          {
+            "id": "uniqueMedia1",
+            "url": "./fixtures/images/mountain1.jpeg",
+            "duration": 10000
+          },
+          {
+            "id": "uniqueMedia2",
+            "url": "./fixtures/images/mountain2.jpeg",
+            "duration": 10000
+          },
+          {
+            "id": "uniqueMedia3",
+            "url": "./fixtures/images/mountain3.jpeg",
+            "duration": 10000
+          },
+          {
+            "id": "uniqueMedia4",
+            "url": "./fixtures/images/mountain4.jpeg",
+            "duration": 10000
+          }
+        ],
+        "logo": {
+          "id": "uniqueMedia5",
+          "url": "./fixtures/images/logo.png",
+          "position": "bottom right",
+          "size": "s"
+        },
+        "transitions": "fade",
+        "animations": "zoom-out-random"
+      }
+    },
+    {
+      "id": "uniqueSparkle1",
+      "title": "Sparkle 1",
+      "template": "template-sparkle",
+      "duration": 300000,
+      "content": {
+        "hashtagText": "dadaada",
+        "orientation": "landscape",
+        "imageWidth": 56.25,
+        "duration": 10000,
+        "selectedFeed": 27626,
+        "posts": [
+          {
+            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. #Lorem#Ipsum#Lorem#Ipsum#Lorem#Ipsum#Lorem#Ipsum#Lorem#Ipsum",
+            "textMarkup": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.#Lorem#Ipsum#Lorem#Ipsum#Lorem#Ipsum#Lorem#Ipsum#Lorem#Ipsum",
+            "mediaUrl": "./fixtures/images/mountain3.jpeg",
+            "videoUrl": null,
+            "username": "Lorem Ipsum",
+            "createdTime": "2021-06-21T10:13:30"
+          }
+        ]
+      }
+    },
+    {
+      "id": "uniqueSparkle1",
+      "title": "Sparkle 2",
+      "template": "template-sparkle",
+      "duration": 30000,
+      "content": {
+        "hashtagText": "",
+        "orientation": "horizontal",
+        "imageWidth": 56.25,
+        "duration": 10000,
+        "selectedFeed": 27626,
+        "posts": [
+          {
+            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. #Lorem#Ipsum#Lorem#Ipsum#Lorem#Ipsum#Lorem#Ipsum#Lorem#Ipsum",
+            "textMarkup": "<em>Lorem ipsum dolor</em> sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<div style='color:grey'>#Lorem#Ipsum#Lorem#Ipsum#Lorem#Ipsum#Lorem#Ipsum#Lorem#Ipsum</div>",
+            "mediaUrl": "./fixtures/images/mountain3.jpeg",
+            "videoUrl": null,
+            "username": "Lorem Ipsum",
+            "createdTime": "2021-06-21T10:13:30"
+          },
+          {
+            "text": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. #Nemo#enim#ipsam#voluptatem#Nemo#enim#ipsam#voluptatem",
+            "textMarkup": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. #Nemo#enim#ipsam#voluptatem#Nemo#enim#ipsam#voluptatem",
+            "mediaUrl": "./fixtures/images/mountain2.jpeg",
+            "videoUrl": null,
+            "username": "QuisAutem",
+            "createdTime": "2021-06-21T10:13:30"
+          }
+        ]
+      }
+    },
+    {
+      "id": "uniqueSparkle1",
+      "title": "Sparkle 3",
+      "template": "template-sparkle",
+      "duration": 300000,
+      "content": {
+        "hashtagText": "dadaada",
+        "orientation": "landscape",
+        "imageWidth": 56.25,
+        "duration": 10000,
+        "selectedFeed": 27626,
+        "posts": [
+          {
+            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. #Lorem#Ipsum#Lorem#Ipsum#Lorem#Ipsum#Lorem#Ipsum#Lorem#Ipsum",
+            "textMarkup": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.#Lorem#Ipsum#Lorem#Ipsum#Lorem#Ipsum#Lorem#Ipsum#Lorem#Ipsum",
+            "mediaUrl": "./fixtures/images/mountain3.jpeg",
+            "videoUrl":  "./fixtures/videos/video.mp4",
+            "username": "Lorem Ipsum",
+            "createdTime": "2021-06-21T10:13:30"
+          }
+        ]
+      }
+    }
+
+  ]
+}
