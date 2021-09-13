@@ -33,7 +33,7 @@ function ImageText({ slide, content, run, slideDone }) {
     shadow,
   } = content.styling || {};
   const fontSizeClass = fontSize ? `box ${fontSize}` : 'box';
-  let rootClasses = 'template-image-text';
+  let rootClasses = ['template-image-text'];
 
   // Styling objects
   const rootStyle = {};
@@ -83,31 +83,31 @@ function ImageText({ slide, content, run, slideDone }) {
 
   // Position text-box.
   if (boxAlign === 'left' || boxAlign === 'right') {
-    rootClasses = rootClasses.concat(' column');
+    rootClasses.push('column');
   }
 
   if (boxAlign === 'bottom' || boxAlign === 'right') {
-    rootClasses = rootClasses.concat(' flex-end');
+    rootClasses.push('flex-end');
   }
   if (reversed) {
-    rootClasses = rootClasses.concat(' reversed');
+    rootClasses.push('reversed');
   }
   if (boxMargin || reversed) {
-    rootClasses = rootClasses.concat(' box-margin');
+    rootClasses.push('box-margin');
   }
   if (halfSize && !reversed) {
-    rootClasses = rootClasses.concat(' half-size');
+    rootClasses.push('half-size');
   }
   if (separator && !reversed) {
-    rootClasses = rootClasses.concat(' animated-header');
+    rootClasses.push('animated-header');
   }
 
   if (shadow) {
-    rootClasses = rootClasses.concat(' shadow');
+    rootClasses.push('shadow');
   }
 
   return (
-    <div className={rootClasses} style={rootStyle}>
+    <div className={rootClasses} style={rootStyle.join(" ")}>
       {title && (
         <div className={fontSizeClass} style={imageTextStyle}>
           {title && (
