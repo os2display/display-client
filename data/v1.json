@@ -3,6 +3,10 @@
     {
       "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf4a6457",
       "slideId": "a97f6ec4-5278-4993-bfeb-53cdedea6d00"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf4a6457",
+      "slideId": "787f6ece-6276-5982-beeb-53cba4f36f01"
     }
   ],
   "playlistScreenRegion": [
@@ -1488,7 +1492,7 @@
       "layout": "/v1/layouts/497f6ecf-642-4883-cfeb-53cbf3bf82a0",
       "location": "M2.3",
       "regions": [
-        "/v1/screens/497f6eca-6276-1596-bfeb-53ceb43a6f54/region/region1/playlists"
+        "/v1/playlistScreenRegion?_expand=playlist&screen=497f6eca-6276-1596-bfeb-53ceb43a6f54&region=region1"
       ],
       "inScreenGroups": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb43a6f54/groups",
       "modified": "2021-09-21T14:02:00Z",
@@ -1510,8 +1514,8 @@
       "layout": "/v1/layouts/497f6ecf-642-4883-cfeb-53cbf3bf82a9",
       "location": "M2.5",
       "regions": [
-        "/v1/screens/854f6ecb-6276-6854-bfeb-53cffffa6d1e/regions/region1/playlists",
-        "/v1/screens/854f6ecb-6276-6854-bfeb-53cffffa6d1e/regions/region2/playlists"
+        "/v1/playlistScreenRegion?_expand=playlist&screen=854f6ecb-6276-6854-bfeb-53cffffa6d1e&region=region1",
+        "/v1/playlistScreenRegion?_expand=playlist&screen=854f6ecb-6276-6854-bfeb-53cffffa6d1e&region=region2"
       ],
       "inScreenGroups": "/v1/screens/854f6ecb-6276-6854-bfeb-53cffffa6d1e/groups",
       "modified": "2021-08-04T10:12:00Z",

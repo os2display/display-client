@@ -28,6 +28,20 @@ const hydraRender = (req, res) => {
   }
 };
 
+/*
+server.use('/v1/playlists/:playlistId/slides', (req, res) => {
+  res.redirect(
+    `/v1/slidesPlaylist?_expand=slide&playlist=${req.params.playlistId}`
+  );
+});
+
+server.use('/v1/screens/:screenId/region/:regionId/playlists', (req, res) => {
+  res.redirect(
+    `/v1/playlistScreenRegion?_expand=playlist&screen=${req.params.screenId}&region=${req.params.regionId}`
+  );
+});
+*/
+
 v1Router.render = hydraRender;
 
 server.use(middlewares);
