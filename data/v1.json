@@ -2,6 +2,8 @@
   "playlists": [
     {
       "jsonServerId": "29ff6eca-8778-6789-bfeb-53e4bf4a6457",
+      "jsonServerScreenId": "497f6eca-6276-1596-bfeb-53ceb43a6f54",
+      "jsonServerRegionId": "region1",
       "@context": "/contexts/playlist",
       "@id": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf4a6457",
       "title": "Playlist 1",
@@ -19,6 +21,8 @@
     },
     {
       "jsonServerId": "29ff6eca-8778-6789-bfeb-53e4bf4a6458",
+      "jsonServerScreenId": "497f6eca-6276-1596-bfeb-53ceb43a6f54",
+      "jsonServerRegionId": "region1",
       "@context": "/contexts/playlist",
       "@id": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf4a6458",
       "title": "Playlist 2",
@@ -1478,7 +1482,7 @@
         "width": 1920,
         "height": 1080
       },
-      "layout": "/v1/layout/{@TODO}",
+      "layout": "/v1/layouts/497f6ecf-642-4883-cfeb-53cbf3bf82a0",
       "location": "M2.3",
       "regions": [
         "/v1/screens/497f6eca-6276-1596-bfeb-53ceb43a6f54/region/region1/playlists"
@@ -1500,7 +1504,7 @@
         "width": 1920,
         "height": 1080
       },
-      "layout": "/v1/layouts/{@TODO}",
+      "layout": "/v1/layouts/497f6ecf-642-4883-cfeb-53cbf3bf82a9",
       "location": "M2.5",
       "regions": [
         "/v1/screens/854f6ecb-6276-6854-bfeb-53cffffa6d1e/regions/region1/playlists",
@@ -1511,6 +1515,80 @@
       "created": "2021-07-21T12:05:00Z",
       "modifiedBy": "Jens Jensen",
       "createdBy": "Ole Olesen"
+    }
+  ],
+  "layouts": [
+    {
+      "jsonServerId": "497f6ecf-642-4883-cfeb-53cbf3bf82a0",
+      "@context": "/contexts/Layout",
+      "@id": "/v1/layouts/497f6ecf-642-4883-cfeb-53cbf3bf82a0",
+      "title": "Full screen",
+      "grid": {
+        "rows": 1,
+        "columns": 1
+      },
+      "regions": [
+        {
+          "id": "region1",
+          "gridArea": [
+            "a"
+          ]
+        }
+      ]
+    },
+    {
+      "jsonServerId": "497f6ecf-642-4883-cfeb-53cbf3bf82a9",
+      "@context": "/contexts/Layout",
+      "@id": "/v1/layouts/497f6ecf-642-4883-cfeb-53cbf3bf82a9",
+      "title": "6 way split",
+      "grid": {
+        "rows": 4,
+        "columns": 12
+      },
+      "regions": [
+        {
+          "id": "region1",
+          "gridArea": [
+            "a",
+            "d"
+          ]
+        },
+        {
+          "id": "region2",
+          "gridArea": [
+            "e",
+            "m"
+          ]
+        },
+        {
+          "id": "region3",
+          "gridArea": [
+            "q",
+            "y"
+          ]
+        },
+        {
+          "id": "region4",
+          "gridArea": [
+            "cc",
+            "oo"
+          ]
+        },
+        {
+          "id": "region5",
+          "gridArea": [
+            "ss",
+            "vv"
+          ]
+        },
+        {
+          "id": "region6",
+          "gridArea": [
+            "f",
+            "rr"
+          ]
+        }
+      ]
     }
   ]
 }

@@ -13,6 +13,8 @@ class PullStrategy {
   // Fetch-inteval in ms.
   interval = 5000;
 
+  entryPoint = '';
+
   /**
    * Constructor.
    *
@@ -26,6 +28,8 @@ class PullStrategy {
 
     this.interval = config?.interval ?? 5000;
     this.endpoint = config?.endpoint ?? '';
+    // @TODO: Get this entry point in a more dynamic way.
+    this.entryPoint = config.entryPoint;
   }
 
   /**
@@ -34,38 +38,49 @@ class PullStrategy {
   fetchScreen() {
     // @TODO: Cache data in indexedDB.
     // @TODO: Prefetching assets to allow service worker to cache.
-    fetch(this.endpoint)
+    fetch(this.endpoint + this.entryPoint)
       .then((response) => response.json())
       .then((screenData) => {
-        if (screenData?.regions?.length > 0) {
-          const newScreenData = cloneDeep(screenData);
-          const promises = [];
+        this.fetchLayout(screenData.layout)
+          .then((layoutData) => {
+            const newScreenData = cloneDeep(screenData);
 
-          newScreenData.regions.forEach((regionData) => {
-            promises.push(this.fetchRegion(regionData));
+            newScreenData.layoutData = layoutData;
+
+            if (screenData?.regions?.length > 0) {
+              const promises = [];
+
+              newScreenData.regions.forEach((regionPath) => {
+                promises.push(this.fetchRegion(regionPath));
+              });
+
+              Promise.allSettled(promises)
+                .then((results) => {
+                  console.log(results);
+
+                  results.forEach((result) => {
+                    if (result.status === 'fulfilled') {
+                      const region = result.value;
+                      const regionIndex = newScreenData.regions.findIndex(
+                        (element) => element.id === region.id
+                      );
+                      newScreenData.regions[regionIndex] = region;
+                    }
+                  });
+
+                  const event = new CustomEvent('content', {
+                    detail: {
+                      screen: newScreenData,
+                    },
+                  });
+                  document.dispatchEvent(event);
+                })
+                .catch((err) => Logger.log('error', err));
+            }
+          })
+          .catch((err) => {
+            console.error(err);
           });
-
-          Promise.allSettled(promises)
-            .then((results) => {
-              results.forEach((result) => {
-                if (result.status === 'fulfilled') {
-                  const region = result.value;
-                  const regionIndex = newScreenData.regions.findIndex(
-                    (element) => element.id === region.id
-                  );
-                  newScreenData.regions[regionIndex] = region;
-                }
-              });
-
-              const event = new CustomEvent('content', {
-                detail: {
-                  screen: newScreenData,
-                },
-              });
-              document.dispatchEvent(event);
-            })
-            .catch((err) => Logger.log('error', err));
-        }
       })
       .catch((err) => {
         Logger.log(
@@ -77,30 +92,35 @@ class PullStrategy {
   }
 
   /**
+   * Fetch a layout by path.
+   *
+   * @param {string} layoutPath
+   *   Path to the layout.
+   * @returns {Promise<any>}
+   *   Promise with layout.
+   */
+  fetchLayout(layoutPath) {
+    return fetch(this.endpoint + layoutPath).then((response) =>
+      response.json()
+    );
+  }
+
+  /**
    * Fetch playlists in a region of the screen.
    *
-   * @param {object} regionData
-   *   The data for the region.
+   * @param {string} regionPath
+   *   Path to the playlists for the region.
    * @returns {Promise<object>}
-   *   Promise with region with playlists attached.
+   *   Promise with playlists for the given region of the screen.
    */
-  fetchRegion(regionData) {
+  fetchRegion(regionPath) {
     return new Promise((resolve, reject) => {
-      const promises = [];
-      const newRegionData = cloneDeep(regionData);
+      const newRegionData = { regionPath };
 
-      newRegionData.playlists.forEach((playlist) => {
-        promises.push(this.fetchPlaylist(playlist.url));
-      });
-
-      Promise.allSettled(promises)
-        .then((results) => {
-          newRegionData.playlists = results.map((result) => {
-            if (result.status === 'fulfilled') {
-              return result.value;
-            }
-            return null;
-          });
+      fetch(this.endpoint + regionPath)
+        .then((response) => response.json())
+        .then((playlists) => {
+          newRegionData.playlists = playlists['hydra:member'];
           resolve(newRegionData);
         })
         .catch((err) => reject(err));
@@ -110,14 +130,14 @@ class PullStrategy {
   /**
    * Fetch playlist.
    *
-   * @param {string} playlistUrl
-   *   The url where the playlist can be fetched.
+   * @param {string} playlistPath
+   *   The path where the playlist can be fetched.
    * @returns {Promise<object>}
    *   The promise.
    */
-  fetchPlaylist(playlistUrl) {
+  fetchPlaylist(playlistPath) {
     return new Promise((resolve, reject) => {
-      fetch(playlistUrl)
+      fetch(this.endpoint + playlistPath)
         .then((response) => response.json())
         .then((playlistData) => {
           const promises = [];
