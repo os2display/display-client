@@ -73,19 +73,19 @@ A component will be created like below
 
 ```html
 <ExampleComponent
-  slide={slide}
-  slideDone={slideDone}
-  content={slide.content}
-  run={run}
+  slide="{slide}"
+  slideDone="{slideDone}"
+  content="{slide.content}"
+  run="{run}"
 />
 ```
 
 **slide**: The slide object.
 **slideDone**: A function that is called when the slide is done.
-**Content**: is the slide content.
-**Run**: is a boolean whether the slide is running or not.
+**Content**: The slide content.
+**Run**: A boolean that signals whether the slide is running or not.
 
-And the following code snippet should be in the component:
+The slide is responsible for signaling that it is done executing. This is done by calling the slideDone() function. If the slide should just run for X milliseconds then you can use the BaseSlideExecution class to handle this. See the example below.
 
 ```javascript
 /**
@@ -107,7 +107,7 @@ useEffect(() => {
 
 #### JSON for backend form
 
-If the template should be configured from the admin backend, it needs a json file. As of now, the form is:
+To populate the slide with data an admin form is needed. This is configured in a json file:
 
 **input**: _input | header | image | select | checkbox_
 **name**: A name, should be unique
@@ -223,11 +223,6 @@ The following example is for the image and text template:
   }
 ]
 ```
-
-### Optional
-
-- Translations
-- Test
 
 ### Considerations
 
