@@ -1,9 +1,25 @@
 {
+  "slidesPlaylist": [
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf4a6457",
+      "slideId": "a97f6ec4-5278-4993-bfeb-53cdedea6d00"
+    }
+  ],
+  "playlistScreenRegion": [
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf4a6457",
+      "screenId": "497f6eca-6276-1596-bfeb-53ceb43a6f54",
+      "region": "region1"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf4a6458",
+      "screenId": "497f6eca-6276-1596-bfeb-53ceb43a6f54",
+      "region": "region1"
+    }
+  ],
   "playlists": [
     {
-      "jsonServerId": "29ff6eca-8778-6789-bfeb-53e4bf4a6457",
-      "jsonServerScreenId": "497f6eca-6276-1596-bfeb-53ceb43a6f54",
-      "jsonServerRegionId": "region1",
+      "id": "29ff6eca-8778-6789-bfeb-53e4bf4a6457",
       "@context": "/contexts/playlist",
       "@id": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf4a6457",
       "title": "Playlist 1",
@@ -20,9 +36,7 @@
       }
     },
     {
-      "jsonServerId": "29ff6eca-8778-6789-bfeb-53e4bf4a6458",
-      "jsonServerScreenId": "497f6eca-6276-1596-bfeb-53ceb43a6f54",
-      "jsonServerRegionId": "region1",
+      "id": "29ff6eca-8778-6789-bfeb-53e4bf4a6458",
       "@context": "/contexts/playlist",
       "@id": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf4a6458",
       "title": "Playlist 2",
@@ -39,7 +53,7 @@
       }
     },
     {
-      "jsonServerId": "29ff6eca-8778-6789-bfeb-53e4bf4a6459",
+      "id": "29ff6eca-8778-6789-bfeb-53e4bf4a6459",
       "@context": "/contexts/playlist",
       "@id": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf4a6459",
       "title": "Playlist 3",
@@ -56,7 +70,7 @@
       }
     },
     {
-      "jsonServerId": "29ff6eca-8778-6789-bfeb-53e4bf4a6460",
+      "id": "29ff6eca-8778-6789-bfeb-53e4bf4a6460",
       "@context": "/contexts/playlist",
       "@id": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf4a6460",
       "title": "Playlist 4",
@@ -73,7 +87,7 @@
       }
     },
     {
-      "jsonServerId": "29ff6eca-8778-6789-bfeb-53e4bf4a6461",
+      "id": "29ff6eca-8778-6789-bfeb-53e4bf4a6461",
       "@context": "/contexts/playlist",
       "@id": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf4a6461",
       "title": "Playlist 5",
@@ -90,7 +104,7 @@
       }
     },
     {
-      "jsonServerId": "29ff6eca-8778-6789-bfeb-53e4bf4a6462",
+      "id": "29ff6eca-8778-6789-bfeb-53e4bf4a6462",
       "@context": "/contexts/playlist",
       "@id": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf4a6462",
       "title": "Playlist 6",
@@ -109,7 +123,7 @@
   ],
   "templates": [
     {
-      "jsonServerId": "457d6ecb-6378-4299-bfcb-53cbaaaa6f65",
+      "id": "457d6ecb-6378-4299-bfcb-53cbaaaa6f65",
       "@id": "/v1/template/457d6ecb-6378-4299-bfcb-53cbaaaa6f65",
       "title": "Book review",
       "description": "This is a template for book reviews",
@@ -135,7 +149,7 @@
       }
     },
     {
-      "jsonServerId": "457d6ecb-6378-4299-bfcb-53cbaaaa6f66",
+      "id": "457d6ecb-6378-4299-bfcb-53cbaaaa6f66",
       "@id": "/v1/template/457d6ecb-6378-4299-bfcb-53cbaaaa6f66",
       "title": "Calendar",
       "description": "This is a template for calendars",
@@ -161,7 +175,7 @@
       }
     },
     {
-      "jsonServerId": "457d6ecb-6378-4299-bfcb-53cbaaaa6f10",
+      "id": "457d6ecb-6378-4299-bfcb-53cbaaaa6f10",
       "@id": "/v1/template/457d6ecb-6378-4299-bfcb-53cbaaaa6f10",
       "title": "Image/Text",
       "description": "This is a template for image and text",
@@ -187,7 +201,7 @@
       }
     },
     {
-      "jsonServerId": "457d6ecb-6378-4299-bfcb-53cbaaaa6f11",
+      "id": "457d6ecb-6378-4299-bfcb-53cbaaaa6f11",
       "@id": "/v1/template/457d6ecb-6378-4299-bfcb-53cbaaaa6f11",
       "title": "Meeting room",
       "description": "This is a template for meeting room",
@@ -213,7 +227,7 @@
       }
     },
     {
-      "jsonServerId": "457d6ecb-6378-4299-bfcb-53cbaaaa6f12",
+      "id": "457d6ecb-6378-4299-bfcb-53cbaaaa6f12",
       "@id": "/v1/template/457d6ecb-6378-4299-bfcb-53cbaaaa6f12",
       "title": "Poster",
       "description": "This is a template for poster",
@@ -239,7 +253,7 @@
       }
     },
     {
-      "jsonServerId": "457d6ecb-6378-4299-bfcb-53cbaaaa6f13",
+      "id": "457d6ecb-6378-4299-bfcb-53cbaaaa6f13",
       "@id": "/v1/template/457d6ecb-6378-4299-bfcb-53cbaaaa6f13",
       "title": "Quote",
       "description": "This is a template for quote",
@@ -265,7 +279,7 @@
       }
     },
     {
-      "jsonServerId": "457d6ecb-6378-4299-bfcb-53cbaaaa6f14",
+      "id": "457d6ecb-6378-4299-bfcb-53cbaaaa6f14",
       "@id": "/v1/template/457d6ecb-6378-4299-bfcb-53cbaaaa6f14",
       "title": "RSS",
       "description": "This is a template for RSS",
@@ -291,7 +305,7 @@
       }
     },
     {
-      "jsonServerId": "457d6ecb-6378-4299-bfcb-53cbaaaa6f15",
+      "id": "457d6ecb-6378-4299-bfcb-53cbaaaa6f15",
       "@id": "/v1/template/457d6ecb-6378-4299-bfcb-53cbaaaa6f15",
       "title": "Slideshow",
       "description": "This is a template for slideshow",
@@ -317,7 +331,7 @@
       }
     },
     {
-      "jsonServerId": "457d6ecb-6378-4299-bfcb-53cbaaaa6f16",
+      "id": "457d6ecb-6378-4299-bfcb-53cbaaaa6f16",
       "@id": "/v1/template/457d6ecb-6378-4299-bfcb-53cbaaaa6f16",
       "title": "Sparkle",
       "description": "This is a template for sparkle",
@@ -345,8 +359,7 @@
   ],
   "slides": [
     {
-      "jsonServerPlaylists": "29ff6eca-8778-6789-bfeb-53e4bf4a6457,29ff6eca-8778-6789-bfeb-53e4bf4a6458,29ff6eca-8778-6789-bfeb-53e4bf4a6459",
-      "jsonServerId": "a97f6ec4-5278-4993-bfeb-53cdedea6d00",
+      "id": "a97f6ec4-5278-4993-bfeb-53cdedea6d00",
       "@context": "/contexts/Slide",
       "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cdedea6d00",
       "title": "Bookreview 1",
@@ -379,8 +392,7 @@
       }
     },
     {
-      "jsonServerId": "787f6ece-6276-5982-beeb-53cba4f36f01",
-      "jsonServerPlaylists": "29ff6eca-8778-6789-bfeb-53e4bf4a6457,29ff6eca-8778-6789-bfeb-53e4bf4a6458",
+      "id": "787f6ece-6276-5982-beeb-53cba4f36f01",
       "@context": "/contexts/Slide",
       "@id": "/v1/slides/787f6ece-6276-5982-beeb-53cba4f36f01",
       "title": "Calendar",
@@ -397,7 +409,6 @@
       "onPlaylists": "/v1/playlists?slideId=787f6ece-6276-5982-beeb-53cba4f36f01",
       "duration": 30000,
       "published": 1622555475,
-      "id": "uniqueCalendar1",
       "content": {
         "hasDateAndTime": true,
         "backgroundColor": "blue",
@@ -428,8 +439,7 @@
       }
     },
     {
-      "jsonServerPlaylists": "29ff6eca-8778-6789-bfeb-53e4bf4a6457",
-      "jsonServerId": "a97f6ec4-5278-4993-bfeb-53cdedea6d11",
+      "id": "a97f6ec4-5278-4993-bfeb-53cdedea6d11",
       "@context": "/contexts/Slide",
       "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cdedea6d11",
       "title": "Image/Text 1",
@@ -464,8 +474,7 @@
       }
     },
     {
-      "jsonServerPlaylists": "29ff6eca-8778-6789-bfeb-53e4bf4a6457",
-      "jsonServerId": "a97f6ec4-5278-4993-bfeb-53cdedea6d12",
+      "id": "a97f6ec4-5278-4993-bfeb-53cdedea6d12",
       "@context": "/contexts/Slide",
       "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cdedea6d12",
       "title": "Image/Text 2",
@@ -499,8 +508,7 @@
       }
     },
     {
-      "jsonServerPlaylists": "29ff6eca-8778-6789-bfeb-53e4bf4a6457",
-      "jsonServerId": "a97f6ec4-5278-4993-bfeb-53cdedea6d13",
+      "id": "a97f6ec4-5278-4993-bfeb-53cdedea6d13",
       "@context": "/contexts/Slide",
       "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cdedea6d13",
       "title": "Image/Text 3",
@@ -534,8 +542,7 @@
       }
     },
     {
-      "jsonServerPlaylists": "29ff6eca-8778-6789-bfeb-53e4bf4a6457",
-      "jsonServerId": "a97f6ec4-5278-4993-bfeb-53cdedea6d14",
+      "id": "a97f6ec4-5278-4993-bfeb-53cdedea6d14",
       "@context": "/contexts/Slide",
       "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cdedea6d14",
       "title": "Image/Text 4",
@@ -569,8 +576,7 @@
       }
     },
     {
-      "jsonServerPlaylists": "29ff6eca-8778-6789-bfeb-53e4bf4a6457",
-      "jsonServerId": "a97f6ec4-5278-4993-bfeb-53cdedea6d15",
+      "id": "a97f6ec4-5278-4993-bfeb-53cdedea6d15",
       "@context": "/contexts/Slide",
       "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cdedea6d15",
       "title": "Image/Text 5",
@@ -603,8 +609,7 @@
       }
     },
     {
-      "jsonServerPlaylists": "29ff6eca-8778-6789-bfeb-53e4bf4a6457",
-      "jsonServerId": "a97f6ec4-5278-4993-bfeb-53cdedea6d16",
+      "id": "a97f6ec4-5278-4993-bfeb-53cdedea6d16",
       "@context": "/contexts/Slide",
       "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cdedea6d16",
       "title": "Image/Text 6 - fontsize s",
@@ -639,8 +644,7 @@
       }
     },
     {
-      "jsonServerPlaylists": "29ff6eca-8778-6789-bfeb-53e4bf4a6457",
-      "jsonServerId": "a97f6ec4-5278-4993-bfeb-53cdedea6d17",
+      "id": "a97f6ec4-5278-4993-bfeb-53cdedea6d17",
       "@context": "/contexts/Slide",
       "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cdedea6d17",
       "title": "Image/Text 7 - fontsize m",
@@ -675,8 +679,7 @@
       }
     },
     {
-      "jsonServerPlaylists": "29ff6eca-8778-6789-bfeb-53e4bf4a6457",
-      "jsonServerId": "a97f6ec4-5278-4993-bfeb-53cdedea6d18",
+      "id": "a97f6ec4-5278-4993-bfeb-53cdedea6d18",
       "@context": "/contexts/Slide",
       "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cdedea6d18",
       "title": "Image/Text 8 - fontsize l",
@@ -712,7 +715,7 @@
     },
     {
       "jsonServerPlaylists": "29ff6eca-8778-6789-bfeb-53e4bf4a6457",
-      "jsonServerId": "a97f6ec4-5278-4993-bfeb-53cdedea6d19",
+      "id": "a97f6ec4-5278-4993-bfeb-53cdedea6d19",
       "@context": "/contexts/Slide",
       "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cdedea6d19",
       "title": "Image/Text 9 - fontsize xl",
@@ -748,7 +751,7 @@
     },
     {
       "jsonServerPlaylists": "29ff6eca-8778-6789-bfeb-53e4bf4a6457",
-      "jsonServerId": "a97f6ec4-5278-4993-bfeb-53cdedea6d20",
+      "id": "a97f6ec4-5278-4993-bfeb-53cdedea6d20",
       "@context": "/contexts/Slide",
       "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cdedea6d20",
       "title": "Image/Text 10 - margin and separator",
@@ -783,7 +786,7 @@
     },
     {
       "jsonServerPlaylists": "29ff6eca-8778-6789-bfeb-53e4bf4a6457",
-      "jsonServerId": "a97f6ec4-5278-4993-bfeb-53cdedea6d21",
+      "id": "a97f6ec4-5278-4993-bfeb-53cdedea6d21",
       "@context": "/contexts/Slide",
       "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cdedea6d21",
       "title": "Image/Text 11 - reversed",
@@ -818,7 +821,7 @@
     },
     {
       "jsonServerPlaylists": "29ff6eca-8778-6789-bfeb-53e4bf4a6457",
-      "jsonServerId": "a97f6ec4-5278-4993-bfeb-53cdedea6d22",
+      "id": "a97f6ec4-5278-4993-bfeb-53cdedea6d22",
       "@context": "/contexts/Slide",
       "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cdedea6d22",
       "title": "Image/Text 12 - just image",
@@ -844,7 +847,7 @@
     },
     {
       "jsonServerPlaylists": "29ff6eca-8778-6789-bfeb-53e4bf4a6457",
-      "jsonServerId": "a97f6ec4-5278-4993-bfeb-53cdedea6d23",
+      "id": "a97f6ec4-5278-4993-bfeb-53cdedea6d23",
       "@context": "/contexts/Slide",
       "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cdedea6d23",
       "title": "Image/Text 13 - just image",
@@ -870,7 +873,7 @@
     },
     {
       "jsonServerPlaylists": "29ff6eca-8778-6789-bfeb-53e4bf4a6457",
-      "jsonServerId": "a97f6ec4-5278-4993-bfeb-53cdedea6d24",
+      "id": "a97f6ec4-5278-4993-bfeb-53cdedea6d24",
       "@context": "/contexts/Slide",
       "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cdedea6d24",
       "title": "Image/Text 14 - just image",
@@ -896,7 +899,7 @@
     },
     {
       "jsonServerPlaylists": "29ff6eca-8778-6789-bfeb-53e4bf4a6457",
-      "jsonServerId": "a97f6ec4-5278-4993-bfeb-53cdedea6d25",
+      "id": "a97f6ec4-5278-4993-bfeb-53cdedea6d25",
       "@context": "/contexts/Slide",
       "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cdedea6d25",
       "title": "Image/Text 15 - just text",
@@ -919,7 +922,7 @@
     },
     {
       "jsonServerPlaylists": "29ff6eca-8778-6789-bfeb-53e4bf4a6457",
-      "jsonServerId": "a97f6ec4-5278-4993-bfeb-53cdedea6d26",
+      "id": "a97f6ec4-5278-4993-bfeb-53cdedea6d26",
       "@context": "/contexts/Slide",
       "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cdedea6d26",
       "title": "Image/Text 16 - just text",
@@ -942,7 +945,7 @@
     },
     {
       "jsonServerPlaylists": "29ff6eca-8778-6789-bfeb-53e4bf4a6457",
-      "jsonServerId": "a97f6ec4-5278-4993-bfeb-53cdedea6d27",
+      "id": "a97f6ec4-5278-4993-bfeb-53cdedea6d27",
       "@context": "/contexts/Slide",
       "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cdedea6d27",
       "title": "Image/Text 17 - just image",
@@ -976,7 +979,7 @@
     },
     {
       "jsonServerPlaylists": "29ff6eca-8778-6789-bfeb-53e4bf4a6457",
-      "jsonServerId": "a97f6ec4-5278-4993-bfeb-53cdedea6d30",
+      "id": "a97f6ec4-5278-4993-bfeb-53cdedea6d30",
       "@context": "/contexts/Slide",
       "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cdedea6d30",
       "title": "Meeting room schedule 1",
@@ -1037,7 +1040,7 @@
     },
     {
       "jsonServerPlaylists": "29ff6eca-8778-6789-bfeb-53e4bf4a6457",
-      "jsonServerId": "a97f6ec4-5278-4993-bfeb-53cdedea6d31",
+      "id": "a97f6ec4-5278-4993-bfeb-53cdedea6d31",
       "@context": "/contexts/Slide",
       "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cdedea6d31",
       "title": "Poster 1",
@@ -1081,7 +1084,7 @@
     },
     {
       "jsonServerPlaylists": "29ff6eca-8778-6789-bfeb-53e4bf4a6457",
-      "jsonServerId": "a97f6ec4-5278-4993-bfeb-53cdedea6d32",
+      "id": "a97f6ec4-5278-4993-bfeb-53cdedea6d32",
       "@context": "/contexts/Slide",
       "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cdedea6d32",
       "title": "Poster 2",
@@ -1144,7 +1147,7 @@
     },
     {
       "jsonServerPlaylists": "29ff6eca-8778-6789-bfeb-53e4bf4a6457",
-      "jsonServerId": "a97f6ec4-5278-4993-bfeb-53cdedea6d33",
+      "id": "a97f6ec4-5278-4993-bfeb-53cdedea6d33",
       "@context": "/contexts/Slide",
       "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cdedea6d33",
       "title": "Quote",
@@ -1193,7 +1196,7 @@
     },
     {
       "jsonServerPlaylists": "29ff6eca-8778-6789-bfeb-53e4bf4a6457",
-      "jsonServerId": "a97f6ec4-5278-4993-bfeb-53cdedea6d34",
+      "id": "a97f6ec4-5278-4993-bfeb-53cdedea6d34",
       "@context": "/contexts/Slide",
       "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cdedea6d34",
       "title": "RSS 1",
@@ -1219,7 +1222,7 @@
     },
     {
       "jsonServerPlaylists": "29ff6eca-8778-6789-bfeb-53e4bf4a6457",
-      "jsonServerId": "a97f6ec4-5278-4993-bfeb-53cdedea6d35",
+      "id": "a97f6ec4-5278-4993-bfeb-53cdedea6d35",
       "@context": "/contexts/Slide",
       "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cdedea6d35",
       "title": "RSS 2",
@@ -1249,7 +1252,7 @@
     },
     {
       "jsonServerPlaylists": "29ff6eca-8778-6789-bfeb-53e4bf4a6457",
-      "jsonServerId": "a97f6ec4-5278-4993-bfeb-53cdedea6d35",
+      "id": "a97f6ec4-5278-4993-bfeb-53cdedea6d35",
       "@context": "/contexts/Slide",
       "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cdedea6d35",
       "title": "Slideshow 1",
@@ -1300,7 +1303,7 @@
     },
     {
       "jsonServerPlaylists": "29ff6eca-8778-6789-bfeb-53e4bf4a6457",
-      "jsonServerId": "a97f6ec4-5278-4993-bfeb-53cdedea6d36",
+      "id": "a97f6ec4-5278-4993-bfeb-53cdedea6d36",
       "@context": "/contexts/Slide",
       "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cdedea6d36",
       "title": "Slideshow 2",
@@ -1351,7 +1354,7 @@
     },
     {
       "jsonServerPlaylists": "29ff6eca-8778-6789-bfeb-53e4bf4a6457",
-      "jsonServerId": "a97f6ec4-5278-4993-bfeb-53cdedea6d36",
+      "id": "a97f6ec4-5278-4993-bfeb-53cdedea6d36",
       "@context": "/contexts/Slide",
       "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cdedea6d36",
       "title": "Sparkle 1",
@@ -1388,7 +1391,7 @@
     },
     {
       "jsonServerPlaylists": "29ff6eca-8778-6789-bfeb-53e4bf4a6457",
-      "jsonServerId": "a97f6ec4-5278-4993-bfeb-53cdedea6d37",
+      "id": "a97f6ec4-5278-4993-bfeb-53cdedea6d37",
       "@context": "/contexts/Slide",
       "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cdedea6d37",
       "title": "Sparkle 2",
@@ -1433,7 +1436,7 @@
     },
     {
       "jsonServerPlaylists": "29ff6eca-8778-6789-bfeb-53e4bf4a6457",
-      "jsonServerId": "a97f6ec4-5278-4993-bfeb-53cdedea6d38",
+      "id": "a97f6ec4-5278-4993-bfeb-53cdedea6d38",
       "@context": "/contexts/Slide",
       "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cdedea6d38",
       "title": "Sparkle 3",
@@ -1471,7 +1474,7 @@
   ],
   "screens": [
     {
-      "jsonServerId": "497f6eca-6276-1596-bfeb-53ceb43a6f54",
+      "id": "497f6eca-6276-1596-bfeb-53ceb43a6f54",
       "jsonServerPlaylists": "29ff6eca-8778-6789-bfeb-53e4bf4a6457",
       "@context": "/contexts/Screen",
       "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb43a6f54",
@@ -1494,7 +1497,7 @@
       "createdBy": "Ole Olesen"
     },
     {
-      "jsonServerId": "854f6ecb-6276-6854-bfeb-53cffffa6d1e",
+      "id": "854f6ecb-6276-6854-bfeb-53cffffa6d1e",
       "@context": "/contexts/Screen",
       "@id": "/v1/screens/854f6ecb-6276-6854-bfeb-53cffffa6d1e",
       "title": "Test screen 2",
@@ -1519,7 +1522,7 @@
   ],
   "layouts": [
     {
-      "jsonServerId": "497f6ecf-642-4883-cfeb-53cbf3bf82a0",
+      "id": "497f6ecf-642-4883-cfeb-53cbf3bf82a0",
       "@context": "/contexts/Layout",
       "@id": "/v1/layouts/497f6ecf-642-4883-cfeb-53cbf3bf82a0",
       "title": "Full screen",
@@ -1537,7 +1540,7 @@
       ]
     },
     {
-      "jsonServerId": "497f6ecf-642-4883-cfeb-53cbf3bf82a9",
+      "id": "497f6ecf-642-4883-cfeb-53cbf3bf82a9",
       "@context": "/contexts/Layout",
       "@id": "/v1/layouts/497f6ecf-642-4883-cfeb-53cbf3bf82a9",
       "title": "6 way split",

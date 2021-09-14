@@ -28,11 +28,6 @@ const hydraRender = (req, res) => {
   }
 };
 
-server.use('/v1/playlists/:playlistId/slides', (req, res) => {
-  res.redirect(`/v1/slides?jsonServerPlaylists=%${req.params.playlistId}%`);
-});
-
-v1Router.db._.id = 'jsonServerId';
 v1Router.render = hydraRender;
 
 server.use(middlewares);
