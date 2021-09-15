@@ -93,6 +93,8 @@ class ContentService {
 
     const screenData = cloneDeep(this.currentScreen);
 
+    console.log(screenData)
+
     // Remove playlist data.
     for (let i = 0; i < screenData.regions.length; i += 1) {
       delete screenData.regions[i].playlists;

@@ -5,7 +5,12 @@ const middlewares = jsonServer.defaults();
 const v1Router = jsonServer.router('v1.json');
 
 const hydraRender = (req, res) => {
-  const { data } = res.locals;
+  let { data } = res.locals;
+
+  // Rewrite of result for '/v1/screens/:screenId/region/:regionId/playlists'
+  if (req.originalUrl.startsWith('/v1/playlistScreenRegion')) {
+    data = data.map((playlistScreenRegion) => playlistScreenRegion.playlist);
+  }
 
   if (Array.isArray(data)) {
     const path = req.originalUrl;
