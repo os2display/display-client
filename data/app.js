@@ -7,9 +7,12 @@ const v1Router = jsonServer.router('v1.json');
 const hydraRender = (req, res) => {
   let { data } = res.locals;
 
-  // Rewrite of result for '/v1/screens/:screenId/region/:regionId/playlists'
   if (req.originalUrl.startsWith('/v1/playlistScreenRegion')) {
     data = data.map((playlistScreenRegion) => playlistScreenRegion.playlist);
+  }
+
+  if (req.originalUrl.startsWith('/v1/slidesPlaylist')) {
+    data = data.map((slidesPlaylist) => slidesPlaylist.slide);
   }
 
   if (Array.isArray(data)) {
@@ -32,20 +35,6 @@ const hydraRender = (req, res) => {
     res.jsonp(data);
   }
 };
-
-/*
-server.use('/v1/playlists/:playlistId/slides', (req, res) => {
-  res.redirect(
-    `/v1/slidesPlaylist?_expand=slide&playlist=${req.params.playlistId}`
-  );
-});
-
-server.use('/v1/screens/:screenId/region/:regionId/playlists', (req, res) => {
-  res.redirect(
-    `/v1/playlistScreenRegion?_expand=playlist&screen=${req.params.screenId}&region=${req.params.regionId}`
-  );
-});
-*/
 
 v1Router.render = hydraRender;
 
