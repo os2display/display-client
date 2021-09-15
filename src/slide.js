@@ -35,7 +35,7 @@ import './slide.scss';
 function Slide({ slide, id, run, slideDone, isNextSlide, prevSlideDuration }) {
   let slideComponent;
 
-  if (slide.template === 'template-image-text') {
+  if (slide.templateData.templateKey === 'template-image-text') {
     slideComponent = (
       <TextBox
         slide={slide}
@@ -44,7 +44,7 @@ function Slide({ slide, id, run, slideDone, isNextSlide, prevSlideDuration }) {
         slideDone={slideDone}
       />
     );
-  } else if (slide.template === 'template-slideshow') {
+  } else if (slide.templateData.templateKey === 'template-slideshow') {
     slideComponent = (
       <Slideshow
         slide={slide}
@@ -53,7 +53,7 @@ function Slide({ slide, id, run, slideDone, isNextSlide, prevSlideDuration }) {
         slideDone={slideDone}
       />
     );
-  } else if (slide.template === 'template-calendar') {
+  } else if (slide.templateData.templateKey === 'template-calendar') {
     slideComponent = (
       <Calendar
         slide={slide}
@@ -62,7 +62,7 @@ function Slide({ slide, id, run, slideDone, isNextSlide, prevSlideDuration }) {
         slideDone={slideDone}
       />
     );
-  } else if (slide.template === 'template-book-review') {
+  } else if (slide.templateData.templateKey === 'template-book-review') {
     slideComponent = (
       <BookReview
         slide={slide}
@@ -71,7 +71,7 @@ function Slide({ slide, id, run, slideDone, isNextSlide, prevSlideDuration }) {
         slideDone={slideDone}
       />
     );
-  } else if (slide.template === 'template-meeting-room-schedule') {
+  } else if (slide.templateData.templateKey === 'template-meeting-room-schedule') {
     slideComponent = (
       <MeetingRoomSchedule
         slide={slide}
@@ -80,7 +80,7 @@ function Slide({ slide, id, run, slideDone, isNextSlide, prevSlideDuration }) {
         slideDone={slideDone}
       />
     );
-  } else if (slide.template === 'template-quote') {
+  } else if (slide.templateData.templateKey === 'template-quote') {
     slideComponent = (
       <Quote
         slide={slide}
@@ -89,7 +89,7 @@ function Slide({ slide, id, run, slideDone, isNextSlide, prevSlideDuration }) {
         slideDone={slideDone}
       />
     );
-  } else if (slide.template === 'template-poster') {
+  } else if (slide.templateData.templateKey === 'template-poster') {
     slideComponent = (
       <Poster
         slide={slide}
@@ -98,7 +98,7 @@ function Slide({ slide, id, run, slideDone, isNextSlide, prevSlideDuration }) {
         slideDone={slideDone}
       />
     );
-  } else if (slide.template === 'template-sparkle') {
+  } else if (slide.templateData.templateKey === 'template-sparkle') {
     slideComponent = (
       <Sparkle
         slide={slide}
@@ -107,7 +107,7 @@ function Slide({ slide, id, run, slideDone, isNextSlide, prevSlideDuration }) {
         slideDone={slideDone}
       />
     );
-  } else if (slide.template === 'template-rss') {
+  } else if (slide.templateData.templateKey === 'template-rss') {
     slideComponent = (
       <RSS
         slide={slide}
@@ -158,7 +158,9 @@ Slide.propTypes = {
   run: PropTypes.bool.isRequired,
   slideDone: PropTypes.func.isRequired,
   slide: PropTypes.shape({
-    template: PropTypes.string.isRequired,
+    templateData: PropTypes.shape({
+      templateKey: PropTypes.string.isRequired,
+    }).isRequired,
     duration: PropTypes.number.isRequired,
     instanceId: PropTypes.string.isRequired,
     content: PropTypes.objectOf(PropTypes.any).isRequired,

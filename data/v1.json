@@ -129,6 +129,7 @@
     {
       "id": "457d6ecb-6378-4299-bfcb-53cbaaaa6f65",
       "@id": "/v1/template/457d6ecb-6378-4299-bfcb-53cbaaaa6f65",
+      "templateKey": "template-book-review",
       "title": "Book review",
       "description": "This is a template for book reviews",
       "modified": "2021-09-03T10:04:59Z",
@@ -156,6 +157,7 @@
       "id": "457d6ecb-6378-4299-bfcb-53cbaaaa6f66",
       "@id": "/v1/template/457d6ecb-6378-4299-bfcb-53cbaaaa6f66",
       "title": "Calendar",
+      "templateKey": "template-calendar",
       "description": "This is a template for calendars",
       "modified": "2021-09-03T10:04:59Z",
       "created": "2021-08-21T11:22:00Z",
@@ -181,6 +183,7 @@
     {
       "id": "457d6ecb-6378-4299-bfcb-53cbaaaa6f10",
       "@id": "/v1/template/457d6ecb-6378-4299-bfcb-53cbaaaa6f10",
+      "templateKey": "template-image-text",
       "title": "Image/Text",
       "description": "This is a template for image and text",
       "modified": "2021-09-03T10:04:59Z",
@@ -207,6 +210,7 @@
     {
       "id": "457d6ecb-6378-4299-bfcb-53cbaaaa6f11",
       "@id": "/v1/template/457d6ecb-6378-4299-bfcb-53cbaaaa6f11",
+      "templateKey": "template-meeting-room-schedule",
       "title": "Meeting room",
       "description": "This is a template for meeting room",
       "modified": "2021-09-03T10:04:59Z",
@@ -233,6 +237,7 @@
     {
       "id": "457d6ecb-6378-4299-bfcb-53cbaaaa6f12",
       "@id": "/v1/template/457d6ecb-6378-4299-bfcb-53cbaaaa6f12",
+      "templateKey": "template-poster",
       "title": "Poster",
       "description": "This is a template for poster",
       "modified": "2021-09-03T10:04:59Z",
@@ -259,6 +264,7 @@
     {
       "id": "457d6ecb-6378-4299-bfcb-53cbaaaa6f13",
       "@id": "/v1/template/457d6ecb-6378-4299-bfcb-53cbaaaa6f13",
+      "templateKey": "template-quote",
       "title": "Quote",
       "description": "This is a template for quote",
       "modified": "2021-09-03T10:04:59Z",
@@ -285,6 +291,7 @@
     {
       "id": "457d6ecb-6378-4299-bfcb-53cbaaaa6f14",
       "@id": "/v1/template/457d6ecb-6378-4299-bfcb-53cbaaaa6f14",
+      "templateKey": "template-rss",
       "title": "RSS",
       "description": "This is a template for RSS",
       "modified": "2021-09-03T10:04:59Z",
@@ -311,6 +318,7 @@
     {
       "id": "457d6ecb-6378-4299-bfcb-53cbaaaa6f15",
       "@id": "/v1/template/457d6ecb-6378-4299-bfcb-53cbaaaa6f15",
+      "templateKey": "template-slideshow",
       "title": "Slideshow",
       "description": "This is a template for slideshow",
       "modified": "2021-09-03T10:04:59Z",
@@ -337,6 +345,7 @@
     {
       "id": "457d6ecb-6378-4299-bfcb-53cbaaaa6f16",
       "@id": "/v1/template/457d6ecb-6378-4299-bfcb-53cbaaaa6f16",
+      "templateKey": "template-sparkle",
       "title": "Sparkle",
       "description": "This is a template for sparkle",
       "modified": "2021-09-03T10:04:59Z",

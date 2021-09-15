@@ -118,21 +118,49 @@ class PullStrategy {
    * Fetch screen.
    */
   async getScreen() {
-    // Process:
     // Fetch screen
-    // Fetch layout: Defines layout and regions.
-    // Fetch regions playlists: Yields playlists of slides for the regions
-    // Deliver result to rendering
     const screen = await this.getPath(this.entryPoint);
     const newScreen = cloneDeep(screen);
 
+    // Get layout: Defines layout and regions.
     newScreen.layoutData = await this.getPath(screen.layout);
-    newScreen.regionData = await this.getRegions(newScreen.regions);
 
-    newScreen.regionData = await this.getSlidesForRegions(newScreen.regionData);
+    // Fetch regions playlists: Yields playlists of slides for the regions
+    const regions = await this.getRegions(newScreen.regions);
+    newScreen.regionData = await this.getSlidesForRegions(regions);
 
-    //console.log('Emitting', newScreen);
+    // Template cache.
+    const fetchedTemplates = {};
 
+    // Iterate all slides.
+    for (const regionKey in newScreen.regionData) {
+      for (const playlistKey in newScreen.regionData[regionKey]) {
+        console.log(
+          regionKey,
+          playlistKey,
+          newScreen.regionData[regionKey][playlistKey]
+        );
+        for (const slideKey in newScreen.regionData[regionKey][playlistKey]
+          .slidesData) {
+          const templatePath =
+            newScreen.regionData[regionKey][playlistKey].slidesData[slideKey]
+              .template['@id'];
+          if (fetchedTemplates.hasOwnProperty(templatePath)) {
+            newScreen.regionData[regionKey][playlistKey].slidesData[
+              slideKey
+            ].templateData = fetchedTemplates[templatePath];
+          } else {
+            const templateData = await this.getPath(templatePath);
+            newScreen.regionData[regionKey][playlistKey].slidesData[
+              slideKey
+            ].templateData = templateData;
+            fetchedTemplates[templatePath] = templateData;
+          }
+        }
+      }
+    }
+
+    // Deliver result to rendering
     const event = new CustomEvent('content', {
       detail: {
         screen: newScreen,

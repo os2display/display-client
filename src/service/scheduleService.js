@@ -23,34 +23,36 @@ class ScheduleService {
   /**
    * Handles region
    *
+   * @param {string} regionId
+   *   The ID of the region.
    * @param {object} region
    *   The region, with playlists and slides, to start scheduling.
    */
-  updateRegion(region) {
-    Logger.log('info', `ScheduleService: updateRegion(${region.id})`);
+  updateRegion(regionId, region) {
+    Logger.log('info', `ScheduleService: updateRegion(${regionId})`);
 
-    const firstRun = !this.regions[region.id] ?? false;
+    const firstRun = !this.regions[regionId] ?? false;
 
     // Extract slides from playlists.
     // @TODO: Make sure changes in region playlists after firstRun is handled correctly instead of replacing region object.
     // @TODO: Handle schedules for each playlist and slides instead of just extracting slides from playlists.
     const slides = [];
-    region?.playlists.forEach((playlist) => {
-      playlist?.slides.forEach((slide) => {
+    region.forEach((playlist) => {
+      playlist?.slidesData.forEach((slide) => {
         const newSlide = cloneDeep(slide);
         newSlide.instanceId = uuidv4();
         slides.push(newSlide);
       });
     });
 
-    this.regions[region.id] = {
+    this.regions[regionId] = {
       scheduledSlides: [],
       slides,
       region,
     };
 
     if (firstRun) {
-      this.findNextSlides(region.id, null);
+      this.findNextSlides(regionId, null);
     }
   }
 
@@ -69,7 +71,7 @@ class ScheduleService {
 
     // If no slides are present in region, send empty array of content.
     if (slides.length === 0) {
-      ScheduleService.sendSlides(region.id, []);
+      ScheduleService.sendSlides(regionId, []);
       return;
     }
 
@@ -108,7 +110,7 @@ class ScheduleService {
     };
 
     // Send slides to region.
-    ScheduleService.sendSlides(region.id, nextScheduledSlides);
+    ScheduleService.sendSlides(regionId, nextScheduledSlides);
   }
 
   /**

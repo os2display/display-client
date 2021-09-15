@@ -91,13 +91,11 @@ class ContentService {
     const data = event.detail;
     this.currentScreen = data.screen;
 
-    const screenData = cloneDeep(this.currentScreen);
+    const screenData = { ...this.currentScreen };
 
-    console.log(screenData)
-
-    // Remove playlist data.
+    // Remove regionData to only emit screen when it has changed.
     for (let i = 0; i < screenData.regions.length; i += 1) {
-      delete screenData.regions[i].playlists;
+      delete screenData.regionData;
     }
 
     const newHash = Base64.stringify(sha256(JSON.stringify(screenData)));
@@ -109,8 +107,8 @@ class ContentService {
     } else {
       Logger.log('info', 'Screen has not changed. Not emitting screen.');
 
-      data.screen.regions.forEach((region) =>
-        this.scheduleService.updateRegion(region)
+      data.screen.regionData.forEach((region, key) =>
+        this.scheduleService.updateRegion(key, region)
       );
     }
   }
@@ -127,14 +125,7 @@ class ContentService {
 
     Logger.log('info', `Event received: regionReady for ${regionId}`);
 
-    if (this.currentScreen?.regions?.length > 0) {
-      const foundRegions = this.currentScreen.regions.filter(
-        (region) => region.id === regionId
-      );
-      foundRegions.forEach((region) => {
-        this.scheduleService.updateRegion(region);
-      });
-    }
+    this.scheduleService.updateRegion(regionId, this.currentScreen.regionData[regionId]);
   }
 
   /**
