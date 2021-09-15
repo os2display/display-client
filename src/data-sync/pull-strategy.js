@@ -1,5 +1,4 @@
 import cloneDeep from 'lodash.clonedeep';
-import Logger from '../logger/logger';
 
 /**
  * PullStrategy.
@@ -7,7 +6,7 @@ import Logger from '../logger/logger';
  * Handles pull strategy.
  */
 class PullStrategy {
-  // The endpoint where the screen can be fetched.
+  // The API endpoint.
   endpoint = '';
 
   // Fetch-inteval in ms.
@@ -52,19 +51,21 @@ class PullStrategy {
         promises.push(this.getPath(regionPath));
       });
 
-      Promise.allSettled(promises).then((results) => {
-        results.forEach((result) => {
-          if (result.status === 'fulfilled') {
-            // @TODO: Handle pagination.
-            const members = result.value['hydra:member'];
-            // @TODO: Handle case that is not json-server. Can this be achieved from the API response instead?
-            const regionIndex = result.value['@id'].split('region=')[1];
-            regionData[regionIndex] = members;
-          }
-        });
+      Promise.allSettled(promises)
+        .then((results) => {
+          results.forEach((result) => {
+            if (result.status === 'fulfilled') {
+              // @TODO: Handle pagination.
+              const members = result.value['hydra:member'];
+              // @TODO: Handle case that is not json-server. Can this be achieved from the API response instead?
+              const regionIndex = result.value['@id'].split('region=')[1];
+              regionData[regionIndex] = members;
+            }
+          });
 
-        resolve(regionData);
-      });
+          resolve(regionData);
+        })
+        .catch((err) => reject(err));
     });
   }
 
@@ -100,26 +101,30 @@ class PullStrategy {
         }
       }
 
-      Promise.allSettled(promises).then((results) => {
-        results.forEach((result) => {
-          if (result.status === 'fulfilled') {
-            regionData[result.value.keys.regionKey][
-              result.value.keys.playlistKey
-            ].slidesData = result.value.result['hydra:member'];
-          }
-        });
+      Promise.allSettled(promises)
+        .then((results) => {
+          results.forEach((result) => {
+            if (result.status === 'fulfilled') {
+              regionData[result.value.keys.regionKey][
+                result.value.keys.playlistKey
+              ].slidesData = result.value.result['hydra:member'];
+            }
+          });
 
-        resolve(regionData);
-      });
+          resolve(regionData);
+        })
+        .catch((err) => reject(err));
     });
   }
 
   /**
    * Fetch screen.
+   *
+   * @param {string} screenPath Path to the screen.
    */
-  async getScreen() {
+  async getScreen(screenPath) {
     // Fetch screen
-    const screen = await this.getPath(this.entryPoint);
+    const screen = await this.getPath(screenPath);
     const newScreen = cloneDeep(screen);
 
     // Get layout: Defines layout and regions.
@@ -135,13 +140,7 @@ class PullStrategy {
     // Iterate all slides.
     for (const regionKey in newScreen.regionData) {
       for (const playlistKey in newScreen.regionData[regionKey]) {
-        console.log(
-          regionKey,
-          playlistKey,
-          newScreen.regionData[regionKey][playlistKey]
-        );
-        for (const slideKey in newScreen.regionData[regionKey][playlistKey]
-          .slidesData) {
+        for (const slideKey in newScreen.regionData[regionKey][playlistKey].slidesData) {
           const templatePath =
             newScreen.regionData[regionKey][playlistKey].slidesData[slideKey]
               .template['@id'];
@@ -174,7 +173,7 @@ class PullStrategy {
    */
   start() {
     // Pull now.
-    this.getScreen()
+    this.getScreen(this.entryPoint)
       .then(() => {
         // Make sure nothing is running.
         this.stop();

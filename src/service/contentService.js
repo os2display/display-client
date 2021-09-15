@@ -36,8 +36,10 @@ class ContentService {
 
   /**
    * Start data synchronization.
+   *
+   * @param screenPath
    */
-  startSyncing() {
+  startSyncing(screenPath = null) {
     Logger.log('info', 'Starting data synchronization');
 
     // @TODO: Remove config.json from git to allow for configuring backend.
@@ -45,7 +47,11 @@ class ContentService {
     fetch('./config.json')
       .then((response) => response.json())
       .then((config) => {
-        this.dataSync = new DataSync(config.dataStrategy);
+        const dataStrategy = { ...config.dataStrategy };
+        if (screenPath !== null) {
+          dataStrategy.config.entryPoint = screenPath;
+        }
+        this.dataSync = new DataSync(dataStrategy);
         this.dataSync.start();
       })
       .catch((err) => {
@@ -71,10 +77,25 @@ class ContentService {
 
   /**
    * Start data event handler.
+   *
+   * @param {CustomEvent} event
+   *   The event.
    */
-  startDataSyncHandler() {
-    Logger.log('info', 'Event received: Start data synchronization');
-    if (!this.dataSync) {
+  startDataSyncHandler(event) {
+    const data = event.detail;
+
+    console.log("startDataSyncHandler", data);
+
+    this.stopSyncHandler();
+
+    if (data?.screenPath) {
+      Logger.log(
+        'info',
+        `Event received: Start data synchronization from ${data.screenPath}`
+      );
+      this.startSyncing(data.screenPath);
+    } else {
+      Logger.log('info', 'Event received: Start data synchronization');
       this.startSyncing();
     }
   }
@@ -125,7 +146,10 @@ class ContentService {
 
     Logger.log('info', `Event received: regionReady for ${regionId}`);
 
-    this.scheduleService.updateRegion(regionId, this.currentScreen.regionData[regionId]);
+    this.scheduleService.updateRegion(
+      regionId,
+      this.currentScreen.regionData[regionId]
+    );
   }
 
   /**
