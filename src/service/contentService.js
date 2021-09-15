@@ -1,4 +1,3 @@
-import cloneDeep from 'lodash.clonedeep';
 import sha256 from 'crypto-js/sha256';
 import Base64 from 'crypto-js/enc-base64';
 import Logger from '../logger/logger';
@@ -37,7 +36,7 @@ class ContentService {
   /**
    * Start data synchronization.
    *
-   * @param screenPath
+   * @param {string} screenPath Path to the screen.
    */
   startSyncing(screenPath = null) {
     Logger.log('info', 'Starting data synchronization');
@@ -83,8 +82,6 @@ class ContentService {
    */
   startDataSyncHandler(event) {
     const data = event.detail;
-
-    console.log("startDataSyncHandler", data);
 
     this.stopSyncHandler();
 

@@ -71,7 +71,9 @@ function Slide({ slide, id, run, slideDone, isNextSlide, prevSlideDuration }) {
         slideDone={slideDone}
       />
     );
-  } else if (slide.templateData.templateKey === 'template-meeting-room-schedule') {
+  } else if (
+    slide.templateData.templateKey === 'template-meeting-room-schedule'
+  ) {
     slideComponent = (
       <MeetingRoomSchedule
         slide={slide}

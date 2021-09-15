@@ -67,7 +67,7 @@ class ScheduleService {
   findNextSlides(regionId, lastExecutionId) {
     const regionData = this.regions[regionId];
 
-    const { region, scheduledSlides, slides } = regionData;
+    const { scheduledSlides, slides } = regionData;
 
     // If no slides are present in region, send empty array of content.
     if (slides.length === 0) {

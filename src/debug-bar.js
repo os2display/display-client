@@ -1,6 +1,5 @@
 import { React, useEffect, useState } from 'react';
 import './debug-bar.scss';
-import { v4 as uuidv4 } from 'uuid';
 
 /**
  * DebugBar component.
@@ -68,11 +67,7 @@ function DebugBar() {
               <option value="">None selected</option>
               {screens['hydra:member']?.length > 0 &&
                 screens['hydra:member'].map((screen) => (
-                  <option
-                    value={screen['@id']}
-                    id={screen.id}
-                    key={screen.id}
-                  >
+                  <option value={screen['@id']} id={screen.id} key={screen.id}>
                     {screen.title}
                   </option>
                 ))}
