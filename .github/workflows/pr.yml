@@ -65,11 +65,8 @@ jobs:
       - name: Install client
         run: docker-compose run node yarn
 
-      - name: Install json-server
-        run: docker-compose run json-server bash -c 'npm install'
-
-      - name: Restart json-server
-        run: docker-compose restart json-server
+      - name: Install and start json-server
+        run: docker-compose run json-server bash -c 'npm install && npm start'
 
       - name: Cypress run
         run: docker-compose run cypress run --browser ${{ matrix.browser }}
