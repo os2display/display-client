@@ -8,7 +8,9 @@ describe('Make sure debug-bar loads', () => {
 describe('Load data', () => {
   it('Should load data from fixtures', () => {
     cy.visit('/');
-    cy.get('.debug-bar-select').select('slide: image-text top');
-    cy.contains('Slide 1');
+    cy.get('.debug-bar-select').select(
+      '/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000003'
+    );
+    cy.contains('Slide 2');
   });
 });
