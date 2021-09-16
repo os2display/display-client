@@ -119,6 +119,14 @@
     {
       "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000088",
       "slideId": "a97f6ec4-5278-4993-bfeb-53cded000038"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000089",
+      "slideId": "a97f6ec4-5278-4993-bfeb-53cded000039"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000090",
+      "slideId": "a97f6ec4-5278-4993-bfeb-53cded000040"
     }
   ],
   "playlistScreenRegion": [
@@ -270,6 +278,16 @@
     {
       "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000088",
       "screenId": "497f6eca-6276-1596-bfeb-53ceb4000027",
+      "region": "region1"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000089",
+      "screenId": "497f6eca-6276-1596-bfeb-53ceb4000028",
+      "region": "region1"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000090",
+      "screenId": "497f6eca-6276-1596-bfeb-53ceb4000029",
       "region": "region1"
     }
   ],
@@ -783,6 +801,40 @@
         "from": "2021-09-21T17:00:01Z",
         "to": "2021-07-22T17:00:01Z"
       }
+    },
+    {
+      "id": "29ff6eca-8778-6789-bfeb-53e4bf000089",
+      "@context": "/contexts/playlist",
+      "@id": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000089",
+      "title": "Playlist - Slide fixture 29",
+      "description": "The is a fixture playlist",
+      "modified": "2021-09-21T17:32:28Z",
+      "created": "2021-09-21T17:00:01Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen",
+      "slides": "/v1/slidesPlaylist?_expand=slide&playlistId=29ff6eca-8778-6789-bfeb-53e4bf000089",
+      "onScreens": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000089/screens",
+      "published": {
+        "from": "2021-09-21T17:00:01Z",
+        "to": "2021-07-22T17:00:01Z"
+      }
+    },
+    {
+      "id": "29ff6eca-8778-6789-bfeb-53e4bf000090",
+      "@context": "/contexts/playlist",
+      "@id": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000090",
+      "title": "Playlist - Slide fixture 30",
+      "description": "The is a fixture playlist",
+      "modified": "2021-09-21T17:32:28Z",
+      "created": "2021-09-21T17:00:01Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen",
+      "slides": "/v1/slidesPlaylist?_expand=slide&playlistId=29ff6eca-8778-6789-bfeb-53e4bf000090",
+      "onScreens": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000090/screens",
+      "published": {
+        "from": "2021-09-21T17:00:01Z",
+        "to": "2021-07-22T17:00:01Z"
+      }
     }
   ],
   "templates": [
@@ -844,7 +896,7 @@
       "id": "457d6ecb-6378-4299-bfcb-53cbaaaa6f10",
       "@id": "/v1/template/457d6ecb-6378-4299-bfcb-53cbaaaa6f10",
       "templateKey": "template-image-text",
-      "title": "Image/Text",
+      "title": "image-text",
       "description": "This is a template for image and text",
       "modified": "2021-09-03T10:04:59Z",
       "created": "2021-08-21T11:22:00Z",
@@ -1115,7 +1167,7 @@
       "id": "a97f6ec4-5278-4993-bfeb-53cded000011",
       "@context": "/contexts/Slide",
       "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cded000011",
-      "title": "Image/Text 1",
+      "title": "image-text 1",
       "description": "This is the first slide named one",
       "modified": "2012-09-03T12:21:56Z",
       "created": "2021-09-01T10:04:00Z",
@@ -1150,7 +1202,7 @@
       "id": "a97f6ec4-5278-4993-bfeb-53cded000012",
       "@context": "/contexts/Slide",
       "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cded000012",
-      "title": "Image/Text 2",
+      "title": "image-text 2",
       "description": "This is the first slide named one",
       "modified": "2012-09-03T12:21:56Z",
       "created": "2021-09-01T10:04:00Z",
@@ -1184,7 +1236,7 @@
       "id": "a97f6ec4-5278-4993-bfeb-53cded000013",
       "@context": "/contexts/Slide",
       "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cded000013",
-      "title": "Image/Text 3",
+      "title": "image-text 3",
       "description": "This is the first slide named one",
       "modified": "2012-09-03T12:21:56Z",
       "created": "2021-09-01T10:04:00Z",
@@ -1218,7 +1270,7 @@
       "id": "a97f6ec4-5278-4993-bfeb-53cded000014",
       "@context": "/contexts/Slide",
       "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cded000014",
-      "title": "Image/Text 4",
+      "title": "image-text 4",
       "description": "This is the first slide named one",
       "modified": "2012-09-03T12:21:56Z",
       "created": "2021-09-01T10:04:00Z",
@@ -1252,7 +1304,7 @@
       "id": "a97f6ec4-5278-4993-bfeb-53cded000015",
       "@context": "/contexts/Slide",
       "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cded000015",
-      "title": "Image/Text 5",
+      "title": "image-text 5",
       "description": "This is the first slide named one",
       "modified": "2012-09-03T12:21:56Z",
       "created": "2021-09-01T10:04:00Z",
@@ -1285,7 +1337,7 @@
       "id": "a97f6ec4-5278-4993-bfeb-53cded000016",
       "@context": "/contexts/Slide",
       "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cded000016",
-      "title": "Image/Text 6 - fontsize s",
+      "title": "image-text 6 - fontsize s",
       "description": "This is the first slide named one",
       "modified": "2012-09-03T12:21:56Z",
       "created": "2021-09-01T10:04:00Z",
@@ -1320,7 +1372,7 @@
       "id": "a97f6ec4-5278-4993-bfeb-53cded000017",
       "@context": "/contexts/Slide",
       "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cded000017",
-      "title": "Image/Text 7 - fontsize m",
+      "title": "image-text 7 - fontsize m",
       "description": "This is the first slide named one",
       "modified": "2012-09-03T12:21:56Z",
       "created": "2021-09-01T10:04:00Z",
@@ -1355,7 +1407,7 @@
       "id": "a97f6ec4-5278-4993-bfeb-53cded000018",
       "@context": "/contexts/Slide",
       "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cded000018",
-      "title": "Image/Text 8 - fontsize l",
+      "title": "image-text 8 - fontsize l",
       "description": "This is the first slide named one",
       "modified": "2012-09-03T12:21:56Z",
       "created": "2021-09-01T10:04:00Z",
@@ -1390,7 +1442,7 @@
       "id": "a97f6ec4-5278-4993-bfeb-53cded000019",
       "@context": "/contexts/Slide",
       "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cded000019",
-      "title": "Image/Text 9 - fontsize xl",
+      "title": "image-text 9 - fontsize xl",
       "description": "This is the first slide named one",
       "modified": "2012-09-03T12:21:56Z",
       "created": "2021-09-01T10:04:00Z",
@@ -1425,7 +1477,7 @@
       "id": "a97f6ec4-5278-4993-bfeb-53cded000020",
       "@context": "/contexts/Slide",
       "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cded000020",
-      "title": "Image/Text 10 - margin and separator",
+      "title": "image-text 10 - margin and separator",
       "description": "This is the first slide named one",
       "modified": "2012-09-03T12:21:56Z",
       "created": "2021-09-01T10:04:00Z",
@@ -1459,7 +1511,7 @@
       "id": "a97f6ec4-5278-4993-bfeb-53cded000021",
       "@context": "/contexts/Slide",
       "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cded000021",
-      "title": "Image/Text 11 - reversed",
+      "title": "image-text 11 - reversed",
       "description": "This is the first slide named one",
       "modified": "2012-09-03T12:21:56Z",
       "created": "2021-09-01T10:04:00Z",
@@ -1493,7 +1545,7 @@
       "id": "a97f6ec4-5278-4993-bfeb-53cded000022",
       "@context": "/contexts/Slide",
       "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cded000022",
-      "title": "Image/Text 12 - just image",
+      "title": "image-text 12 - just image",
       "description": "This is the first slide named one",
       "modified": "2012-09-03T12:21:56Z",
       "created": "2021-09-01T10:04:00Z",
@@ -1518,7 +1570,7 @@
       "id": "a97f6ec4-5278-4993-bfeb-53cded000023",
       "@context": "/contexts/Slide",
       "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cded000023",
-      "title": "Image/Text 13 - just image",
+      "title": "image-text 13 - just image",
       "description": "This is the first slide named one",
       "modified": "2012-09-03T12:21:56Z",
       "created": "2021-09-01T10:04:00Z",
@@ -1543,7 +1595,7 @@
       "id": "a97f6ec4-5278-4993-bfeb-53cded000024",
       "@context": "/contexts/Slide",
       "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cded000024",
-      "title": "Image/Text 14 - just image",
+      "title": "image-text 14 - just image",
       "description": "This is the first slide named one",
       "modified": "2012-09-03T12:21:56Z",
       "created": "2021-09-01T10:04:00Z",
@@ -1568,7 +1620,7 @@
       "id": "a97f6ec4-5278-4993-bfeb-53cded000025",
       "@context": "/contexts/Slide",
       "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cded000025",
-      "title": "Image/Text 15 - just text",
+      "title": "image-text 15 - just text",
       "description": "This is the first slide named one",
       "modified": "2012-09-03T12:21:56Z",
       "created": "2021-09-01T10:04:00Z",
@@ -1590,7 +1642,7 @@
       "id": "a97f6ec4-5278-4993-bfeb-53cded000026",
       "@context": "/contexts/Slide",
       "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cded000026",
-      "title": "Image/Text 16 - just text",
+      "title": "image-text 16 - just text",
       "description": "This is the first slide named one",
       "modified": "2012-09-03T12:21:56Z",
       "created": "2021-09-01T10:04:00Z",
@@ -1612,7 +1664,7 @@
       "id": "a97f6ec4-5278-4993-bfeb-53cded000027",
       "@context": "/contexts/Slide",
       "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cded000027",
-      "title": "Image/Text 17 - just image",
+      "title": "image-text 17 - just image",
       "description": "This is the first slide named one",
       "modified": "2012-09-03T12:21:56Z",
       "created": "2021-09-01T10:04:00Z",
@@ -2175,7 +2227,7 @@
       "id": "497f6eca-6276-1596-bfeb-53ceb4000000",
       "@context": "/contexts/Screen",
       "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000000",
-      "title": "Screen Fixture 2 - slide: bookreview1",
+      "title": "Screen Fixture 2 - slide: bookreview1 -- OK",
       "description": "This is an test screen 1 description",
       "size": 50,
       "dimensions": {
@@ -2197,7 +2249,7 @@
       "id": "497f6eca-6276-1596-bfeb-53ceb4000001",
       "@context": "/contexts/Screen",
       "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000001",
-      "title": "Screen Fixture 3 - calendar1",
+      "title": "Screen Fixture 3 - calendar1 -- OK",
       "description": "This is an test screen 1 description",
       "size": 50,
       "dimensions": {
@@ -2219,7 +2271,7 @@
       "id": "497f6eca-6276-1596-bfeb-53ceb4000002",
       "@context": "/contexts/Screen",
       "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000002",
-      "title": "Screen Fixture 4 - image-text top",
+      "title": "Screen Fixture 4 - image-text top -- OK",
       "description": "This is an test screen 1 description",
       "size": 50,
       "dimensions": {
@@ -2241,7 +2293,7 @@
       "id": "497f6eca-6276-1596-bfeb-53ceb4000003",
       "@context": "/contexts/Screen",
       "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000003",
-      "title": "Screen Fixture 5 - image-text left",
+      "title": "Screen Fixture 5 - image-text left -- OK",
       "description": "This is an test screen 1 description",
       "size": 50,
       "dimensions": {
@@ -2263,7 +2315,7 @@
       "id": "497f6eca-6276-1596-bfeb-53ceb4000004",
       "@context": "/contexts/Screen",
       "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000004",
-      "title": "Screen Fixture 6 - image-text right",
+      "title": "Screen Fixture 6 - image-text right -- OK",
       "description": "This is an test screen 1 description",
       "size": 50,
       "dimensions": {
@@ -2285,7 +2337,7 @@
       "id": "497f6eca-6276-1596-bfeb-53ceb4000005",
       "@context": "/contexts/Screen",
       "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000005",
-      "title": "Screen Fixture 7 - image-text bottom",
+      "title": "Screen Fixture 7 - image-text bottom -- OK",
       "description": "This is an test screen 1 description",
       "size": 50,
       "dimensions": {
@@ -2307,7 +2359,7 @@
       "id": "497f6eca-6276-1596-bfeb-53ceb4000006",
       "@context": "/contexts/Screen",
       "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000006",
-      "title": "Screen Fixture 8 - image-text colors",
+      "title": "Screen Fixture 8 - image-text colors -- OK",
       "description": "This is an test screen 1 description",
       "size": 50,
       "dimensions": {
@@ -2329,7 +2381,7 @@
       "id": "497f6eca-6276-1596-bfeb-53ceb4000007",
       "@context": "/contexts/Screen",
       "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000007",
-      "title": "Screen Fixture 9 - image-text fontsize s",
+      "title": "Screen Fixture 9 - image-text fontsize s -- OK",
       "description": "This is an test screen 1 description",
       "size": 50,
       "dimensions": {
@@ -2351,7 +2403,7 @@
       "id": "497f6eca-6276-1596-bfeb-53ceb4000008",
       "@context": "/contexts/Screen",
       "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000008",
-      "title": "Screen Fixture 10 - image-text fontsize m",
+      "title": "Screen Fixture 10 - image-text fontsize m -- OK",
       "description": "This is an test screen 1 description",
       "size": 50,
       "dimensions": {
@@ -2373,7 +2425,7 @@
       "id": "497f6eca-6276-1596-bfeb-53ceb4000009",
       "@context": "/contexts/Screen",
       "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000009",
-      "title": "Screen Fixture 11 - image-text fontsize l",
+      "title": "Screen Fixture 11 - image-text fontsize l -- OK",
       "description": "This is an test screen 1 description",
       "size": 50,
       "dimensions": {
@@ -2395,7 +2447,7 @@
       "id": "497f6eca-6276-1596-bfeb-53ceb4000010",
       "@context": "/contexts/Screen",
       "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000010",
-      "title": "Screen Fixture 12 - image-text fontsize xl",
+      "title": "Screen Fixture 12 - image-text fontsize xl -- OK",
       "description": "This is an test screen 1 description",
       "size": 50,
       "dimensions": {
@@ -2417,7 +2469,7 @@
       "id": "497f6eca-6276-1596-bfeb-53ceb4000011",
       "@context": "/contexts/Screen",
       "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000011",
-      "title": "Screen Fixture 13 - slide: margin, separator and half-size",
+      "title": "Screen Fixture 13 - slide: margin, separator and half-size -- OK",
       "description": "This is an test screen 1 description",
       "size": 50,
       "dimensions": {
@@ -2439,7 +2491,7 @@
       "id": "497f6eca-6276-1596-bfeb-53ceb4000012",
       "@context": "/contexts/Screen",
       "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000012",
-      "title": "Screen Fixture 14 - slide: reversed",
+      "title": "Screen Fixture 14 - slide: reversed -- OK",
       "description": "This is an test screen 1 description",
       "size": 50,
       "dimensions": {
@@ -2461,7 +2513,7 @@
       "id": "497f6eca-6276-1596-bfeb-53ceb4000013",
       "@context": "/contexts/Screen",
       "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000013",
-      "title": "Screen Fixture 15 - slide: just image",
+      "title": "Screen Fixture 15 - image-text: just image -- OK",
       "description": "This is an test screen 1 description",
       "size": 50,
       "dimensions": {
@@ -2483,7 +2535,7 @@
       "id": "497f6eca-6276-1596-bfeb-53ceb4000014",
       "@context": "/contexts/Screen",
       "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000014",
-      "title": "Screen Fixture 16 - slideshow1 slideshow2",
+      "title": "Screen Fixture 16 - image-text: just image -- OK",
       "description": "This is an test screen 1 description",
       "size": 50,
       "dimensions": {
@@ -2505,7 +2557,7 @@
       "id": "497f6eca-6276-1596-bfeb-53ceb4000015",
       "@context": "/contexts/Screen",
       "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000015",
-      "title": "Screen Fixture 17 - ",
+      "title": "Screen Fixture 17 - image-text: just image -- OK ",
       "description": "This is an test screen 1 description",
       "size": 50,
       "dimensions": {
@@ -2527,7 +2579,7 @@
       "id": "497f6eca-6276-1596-bfeb-53ceb4000016",
       "@context": "/contexts/Screen",
       "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000016",
-      "title": "Screen Fixture 18 - ",
+      "title": "Screen Fixture 18 - image-text: just text -- OK",
       "description": "This is an test screen 1 description",
       "size": 50,
       "dimensions": {
@@ -2549,7 +2601,7 @@
       "id": "497f6eca-6276-1596-bfeb-53ceb4000017",
       "@context": "/contexts/Screen",
       "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000017",
-      "title": "Screen Fixture 19 - poster with 2 events ***",
+      "title": "Screen Fixture 19 - image-text: just text -- OK",
       "description": "This is an test screen 1 description",
       "size": 50,
       "dimensions": {
@@ -2571,7 +2623,7 @@
       "id": "497f6eca-6276-1596-bfeb-53ceb4000018",
       "@context": "/contexts/Screen",
       "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000018",
-      "title": "Screen Fixture 20 - poster",
+      "title": "Screen Fixture 20 - image-text: text, color and styling -- OK",
       "description": "This is an test screen 1 description",
       "size": 50,
       "dimensions": {
@@ -2593,7 +2645,7 @@
       "id": "497f6eca-6276-1596-bfeb-53ceb4000019",
       "@context": "/contexts/Screen",
       "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000019",
-      "title": "Screen Fixture 21 - meeting-room-schedule",
+      "title": "Screen Fixture 21 - meeting-room-schedule -- OK",
       "description": "This is an test screen 1 description",
       "size": 50,
       "dimensions": {
@@ -2615,7 +2667,7 @@
       "id": "497f6eca-6276-1596-bfeb-53ceb4000020",
       "@context": "/contexts/Screen",
       "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000020",
-      "title": "Screen Fixture 22 - sparkle",
+      "title": "Screen Fixture 22 - poster 1",
       "description": "This is an test screen 1 description",
       "size": 50,
       "dimensions": {
@@ -2637,7 +2689,7 @@
       "id": "497f6eca-6276-1596-bfeb-53ceb4000021",
       "@context": "/contexts/Screen",
       "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000021",
-      "title": "Screen Fixture 23 - sparkle more posts",
+      "title": "Screen Fixture 23 - poster 2",
       "description": "This is an test screen 1 description",
       "size": 50,
       "dimensions": {
@@ -2681,7 +2733,7 @@
       "id": "497f6eca-6276-1596-bfeb-53ceb4000023",
       "@context": "/contexts/Screen",
       "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000023",
-      "title": "Screen Fixture 25 - rssfeed",
+      "title": "Screen Fixture 25 - rssfeed 1",
       "description": "This is an test screen 1 description",
       "size": 50,
       "dimensions": {
@@ -2703,7 +2755,7 @@
       "id": "497f6eca-6276-1596-bfeb-53ceb4000024",
       "@context": "/contexts/Screen",
       "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000024",
-      "title": "Screen Fixture 26 - rssfeed2",
+      "title": "Screen Fixture 26 - rssfeed 2",
       "description": "This is an test screen 1 description",
       "size": 50,
       "dimensions": {
@@ -2716,6 +2768,116 @@
         "/v1/playlistScreenRegion?_expand=playlist&screenId=497f6eca-6276-1596-bfeb-53ceb4000024&region=region1"
       ],
       "inScreenGroups": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000024/groups",
+      "modified": "2021-09-21T14:02:00Z",
+      "created": "2021-07-21T10:25:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen"
+    },
+    {
+      "id": "497f6eca-6276-1596-bfeb-53ceb4000025",
+      "@context": "/contexts/Screen",
+      "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000025",
+      "title": "Screen Fixture 27 - slideshow 1",
+      "description": "This is an test screen 1 description",
+      "size": 50,
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "layout": "/v1/layouts/497f6ecf-642-4883-cfeb-53cbf3bf82a0",
+      "location": "M2.3",
+      "regions": [
+        "/v1/playlistScreenRegion?_expand=playlist&screenId=497f6eca-6276-1596-bfeb-53ceb4000025&region=region1"
+      ],
+      "inScreenGroups": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000025/groups",
+      "modified": "2021-09-21T14:02:00Z",
+      "created": "2021-07-21T10:25:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen"
+    },
+    {
+      "id": "497f6eca-6276-1596-bfeb-53ceb4000026",
+      "@context": "/contexts/Screen",
+      "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000026",
+      "title": "Screen Fixture 28 - slideshow 2",
+      "description": "This is an test screen 1 description",
+      "size": 50,
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "layout": "/v1/layouts/497f6ecf-642-4883-cfeb-53cbf3bf82a0",
+      "location": "M2.3",
+      "regions": [
+        "/v1/playlistScreenRegion?_expand=playlist&screenId=497f6eca-6276-1596-bfeb-53ceb4000026&region=region1"
+      ],
+      "inScreenGroups": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000026/groups",
+      "modified": "2021-09-21T14:02:00Z",
+      "created": "2021-07-21T10:25:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen"
+    },
+    {
+      "id": "497f6eca-6276-1596-bfeb-53ceb4000027",
+      "@context": "/contexts/Screen",
+      "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000027",
+      "title": "Screen Fixture 29 - sparkle 1",
+      "description": "This is an test screen 1 description",
+      "size": 50,
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "layout": "/v1/layouts/497f6ecf-642-4883-cfeb-53cbf3bf82a0",
+      "location": "M2.3",
+      "regions": [
+        "/v1/playlistScreenRegion?_expand=playlist&screenId=497f6eca-6276-1596-bfeb-53ceb4000027&region=region1"
+      ],
+      "inScreenGroups": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000027/groups",
+      "modified": "2021-09-21T14:02:00Z",
+      "created": "2021-07-21T10:25:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen"
+    },
+    {
+      "id": "497f6eca-6276-1596-bfeb-53ceb4000028",
+      "@context": "/contexts/Screen",
+      "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000028",
+      "title": "Screen Fixture 30 - sparkle 2",
+      "description": "This is an test screen 1 description",
+      "size": 50,
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "layout": "/v1/layouts/497f6ecf-642-4883-cfeb-53cbf3bf82a0",
+      "location": "M2.3",
+      "regions": [
+        "/v1/playlistScreenRegion?_expand=playlist&screenId=497f6eca-6276-1596-bfeb-53ceb4000028&region=region1"
+      ],
+      "inScreenGroups": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000028/groups",
+      "modified": "2021-09-21T14:02:00Z",
+      "created": "2021-07-21T10:25:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen"
+    },
+    {
+      "id": "497f6eca-6276-1596-bfeb-53ceb4000029",
+      "@context": "/contexts/Screen",
+      "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000029",
+      "title": "Screen Fixture 31 - sparkle 3",
+      "description": "This is an test screen 1 description",
+      "size": 50,
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "layout": "/v1/layouts/497f6ecf-642-4883-cfeb-53cbf3bf82a0",
+      "location": "M2.3",
+      "regions": [
+        "/v1/playlistScreenRegion?_expand=playlist&screenId=497f6eca-6276-1596-bfeb-53ceb4000029&region=region1"
+      ],
+      "inScreenGroups": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000029/groups",
       "modified": "2021-09-21T14:02:00Z",
       "created": "2021-07-21T10:25:00Z",
       "modifiedBy": "Jens Jensen",

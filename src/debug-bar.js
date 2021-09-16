@@ -42,7 +42,7 @@ function DebugBar() {
   // Get screens data from mock api.
   useEffect(() => {
     // @TODO: Move screens url into configuration.
-    fetch('http://display-client.local.itkdev.dk:3000/v1/screens')
+    fetch('/api/v1/screens')
       .then((response) => response.json())
       .then((data) => setScreens(data));
   }, []);
