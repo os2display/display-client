@@ -2,11 +2,11 @@
   "slidesPlaylist": [
     {
       "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000057",
-      "slideId": "a97f6ec4-5278-4993-bfeb-53cded000000"
+      "slideId": "a97f6ec4-5278-4993-bfeb-53cded000011"
     },
     {
       "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000057",
-      "slideId": "787f6ece-6276-5982-beeb-53cba4f36f01"
+      "slideId": "a97f6ec4-5278-4993-bfeb-53cded000012"
     },
     {
       "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000061",
@@ -2182,7 +2182,7 @@
       "id": "497f6eca-6276-1596-bfeb-53ceb43a6f54",
       "@context": "/contexts/Screen",
       "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb43a6f54",
-      "title": "Screen Fixture 0",
+      "title": "Screen Fixture 1",
       "description": "This is an test screen 1 description",
       "size": 50,
       "dimensions": {
@@ -2201,33 +2201,10 @@
       "createdBy": "Ole Olesen"
     },
     {
-      "id": "854f6ecb-6276-6854-bfeb-53cffffa6d1e",
-      "@context": "/contexts/Screen",
-      "@id": "/v1/screens/854f6ecb-6276-6854-bfeb-53cffffa6d1e",
-      "title": "Screen Fixture 1",
-      "description": "This is an test screen 2 description",
-      "size": 75,
-      "dimensions": {
-        "width": 1920,
-        "height": 1080
-      },
-      "layout": "/v1/layouts/497f6ecf-642-4883-cfeb-53cbf3bf82a9",
-      "location": "M2.5",
-      "regions": [
-        "/v1/playlistScreenRegion?_expand=playlist&screenId=854f6ecb-6276-6854-bfeb-53cffffa6d1e&region=region1",
-        "/v1/playlistScreenRegion?_expand=playlist&screenId=854f6ecb-6276-6854-bfeb-53cffffa6d1e&region=region2"
-      ],
-      "inScreenGroups": "/v1/screens/854f6ecb-6276-6854-bfeb-53cffffa6d1e/groups",
-      "modified": "2021-08-04T10:12:00Z",
-      "created": "2021-07-21T12:05:00Z",
-      "modifiedBy": "Jens Jensen",
-      "createdBy": "Ole Olesen"
-    },
-    {
       "id": "497f6eca-6276-1596-bfeb-53ceb4000000",
       "@context": "/contexts/Screen",
       "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000000",
-      "title": "Screen Fixture 2 - slide: bookreview1 -- OK",
+      "title": "Screen Fixture 2 - slide: bookreview1",
       "description": "This is an test screen 1 description",
       "size": 50,
       "dimensions": {
@@ -2249,7 +2226,7 @@
       "id": "497f6eca-6276-1596-bfeb-53ceb4000001",
       "@context": "/contexts/Screen",
       "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000001",
-      "title": "Screen Fixture 3 - calendar1 -- OK",
+      "title": "Screen Fixture 3 - calendar1",
       "description": "This is an test screen 1 description",
       "size": 50,
       "dimensions": {
@@ -2271,7 +2248,7 @@
       "id": "497f6eca-6276-1596-bfeb-53ceb4000002",
       "@context": "/contexts/Screen",
       "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000002",
-      "title": "Screen Fixture 4 - image-text top -- OK",
+      "title": "Screen Fixture 4 - image-text top",
       "description": "This is an test screen 1 description",
       "size": 50,
       "dimensions": {
@@ -2293,7 +2270,7 @@
       "id": "497f6eca-6276-1596-bfeb-53ceb4000003",
       "@context": "/contexts/Screen",
       "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000003",
-      "title": "Screen Fixture 5 - image-text left -- OK",
+      "title": "Screen Fixture 5 - image-text left",
       "description": "This is an test screen 1 description",
       "size": 50,
       "dimensions": {
@@ -2315,7 +2292,7 @@
       "id": "497f6eca-6276-1596-bfeb-53ceb4000004",
       "@context": "/contexts/Screen",
       "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000004",
-      "title": "Screen Fixture 6 - image-text right -- OK",
+      "title": "Screen Fixture 6 - image-text right",
       "description": "This is an test screen 1 description",
       "size": 50,
       "dimensions": {
@@ -2337,7 +2314,7 @@
       "id": "497f6eca-6276-1596-bfeb-53ceb4000005",
       "@context": "/contexts/Screen",
       "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000005",
-      "title": "Screen Fixture 7 - image-text bottom -- OK",
+      "title": "Screen Fixture 7 - image-text bottom",
       "description": "This is an test screen 1 description",
       "size": 50,
       "dimensions": {
@@ -2359,7 +2336,7 @@
       "id": "497f6eca-6276-1596-bfeb-53ceb4000006",
       "@context": "/contexts/Screen",
       "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000006",
-      "title": "Screen Fixture 8 - image-text colors -- OK",
+      "title": "Screen Fixture 8 - image-text colors",
       "description": "This is an test screen 1 description",
       "size": 50,
       "dimensions": {
@@ -2381,7 +2358,7 @@
       "id": "497f6eca-6276-1596-bfeb-53ceb4000007",
       "@context": "/contexts/Screen",
       "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000007",
-      "title": "Screen Fixture 9 - image-text fontsize s -- OK",
+      "title": "Screen Fixture 9 - image-text fontsize s",
       "description": "This is an test screen 1 description",
       "size": 50,
       "dimensions": {
@@ -2403,7 +2380,7 @@
       "id": "497f6eca-6276-1596-bfeb-53ceb4000008",
       "@context": "/contexts/Screen",
       "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000008",
-      "title": "Screen Fixture 10 - image-text fontsize m -- OK",
+      "title": "Screen Fixture 10 - image-text fontsize m",
       "description": "This is an test screen 1 description",
       "size": 50,
       "dimensions": {
@@ -2425,7 +2402,7 @@
       "id": "497f6eca-6276-1596-bfeb-53ceb4000009",
       "@context": "/contexts/Screen",
       "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000009",
-      "title": "Screen Fixture 11 - image-text fontsize l -- OK",
+      "title": "Screen Fixture 11 - image-text fontsize l",
       "description": "This is an test screen 1 description",
       "size": 50,
       "dimensions": {
@@ -2447,7 +2424,7 @@
       "id": "497f6eca-6276-1596-bfeb-53ceb4000010",
       "@context": "/contexts/Screen",
       "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000010",
-      "title": "Screen Fixture 12 - image-text fontsize xl -- OK",
+      "title": "Screen Fixture 12 - image-text fontsize xl",
       "description": "This is an test screen 1 description",
       "size": 50,
       "dimensions": {
@@ -2469,7 +2446,7 @@
       "id": "497f6eca-6276-1596-bfeb-53ceb4000011",
       "@context": "/contexts/Screen",
       "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000011",
-      "title": "Screen Fixture 13 - slide: margin, separator and half-size -- OK",
+      "title": "Screen Fixture 13 - slide: margin, separator and half-size",
       "description": "This is an test screen 1 description",
       "size": 50,
       "dimensions": {
@@ -2491,7 +2468,7 @@
       "id": "497f6eca-6276-1596-bfeb-53ceb4000012",
       "@context": "/contexts/Screen",
       "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000012",
-      "title": "Screen Fixture 14 - slide: reversed -- OK",
+      "title": "Screen Fixture 14 - slide: reversed",
       "description": "This is an test screen 1 description",
       "size": 50,
       "dimensions": {
@@ -2513,7 +2490,7 @@
       "id": "497f6eca-6276-1596-bfeb-53ceb4000013",
       "@context": "/contexts/Screen",
       "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000013",
-      "title": "Screen Fixture 15 - image-text: just image -- OK",
+      "title": "Screen Fixture 15 - image-text: just image",
       "description": "This is an test screen 1 description",
       "size": 50,
       "dimensions": {
@@ -2535,7 +2512,7 @@
       "id": "497f6eca-6276-1596-bfeb-53ceb4000014",
       "@context": "/contexts/Screen",
       "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000014",
-      "title": "Screen Fixture 16 - image-text: just image -- OK",
+      "title": "Screen Fixture 16 - image-text: just image",
       "description": "This is an test screen 1 description",
       "size": 50,
       "dimensions": {
@@ -2557,7 +2534,7 @@
       "id": "497f6eca-6276-1596-bfeb-53ceb4000015",
       "@context": "/contexts/Screen",
       "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000015",
-      "title": "Screen Fixture 17 - image-text: just image -- OK ",
+      "title": "Screen Fixture 17 - image-text: just image ",
       "description": "This is an test screen 1 description",
       "size": 50,
       "dimensions": {
@@ -2579,7 +2556,7 @@
       "id": "497f6eca-6276-1596-bfeb-53ceb4000016",
       "@context": "/contexts/Screen",
       "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000016",
-      "title": "Screen Fixture 18 - image-text: just text -- OK",
+      "title": "Screen Fixture 18 - image-text: just text",
       "description": "This is an test screen 1 description",
       "size": 50,
       "dimensions": {
@@ -2601,7 +2578,7 @@
       "id": "497f6eca-6276-1596-bfeb-53ceb4000017",
       "@context": "/contexts/Screen",
       "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000017",
-      "title": "Screen Fixture 19 - image-text: just text -- OK",
+      "title": "Screen Fixture 19 - image-text: just text",
       "description": "This is an test screen 1 description",
       "size": 50,
       "dimensions": {
@@ -2623,7 +2600,7 @@
       "id": "497f6eca-6276-1596-bfeb-53ceb4000018",
       "@context": "/contexts/Screen",
       "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000018",
-      "title": "Screen Fixture 20 - image-text: text, color and styling -- OK",
+      "title": "Screen Fixture 20 - image-text: text, color and styling",
       "description": "This is an test screen 1 description",
       "size": 50,
       "dimensions": {
@@ -2645,7 +2622,7 @@
       "id": "497f6eca-6276-1596-bfeb-53ceb4000019",
       "@context": "/contexts/Screen",
       "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000019",
-      "title": "Screen Fixture 21 - meeting-room-schedule -- OK",
+      "title": "Screen Fixture 21 - meeting-room-schedule",
       "description": "This is an test screen 1 description",
       "size": 50,
       "dimensions": {
