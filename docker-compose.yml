@@ -15,6 +15,7 @@ services:
       - frontend
     depends_on:
       - node
+      - json-server
     ports:
       - '80'
     volumes:
@@ -62,7 +63,7 @@ services:
     networks:
       - app
     ports:
-      - '3000:3000'
+      - '3000'
     working_dir: /app
     volumes:
       - ./data:/app:delegated
