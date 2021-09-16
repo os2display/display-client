@@ -7,10 +7,12 @@ const v1Router = jsonServer.router('v1.json');
 const hydraRender = (req, res) => {
   let { data } = res.locals;
 
+  // This modifies the response from /v1/playlistScreenRegion to match /v1/screens/:screenId/regions/:regionId
   if (req.originalUrl.startsWith('/v1/playlistScreenRegion')) {
     data = data.map((playlistScreenRegion) => playlistScreenRegion.playlist);
   }
 
+  // This modifies the response from /v1/slidesPlaylist to match /v1/playlists/:playlistId/slides
   if (req.originalUrl.startsWith('/v1/slidesPlaylist')) {
     data = data.map((slidesPlaylist) => slidesPlaylist.slide);
   }

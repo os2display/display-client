@@ -25,8 +25,6 @@ function DebugBar() {
         },
       })
     );
-
-    setTimeout(() => document.dispatchEvent(new Event('stopDataSync')), 1000);
   }
 
   /**

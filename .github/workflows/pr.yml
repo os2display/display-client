@@ -65,7 +65,7 @@ jobs:
       - name: Install client
         run: docker-compose run node yarn
 
-      - name: Install and start json-server
+      - name: Install json-server
         run: docker-compose run json-server bash -c 'npm install'
 
       - name: Cypress run
