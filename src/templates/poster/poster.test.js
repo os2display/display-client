@@ -1,7 +1,9 @@
 describe('Make sure poster loads', () => {
   it('should load component', () => {
     cy.visit('/');
-    cy.get('.debug-bar-select').select('poster');
+    cy.get('.debug-bar-select').select(
+      '/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000020'
+    );
     cy.get('.template-poster .image-area').should(
       'have.css',
       'background-image',
@@ -11,7 +13,9 @@ describe('Make sure poster loads', () => {
 
   it('should have title', () => {
     cy.visit('/');
-    cy.get('.debug-bar-select').select('poster');
+    cy.get('.debug-bar-select').select(
+      '/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000020'
+    );
     cy.get('.header-area .center h1')
       .first()
       .invoke('text')
@@ -20,7 +24,9 @@ describe('Make sure poster loads', () => {
 
   it('should have date', () => {
     cy.visit('/');
-    cy.get('.debug-bar-select').select('poster');
+    cy.get('.debug-bar-select').select(
+      '/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000020'
+    );
     cy.get('.info-area .date')
       .first()
       .invoke('text')
@@ -28,7 +34,9 @@ describe('Make sure poster loads', () => {
   });
   it('should have dates', () => {
     cy.visit('/');
-    cy.get('.debug-bar-select').select('poster with 2 events');
+    cy.get('.debug-bar-select').select(
+      '/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000021'
+    );
     cy.get('.info-area .date')
       .first()
       .invoke('text')

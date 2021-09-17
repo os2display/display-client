@@ -15,6 +15,7 @@ services:
       - frontend
     depends_on:
       - node
+      - json-server
     ports:
       - '80'
     volumes:
@@ -32,13 +33,11 @@ services:
       - app
       - frontend
     working_dir: /app
-    ports:
-      - '3000'
     environment:
       - NODE_ENV=development
     volumes:
       - .:/app:delegated
- 
+
   cypress:
     image: cypress/included:7.5.0
     networks:
@@ -50,7 +49,21 @@ services:
       - CYPRESS_baseUrl=http://nginx
       #- DISPLAY=host.docker.internal:0
     volumes:
-      - .:/e2e 
+      - .:/e2e
       - /tmp/.X11-unix:/tmp/.X11-unix
     working_dir: /e2e
     entrypoint: cypress
+
+  json-server:
+    image: node:14
+    environment:
+      - NODE_ENV=development
+      - DEBUG=*
+    command: npm start
+    networks:
+      - app
+    ports:
+      - '3000'
+    working_dir: /app
+    volumes:
+      - ./data:/app:delegated

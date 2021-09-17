@@ -1,4 +1,3 @@
-import cloneDeep from 'lodash.clonedeep';
 import sha256 from 'crypto-js/sha256';
 import Base64 from 'crypto-js/enc-base64';
 import Logger from '../logger/logger';
@@ -36,8 +35,10 @@ class ContentService {
 
   /**
    * Start data synchronization.
+   *
+   * @param {string} screenPath Path to the screen.
    */
-  startSyncing() {
+  startSyncing(screenPath = null) {
     Logger.log('info', 'Starting data synchronization');
 
     // @TODO: Remove config.json from git to allow for configuring backend.
@@ -45,7 +46,11 @@ class ContentService {
     fetch('./config.json')
       .then((response) => response.json())
       .then((config) => {
-        this.dataSync = new DataSync(config.dataStrategy);
+        const dataStrategy = { ...config.dataStrategy };
+        if (screenPath !== null) {
+          dataStrategy.config.entryPoint = screenPath;
+        }
+        this.dataSync = new DataSync(dataStrategy);
         this.dataSync.start();
       })
       .catch((err) => {
@@ -71,10 +76,23 @@ class ContentService {
 
   /**
    * Start data event handler.
+   *
+   * @param {CustomEvent} event
+   *   The event.
    */
-  startDataSyncHandler() {
-    Logger.log('info', 'Event received: Start data synchronization');
-    if (!this.dataSync) {
+  startDataSyncHandler(event) {
+    const data = event.detail;
+
+    this.stopSyncHandler();
+
+    if (data?.screenPath) {
+      Logger.log(
+        'info',
+        `Event received: Start data synchronization from ${data.screenPath}`
+      );
+      this.startSyncing(data.screenPath);
+    } else {
+      Logger.log('info', 'Event received: Start data synchronization');
       this.startSyncing();
     }
   }
@@ -91,11 +109,11 @@ class ContentService {
     const data = event.detail;
     this.currentScreen = data.screen;
 
-    const screenData = cloneDeep(this.currentScreen);
+    const screenData = { ...this.currentScreen };
 
-    // Remove playlist data.
+    // Remove regionData to only emit screen when it has changed.
     for (let i = 0; i < screenData.regions.length; i += 1) {
-      delete screenData.regions[i].playlists;
+      delete screenData.regionData;
     }
 
     const newHash = Base64.stringify(sha256(JSON.stringify(screenData)));
@@ -107,8 +125,8 @@ class ContentService {
     } else {
       Logger.log('info', 'Screen has not changed. Not emitting screen.');
 
-      data.screen.regions.forEach((region) =>
-        this.scheduleService.updateRegion(region)
+      data.screen.regionData.forEach((region, key) =>
+        this.scheduleService.updateRegion(key, region)
       );
     }
   }
@@ -125,14 +143,10 @@ class ContentService {
 
     Logger.log('info', `Event received: regionReady for ${regionId}`);
 
-    if (this.currentScreen?.regions?.length > 0) {
-      const foundRegions = this.currentScreen.regions.filter(
-        (region) => region.id === regionId
-      );
-      foundRegions.forEach((region) => {
-        this.scheduleService.updateRegion(region);
-      });
-    }
+    this.scheduleService.updateRegion(
+      regionId,
+      this.currentScreen.regionData[regionId]
+    );
   }
 
   /**

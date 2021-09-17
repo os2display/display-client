@@ -1,0 +1,2938 @@
+{
+  "slidesPlaylist": [
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000057",
+      "slideId": "a97f6ec4-5278-4993-bfeb-53cded000011"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000057",
+      "slideId": "a97f6ec4-5278-4993-bfeb-53cded000012"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000061",
+      "slideId": "a97f6ec4-5278-4993-bfeb-53cded000000"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000062",
+      "slideId": "787f6ece-6276-5982-beeb-53cba4f36f01"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000063",
+      "slideId": "a97f6ec4-5278-4993-bfeb-53cded000011"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000064",
+      "slideId": "a97f6ec4-5278-4993-bfeb-53cded000012"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000065",
+      "slideId": "a97f6ec4-5278-4993-bfeb-53cded000013"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000066",
+      "slideId": "a97f6ec4-5278-4993-bfeb-53cded000014"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000067",
+      "slideId": "a97f6ec4-5278-4993-bfeb-53cded000015"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000068",
+      "slideId": "a97f6ec4-5278-4993-bfeb-53cded000016"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000069",
+      "slideId": "a97f6ec4-5278-4993-bfeb-53cded000017"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000070",
+      "slideId": "a97f6ec4-5278-4993-bfeb-53cded000018"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000071",
+      "slideId": "a97f6ec4-5278-4993-bfeb-53cded000019"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000072",
+      "slideId": "a97f6ec4-5278-4993-bfeb-53cded000020"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000073",
+      "slideId": "a97f6ec4-5278-4993-bfeb-53cded000021"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000074",
+      "slideId": "a97f6ec4-5278-4993-bfeb-53cded000022"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000075",
+      "slideId": "a97f6ec4-5278-4993-bfeb-53cded000023"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000076",
+      "slideId": "a97f6ec4-5278-4993-bfeb-53cded000024"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000077",
+      "slideId": "a97f6ec4-5278-4993-bfeb-53cded000025"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000078",
+      "slideId": "a97f6ec4-5278-4993-bfeb-53cded000026"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000079",
+      "slideId": "a97f6ec4-5278-4993-bfeb-53cded000027"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000080",
+      "slideId": "a97f6ec4-5278-4993-bfeb-53cded000030"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000081",
+      "slideId": "a97f6ec4-5278-4993-bfeb-53cded000031"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000082",
+      "slideId": "a97f6ec4-5278-4993-bfeb-53cded000032"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000083",
+      "slideId": "a97f6ec4-5278-4993-bfeb-53cded000033"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000084",
+      "slideId": "a97f6ec4-5278-4993-bfeb-53cded000034"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000085",
+      "slideId": "a97f6ec4-5278-4993-bfeb-53cded000035"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000086",
+      "slideId": "a97f6ec4-5278-4993-bfeb-53cded000036"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000087",
+      "slideId": "a97f6ec4-5278-4993-bfeb-53cded000037"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000088",
+      "slideId": "a97f6ec4-5278-4993-bfeb-53cded000038"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000089",
+      "slideId": "a97f6ec4-5278-4993-bfeb-53cded000039"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000090",
+      "slideId": "a97f6ec4-5278-4993-bfeb-53cded000040"
+    }
+  ],
+  "playlistScreenRegion": [
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000057",
+      "screenId": "497f6eca-6276-1596-bfeb-53ceb43a6f54",
+      "region": "region1"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000058",
+      "screenId": "497f6eca-6276-1596-bfeb-53ceb43a6f54",
+      "region": "region1"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000061",
+      "screenId": "497f6eca-6276-1596-bfeb-53ceb4000000",
+      "region": "region1"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000062",
+      "screenId": "497f6eca-6276-1596-bfeb-53ceb4000001",
+      "region": "region1"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000063",
+      "screenId": "497f6eca-6276-1596-bfeb-53ceb4000002",
+      "region": "region1"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000064",
+      "screenId": "497f6eca-6276-1596-bfeb-53ceb4000003",
+      "region": "region1"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000065",
+      "screenId": "497f6eca-6276-1596-bfeb-53ceb4000004",
+      "region": "region1"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000066",
+      "screenId": "497f6eca-6276-1596-bfeb-53ceb4000005",
+      "region": "region1"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000067",
+      "screenId": "497f6eca-6276-1596-bfeb-53ceb4000006",
+      "region": "region1"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000068",
+      "screenId": "497f6eca-6276-1596-bfeb-53ceb4000007",
+      "region": "region1"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000069",
+      "screenId": "497f6eca-6276-1596-bfeb-53ceb4000008",
+      "region": "region1"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000070",
+      "screenId": "497f6eca-6276-1596-bfeb-53ceb4000009",
+      "region": "region1"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000071",
+      "screenId": "497f6eca-6276-1596-bfeb-53ceb4000010",
+      "region": "region1"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000072",
+      "screenId": "497f6eca-6276-1596-bfeb-53ceb4000011",
+      "region": "region1"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000073",
+      "screenId": "497f6eca-6276-1596-bfeb-53ceb4000012",
+      "region": "region1"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000074",
+      "screenId": "497f6eca-6276-1596-bfeb-53ceb4000013",
+      "region": "region1"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000075",
+      "screenId": "497f6eca-6276-1596-bfeb-53ceb4000014",
+      "region": "region1"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000076",
+      "screenId": "497f6eca-6276-1596-bfeb-53ceb4000015",
+      "region": "region1"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000077",
+      "screenId": "497f6eca-6276-1596-bfeb-53ceb4000016",
+      "region": "region1"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000078",
+      "screenId": "497f6eca-6276-1596-bfeb-53ceb4000017",
+      "region": "region1"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000079",
+      "screenId": "497f6eca-6276-1596-bfeb-53ceb4000018",
+      "region": "region1"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000080",
+      "screenId": "497f6eca-6276-1596-bfeb-53ceb4000019",
+      "region": "region1"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000081",
+      "screenId": "497f6eca-6276-1596-bfeb-53ceb4000020",
+      "region": "region1"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000082",
+      "screenId": "497f6eca-6276-1596-bfeb-53ceb4000021",
+      "region": "region1"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000083",
+      "screenId": "497f6eca-6276-1596-bfeb-53ceb4000022",
+      "region": "region1"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000084",
+      "screenId": "497f6eca-6276-1596-bfeb-53ceb4000023",
+      "region": "region1"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000085",
+      "screenId": "497f6eca-6276-1596-bfeb-53ceb4000024",
+      "region": "region1"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000086",
+      "screenId": "497f6eca-6276-1596-bfeb-53ceb4000025",
+      "region": "region1"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000087",
+      "screenId": "497f6eca-6276-1596-bfeb-53ceb4000026",
+      "region": "region1"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000088",
+      "screenId": "497f6eca-6276-1596-bfeb-53ceb4000027",
+      "region": "region1"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000089",
+      "screenId": "497f6eca-6276-1596-bfeb-53ceb4000028",
+      "region": "region1"
+    },
+    {
+      "playlistId": "29ff6eca-8778-6789-bfeb-53e4bf000090",
+      "screenId": "497f6eca-6276-1596-bfeb-53ceb4000029",
+      "region": "region1"
+    }
+  ],
+  "playlists": [
+    {
+      "id": "29ff6eca-8778-6789-bfeb-53e4bf000057",
+      "@context": "/contexts/playlist",
+      "@id": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000057",
+      "title": "Playlist 1",
+      "description": "The is a fixture playlist",
+      "modified": "2021-09-21T17:32:28Z",
+      "created": "2021-09-21T17:00:01Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen",
+      "slides": "/v1/slidesPlaylist?_expand=slide&playlistId=29ff6eca-8778-6789-bfeb-53e4bf000057",
+      "onScreens": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000057/screens",
+      "published": {
+        "from": "2021-09-21T17:00:01Z",
+        "to": "2021-07-22T17:00:01Z"
+      }
+    },
+    {
+      "id": "29ff6eca-8778-6789-bfeb-53e4bf000058",
+      "@context": "/contexts/playlist",
+      "@id": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000058",
+      "title": "Playlist 2",
+      "description": "The is a fixture playlist",
+      "modified": "2021-09-21T17:32:28Z",
+      "created": "2021-09-21T17:00:01Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen",
+      "slides": "/v1/slidesPlaylist?_expand=slide&playlistId=29ff6eca-8778-6789-bfeb-53e4bf000058",
+      "onScreens": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000058/screens",
+      "published": {
+        "from": "2021-09-21T17:00:01Z",
+        "to": "2021-07-22T17:00:01Z"
+      }
+    },
+    {
+      "id": "29ff6eca-8778-6789-bfeb-53e4bf000061",
+      "@context": "/contexts/playlist",
+      "@id": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000061",
+      "title": "Playlist - Slide fixture 1",
+      "description": "The is a fixture playlist",
+      "modified": "2021-09-21T17:32:28Z",
+      "created": "2021-09-21T17:00:01Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen",
+      "slides": "/v1/slidesPlaylist?_expand=slide&playlistId=29ff6eca-8778-6789-bfeb-53e4bf000061",
+      "onScreens": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000061/screens",
+      "published": {
+        "from": "2021-09-21T17:00:01Z",
+        "to": "2021-07-22T17:00:01Z"
+      }
+    },
+    {
+      "id": "29ff6eca-8778-6789-bfeb-53e4bf000062",
+      "@context": "/contexts/playlist",
+      "@id": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000062",
+      "title": "Playlist - Slide fixture 2",
+      "description": "The is a fixture playlist",
+      "modified": "2021-09-21T17:32:28Z",
+      "created": "2021-09-21T17:00:01Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen",
+      "slides": "/v1/slidesPlaylist?_expand=slide&playlistId=29ff6eca-8778-6789-bfeb-53e4bf000062",
+      "onScreens": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000062/screens",
+      "published": {
+        "from": "2021-09-21T17:00:01Z",
+        "to": "2021-07-22T17:00:01Z"
+      }
+    },
+    {
+      "id": "29ff6eca-8778-6789-bfeb-53e4bf000063",
+      "@context": "/contexts/playlist",
+      "@id": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000063",
+      "title": "Playlist - Slide fixture 3",
+      "description": "The is a fixture playlist",
+      "modified": "2021-09-21T17:32:28Z",
+      "created": "2021-09-21T17:00:01Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen",
+      "slides": "/v1/slidesPlaylist?_expand=slide&playlistId=29ff6eca-8778-6789-bfeb-53e4bf000063",
+      "onScreens": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000063/screens",
+      "published": {
+        "from": "2021-09-21T17:00:01Z",
+        "to": "2021-07-22T17:00:01Z"
+      }
+    },
+    {
+      "id": "29ff6eca-8778-6789-bfeb-53e4bf000064",
+      "@context": "/contexts/playlist",
+      "@id": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000064",
+      "title": "Playlist - Slide fixture 4",
+      "description": "The is a fixture playlist",
+      "modified": "2021-09-21T17:32:28Z",
+      "created": "2021-09-21T17:00:01Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen",
+      "slides": "/v1/slidesPlaylist?_expand=slide&playlistId=29ff6eca-8778-6789-bfeb-53e4bf000064",
+      "onScreens": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000064/screens",
+      "published": {
+        "from": "2021-09-21T17:00:01Z",
+        "to": "2021-07-22T17:00:01Z"
+      }
+    },
+    {
+      "id": "29ff6eca-8778-6789-bfeb-53e4bf000065",
+      "@context": "/contexts/playlist",
+      "@id": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000065",
+      "title": "Playlist - Slide fixture 5",
+      "description": "The is a fixture playlist",
+      "modified": "2021-09-21T17:32:28Z",
+      "created": "2021-09-21T17:00:01Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen",
+      "slides": "/v1/slidesPlaylist?_expand=slide&playlistId=29ff6eca-8778-6789-bfeb-53e4bf000065",
+      "onScreens": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000065/screens",
+      "published": {
+        "from": "2021-09-21T17:00:01Z",
+        "to": "2021-07-22T17:00:01Z"
+      }
+    },
+    {
+      "id": "29ff6eca-8778-6789-bfeb-53e4bf000066",
+      "@context": "/contexts/playlist",
+      "@id": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000066",
+      "title": "Playlist - Slide fixture 6",
+      "description": "The is a fixture playlist",
+      "modified": "2021-09-21T17:32:28Z",
+      "created": "2021-09-21T17:00:01Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen",
+      "slides": "/v1/slidesPlaylist?_expand=slide&playlistId=29ff6eca-8778-6789-bfeb-53e4bf000066",
+      "onScreens": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000066/screens",
+      "published": {
+        "from": "2021-09-21T17:00:01Z",
+        "to": "2021-07-22T17:00:01Z"
+      }
+    },
+    {
+      "id": "29ff6eca-8778-6789-bfeb-53e4bf000067",
+      "@context": "/contexts/playlist",
+      "@id": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000067",
+      "title": "Playlist - Slide fixture 7",
+      "description": "The is a fixture playlist",
+      "modified": "2021-09-21T17:32:28Z",
+      "created": "2021-09-21T17:00:01Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen",
+      "slides": "/v1/slidesPlaylist?_expand=slide&playlistId=29ff6eca-8778-6789-bfeb-53e4bf000067",
+      "onScreens": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000067/screens",
+      "published": {
+        "from": "2021-09-21T17:00:01Z",
+        "to": "2021-07-22T17:00:01Z"
+      }
+    },
+    {
+      "id": "29ff6eca-8778-6789-bfeb-53e4bf000068",
+      "@context": "/contexts/playlist",
+      "@id": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000068",
+      "title": "Playlist - Slide fixture 8",
+      "description": "The is a fixture playlist",
+      "modified": "2021-09-21T17:32:28Z",
+      "created": "2021-09-21T17:00:01Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen",
+      "slides": "/v1/slidesPlaylist?_expand=slide&playlistId=29ff6eca-8778-6789-bfeb-53e4bf000068",
+      "onScreens": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000068/screens",
+      "published": {
+        "from": "2021-09-21T17:00:01Z",
+        "to": "2021-07-22T17:00:01Z"
+      }
+    },
+    {
+      "id": "29ff6eca-8778-6789-bfeb-53e4bf000069",
+      "@context": "/contexts/playlist",
+      "@id": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000069",
+      "title": "Playlist - Slide fixture 9",
+      "description": "The is a fixture playlist",
+      "modified": "2021-09-21T17:32:28Z",
+      "created": "2021-09-21T17:00:01Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen",
+      "slides": "/v1/slidesPlaylist?_expand=slide&playlistId=29ff6eca-8778-6789-bfeb-53e4bf000069",
+      "onScreens": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000069/screens",
+      "published": {
+        "from": "2021-09-21T17:00:01Z",
+        "to": "2021-07-22T17:00:01Z"
+      }
+    },
+    {
+      "id": "29ff6eca-8778-6789-bfeb-53e4bf000070",
+      "@context": "/contexts/playlist",
+      "@id": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000070",
+      "title": "Playlist - Slide fixture 10",
+      "description": "The is a fixture playlist",
+      "modified": "2021-09-21T17:32:28Z",
+      "created": "2021-09-21T17:00:01Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen",
+      "slides": "/v1/slidesPlaylist?_expand=slide&playlistId=29ff6eca-8778-6789-bfeb-53e4bf000070",
+      "onScreens": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000070/screens",
+      "published": {
+        "from": "2021-09-21T17:00:01Z",
+        "to": "2021-07-22T17:00:01Z"
+      }
+    },
+    {
+      "id": "29ff6eca-8778-6789-bfeb-53e4bf000071",
+      "@context": "/contexts/playlist",
+      "@id": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000071",
+      "title": "Playlist - Slide fixture 11",
+      "description": "The is a fixture playlist",
+      "modified": "2021-09-21T17:32:28Z",
+      "created": "2021-09-21T17:00:01Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen",
+      "slides": "/v1/slidesPlaylist?_expand=slide&playlistId=29ff6eca-8778-6789-bfeb-53e4bf000071",
+      "onScreens": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000071/screens",
+      "published": {
+        "from": "2021-09-21T17:00:01Z",
+        "to": "2021-07-22T17:00:01Z"
+      }
+    },
+    {
+      "id": "29ff6eca-8778-6789-bfeb-53e4bf000072",
+      "@context": "/contexts/playlist",
+      "@id": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000072",
+      "title": "Playlist - Slide fixture 12",
+      "description": "The is a fixture playlist",
+      "modified": "2021-09-21T17:32:28Z",
+      "created": "2021-09-21T17:00:01Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen",
+      "slides": "/v1/slidesPlaylist?_expand=slide&playlistId=29ff6eca-8778-6789-bfeb-53e4bf000072",
+      "onScreens": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000072/screens",
+      "published": {
+        "from": "2021-09-21T17:00:01Z",
+        "to": "2021-07-22T17:00:01Z"
+      }
+    },
+    {
+      "id": "29ff6eca-8778-6789-bfeb-53e4bf000073",
+      "@context": "/contexts/playlist",
+      "@id": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000073",
+      "title": "Playlist - Slide fixture 13",
+      "description": "The is a fixture playlist",
+      "modified": "2021-09-21T17:32:28Z",
+      "created": "2021-09-21T17:00:01Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen",
+      "slides": "/v1/slidesPlaylist?_expand=slide&playlistId=29ff6eca-8778-6789-bfeb-53e4bf000073",
+      "onScreens": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000073/screens",
+      "published": {
+        "from": "2021-09-21T17:00:01Z",
+        "to": "2021-07-22T17:00:01Z"
+      }
+    },
+    {
+      "id": "29ff6eca-8778-6789-bfeb-53e4bf000074",
+      "@context": "/contexts/playlist",
+      "@id": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000074",
+      "title": "Playlist - Slide fixture 14",
+      "description": "The is a fixture playlist",
+      "modified": "2021-09-21T17:32:28Z",
+      "created": "2021-09-21T17:00:01Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen",
+      "slides": "/v1/slidesPlaylist?_expand=slide&playlistId=29ff6eca-8778-6789-bfeb-53e4bf000074",
+      "onScreens": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000074/screens",
+      "published": {
+        "from": "2021-09-21T17:00:01Z",
+        "to": "2021-07-22T17:00:01Z"
+      }
+    },
+    {
+      "id": "29ff6eca-8778-6789-bfeb-53e4bf000075",
+      "@context": "/contexts/playlist",
+      "@id": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000075",
+      "title": "Playlist - Slide fixture 15",
+      "description": "The is a fixture playlist",
+      "modified": "2021-09-21T17:32:28Z",
+      "created": "2021-09-21T17:00:01Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen",
+      "slides": "/v1/slidesPlaylist?_expand=slide&playlistId=29ff6eca-8778-6789-bfeb-53e4bf000075",
+      "onScreens": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000075/screens",
+      "published": {
+        "from": "2021-09-21T17:00:01Z",
+        "to": "2021-07-22T17:00:01Z"
+      }
+    },
+    {
+      "id": "29ff6eca-8778-6789-bfeb-53e4bf000076",
+      "@context": "/contexts/playlist",
+      "@id": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000076",
+      "title": "Playlist - Slide fixture 16",
+      "description": "The is a fixture playlist",
+      "modified": "2021-09-21T17:32:28Z",
+      "created": "2021-09-21T17:00:01Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen",
+      "slides": "/v1/slidesPlaylist?_expand=slide&playlistId=29ff6eca-8778-6789-bfeb-53e4bf000076",
+      "onScreens": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000076/screens",
+      "published": {
+        "from": "2021-09-21T17:00:01Z",
+        "to": "2021-07-22T17:00:01Z"
+      }
+    },
+    {
+      "id": "29ff6eca-8778-6789-bfeb-53e4bf000077",
+      "@context": "/contexts/playlist",
+      "@id": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000077",
+      "title": "Playlist - Slide fixture 17",
+      "description": "The is a fixture playlist",
+      "modified": "2021-09-21T17:32:28Z",
+      "created": "2021-09-21T17:00:01Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen",
+      "slides": "/v1/slidesPlaylist?_expand=slide&playlistId=29ff6eca-8778-6789-bfeb-53e4bf000077",
+      "onScreens": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000077/screens",
+      "published": {
+        "from": "2021-09-21T17:00:01Z",
+        "to": "2021-07-22T17:00:01Z"
+      }
+    },
+    {
+      "id": "29ff6eca-8778-6789-bfeb-53e4bf000078",
+      "@context": "/contexts/playlist",
+      "@id": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000078",
+      "title": "Playlist - Slide fixture 18",
+      "description": "The is a fixture playlist",
+      "modified": "2021-09-21T17:32:28Z",
+      "created": "2021-09-21T17:00:01Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen",
+      "slides": "/v1/slidesPlaylist?_expand=slide&playlistId=29ff6eca-8778-6789-bfeb-53e4bf000078",
+      "onScreens": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000078/screens",
+      "published": {
+        "from": "2021-09-21T17:00:01Z",
+        "to": "2021-07-22T17:00:01Z"
+      }
+    },
+    {
+      "id": "29ff6eca-8778-6789-bfeb-53e4bf000079",
+      "@context": "/contexts/playlist",
+      "@id": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000079",
+      "title": "Playlist - Slide fixture 19",
+      "description": "The is a fixture playlist",
+      "modified": "2021-09-21T17:32:28Z",
+      "created": "2021-09-21T17:00:01Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen",
+      "slides": "/v1/slidesPlaylist?_expand=slide&playlistId=29ff6eca-8778-6789-bfeb-53e4bf000079",
+      "onScreens": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000079/screens",
+      "published": {
+        "from": "2021-09-21T17:00:01Z",
+        "to": "2021-07-22T17:00:01Z"
+      }
+    },
+    {
+      "id": "29ff6eca-8778-6789-bfeb-53e4bf000080",
+      "@context": "/contexts/playlist",
+      "@id": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000080",
+      "title": "Playlist - Slide fixture 20",
+      "description": "The is a fixture playlist",
+      "modified": "2021-09-21T17:32:28Z",
+      "created": "2021-09-21T17:00:01Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen",
+      "slides": "/v1/slidesPlaylist?_expand=slide&playlistId=29ff6eca-8778-6789-bfeb-53e4bf000080",
+      "onScreens": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000080/screens",
+      "published": {
+        "from": "2021-09-21T17:00:01Z",
+        "to": "2021-07-22T17:00:01Z"
+      }
+    },
+    {
+      "id": "29ff6eca-8778-6789-bfeb-53e4bf000081",
+      "@context": "/contexts/playlist",
+      "@id": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000081",
+      "title": "Playlist - Slide fixture 21",
+      "description": "The is a fixture playlist",
+      "modified": "2021-09-21T17:32:28Z",
+      "created": "2021-09-21T17:00:01Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen",
+      "slides": "/v1/slidesPlaylist?_expand=slide&playlistId=29ff6eca-8778-6789-bfeb-53e4bf000081",
+      "onScreens": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000081/screens",
+      "published": {
+        "from": "2021-09-21T17:00:01Z",
+        "to": "2021-07-22T17:00:01Z"
+      }
+    },
+    {
+      "id": "29ff6eca-8778-6789-bfeb-53e4bf000082",
+      "@context": "/contexts/playlist",
+      "@id": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000082",
+      "title": "Playlist - Slide fixture 22",
+      "description": "The is a fixture playlist",
+      "modified": "2021-09-21T17:32:28Z",
+      "created": "2021-09-21T17:00:01Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen",
+      "slides": "/v1/slidesPlaylist?_expand=slide&playlistId=29ff6eca-8778-6789-bfeb-53e4bf000082",
+      "onScreens": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000082/screens",
+      "published": {
+        "from": "2021-09-21T17:00:01Z",
+        "to": "2021-07-22T17:00:01Z"
+      }
+    },
+    {
+      "id": "29ff6eca-8778-6789-bfeb-53e4bf000083",
+      "@context": "/contexts/playlist",
+      "@id": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000083",
+      "title": "Playlist - Slide fixture 23",
+      "description": "The is a fixture playlist",
+      "modified": "2021-09-21T17:32:28Z",
+      "created": "2021-09-21T17:00:01Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen",
+      "slides": "/v1/slidesPlaylist?_expand=slide&playlistId=29ff6eca-8778-6789-bfeb-53e4bf000083",
+      "onScreens": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000083/screens",
+      "published": {
+        "from": "2021-09-21T17:00:01Z",
+        "to": "2021-07-22T17:00:01Z"
+      }
+    },
+    {
+      "id": "29ff6eca-8778-6789-bfeb-53e4bf000084",
+      "@context": "/contexts/playlist",
+      "@id": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000084",
+      "title": "Playlist - Slide fixture 24",
+      "description": "The is a fixture playlist",
+      "modified": "2021-09-21T17:32:28Z",
+      "created": "2021-09-21T17:00:01Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen",
+      "slides": "/v1/slidesPlaylist?_expand=slide&playlistId=29ff6eca-8778-6789-bfeb-53e4bf000084",
+      "onScreens": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000084/screens",
+      "published": {
+        "from": "2021-09-21T17:00:01Z",
+        "to": "2021-07-22T17:00:01Z"
+      }
+    },
+    {
+      "id": "29ff6eca-8778-6789-bfeb-53e4bf000085",
+      "@context": "/contexts/playlist",
+      "@id": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000085",
+      "title": "Playlist - Slide fixture 25",
+      "description": "The is a fixture playlist",
+      "modified": "2021-09-21T17:32:28Z",
+      "created": "2021-09-21T17:00:01Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen",
+      "slides": "/v1/slidesPlaylist?_expand=slide&playlistId=29ff6eca-8778-6789-bfeb-53e4bf000085",
+      "onScreens": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000085/screens",
+      "published": {
+        "from": "2021-09-21T17:00:01Z",
+        "to": "2021-07-22T17:00:01Z"
+      }
+    },
+    {
+      "id": "29ff6eca-8778-6789-bfeb-53e4bf000086",
+      "@context": "/contexts/playlist",
+      "@id": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000086",
+      "title": "Playlist - Slide fixture 26",
+      "description": "The is a fixture playlist",
+      "modified": "2021-09-21T17:32:28Z",
+      "created": "2021-09-21T17:00:01Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen",
+      "slides": "/v1/slidesPlaylist?_expand=slide&playlistId=29ff6eca-8778-6789-bfeb-53e4bf000086",
+      "onScreens": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000086/screens",
+      "published": {
+        "from": "2021-09-21T17:00:01Z",
+        "to": "2021-07-22T17:00:01Z"
+      }
+    },
+    {
+      "id": "29ff6eca-8778-6789-bfeb-53e4bf000087",
+      "@context": "/contexts/playlist",
+      "@id": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000087",
+      "title": "Playlist - Slide fixture 27",
+      "description": "The is a fixture playlist",
+      "modified": "2021-09-21T17:32:28Z",
+      "created": "2021-09-21T17:00:01Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen",
+      "slides": "/v1/slidesPlaylist?_expand=slide&playlistId=29ff6eca-8778-6789-bfeb-53e4bf000087",
+      "onScreens": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000087/screens",
+      "published": {
+        "from": "2021-09-21T17:00:01Z",
+        "to": "2021-07-22T17:00:01Z"
+      }
+    },
+    {
+      "id": "29ff6eca-8778-6789-bfeb-53e4bf000088",
+      "@context": "/contexts/playlist",
+      "@id": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000088",
+      "title": "Playlist - Slide fixture 28",
+      "description": "The is a fixture playlist",
+      "modified": "2021-09-21T17:32:28Z",
+      "created": "2021-09-21T17:00:01Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen",
+      "slides": "/v1/slidesPlaylist?_expand=slide&playlistId=29ff6eca-8778-6789-bfeb-53e4bf000088",
+      "onScreens": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000088/screens",
+      "published": {
+        "from": "2021-09-21T17:00:01Z",
+        "to": "2021-07-22T17:00:01Z"
+      }
+    },
+    {
+      "id": "29ff6eca-8778-6789-bfeb-53e4bf000089",
+      "@context": "/contexts/playlist",
+      "@id": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000089",
+      "title": "Playlist - Slide fixture 29",
+      "description": "The is a fixture playlist",
+      "modified": "2021-09-21T17:32:28Z",
+      "created": "2021-09-21T17:00:01Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen",
+      "slides": "/v1/slidesPlaylist?_expand=slide&playlistId=29ff6eca-8778-6789-bfeb-53e4bf000089",
+      "onScreens": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000089/screens",
+      "published": {
+        "from": "2021-09-21T17:00:01Z",
+        "to": "2021-07-22T17:00:01Z"
+      }
+    },
+    {
+      "id": "29ff6eca-8778-6789-bfeb-53e4bf000090",
+      "@context": "/contexts/playlist",
+      "@id": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000090",
+      "title": "Playlist - Slide fixture 30",
+      "description": "The is a fixture playlist",
+      "modified": "2021-09-21T17:32:28Z",
+      "created": "2021-09-21T17:00:01Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen",
+      "slides": "/v1/slidesPlaylist?_expand=slide&playlistId=29ff6eca-8778-6789-bfeb-53e4bf000090",
+      "onScreens": "/v1/playlists/29ff6eca-8778-6789-bfeb-53e4bf000090/screens",
+      "published": {
+        "from": "2021-09-21T17:00:01Z",
+        "to": "2021-07-22T17:00:01Z"
+      }
+    }
+  ],
+  "templates": [
+    {
+      "id": "457d6ecb-6378-4299-bfcb-53cbaaaa6f65",
+      "@id": "/v1/template/457d6ecb-6378-4299-bfcb-53cbaaaa6f65",
+      "templateKey": "template-book-review",
+      "title": "Book review",
+      "description": "This is a template for book reviews",
+      "modified": "2021-09-03T10:04:59Z",
+      "created": "2021-08-21T11:22:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olensen",
+      "icon": "http://templates.itkdev.dk/image/icon.png",
+      "resources": {
+        "admin": "http://templates.itkdev.dk/image/form.json",
+        "schema": "http://templates.itkdev.dk/image/schema.json",
+        "component": "http://templates.itkdev.dk/image/image.js",
+        "assets": [
+          {
+            "type": "css",
+            "url": "http://templates.itkdev.dk/image/image.css"
+          }
+        ],
+        "options": {
+          "fade": true
+        },
+        "content": {}
+      }
+    },
+    {
+      "id": "457d6ecb-6378-4299-bfcb-53cbaaaa6f66",
+      "@id": "/v1/template/457d6ecb-6378-4299-bfcb-53cbaaaa6f66",
+      "title": "Calendar",
+      "templateKey": "template-calendar",
+      "description": "This is a template for calendars",
+      "modified": "2021-09-03T10:04:59Z",
+      "created": "2021-08-21T11:22:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olensen",
+      "icon": "http://templates.itkdev.dk/image/icon.png",
+      "resources": {
+        "admin": "http://templates.itkdev.dk/image/form.json",
+        "schema": "http://templates.itkdev.dk/image/schema.json",
+        "component": "http://templates.itkdev.dk/image/image.js",
+        "assets": [
+          {
+            "type": "css",
+            "url": "http://templates.itkdev.dk/image/image.css"
+          }
+        ],
+        "options": {
+          "fade": true
+        },
+        "content": {}
+      }
+    },
+    {
+      "id": "457d6ecb-6378-4299-bfcb-53cbaaaa6f10",
+      "@id": "/v1/template/457d6ecb-6378-4299-bfcb-53cbaaaa6f10",
+      "templateKey": "template-image-text",
+      "title": "image-text",
+      "description": "This is a template for image and text",
+      "modified": "2021-09-03T10:04:59Z",
+      "created": "2021-08-21T11:22:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olensen",
+      "icon": "http://templates.itkdev.dk/image/icon.png",
+      "resources": {
+        "admin": "http://templates.itkdev.dk/image/form.json",
+        "schema": "http://templates.itkdev.dk/image/schema.json",
+        "component": "http://templates.itkdev.dk/image/image.js",
+        "assets": [
+          {
+            "type": "css",
+            "url": "http://templates.itkdev.dk/image/image.css"
+          }
+        ],
+        "options": {
+          "fade": true
+        },
+        "content": {}
+      }
+    },
+    {
+      "id": "457d6ecb-6378-4299-bfcb-53cbaaaa6f11",
+      "@id": "/v1/template/457d6ecb-6378-4299-bfcb-53cbaaaa6f11",
+      "templateKey": "template-meeting-room-schedule",
+      "title": "Meeting room",
+      "description": "This is a template for meeting room",
+      "modified": "2021-09-03T10:04:59Z",
+      "created": "2021-08-21T11:22:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olensen",
+      "icon": "http://templates.itkdev.dk/image/icon.png",
+      "resources": {
+        "admin": "http://templates.itkdev.dk/image/form.json",
+        "schema": "http://templates.itkdev.dk/image/schema.json",
+        "component": "http://templates.itkdev.dk/image/image.js",
+        "assets": [
+          {
+            "type": "css",
+            "url": "http://templates.itkdev.dk/image/image.css"
+          }
+        ],
+        "options": {
+          "fade": true
+        },
+        "content": {}
+      }
+    },
+    {
+      "id": "457d6ecb-6378-4299-bfcb-53cbaaaa6f12",
+      "@id": "/v1/template/457d6ecb-6378-4299-bfcb-53cbaaaa6f12",
+      "templateKey": "template-poster",
+      "title": "Poster",
+      "description": "This is a template for poster",
+      "modified": "2021-09-03T10:04:59Z",
+      "created": "2021-08-21T11:22:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olensen",
+      "icon": "http://templates.itkdev.dk/image/icon.png",
+      "resources": {
+        "admin": "http://templates.itkdev.dk/image/form.json",
+        "schema": "http://templates.itkdev.dk/image/schema.json",
+        "component": "http://templates.itkdev.dk/image/image.js",
+        "assets": [
+          {
+            "type": "css",
+            "url": "http://templates.itkdev.dk/image/image.css"
+          }
+        ],
+        "options": {
+          "fade": true
+        },
+        "content": {}
+      }
+    },
+    {
+      "id": "457d6ecb-6378-4299-bfcb-53cbaaaa6f13",
+      "@id": "/v1/template/457d6ecb-6378-4299-bfcb-53cbaaaa6f13",
+      "templateKey": "template-quote",
+      "title": "Quote",
+      "description": "This is a template for quote",
+      "modified": "2021-09-03T10:04:59Z",
+      "created": "2021-08-21T11:22:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olensen",
+      "icon": "http://templates.itkdev.dk/image/icon.png",
+      "resources": {
+        "admin": "http://templates.itkdev.dk/image/form.json",
+        "schema": "http://templates.itkdev.dk/image/schema.json",
+        "component": "http://templates.itkdev.dk/image/image.js",
+        "assets": [
+          {
+            "type": "css",
+            "url": "http://templates.itkdev.dk/image/image.css"
+          }
+        ],
+        "options": {
+          "fade": true
+        },
+        "content": {}
+      }
+    },
+    {
+      "id": "457d6ecb-6378-4299-bfcb-53cbaaaa6f14",
+      "@id": "/v1/template/457d6ecb-6378-4299-bfcb-53cbaaaa6f14",
+      "templateKey": "template-rss",
+      "title": "RSS",
+      "description": "This is a template for RSS",
+      "modified": "2021-09-03T10:04:59Z",
+      "created": "2021-08-21T11:22:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olensen",
+      "icon": "http://templates.itkdev.dk/image/icon.png",
+      "resources": {
+        "admin": "http://templates.itkdev.dk/image/form.json",
+        "schema": "http://templates.itkdev.dk/image/schema.json",
+        "component": "http://templates.itkdev.dk/image/image.js",
+        "assets": [
+          {
+            "type": "css",
+            "url": "http://templates.itkdev.dk/image/image.css"
+          }
+        ],
+        "options": {
+          "fade": true
+        },
+        "content": {}
+      }
+    },
+    {
+      "id": "457d6ecb-6378-4299-bfcb-53cbaaaa6f15",
+      "@id": "/v1/template/457d6ecb-6378-4299-bfcb-53cbaaaa6f15",
+      "templateKey": "template-slideshow",
+      "title": "Slideshow",
+      "description": "This is a template for slideshow",
+      "modified": "2021-09-03T10:04:59Z",
+      "created": "2021-08-21T11:22:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olensen",
+      "icon": "http://templates.itkdev.dk/image/icon.png",
+      "resources": {
+        "admin": "http://templates.itkdev.dk/image/form.json",
+        "schema": "http://templates.itkdev.dk/image/schema.json",
+        "component": "http://templates.itkdev.dk/image/image.js",
+        "assets": [
+          {
+            "type": "css",
+            "url": "http://templates.itkdev.dk/image/image.css"
+          }
+        ],
+        "options": {
+          "fade": true
+        },
+        "content": {}
+      }
+    },
+    {
+      "id": "457d6ecb-6378-4299-bfcb-53cbaaaa6f16",
+      "@id": "/v1/template/457d6ecb-6378-4299-bfcb-53cbaaaa6f16",
+      "templateKey": "template-sparkle",
+      "title": "Sparkle",
+      "description": "This is a template for sparkle",
+      "modified": "2021-09-03T10:04:59Z",
+      "created": "2021-08-21T11:22:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olensen",
+      "icon": "http://templates.itkdev.dk/image/icon.png",
+      "resources": {
+        "admin": "http://templates.itkdev.dk/image/form.json",
+        "schema": "http://templates.itkdev.dk/image/schema.json",
+        "component": "http://templates.itkdev.dk/image/image.js",
+        "assets": [
+          {
+            "type": "css",
+            "url": "http://templates.itkdev.dk/image/image.css"
+          }
+        ],
+        "options": {
+          "fade": true
+        },
+        "content": {}
+      }
+    }
+  ],
+  "slides": [
+    {
+      "id": "a97f6ec4-5278-4993-bfeb-53cded000000",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cded000000",
+      "title": "Bookreview 1",
+      "description": "This is the first slide named one",
+      "modified": "2012-09-03T12:21:56Z",
+      "created": "2021-09-01T10:04:00Z",
+      "modifiedBy": "Ole Olesen",
+      "createdBy": "Jens Jensen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f65",
+        "options": []
+      },
+      "onScreens": "/v1/screens?slideId=a97f6ec4-5278-4993-bfeb-53cded000000",
+      "onPlaylists": "/v1/playlists?slideId=a97f6ec4-5278-4993-bfeb-53cded000000",
+      "duration": 30000,
+      "published": 1622555123,
+      "content": {
+        "bookText": "<h1>Lorem Ipsum</h1>...Is simply <strong>dummy text</strong> of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        "authorText": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.",
+        "media": {
+          "authorImage": {
+            "id": "uniqueMedia6",
+            "url": "./fixtures/images/author.jpg"
+          },
+          "bookImage": {
+            "id": "uniqueMedia1",
+            "url": "./fixtures/images/mountain1.jpeg"
+          }
+        }
+      }
+    },
+    {
+      "id": "787f6ece-6276-5982-beeb-53cba4f36f01",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/787f6ece-6276-5982-beeb-53cba4f36f01",
+      "title": "Calendar",
+      "description": "This is the next slide named two",
+      "modified": "2012-09-03T12:32:04Z",
+      "created": "2021-08-14T10:54:43Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f66",
+        "options": []
+      },
+      "onScreens": "/v1/screens?slideId=787f6ece-6276-5982-beeb-53cba4f36f01",
+      "onPlaylists": "/v1/playlists?slideId=787f6ece-6276-5982-beeb-53cba4f36f01",
+      "duration": 30000,
+      "published": 1622555475,
+      "content": {
+        "hasDateAndTime": true,
+        "backgroundColor": "blue",
+        "title": "Calendar",
+        "events": [
+          {
+            "id": "uniqueEvent1",
+            "eventName": "Cake",
+            "datetime": "2021-06-10T07:55:28.478Z",
+            "location": "M2"
+          }, {
+            "id": "uniqueEvent2",
+            "eventName": "Workshop",
+            "datetime": "2021-06-10T08:28:22.450Z",
+            "location": "Home"
+          }, {
+            "id": "uniqueEvent3",
+            "eventName": "GDPR",
+            "datetime": "2021-06-10T08:59:05.251Z",
+            "location": "M3-4"
+          }, {
+            "id": "uniqueEvent4",
+            "eventName": "Meeting",
+            "datetime": "2021-06-10T09:59:47.264Z",
+            "location": "Workshopzonen"
+          }
+        ]
+      }
+    },
+    {
+      "id": "a97f6ec4-5278-4993-bfeb-53cded000011",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cded000011",
+      "title": "image-text 1",
+      "description": "This is the first slide named one",
+      "modified": "2012-09-03T12:21:56Z",
+      "created": "2021-09-01T10:04:00Z",
+      "modifiedBy": "Ole Olesen",
+      "createdBy": "Jens Jensen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f10",
+        "options": []
+      },
+      "onScreens": "/v1/screens?slideId=a97f6ec4-5278-4993-bfeb-53cded000011",
+      "onPlaylists": "/v1/playlists?slideId=a97f6ec4-5278-4993-bfeb-53cded000011",
+      "duration": 5000,
+      "published": 1622555123,
+      "content": {
+        "title": "Slide 1",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+        "media": {
+          "id": "uniqueMedia1",
+          "url": "./fixtures/images/mountain1.jpeg"
+        },
+        "styling": {
+          "boxAlign": "top",
+          "boxMargin": false,
+          "shadow": true,
+          "separator": false,
+          "halfSize": false,
+          "reversed": false
+        }
+      }
+    },
+    {
+      "id": "a97f6ec4-5278-4993-bfeb-53cded000012",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cded000012",
+      "title": "image-text 2",
+      "description": "This is the first slide named one",
+      "modified": "2012-09-03T12:21:56Z",
+      "created": "2021-09-01T10:04:00Z",
+      "modifiedBy": "Ole Olesen",
+      "createdBy": "Jens Jensen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f10",
+        "options": []
+      },
+      "onScreens": "/v1/screens?slideId=a97f6ec4-5278-4993-bfeb-53cded000012",
+      "onPlaylists": "/v1/playlists?slideId=a97f6ec4-5278-4993-bfeb-53cded000012",
+      "published": 1622555123,
+      "duration": 15000,
+      "content": {
+        "title": "Slide 2",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+        "media": {
+          "id": "uniqueMedia2",
+          "url": "./fixtures/images/mountain2.jpeg"
+        },
+        "styling": {
+          "boxAlign": "left",
+          "boxMargin": false,
+          "separator": false,
+          "halfSize": false,
+          "reversed": false
+        }
+      }
+    },
+    {
+      "id": "a97f6ec4-5278-4993-bfeb-53cded000013",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cded000013",
+      "title": "image-text 3",
+      "description": "This is the first slide named one",
+      "modified": "2012-09-03T12:21:56Z",
+      "created": "2021-09-01T10:04:00Z",
+      "modifiedBy": "Ole Olesen",
+      "createdBy": "Jens Jensen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f10",
+        "options": []
+      },
+      "onScreens": "/v1/screens?slideId=a97f6ec4-5278-4993-bfeb-53cded000013",
+      "onPlaylists": "/v1/playlists?slideId=a97f6ec4-5278-4993-bfeb-53cded000013",
+      "published": 1622555123,
+      "duration": 15000,
+      "content": {
+        "title": "Slide 3",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+        "media": {
+          "id": "uniqueMedia3",
+          "url": "./fixtures/images/mountain3.jpeg"
+        },
+        "styling": {
+          "boxAlign": "right",
+          "boxMargin": false,
+          "separator": false,
+          "halfSize": false,
+          "reversed": false
+        }
+      }
+    },
+    {
+      "id": "a97f6ec4-5278-4993-bfeb-53cded000014",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cded000014",
+      "title": "image-text 4",
+      "description": "This is the first slide named one",
+      "modified": "2012-09-03T12:21:56Z",
+      "created": "2021-09-01T10:04:00Z",
+      "modifiedBy": "Ole Olesen",
+      "createdBy": "Jens Jensen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f10",
+        "options": []
+      },
+      "onScreens": "/v1/screens?slideId=a97f6ec4-5278-4993-bfeb-53cded000014",
+      "onPlaylists": "/v1/playlists?slideId=a97f6ec4-5278-4993-bfeb-53cded000014",
+      "published": 1622555123,
+      "duration": 15000,
+      "content": {
+        "title": "Slide 4",
+        "text": "<b>Lorem ipsum dolor</b> sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+        "media": {
+          "id": "uniqueMedia4",
+          "url": "./fixtures/images/mountain4.jpeg"
+        },
+        "styling": {
+          "boxAlign": "bottom",
+          "boxMargin": false,
+          "separator": false,
+          "halfSize": false,
+          "reversed": false
+        }
+      }
+    },
+    {
+      "id": "a97f6ec4-5278-4993-bfeb-53cded000015",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cded000015",
+      "title": "image-text 5",
+      "description": "This is the first slide named one",
+      "modified": "2012-09-03T12:21:56Z",
+      "created": "2021-09-01T10:04:00Z",
+      "modifiedBy": "Ole Olesen",
+      "createdBy": "Jens Jensen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f10",
+        "options": []
+      },
+      "onScreens": "/v1/screens?slideId=a97f6ec4-5278-4993-bfeb-53cded000015",
+      "onPlaylists": "/v1/playlists?slideId=a97f6ec4-5278-4993-bfeb-53cded000015",
+      "published": 1622555123,
+      "duration": 15000,
+      "content": {
+        "title": "Slide 5",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+        "backgroundColor": "rgb(255, 0, 0)",
+        "textColor": "rgb(0, 0, 255)",
+        "boxColor": "rgb(0, 255, 0)",
+        "styling": {
+          "boxAlign": "bottom",
+          "boxMargin": false,
+          "separator": false,
+          "halfSize": false,
+          "reversed": false
+        }
+      }
+    },
+    {
+      "id": "a97f6ec4-5278-4993-bfeb-53cded000016",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cded000016",
+      "title": "image-text 6 - fontsize s",
+      "description": "This is the first slide named one",
+      "modified": "2012-09-03T12:21:56Z",
+      "created": "2021-09-01T10:04:00Z",
+      "modifiedBy": "Ole Olesen",
+      "createdBy": "Jens Jensen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f10",
+        "options": []
+      },
+      "onScreens": "/v1/screens?slideId=a97f6ec4-5278-4993-bfeb-53cded000016",
+      "onPlaylists": "/v1/playlists?slideId=a97f6ec4-5278-4993-bfeb-53cded000016",
+      "published": 1622555123,
+      "duration": 4000,
+      "content": {
+        "title": "Slide 6",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+        "media": {
+          "id": "uniqueMedia1",
+          "url": "./fixtures/images/mountain1.jpeg"
+        },
+        "styling": {
+          "boxAlign": "top",
+          "boxMargin": false,
+          "separator": false,
+          "halfSize": false,
+          "reversed": false,
+          "fontSize": "s"
+        }
+      }
+    },
+    {
+      "id": "a97f6ec4-5278-4993-bfeb-53cded000017",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cded000017",
+      "title": "image-text 7 - fontsize m",
+      "description": "This is the first slide named one",
+      "modified": "2012-09-03T12:21:56Z",
+      "created": "2021-09-01T10:04:00Z",
+      "modifiedBy": "Ole Olesen",
+      "createdBy": "Jens Jensen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f10",
+        "options": []
+      },
+      "onScreens": "/v1/screens?slideId=a97f6ec4-5278-4993-bfeb-53cded000017",
+      "onPlaylists": "/v1/playlists?slideId=a97f6ec4-5278-4993-bfeb-53cded000017",
+      "published": 1622555123,
+      "duration": 4000,
+      "content": {
+        "title": "Slide 7",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+        "media": {
+          "id": "uniqueMedia1",
+          "url": "./fixtures/images/mountain2.jpeg"
+        },
+        "styling": {
+          "boxAlign": "top",
+          "boxMargin": false,
+          "separator": false,
+          "halfSize": false,
+          "reversed": false,
+          "fontSize": "m"
+        }
+      }
+    },
+    {
+      "id": "a97f6ec4-5278-4993-bfeb-53cded000018",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cded000018",
+      "title": "image-text 8 - fontsize l",
+      "description": "This is the first slide named one",
+      "modified": "2012-09-03T12:21:56Z",
+      "created": "2021-09-01T10:04:00Z",
+      "modifiedBy": "Ole Olesen",
+      "createdBy": "Jens Jensen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f10",
+        "options": []
+      },
+      "onScreens": "/v1/screens?slideId=a97f6ec4-5278-4993-bfeb-53cded000018",
+      "onPlaylists": "/v1/playlists?slideId=a97f6ec4-5278-4993-bfeb-53cded000018",
+      "published": 1622555123,
+      "duration": 4000,
+      "content": {
+        "title": "Slide 8",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+        "media": {
+          "id": "uniqueMedia1",
+          "url": "./fixtures/images/mountain3.jpeg"
+        },
+        "styling": {
+          "boxAlign": "top",
+          "boxMargin": false,
+          "separator": false,
+          "halfSize": false,
+          "reversed": false,
+          "fontSize": "l"
+        }
+      }
+    },
+    {
+      "id": "a97f6ec4-5278-4993-bfeb-53cded000019",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cded000019",
+      "title": "image-text 9 - fontsize xl",
+      "description": "This is the first slide named one",
+      "modified": "2012-09-03T12:21:56Z",
+      "created": "2021-09-01T10:04:00Z",
+      "modifiedBy": "Ole Olesen",
+      "createdBy": "Jens Jensen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f10",
+        "options": []
+      },
+      "onScreens": "/v1/screens?slideId=a97f6ec4-5278-4993-bfeb-53cded000019",
+      "onPlaylists": "/v1/playlists?slideId=a97f6ec4-5278-4993-bfeb-53cded000019",
+      "published": 1622555123,
+      "duration": 4000,
+      "content": {
+        "title": "Slide 9",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+        "media": {
+          "id": "uniqueMedia1",
+          "url": "./fixtures/images/mountain4.jpeg"
+        },
+        "styling": {
+          "boxAlign": "top",
+          "boxMargin": false,
+          "separator": false,
+          "halfSize": false,
+          "reversed": false,
+          "fontSize": "xl"
+        }
+      }
+    },
+    {
+      "id": "a97f6ec4-5278-4993-bfeb-53cded000020",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cded000020",
+      "title": "image-text 10 - margin and separator",
+      "description": "This is the first slide named one",
+      "modified": "2012-09-03T12:21:56Z",
+      "created": "2021-09-01T10:04:00Z",
+      "modifiedBy": "Ole Olesen",
+      "createdBy": "Jens Jensen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f10",
+        "options": []
+      },
+      "onScreens": "/v1/screens?slideId=a97f6ec4-5278-4993-bfeb-53cded000020",
+      "onPlaylists": "/v1/playlists?slideId=a97f6ec4-5278-4993-bfeb-53cded000020",
+      "published": 1622555123,
+      "duration": 4000,
+      "content": {
+        "title": "Slide 10",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+        "media": {
+          "id": "uniqueMedia1",
+          "url": "./fixtures/images/mountain4.jpeg"
+        },
+        "styling": {
+          "boxAlign": "top",
+          "boxMargin": true,
+          "separator": true,
+          "halfSize": true,
+          "reversed": false
+        }
+      }
+    },
+    {
+      "id": "a97f6ec4-5278-4993-bfeb-53cded000021",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cded000021",
+      "title": "image-text 11 - reversed",
+      "description": "This is the first slide named one",
+      "modified": "2012-09-03T12:21:56Z",
+      "created": "2021-09-01T10:04:00Z",
+      "modifiedBy": "Ole Olesen",
+      "createdBy": "Jens Jensen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f10",
+        "options": []
+      },
+      "onScreens": "/v1/screens?slideId=a97f6ec4-5278-4993-bfeb-53cded000021",
+      "onPlaylists": "/v1/playlists?slideId=a97f6ec4-5278-4993-bfeb-53cded000021",
+      "published": 1622555123,
+      "duration": 4000,
+      "content": {
+        "title": "Slide 11",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+        "media": {
+          "id": "uniqueMedia1",
+          "url": "./fixtures/images/mountain4.jpeg"
+        },
+        "styling": {
+          "boxAlign": "top",
+          "boxMargin": false,
+          "separator": true,
+          "halfSize": true,
+          "reversed": true
+        }
+      }
+    },
+    {
+      "id": "a97f6ec4-5278-4993-bfeb-53cded000022",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cded000022",
+      "title": "image-text 12 - just image",
+      "description": "This is the first slide named one",
+      "modified": "2012-09-03T12:21:56Z",
+      "created": "2021-09-01T10:04:00Z",
+      "modifiedBy": "Ole Olesen",
+      "createdBy": "Jens Jensen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f10",
+        "options": []
+      },
+      "onScreens": "/v1/screens?slideId=a97f6ec4-5278-4993-bfeb-53cded000022",
+      "onPlaylists": "/v1/playlists?slideId=a97f6ec4-5278-4993-bfeb-53cded000022",
+      "published": 1622555123,
+      "duration": 4000,
+      "content": {
+        "media": {
+          "id": "uniqueMedia1",
+          "url": "./fixtures/images/mountain4.jpeg"
+        }
+      }
+    },
+    {
+      "id": "a97f6ec4-5278-4993-bfeb-53cded000023",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cded000023",
+      "title": "image-text 13 - just image",
+      "description": "This is the first slide named one",
+      "modified": "2012-09-03T12:21:56Z",
+      "created": "2021-09-01T10:04:00Z",
+      "modifiedBy": "Ole Olesen",
+      "createdBy": "Jens Jensen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f10",
+        "options": []
+      },
+      "onScreens": "/v1/screens?slideId=a97f6ec4-5278-4993-bfeb-53cded000023",
+      "onPlaylists": "/v1/playlists?slideId=a97f6ec4-5278-4993-bfeb-53cded000023",
+      "published": 1622555123,
+      "duration": 5000,
+      "content": {
+        "media": {
+          "id": "uniqueMedia1",
+          "url": "./fixtures/images/mountain1.jpeg"
+        }
+      }
+    },
+    {
+      "id": "a97f6ec4-5278-4993-bfeb-53cded000024",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cded000024",
+      "title": "image-text 14 - just image",
+      "description": "This is the first slide named one",
+      "modified": "2012-09-03T12:21:56Z",
+      "created": "2021-09-01T10:04:00Z",
+      "modifiedBy": "Ole Olesen",
+      "createdBy": "Jens Jensen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f10",
+        "options": []
+      },
+      "onScreens": "/v1/screens?slideId=a97f6ec4-5278-4993-bfeb-53cded000024",
+      "onPlaylists": "/v1/playlists?slideId=a97f6ec4-5278-4993-bfeb-53cded000024",
+      "published": 1622555123,
+      "duration": 3500,
+      "content": {
+        "media": {
+          "id": "uniqueMedia1",
+          "url": "./fixtures/images/mountain2.jpeg"
+        }
+      }
+    },
+    {
+      "id": "a97f6ec4-5278-4993-bfeb-53cded000025",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cded000025",
+      "title": "image-text 15 - just text",
+      "description": "This is the first slide named one",
+      "modified": "2012-09-03T12:21:56Z",
+      "created": "2021-09-01T10:04:00Z",
+      "modifiedBy": "Ole Olesen",
+      "createdBy": "Jens Jensen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f10",
+        "options": []
+      },
+      "onScreens": "/v1/screens?slideId=a97f6ec4-5278-4993-bfeb-53cded000025",
+      "onPlaylists": "/v1/playlists?slideId=a97f6ec4-5278-4993-bfeb-53cded000025",
+      "published": 1622555123,
+      "duration": 30000,
+      "content": {
+        "title": "Header"
+      }
+    },
+    {
+      "id": "a97f6ec4-5278-4993-bfeb-53cded000026",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cded000026",
+      "title": "image-text 16 - just text",
+      "description": "This is the first slide named one",
+      "modified": "2012-09-03T12:21:56Z",
+      "created": "2021-09-01T10:04:00Z",
+      "modifiedBy": "Ole Olesen",
+      "createdBy": "Jens Jensen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f10",
+        "options": []
+      },
+      "onScreens": "/v1/screens?slideId=a97f6ec4-5278-4993-bfeb-53cded000026",
+      "onPlaylists": "/v1/playlists?slideId=a97f6ec4-5278-4993-bfeb-53cded000026",
+      "published": 1622555123,
+      "duration": 30000,
+      "content": {
+        "title": "Footer"
+      }
+    },
+    {
+      "id": "a97f6ec4-5278-4993-bfeb-53cded000027",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cded000027",
+      "title": "image-text 17 - just image",
+      "description": "This is the first slide named one",
+      "modified": "2012-09-03T12:21:56Z",
+      "created": "2021-09-01T10:04:00Z",
+      "modifiedBy": "Ole Olesen",
+      "createdBy": "Jens Jensen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f10",
+        "options": []
+      },
+      "onScreens": "/v1/screens?slideId=a97f6ec4-5278-4993-bfeb-53cded000027",
+      "onPlaylists": "/v1/playlists?slideId=a97f6ec4-5278-4993-bfeb-53cded000027",
+      "published": 1622555123,
+      "duration": 3500,
+      "content": {
+        "title": "Title",
+        "text": "text",
+        "backgroundColor": "rgb(255, 0, 0)",
+        "textColor": "rgb(0, 0, 255)",
+        "boxColor": "rgb(0, 255, 0)",
+        "styling": {
+          "boxAlign": "bottom",
+          "boxMargin": false,
+          "separator": false,
+          "halfSize": false,
+          "reversed": true
+        }
+      }
+    },
+    {
+      "id": "a97f6ec4-5278-4993-bfeb-53cded000030",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cded000030",
+      "title": "Meeting room schedule 1",
+      "description": "This is the first slide named one",
+      "modified": "2012-09-03T12:21:56Z",
+      "created": "2021-09-01T10:04:00Z",
+      "modifiedBy": "Ole Olesen",
+      "createdBy": "Jens Jensen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f11",
+        "options": []
+      },
+      "onScreens": "/v1/screens?slideId=a97f6ec4-5278-4993-bfeb-53cded000030",
+      "onPlaylists": "/v1/playlists?slideId=a97f6ec4-5278-4993-bfeb-53cded000030",
+      "published": 1622555123,
+      "duration": 15000,
+      "content": {
+        "backgroundColor": "#d2421e",
+        "metaData": "Ekstra info!",
+        "textAlign": "right",
+        "occupiedText": "Optaget",
+        "availableText": "Lokalet er ledigt",
+        "backgroundImage": {
+          "id": "uniqueMedia1",
+          "url": "./fixtures/images/mountain1.jpeg"
+        },
+        "title": "Meeting room schedule 1",
+        "events": [
+          {
+            "id": "uniqueRoomEvent1",
+            "eventName": "Cake",
+            "from": "2021-06-17T07:55:28.478Z",
+            "to": "2021-06-17T08:55:28.478Z",
+            "location": "M2"
+          },
+          {
+            "id": "uniqueRoomEvent2",
+            "from": "2021-06-17T10:30:00.202Z",
+            "to": "2021-06-17T21:00:00.202Z",
+            "location": "Home"
+          },
+          {
+            "id": "uniqueRoomEvent3",
+            "eventName": "GDPR",
+            "from": "2021-06-17T20:00:00.202Z",
+            "to": "2021-06-17T20:30:00.202Z",
+            "location": "M3-4"
+          },
+          {
+            "id": "uniqueRoomEvent4",
+            "eventName": "Meeting",
+            "from": "2021-06-17T19:30:00.202Z",
+            "to": "2021-06-17T20:00:00.202Z",
+            "location": "Workshopzonen"
+          }
+        ]
+      }
+    },
+    {
+      "id": "a97f6ec4-5278-4993-bfeb-53cded000031",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cded000031",
+      "title": "Poster 1",
+      "description": "This is the first slide named one",
+      "modified": "2012-09-03T12:21:56Z",
+      "created": "2021-09-01T10:04:00Z",
+      "modifiedBy": "Ole Olesen",
+      "createdBy": "Jens Jensen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f12",
+        "options": []
+      },
+      "onScreens": "/v1/screens?slideId=a97f6ec4-5278-4993-bfeb-53cded000031",
+      "onPlaylists": "/v1/playlists?slideId=a97f6ec4-5278-4993-bfeb-53cded000031",
+      "published": 1622555123,
+      "duration": 10000,
+      "content": {
+        "events": [
+          {
+            "ticketPurchaseUrl": "www.buyeventtickets.dk",
+            "excerpt": "Det bevaringsværdige og kulturhistoriske skib MS TUNØ tager dig med på en historisk og humoristisk rejse på vandet rundt om Aarhus",
+            "name": "Havnerundfart med MS TUNØ",
+            "url": "www.eventurl.dk",
+            "image": "./fixtures/images/mountain1.jpeg",
+            "startDate": "2021-06-21T14:00:00+00:00",
+            "endDate": "2021-06-21T15:00:00+00:00",
+            "readMoreText":"læs mere her",
+            "ticketPriceRange": "75-150 kr.",
+            "eventStatusText": null,
+            "place": {
+              "name": "Havnepladsen, Midtbyen Aarhus",
+              "streetAddress": "Havnepladsen 2",
+              "addressLocality": "Aarhus",
+              "postalCode": "8000",
+              "image": null,
+              "telephone": null
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "a97f6ec4-5278-4993-bfeb-53cded000032",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cded000032",
+      "title": "Poster 2",
+      "description": "This is the first slide named one",
+      "modified": "2012-09-03T12:21:56Z",
+      "created": "2021-09-01T10:04:00Z",
+      "modifiedBy": "Ole Olesen",
+      "createdBy": "Jens Jensen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f12",
+        "options": []
+      },
+      "onScreens": "/v1/screens?slideId=a97f6ec4-5278-4993-bfeb-53cded000032",
+      "onPlaylists": "/v1/playlists?slideId=a97f6ec4-5278-4993-bfeb-53cded000032",
+      "published": 1622555123,
+      "duration": 300000,
+      "content": {
+        "duration": 5000,
+        "events": [
+          {
+            "ticketPurchaseUrl": "www.buyeventtickets.dk",
+            "excerpt": "Det bevaringsværdige og kulturhistoriske skib MS TUNØ tager dig med på en historisk og humoristisk rejse på vandet rundt om Aarhus",
+            "name": "Havnerundfart med MS TUNØ",
+            "url": "www.eventurl.dk",
+            "image": "./fixtures/images/mountain1.jpeg",
+            "startDate": "2021-06-21T14:00:00+00:00",
+            "endDate": "2021-06-22T15:00:00+00:00",
+            "ticketPriceRange": "75-150 kr.",
+            "eventStatusText": null,
+            "place": {
+              "name": "Havnepladsen, Midtbyen Aarhus",
+              "streetAddress": "Havnepladsen 2",
+              "addressLocality": "Aarhus",
+              "postalCode": "8000",
+              "image": null,
+              "telephone": null
+            }
+          },
+          {
+            "ticketPurchaseUrl": "www.buyeventtickets.dk",
+            "excerpt": "Det bevaringsværdige og kulturhistoriske skib MS SAMSØ tager dig med på en historisk og humoristisk rejse på vandet rundt om Aarhus",
+            "name": "Havnerundfart med MS SAMSØ",
+            "url": "www.eventurl.dk",
+            "image": "./fixtures/images/mountain2.jpeg",
+            "startDate": "2021-06-21T14:00:00+00:00",
+            "endDate": "2021-06-22T15:00:00+00:00",
+            "ticketPriceRange": "75-150 kr.",
+            "eventStatusText": null,
+            "place": {
+              "name": "Havnepladsen, Midtbyen Aarhus",
+              "streetAddress": "Havnepladsen 2",
+              "addressLocality": "Aarhus",
+              "postalCode": "8000",
+              "image": null,
+              "telephone": null
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "a97f6ec4-5278-4993-bfeb-53cded000033",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cded000033",
+      "title": "Quote",
+      "description": "This is the first slide named one",
+      "modified": "2012-09-03T12:21:56Z",
+      "created": "2021-09-01T10:04:00Z",
+      "modifiedBy": "Ole Olesen",
+      "createdBy": "Jens Jensen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f13",
+        "options": []
+      },
+      "onScreens": "/v1/screens?slideId=a97f6ec4-5278-4993-bfeb-53cded000033",
+      "onPlaylists": "/v1/playlists?slideId=a97f6ec4-5278-4993-bfeb-53cded000033",
+      "published": 1622555123,
+      "duration": 100000,
+      "content": {
+        "quoteInTwoLines": true,
+        "quotes": [
+          {
+            "quote": "I Miss You So Much, It Hurts Sometimes.",
+            "author": "John Michael Dorian",
+            "duration": 5000,
+            "id": "uniqueQuote1"
+          },
+          {
+            "quote": "I Shouldn't Be Mopping Here Anyways...This Is A Rug.",
+            "author": "Janitor",
+            "duration": 5000,
+            "id": "uniqueQuote2"
+          },
+          {
+            "quote": "Ladies and gentlemen, allow me to present, Man Not Caring.",
+            "author": "Dr. Cox",
+            "duration": 5000,
+            "id": "uniqueQuote3"
+          },
+          {
+            "quote": "You Would Hear Cricket's Chirping, But They Were Too Uncomfortable About Just How Unfunny That Actually Was.",
+            "author": "Dr. Cox",
+            "duration": 7000,
+            "id": "uniqueQuote3"
+          }
+        ]
+      }
+    },
+    {
+      "id": "a97f6ec4-5278-4993-bfeb-53cded000034",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cded000034",
+      "title": "RSS 1",
+      "description": "This is the first slide named one",
+      "modified": "2012-09-03T12:21:56Z",
+      "created": "2021-09-01T10:04:00Z",
+      "modifiedBy": "Ole Olesen",
+      "createdBy": "Jens Jensen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f14",
+        "options": []
+      },
+      "onScreens": "/v1/screens?slideId=a97f6ec4-5278-4993-bfeb-53cded000034",
+      "onPlaylists": "/v1/playlists?slideId=a97f6ec4-5278-4993-bfeb-53cded000034",
+      "published": 1622555123,
+      "duration": 300000,
+      "content": {
+        "fontSize": "xl",
+        "rssNumber": 5,
+        "rssDuration": 10,
+        "source": "./fixtures/rss/feed.json"
+      }
+    },
+    {
+      "id": "a97f6ec4-5278-4993-bfeb-53cded000035",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cded000035",
+      "title": "RSS 2",
+      "description": "This is the first slide named one",
+      "modified": "2012-09-03T12:21:56Z",
+      "created": "2021-09-01T10:04:00Z",
+      "modifiedBy": "Ole Olesen",
+      "createdBy": "Jens Jensen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f14",
+        "options": []
+      },
+      "onScreens": "/v1/screens?slideId=a97f6ec4-5278-4993-bfeb-53cded000035",
+      "onPlaylists": "/v1/playlists?slideId=a97f6ec4-5278-4993-bfeb-53cded000035",
+      "published": 1622555123,
+      "duration": 300000,
+      "content": {
+        "media": {
+          "id": "uniqueMedia6",
+          "url": "./fixtures/images/mountain1.jpeg"
+        },
+        "fontSize": "s",
+        "rssNumber": 2,
+        "rssDuration": 2,
+        "source": "./fixtures/rss/feed.json"
+      }
+    },
+    {
+      "id": "a97f6ec4-5278-4993-bfeb-53cded000036",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cded000036",
+      "title": "Slideshow 1",
+      "description": "This is the first slide named one",
+      "modified": "2012-09-03T12:21:56Z",
+      "created": "2021-09-01T10:04:00Z",
+      "modifiedBy": "Ole Olesen",
+      "createdBy": "Jens Jensen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f15",
+        "options": []
+      },
+      "onScreens": "/v1/screens?slideId=a97f6ec4-5278-4993-bfeb-53cded000036",
+      "onPlaylists": "/v1/playlists?slideId=a97f6ec4-5278-4993-bfeb-53cded000036",
+      "published": 1622555123,
+      "content": {
+        "images": [
+          {
+            "id": "uniqueMedia1",
+            "url": "./fixtures/images/mountain1.jpeg",
+            "duration": 1000
+          },
+          {
+            "id": "uniqueMedia2",
+            "url": "./fixtures/images/mountain2.jpeg",
+            "duration": 1000
+          },
+          {
+            "id": "uniqueMedia3",
+            "url": "./fixtures/images/mountain3.jpeg",
+            "duration": 1000
+          },
+          {
+            "id": "uniqueMedia4",
+            "url": "./fixtures/images/mountain4.jpeg",
+            "duration": 1000
+          }
+        ],
+        "logo": {
+          "id": "uniqueMedia5",
+          "url": "./fixtures/images/logo.png",
+          "position": "bottom left",
+          "size": "l"
+        },
+        "transitions": "fade",
+        "animations": "random"
+      }
+    },
+    {
+      "id": "a97f6ec4-5278-4993-bfeb-53cded000037",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cded000037",
+      "title": "Slideshow 2",
+      "description": "This is the first slide named one",
+      "modified": "2012-09-03T12:21:56Z",
+      "created": "2021-09-01T10:04:00Z",
+      "modifiedBy": "Ole Olesen",
+      "createdBy": "Jens Jensen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f15",
+        "options": []
+      },
+      "onScreens": "/v1/screens?slideId=a97f6ec4-5278-4993-bfeb-53cded000037",
+      "onPlaylists": "/v1/playlists?slideId=a97f6ec4-5278-4993-bfeb-53cded000037",
+      "published": 1622555123,
+      "content": {
+        "images": [
+          {
+            "id": "uniqueMedia1",
+            "url": "./fixtures/images/mountain1.jpeg",
+            "duration": 10000
+          },
+          {
+            "id": "uniqueMedia2",
+            "url": "./fixtures/images/mountain2.jpeg",
+            "duration": 10000
+          },
+          {
+            "id": "uniqueMedia3",
+            "url": "./fixtures/images/mountain3.jpeg",
+            "duration": 10000
+          },
+          {
+            "id": "uniqueMedia4",
+            "url": "./fixtures/images/mountain4.jpeg",
+            "duration": 10000
+          }
+        ],
+        "logo": {
+          "id": "uniqueMedia5",
+          "url": "./fixtures/images/logo.png",
+          "position": "bottom right",
+          "size": "s"
+        },
+        "transitions": "fade",
+        "animations": "zoom-out-random"
+      }
+    },
+    {
+      "id": "a97f6ec4-5278-4993-bfeb-53cded000038",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cded000038",
+      "title": "Sparkle 1",
+      "description": "This is the first slide named one",
+      "modified": "2012-09-03T12:21:56Z",
+      "created": "2021-09-01T10:04:00Z",
+      "modifiedBy": "Ole Olesen",
+      "createdBy": "Jens Jensen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f16",
+        "options": []
+      },
+      "onScreens": "/v1/screens?slideId=a97f6ec4-5278-4993-bfeb-53cded000038",
+      "onPlaylists": "/v1/playlists?slideId=a97f6ec4-5278-4993-bfeb-53cded000038",
+      "published": 1622555123,
+      "duration": 300000,
+      "content": {
+        "hashtagText": "dadaada",
+        "orientation": "landscape",
+        "imageWidth": 56.25,
+        "duration": 10000,
+        "selectedFeed": 27626,
+        "posts": [
+          {
+            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. #Lorem#Ipsum#Lorem#Ipsum#Lorem#Ipsum#Lorem#Ipsum#Lorem#Ipsum",
+            "textMarkup": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.#Lorem#Ipsum#Lorem#Ipsum#Lorem#Ipsum#Lorem#Ipsum#Lorem#Ipsum",
+            "mediaUrl": "./fixtures/images/mountain3.jpeg",
+            "videoUrl": null,
+            "username": "Lorem Ipsum",
+            "createdTime": "2021-06-21T10:13:30"
+          }
+        ]
+      }
+    },
+    {
+      "id": "a97f6ec4-5278-4993-bfeb-53cded000039",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cded000039",
+      "title": "Sparkle 2",
+      "description": "This is the first slide named one",
+      "modified": "2012-09-03T12:21:56Z",
+      "created": "2021-09-01T10:04:00Z",
+      "modifiedBy": "Ole Olesen",
+      "createdBy": "Jens Jensen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f16",
+        "options": []
+      },
+      "onScreens": "/v1/screens?slideId=a97f6ec4-5278-4993-bfeb-53cded000039",
+      "onPlaylists": "/v1/playlists?slideId=a97f6ec4-5278-4993-bfeb-53cded000039",
+      "published": 1622555123,
+      "duration": 30000,
+      "content": {
+        "hashtagText": "",
+        "orientation": "horizontal",
+        "imageWidth": 56.25,
+        "duration": 10000,
+        "selectedFeed": 27626,
+        "posts": [
+          {
+            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. #Lorem#Ipsum#Lorem#Ipsum#Lorem#Ipsum#Lorem#Ipsum#Lorem#Ipsum",
+            "textMarkup": "<em>Lorem ipsum dolor</em> sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<div style='color:grey'>#Lorem#Ipsum#Lorem#Ipsum#Lorem#Ipsum#Lorem#Ipsum#Lorem#Ipsum</div>",
+            "mediaUrl": "./fixtures/images/mountain3.jpeg",
+            "videoUrl": null,
+            "username": "Lorem Ipsum",
+            "createdTime": "2021-06-21T10:13:30"
+          },
+          {
+            "text": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. #Nemo#enim#ipsam#voluptatem#Nemo#enim#ipsam#voluptatem",
+            "textMarkup": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. #Nemo#enim#ipsam#voluptatem#Nemo#enim#ipsam#voluptatem",
+            "mediaUrl": "./fixtures/images/mountain2.jpeg",
+            "videoUrl": null,
+            "username": "QuisAutem",
+            "createdTime": "2021-06-21T10:13:30"
+          }
+        ]
+      }
+    },
+    {
+      "id": "a97f6ec4-5278-4993-bfeb-53cded000040",
+      "@context": "/contexts/Slide",
+      "@id": "/v1/slides/a97f6ec4-5278-4993-bfeb-53cded000040",
+      "title": "Sparkle 3",
+      "description": "This is the first slide named one",
+      "modified": "2012-09-03T12:21:56Z",
+      "created": "2021-09-01T10:04:00Z",
+      "modifiedBy": "Ole Olesen",
+      "createdBy": "Jens Jensen",
+      "template": {
+        "@id": "/v1/templates/457d6ecb-6378-4299-bfcb-53cbaaaa6f16",
+        "options": []
+      },
+      "onScreens": "/v1/screens?slideId=a97f6ec4-5278-4993-bfeb-53cded000040",
+      "onPlaylists": "/v1/playlists?slideId=a97f6ec4-5278-4993-bfeb-53cded000040",
+      "published": 1622555123,
+      "duration": 300000,
+      "content": {
+        "hashtagText": "dadaada",
+        "orientation": "landscape",
+        "imageWidth": 56.25,
+        "duration": 10000,
+        "selectedFeed": 27626,
+        "posts": [
+          {
+            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. #Lorem#Ipsum#Lorem#Ipsum#Lorem#Ipsum#Lorem#Ipsum#Lorem#Ipsum",
+            "textMarkup": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.#Lorem#Ipsum#Lorem#Ipsum#Lorem#Ipsum#Lorem#Ipsum#Lorem#Ipsum",
+            "mediaUrl": "./fixtures/images/mountain3.jpeg",
+            "videoUrl":  "./fixtures/videos/video.mp4",
+            "username": "Lorem Ipsum",
+            "createdTime": "2021-06-21T10:13:30"
+          }
+        ]
+      }
+    }
+  ],
+  "screens": [
+    {
+      "id": "497f6eca-6276-1596-bfeb-53ceb43a6f54",
+      "@context": "/contexts/Screen",
+      "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb43a6f54",
+      "title": "Screen Fixture 1",
+      "description": "This is an test screen 1 description",
+      "size": 50,
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "layout": "/v1/layouts/497f6ecf-642-4883-cfeb-53cbf3bf82a0",
+      "location": "M2.3",
+      "regions": [
+        "/v1/playlistScreenRegion?_expand=playlist&screenId=497f6eca-6276-1596-bfeb-53ceb43a6f54&region=region1"
+      ],
+      "inScreenGroups": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb43a6f54/groups",
+      "modified": "2021-09-21T14:02:00Z",
+      "created": "2021-07-21T10:25:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen"
+    },
+    {
+      "id": "497f6eca-6276-1596-bfeb-53ceb4000000",
+      "@context": "/contexts/Screen",
+      "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000000",
+      "title": "Screen Fixture 2 - slide: bookreview1",
+      "description": "This is an test screen 1 description",
+      "size": 50,
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "layout": "/v1/layouts/497f6ecf-642-4883-cfeb-53cbf3bf82a0",
+      "location": "M2.3",
+      "regions": [
+        "/v1/playlistScreenRegion?_expand=playlist&screenId=497f6eca-6276-1596-bfeb-53ceb4000000&region=region1"
+      ],
+      "inScreenGroups": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000000/groups",
+      "modified": "2021-09-21T14:02:00Z",
+      "created": "2021-07-21T10:25:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen"
+    },
+    {
+      "id": "497f6eca-6276-1596-bfeb-53ceb4000001",
+      "@context": "/contexts/Screen",
+      "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000001",
+      "title": "Screen Fixture 3 - calendar1",
+      "description": "This is an test screen 1 description",
+      "size": 50,
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "layout": "/v1/layouts/497f6ecf-642-4883-cfeb-53cbf3bf82a0",
+      "location": "M2.3",
+      "regions": [
+        "/v1/playlistScreenRegion?_expand=playlist&screenId=497f6eca-6276-1596-bfeb-53ceb4000001&region=region1"
+      ],
+      "inScreenGroups": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000001/groups",
+      "modified": "2021-09-21T14:02:00Z",
+      "created": "2021-07-21T10:25:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen"
+    },
+    {
+      "id": "497f6eca-6276-1596-bfeb-53ceb4000002",
+      "@context": "/contexts/Screen",
+      "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000002",
+      "title": "Screen Fixture 4 - image-text top",
+      "description": "This is an test screen 1 description",
+      "size": 50,
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "layout": "/v1/layouts/497f6ecf-642-4883-cfeb-53cbf3bf82a0",
+      "location": "M2.3",
+      "regions": [
+        "/v1/playlistScreenRegion?_expand=playlist&screenId=497f6eca-6276-1596-bfeb-53ceb4000002&region=region1"
+      ],
+      "inScreenGroups": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000002/groups",
+      "modified": "2021-09-21T14:02:00Z",
+      "created": "2021-07-21T10:25:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen"
+    },
+    {
+      "id": "497f6eca-6276-1596-bfeb-53ceb4000003",
+      "@context": "/contexts/Screen",
+      "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000003",
+      "title": "Screen Fixture 5 - image-text left",
+      "description": "This is an test screen 1 description",
+      "size": 50,
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "layout": "/v1/layouts/497f6ecf-642-4883-cfeb-53cbf3bf82a0",
+      "location": "M2.3",
+      "regions": [
+        "/v1/playlistScreenRegion?_expand=playlist&screenId=497f6eca-6276-1596-bfeb-53ceb4000003&region=region1"
+      ],
+      "inScreenGroups": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000003/groups",
+      "modified": "2021-09-21T14:02:00Z",
+      "created": "2021-07-21T10:25:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen"
+    },
+    {
+      "id": "497f6eca-6276-1596-bfeb-53ceb4000004",
+      "@context": "/contexts/Screen",
+      "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000004",
+      "title": "Screen Fixture 6 - image-text right",
+      "description": "This is an test screen 1 description",
+      "size": 50,
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "layout": "/v1/layouts/497f6ecf-642-4883-cfeb-53cbf3bf82a0",
+      "location": "M2.3",
+      "regions": [
+        "/v1/playlistScreenRegion?_expand=playlist&screenId=497f6eca-6276-1596-bfeb-53ceb4000004&region=region1"
+      ],
+      "inScreenGroups": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000004/groups",
+      "modified": "2021-09-21T14:02:00Z",
+      "created": "2021-07-21T10:25:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen"
+    },
+    {
+      "id": "497f6eca-6276-1596-bfeb-53ceb4000005",
+      "@context": "/contexts/Screen",
+      "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000005",
+      "title": "Screen Fixture 7 - image-text bottom",
+      "description": "This is an test screen 1 description",
+      "size": 50,
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "layout": "/v1/layouts/497f6ecf-642-4883-cfeb-53cbf3bf82a0",
+      "location": "M2.3",
+      "regions": [
+        "/v1/playlistScreenRegion?_expand=playlist&screenId=497f6eca-6276-1596-bfeb-53ceb4000005&region=region1"
+      ],
+      "inScreenGroups": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000005/groups",
+      "modified": "2021-09-21T14:02:00Z",
+      "created": "2021-07-21T10:25:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen"
+    },
+    {
+      "id": "497f6eca-6276-1596-bfeb-53ceb4000006",
+      "@context": "/contexts/Screen",
+      "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000006",
+      "title": "Screen Fixture 8 - image-text colors",
+      "description": "This is an test screen 1 description",
+      "size": 50,
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "layout": "/v1/layouts/497f6ecf-642-4883-cfeb-53cbf3bf82a0",
+      "location": "M2.3",
+      "regions": [
+        "/v1/playlistScreenRegion?_expand=playlist&screenId=497f6eca-6276-1596-bfeb-53ceb4000006&region=region1"
+      ],
+      "inScreenGroups": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000006/groups",
+      "modified": "2021-09-21T14:02:00Z",
+      "created": "2021-07-21T10:25:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen"
+    },
+    {
+      "id": "497f6eca-6276-1596-bfeb-53ceb4000007",
+      "@context": "/contexts/Screen",
+      "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000007",
+      "title": "Screen Fixture 9 - image-text fontsize s",
+      "description": "This is an test screen 1 description",
+      "size": 50,
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "layout": "/v1/layouts/497f6ecf-642-4883-cfeb-53cbf3bf82a0",
+      "location": "M2.3",
+      "regions": [
+        "/v1/playlistScreenRegion?_expand=playlist&screenId=497f6eca-6276-1596-bfeb-53ceb4000007&region=region1"
+      ],
+      "inScreenGroups": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000007/groups",
+      "modified": "2021-09-21T14:02:00Z",
+      "created": "2021-07-21T10:25:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen"
+    },
+    {
+      "id": "497f6eca-6276-1596-bfeb-53ceb4000008",
+      "@context": "/contexts/Screen",
+      "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000008",
+      "title": "Screen Fixture 10 - image-text fontsize m",
+      "description": "This is an test screen 1 description",
+      "size": 50,
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "layout": "/v1/layouts/497f6ecf-642-4883-cfeb-53cbf3bf82a0",
+      "location": "M2.3",
+      "regions": [
+        "/v1/playlistScreenRegion?_expand=playlist&screenId=497f6eca-6276-1596-bfeb-53ceb4000008&region=region1"
+      ],
+      "inScreenGroups": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000008/groups",
+      "modified": "2021-09-21T14:02:00Z",
+      "created": "2021-07-21T10:25:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen"
+    },
+    {
+      "id": "497f6eca-6276-1596-bfeb-53ceb4000009",
+      "@context": "/contexts/Screen",
+      "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000009",
+      "title": "Screen Fixture 11 - image-text fontsize l",
+      "description": "This is an test screen 1 description",
+      "size": 50,
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "layout": "/v1/layouts/497f6ecf-642-4883-cfeb-53cbf3bf82a0",
+      "location": "M2.3",
+      "regions": [
+        "/v1/playlistScreenRegion?_expand=playlist&screenId=497f6eca-6276-1596-bfeb-53ceb4000009&region=region1"
+      ],
+      "inScreenGroups": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000009/groups",
+      "modified": "2021-09-21T14:02:00Z",
+      "created": "2021-07-21T10:25:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen"
+    },
+    {
+      "id": "497f6eca-6276-1596-bfeb-53ceb4000010",
+      "@context": "/contexts/Screen",
+      "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000010",
+      "title": "Screen Fixture 12 - image-text fontsize xl",
+      "description": "This is an test screen 1 description",
+      "size": 50,
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "layout": "/v1/layouts/497f6ecf-642-4883-cfeb-53cbf3bf82a0",
+      "location": "M2.3",
+      "regions": [
+        "/v1/playlistScreenRegion?_expand=playlist&screenId=497f6eca-6276-1596-bfeb-53ceb4000010&region=region1"
+      ],
+      "inScreenGroups": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000010/groups",
+      "modified": "2021-09-21T14:02:00Z",
+      "created": "2021-07-21T10:25:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen"
+    },
+    {
+      "id": "497f6eca-6276-1596-bfeb-53ceb4000011",
+      "@context": "/contexts/Screen",
+      "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000011",
+      "title": "Screen Fixture 13 - slide: margin, separator and half-size",
+      "description": "This is an test screen 1 description",
+      "size": 50,
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "layout": "/v1/layouts/497f6ecf-642-4883-cfeb-53cbf3bf82a0",
+      "location": "M2.3",
+      "regions": [
+        "/v1/playlistScreenRegion?_expand=playlist&screenId=497f6eca-6276-1596-bfeb-53ceb4000011&region=region1"
+      ],
+      "inScreenGroups": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000011/groups",
+      "modified": "2021-09-21T14:02:00Z",
+      "created": "2021-07-21T10:25:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen"
+    },
+    {
+      "id": "497f6eca-6276-1596-bfeb-53ceb4000012",
+      "@context": "/contexts/Screen",
+      "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000012",
+      "title": "Screen Fixture 14 - slide: reversed",
+      "description": "This is an test screen 1 description",
+      "size": 50,
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "layout": "/v1/layouts/497f6ecf-642-4883-cfeb-53cbf3bf82a0",
+      "location": "M2.3",
+      "regions": [
+        "/v1/playlistScreenRegion?_expand=playlist&screenId=497f6eca-6276-1596-bfeb-53ceb4000012&region=region1"
+      ],
+      "inScreenGroups": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000012/groups",
+      "modified": "2021-09-21T14:02:00Z",
+      "created": "2021-07-21T10:25:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen"
+    },
+    {
+      "id": "497f6eca-6276-1596-bfeb-53ceb4000013",
+      "@context": "/contexts/Screen",
+      "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000013",
+      "title": "Screen Fixture 15 - image-text: just image",
+      "description": "This is an test screen 1 description",
+      "size": 50,
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "layout": "/v1/layouts/497f6ecf-642-4883-cfeb-53cbf3bf82a0",
+      "location": "M2.3",
+      "regions": [
+        "/v1/playlistScreenRegion?_expand=playlist&screenId=497f6eca-6276-1596-bfeb-53ceb4000013&region=region1"
+      ],
+      "inScreenGroups": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000013/groups",
+      "modified": "2021-09-21T14:02:00Z",
+      "created": "2021-07-21T10:25:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen"
+    },
+    {
+      "id": "497f6eca-6276-1596-bfeb-53ceb4000014",
+      "@context": "/contexts/Screen",
+      "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000014",
+      "title": "Screen Fixture 16 - image-text: just image",
+      "description": "This is an test screen 1 description",
+      "size": 50,
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "layout": "/v1/layouts/497f6ecf-642-4883-cfeb-53cbf3bf82a0",
+      "location": "M2.3",
+      "regions": [
+        "/v1/playlistScreenRegion?_expand=playlist&screenId=497f6eca-6276-1596-bfeb-53ceb4000014&region=region1"
+      ],
+      "inScreenGroups": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000014/groups",
+      "modified": "2021-09-21T14:02:00Z",
+      "created": "2021-07-21T10:25:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen"
+    },
+    {
+      "id": "497f6eca-6276-1596-bfeb-53ceb4000015",
+      "@context": "/contexts/Screen",
+      "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000015",
+      "title": "Screen Fixture 17 - image-text: just image ",
+      "description": "This is an test screen 1 description",
+      "size": 50,
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "layout": "/v1/layouts/497f6ecf-642-4883-cfeb-53cbf3bf82a0",
+      "location": "M2.3",
+      "regions": [
+        "/v1/playlistScreenRegion?_expand=playlist&screenId=497f6eca-6276-1596-bfeb-53ceb4000015&region=region1"
+      ],
+      "inScreenGroups": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000015/groups",
+      "modified": "2021-09-21T14:02:00Z",
+      "created": "2021-07-21T10:25:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen"
+    },
+    {
+      "id": "497f6eca-6276-1596-bfeb-53ceb4000016",
+      "@context": "/contexts/Screen",
+      "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000016",
+      "title": "Screen Fixture 18 - image-text: just text",
+      "description": "This is an test screen 1 description",
+      "size": 50,
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "layout": "/v1/layouts/497f6ecf-642-4883-cfeb-53cbf3bf82a0",
+      "location": "M2.3",
+      "regions": [
+        "/v1/playlistScreenRegion?_expand=playlist&screenId=497f6eca-6276-1596-bfeb-53ceb4000016&region=region1"
+      ],
+      "inScreenGroups": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000016/groups",
+      "modified": "2021-09-21T14:02:00Z",
+      "created": "2021-07-21T10:25:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen"
+    },
+    {
+      "id": "497f6eca-6276-1596-bfeb-53ceb4000017",
+      "@context": "/contexts/Screen",
+      "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000017",
+      "title": "Screen Fixture 19 - image-text: just text",
+      "description": "This is an test screen 1 description",
+      "size": 50,
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "layout": "/v1/layouts/497f6ecf-642-4883-cfeb-53cbf3bf82a0",
+      "location": "M2.3",
+      "regions": [
+        "/v1/playlistScreenRegion?_expand=playlist&screenId=497f6eca-6276-1596-bfeb-53ceb4000017&region=region1"
+      ],
+      "inScreenGroups": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000017/groups",
+      "modified": "2021-09-21T14:02:00Z",
+      "created": "2021-07-21T10:25:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen"
+    },
+    {
+      "id": "497f6eca-6276-1596-bfeb-53ceb4000018",
+      "@context": "/contexts/Screen",
+      "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000018",
+      "title": "Screen Fixture 20 - image-text: text, color and styling",
+      "description": "This is an test screen 1 description",
+      "size": 50,
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "layout": "/v1/layouts/497f6ecf-642-4883-cfeb-53cbf3bf82a0",
+      "location": "M2.3",
+      "regions": [
+        "/v1/playlistScreenRegion?_expand=playlist&screenId=497f6eca-6276-1596-bfeb-53ceb4000018&region=region1"
+      ],
+      "inScreenGroups": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000018/groups",
+      "modified": "2021-09-21T14:02:00Z",
+      "created": "2021-07-21T10:25:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen"
+    },
+    {
+      "id": "497f6eca-6276-1596-bfeb-53ceb4000019",
+      "@context": "/contexts/Screen",
+      "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000019",
+      "title": "Screen Fixture 21 - meeting-room-schedule",
+      "description": "This is an test screen 1 description",
+      "size": 50,
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "layout": "/v1/layouts/497f6ecf-642-4883-cfeb-53cbf3bf82a0",
+      "location": "M2.3",
+      "regions": [
+        "/v1/playlistScreenRegion?_expand=playlist&screenId=497f6eca-6276-1596-bfeb-53ceb4000019&region=region1"
+      ],
+      "inScreenGroups": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000019/groups",
+      "modified": "2021-09-21T14:02:00Z",
+      "created": "2021-07-21T10:25:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen"
+    },
+    {
+      "id": "497f6eca-6276-1596-bfeb-53ceb4000020",
+      "@context": "/contexts/Screen",
+      "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000020",
+      "title": "Screen Fixture 22 - poster 1",
+      "description": "This is an test screen 1 description",
+      "size": 50,
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "layout": "/v1/layouts/497f6ecf-642-4883-cfeb-53cbf3bf82a0",
+      "location": "M2.3",
+      "regions": [
+        "/v1/playlistScreenRegion?_expand=playlist&screenId=497f6eca-6276-1596-bfeb-53ceb4000020&region=region1"
+      ],
+      "inScreenGroups": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000020/groups",
+      "modified": "2021-09-21T14:02:00Z",
+      "created": "2021-07-21T10:25:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen"
+    },
+    {
+      "id": "497f6eca-6276-1596-bfeb-53ceb4000021",
+      "@context": "/contexts/Screen",
+      "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000021",
+      "title": "Screen Fixture 23 - poster 2",
+      "description": "This is an test screen 1 description",
+      "size": 50,
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "layout": "/v1/layouts/497f6ecf-642-4883-cfeb-53cbf3bf82a0",
+      "location": "M2.3",
+      "regions": [
+        "/v1/playlistScreenRegion?_expand=playlist&screenId=497f6eca-6276-1596-bfeb-53ceb4000021&region=region1"
+      ],
+      "inScreenGroups": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000021/groups",
+      "modified": "2021-09-21T14:02:00Z",
+      "created": "2021-07-21T10:25:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen"
+    },
+    {
+      "id": "497f6eca-6276-1596-bfeb-53ceb4000022",
+      "@context": "/contexts/Screen",
+      "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000022",
+      "title": "Screen Fixture 24 - quote",
+      "description": "This is an test screen 1 description",
+      "size": 50,
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "layout": "/v1/layouts/497f6ecf-642-4883-cfeb-53cbf3bf82a0",
+      "location": "M2.3",
+      "regions": [
+        "/v1/playlistScreenRegion?_expand=playlist&screenId=497f6eca-6276-1596-bfeb-53ceb4000022&region=region1"
+      ],
+      "inScreenGroups": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000022/groups",
+      "modified": "2021-09-21T14:02:00Z",
+      "created": "2021-07-21T10:25:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen"
+    },
+    {
+      "id": "497f6eca-6276-1596-bfeb-53ceb4000023",
+      "@context": "/contexts/Screen",
+      "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000023",
+      "title": "Screen Fixture 25 - rssfeed 1",
+      "description": "This is an test screen 1 description",
+      "size": 50,
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "layout": "/v1/layouts/497f6ecf-642-4883-cfeb-53cbf3bf82a0",
+      "location": "M2.3",
+      "regions": [
+        "/v1/playlistScreenRegion?_expand=playlist&screenId=497f6eca-6276-1596-bfeb-53ceb4000023&region=region1"
+      ],
+      "inScreenGroups": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000023/groups",
+      "modified": "2021-09-21T14:02:00Z",
+      "created": "2021-07-21T10:25:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen"
+    },
+    {
+      "id": "497f6eca-6276-1596-bfeb-53ceb4000024",
+      "@context": "/contexts/Screen",
+      "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000024",
+      "title": "Screen Fixture 26 - rssfeed 2",
+      "description": "This is an test screen 1 description",
+      "size": 50,
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "layout": "/v1/layouts/497f6ecf-642-4883-cfeb-53cbf3bf82a0",
+      "location": "M2.3",
+      "regions": [
+        "/v1/playlistScreenRegion?_expand=playlist&screenId=497f6eca-6276-1596-bfeb-53ceb4000024&region=region1"
+      ],
+      "inScreenGroups": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000024/groups",
+      "modified": "2021-09-21T14:02:00Z",
+      "created": "2021-07-21T10:25:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen"
+    },
+    {
+      "id": "497f6eca-6276-1596-bfeb-53ceb4000025",
+      "@context": "/contexts/Screen",
+      "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000025",
+      "title": "Screen Fixture 27 - slideshow 1",
+      "description": "This is an test screen 1 description",
+      "size": 50,
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "layout": "/v1/layouts/497f6ecf-642-4883-cfeb-53cbf3bf82a0",
+      "location": "M2.3",
+      "regions": [
+        "/v1/playlistScreenRegion?_expand=playlist&screenId=497f6eca-6276-1596-bfeb-53ceb4000025&region=region1"
+      ],
+      "inScreenGroups": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000025/groups",
+      "modified": "2021-09-21T14:02:00Z",
+      "created": "2021-07-21T10:25:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen"
+    },
+    {
+      "id": "497f6eca-6276-1596-bfeb-53ceb4000026",
+      "@context": "/contexts/Screen",
+      "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000026",
+      "title": "Screen Fixture 28 - slideshow 2",
+      "description": "This is an test screen 1 description",
+      "size": 50,
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "layout": "/v1/layouts/497f6ecf-642-4883-cfeb-53cbf3bf82a0",
+      "location": "M2.3",
+      "regions": [
+        "/v1/playlistScreenRegion?_expand=playlist&screenId=497f6eca-6276-1596-bfeb-53ceb4000026&region=region1"
+      ],
+      "inScreenGroups": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000026/groups",
+      "modified": "2021-09-21T14:02:00Z",
+      "created": "2021-07-21T10:25:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen"
+    },
+    {
+      "id": "497f6eca-6276-1596-bfeb-53ceb4000027",
+      "@context": "/contexts/Screen",
+      "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000027",
+      "title": "Screen Fixture 29 - sparkle 1",
+      "description": "This is an test screen 1 description",
+      "size": 50,
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "layout": "/v1/layouts/497f6ecf-642-4883-cfeb-53cbf3bf82a0",
+      "location": "M2.3",
+      "regions": [
+        "/v1/playlistScreenRegion?_expand=playlist&screenId=497f6eca-6276-1596-bfeb-53ceb4000027&region=region1"
+      ],
+      "inScreenGroups": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000027/groups",
+      "modified": "2021-09-21T14:02:00Z",
+      "created": "2021-07-21T10:25:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen"
+    },
+    {
+      "id": "497f6eca-6276-1596-bfeb-53ceb4000028",
+      "@context": "/contexts/Screen",
+      "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000028",
+      "title": "Screen Fixture 30 - sparkle 2",
+      "description": "This is an test screen 1 description",
+      "size": 50,
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "layout": "/v1/layouts/497f6ecf-642-4883-cfeb-53cbf3bf82a0",
+      "location": "M2.3",
+      "regions": [
+        "/v1/playlistScreenRegion?_expand=playlist&screenId=497f6eca-6276-1596-bfeb-53ceb4000028&region=region1"
+      ],
+      "inScreenGroups": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000028/groups",
+      "modified": "2021-09-21T14:02:00Z",
+      "created": "2021-07-21T10:25:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen"
+    },
+    {
+      "id": "497f6eca-6276-1596-bfeb-53ceb4000029",
+      "@context": "/contexts/Screen",
+      "@id": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000029",
+      "title": "Screen Fixture 31 - sparkle 3",
+      "description": "This is an test screen 1 description",
+      "size": 50,
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "layout": "/v1/layouts/497f6ecf-642-4883-cfeb-53cbf3bf82a0",
+      "location": "M2.3",
+      "regions": [
+        "/v1/playlistScreenRegion?_expand=playlist&screenId=497f6eca-6276-1596-bfeb-53ceb4000029&region=region1"
+      ],
+      "inScreenGroups": "/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000029/groups",
+      "modified": "2021-09-21T14:02:00Z",
+      "created": "2021-07-21T10:25:00Z",
+      "modifiedBy": "Jens Jensen",
+      "createdBy": "Ole Olesen"
+    }
+  ],
+  "layouts": [
+    {
+      "id": "497f6ecf-642-4883-cfeb-53cbf3bf82a0",
+      "@context": "/contexts/Layout",
+      "@id": "/v1/layouts/497f6ecf-642-4883-cfeb-53cbf3bf82a0",
+      "title": "Full screen",
+      "grid": {
+        "rows": 1,
+        "columns": 1
+      },
+      "regions": [
+        {
+          "id": "region1",
+          "gridArea": [
+            "a"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "497f6ecf-642-4883-cfeb-53cbf3bf82a9",
+      "@context": "/contexts/Layout",
+      "@id": "/v1/layouts/497f6ecf-642-4883-cfeb-53cbf3bf82a9",
+      "title": "6 way split",
+      "grid": {
+        "rows": 4,
+        "columns": 12
+      },
+      "regions": [
+        {
+          "id": "region1",
+          "gridArea": [
+            "a",
+            "d"
+          ]
+        },
+        {
+          "id": "region2",
+          "gridArea": [
+            "e",
+            "m"
+          ]
+        },
+        {
+          "id": "region3",
+          "gridArea": [
+            "q",
+            "y"
+          ]
+        },
+        {
+          "id": "region4",
+          "gridArea": [
+            "cc",
+            "oo"
+          ]
+        },
+        {
+          "id": "region5",
+          "gridArea": [
+            "ss",
+            "vv"
+          ]
+        },
+        {
+          "id": "region6",
+          "gridArea": [
+            "f",
+            "rr"
+          ]
+        }
+      ]
+    }
+  ]
+}

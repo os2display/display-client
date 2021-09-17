@@ -1,5 +1,4 @@
 import cloneDeep from 'lodash.clonedeep';
-import Logger from '../logger/logger';
 
 /**
  * PullStrategy.
@@ -7,11 +6,13 @@ import Logger from '../logger/logger';
  * Handles pull strategy.
  */
 class PullStrategy {
-  // The endpoint where the screen can be fetched.
+  // The API endpoint.
   endpoint = '';
 
   // Fetch-inteval in ms.
   interval = 5000;
+
+  entryPoint = '';
 
   /**
    * Constructor.
@@ -22,148 +23,158 @@ class PullStrategy {
   constructor(config) {
     this.start = this.start.bind(this);
     this.stop = this.stop.bind(this);
-    this.fetchScreen = this.fetchScreen.bind(this);
+    this.getScreen = this.getScreen.bind(this);
 
     this.interval = config?.interval ?? 5000;
     this.endpoint = config?.endpoint ?? '';
+    // @TODO: Get this entry point in a more dynamic way.
+    this.entryPoint = config.entryPoint;
   }
 
-  /**
-   * Fetch screen.
-   */
-  fetchScreen() {
-    // @TODO: Cache data in indexedDB.
-    // @TODO: Prefetching assets to allow service worker to cache.
-    fetch(this.endpoint)
-      .then((response) => response.json())
-      .then((screenData) => {
-        if (screenData?.regions?.length > 0) {
-          const newScreenData = cloneDeep(screenData);
-          const promises = [];
+  async getPath(path) {
+    const response = await fetch(this.endpoint + path);
 
-          newScreenData.regions.forEach((regionData) => {
-            promises.push(this.fetchRegion(regionData));
-          });
+    if (!response.ok) {
+      const message = `An error has occured: ${response.status}`;
+      throw new Error(message);
+    }
 
-          Promise.allSettled(promises)
-            .then((results) => {
-              results.forEach((result) => {
-                if (result.status === 'fulfilled') {
-                  const region = result.value;
-                  const regionIndex = newScreenData.regions.findIndex(
-                    (element) => element.id === region.id
-                  );
-                  newScreenData.regions[regionIndex] = region;
-                }
-              });
-
-              const event = new CustomEvent('content', {
-                detail: {
-                  screen: newScreenData,
-                },
-              });
-              document.dispatchEvent(event);
-            })
-            .catch((err) => Logger.log('error', err));
-        }
-      })
-      .catch((err) => {
-        Logger.log(
-          'info',
-          'Error pulling data. Retrying based on selected interval.'
-        );
-        Logger.log('error', err);
-      });
+    return response.json();
   }
 
-  /**
-   * Fetch playlists in a region of the screen.
-   *
-   * @param {object} regionData
-   *   The data for the region.
-   * @returns {Promise<object>}
-   *   Promise with region with playlists attached.
-   */
-  fetchRegion(regionData) {
+  async getRegions(regions) {
     return new Promise((resolve, reject) => {
       const promises = [];
-      const newRegionData = cloneDeep(regionData);
+      const regionData = {};
 
-      newRegionData.playlists.forEach((playlist) => {
-        promises.push(this.fetchPlaylist(playlist.url));
+      regions.forEach((regionPath) => {
+        promises.push(this.getPath(regionPath));
       });
 
       Promise.allSettled(promises)
         .then((results) => {
-          newRegionData.playlists = results.map((result) => {
+          results.forEach((result) => {
             if (result.status === 'fulfilled') {
-              return result.value;
+              // @TODO: Handle pagination.
+              const members = result.value['hydra:member'];
+              // @TODO: Handle case that is not json-server. Can this be achieved from the API response instead?
+              const regionIndex = result.value['@id'].split('region=')[1];
+              regionData[regionIndex] = members;
             }
-            return null;
           });
-          resolve(newRegionData);
+
+          resolve(regionData);
         })
         .catch((err) => reject(err));
     });
   }
 
-  /**
-   * Fetch playlist.
-   *
-   * @param {string} playlistUrl
-   *   The url where the playlist can be fetched.
-   * @returns {Promise<object>}
-   *   The promise.
-   */
-  fetchPlaylist(playlistUrl) {
+  async getPathWithKeys(path, keys) {
+    const response = await fetch(this.endpoint + path);
+
+    if (!response.ok) {
+      const message = `An error has occured: ${response.status}`;
+      throw new Error(message);
+    }
+
+    return {
+      result: await response.json(),
+      keys,
+    };
+  }
+
+  async getSlidesForRegions(regions) {
     return new Promise((resolve, reject) => {
-      fetch(playlistUrl)
-        .then((response) => response.json())
-        .then((playlistData) => {
-          const promises = [];
-          const newPlaylistData = cloneDeep(playlistData);
+      const promises = [];
+      const regionData = cloneDeep(regions);
 
-          newPlaylistData.slides.forEach((slideData) => {
-            promises.push(this.fetchSlide(slideData.url));
-          });
-
-          Promise.allSettled(promises)
-            .then((results) => {
-              results.forEach((result) => {
-                if (result.status === 'fulfilled') {
-                  const slide = result.value;
-                  const slideDataIndex = newPlaylistData.slides.findIndex(
-                    (element) => element.id === slide.id
-                  );
-                  newPlaylistData.slides[slideDataIndex] = slide;
-                }
-              });
-              resolve(newPlaylistData);
+      // @TODO: Fix eslint-raised issues.
+      // eslint-disable-next-line guard-for-in,no-restricted-syntax
+      for (const regionKey in regionData) {
+        const playlists = regionData[regionKey];
+        // eslint-disable-next-line guard-for-in,no-restricted-syntax
+        for (const playlistKey in playlists) {
+          promises.push(
+            this.getPathWithKeys(regionData[regionKey][playlistKey].slides, {
+              regionKey,
+              playlistKey,
             })
-            .catch((err) => reject(err));
+          );
+        }
+      }
+
+      Promise.allSettled(promises)
+        .then((results) => {
+          results.forEach((result) => {
+            if (result.status === 'fulfilled') {
+              regionData[result.value.keys.regionKey][
+                result.value.keys.playlistKey
+              ].slidesData = result.value.result['hydra:member'];
+            }
+          });
+
+          resolve(regionData);
         })
         .catch((err) => reject(err));
     });
   }
 
   /**
-   * Fetch slide.
+   * Fetch screen.
    *
-   * @param {string} slideUrl
-   *   The url where the slide can be fetched.
-   * @returns {Promise<object>}
-   *   The promise.
+   * @param {string} screenPath Path to the screen.
    */
-  // eslint-disable-next-line class-methods-use-this
-  fetchSlide(slideUrl) {
-    return new Promise((resolve, reject) => {
-      fetch(slideUrl)
-        .then((response) => response.json())
-        .then((slideData) => {
-          resolve(slideData);
-        })
-        .catch((err) => reject(err));
+  async getScreen(screenPath) {
+    // Fetch screen
+    const screen = await this.getPath(screenPath);
+    const newScreen = cloneDeep(screen);
+
+    // Get layout: Defines layout and regions.
+    newScreen.layoutData = await this.getPath(screen.layout);
+
+    // Fetch regions playlists: Yields playlists of slides for the regions
+    const regions = await this.getRegions(newScreen.regions);
+    newScreen.regionData = await this.getSlidesForRegions(regions);
+
+    // Template cache.
+    const fetchedTemplates = {};
+
+    // Iterate all slides.
+    // @TODO: Fix eslint-raised issues.
+    // eslint-disable-next-line guard-for-in,no-restricted-syntax
+    for (const regionKey in newScreen.regionData) {
+      // eslint-disable-next-line guard-for-in,no-restricted-syntax
+      for (const playlistKey in newScreen.regionData[regionKey]) {
+        // eslint-disable-next-line guard-for-in,no-restricted-syntax
+        for (const slideKey in newScreen.regionData[regionKey][playlistKey]
+          .slidesData) {
+          const templatePath =
+            newScreen.regionData[regionKey][playlistKey].slidesData[slideKey]
+              .template['@id'];
+          // eslint-disable-next-line no-prototype-builtins
+          if (fetchedTemplates.hasOwnProperty(templatePath)) {
+            newScreen.regionData[regionKey][playlistKey].slidesData[
+              slideKey
+            ].templateData = fetchedTemplates[templatePath];
+          } else {
+            // eslint-disable-next-line no-await-in-loop
+            const templateData = await this.getPath(templatePath);
+            newScreen.regionData[regionKey][playlistKey].slidesData[
+              slideKey
+            ].templateData = templateData;
+            fetchedTemplates[templatePath] = templateData;
+          }
+        }
+      }
+    }
+
+    // Deliver result to rendering
+    const event = new CustomEvent('content', {
+      detail: {
+        screen: newScreen,
+      },
     });
+    document.dispatchEvent(event);
   }
 
   /**
@@ -171,13 +182,13 @@ class PullStrategy {
    */
   start() {
     // Pull now.
-    this.fetchScreen();
+    this.getScreen(this.entryPoint).then(() => {
+      // Make sure nothing is running.
+      this.stop();
 
-    // Make sure nothing is running.
-    this.stop();
-
-    // Start interval for pull periodically.
-    this.activeInterval = setInterval(this.fetchScreen, this.interval);
+      // Start interval for pull periodically.
+      this.activeInterval = setInterval(this.getScreen, this.interval);
+    });
   }
 
   /**

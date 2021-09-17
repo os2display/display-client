@@ -62,8 +62,11 @@ jobs:
       - name: Setup network
         run: docker network create frontend
 
-      - name: Install
+      - name: Install client
         run: docker-compose run node yarn
+
+      - name: Install json-server
+        run: docker-compose run json-server bash -c 'npm install'
 
       - name: Cypress run
         run: docker-compose run cypress run --browser ${{ matrix.browser }}

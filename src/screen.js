@@ -15,6 +15,7 @@ import './screen.scss';
  *   The component.
  */
 function Screen({ screen }) {
+  // @TODO: Does the grid variable exist?
   const configColumns = screen.grid?.columns || 1;
   const configRows = screen.grid?.rows || 1;
   const rootStyle = {
@@ -23,17 +24,23 @@ function Screen({ screen }) {
 
   return (
     <div className="Screen" style={rootStyle}>
-      {screen?.regions?.length > 0 &&
-        screen.regions.map((region) => (
-          <Region key={region.id} region={region} />
-        ))}
+      {screen?.layoutData?.regions?.map((region) => (
+        <Region key={region.id} region={region} />
+      ))}
     </div>
   );
 }
 
 Screen.propTypes = {
   screen: PropTypes.shape({
-    regions: PropTypes.arrayOf(PropTypes.any).isRequired,
+    layoutData: PropTypes.shape({
+      regions: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.string.isRequired,
+          // @TODO: Expand prop type.
+        })
+      ),
+    }).isRequired,
     grid: PropTypes.shape({
       columns: PropTypes.number.isRequired,
       rows: PropTypes.number.isRequired,
