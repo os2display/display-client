@@ -65,11 +65,11 @@
     "eslint-plugin-only-warn": "^1.0.3",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.23.2",
+    "prettier": "^2.2.1",
     "stylelint": "^13.13.1",
     "stylelint-config-prettier": "^8.0.2",
     "stylelint-config-recommended-scss": "^4.3.0",
     "stylelint-prettier": "^1.2.0",
-    "stylelint-scss": "^3.19.0",
-    "prettier": "^2.2.1"
+    "stylelint-scss": "^3.19.0"
   }
 }

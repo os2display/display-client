@@ -47,7 +47,7 @@ function BookReview({ slide, content, run, slideDone }) {
     <>
       <div className="template-book-review">
         <div className="text-area">
-          <p>{parse(sanitizedBookText)}</p>
+          <div>{parse(sanitizedBookText)}</div>
         </div>
         <div className="author-area">
           {authorImage && <div className="author-image" style={authorImage} />}
