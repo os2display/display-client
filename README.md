@@ -11,7 +11,7 @@ Currently, this is a create-react-app.
 docker-compose up -d
 
 # Install npm packages
-docker-compose run node bash -c 'npm install'
+docker-compose run node bash -c 'yarn install'
 
 # Restart node
 docker-compose restart node
@@ -20,9 +20,17 @@ docker-compose restart node
 docker-compose logs -f node
 ```
 
-The display client can opened at `http://display-client.local.itkdev.dk:3001/`.
+The display client can opened at `http://display-client.local.itkdev.dk/`.
 
 The code is compiled when changed.
+
+Setup mock api:
+
+```
+docker-compose run json-server -c 'npm install'
+
+docker-composer restart json-server
+```
 
 ## Coding standards
 
@@ -30,10 +38,10 @@ For code analysis we use the [Airbnb style guide for javascript](https://github.
 
 ```
 # Check for coding standards issues
-docker-compose exec node bash -c 'npm run check-coding-standards'
+docker-compose exec node bash -c 'yarn check-coding-standards'
 
 # Auto-correct coding standards issues
-docker-compose exec node bash -c 'npm run apply-coding-standards'
+docker-compose exec node bash -c 'yarn apply-coding-standards'
 ```
 
 ## Testing with cypress
