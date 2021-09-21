@@ -26,4 +26,4 @@ cypress/screenshots/*
 
 temp/
 
-data/
+json-server/
