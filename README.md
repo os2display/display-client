@@ -6,15 +6,23 @@ Currently, this is a create-react-app.
 
 ## Docker development setup
 
+Get the api mock project
+
 ```
-# Up the containers
-docker-compose up -d
+git clone https://github.com/os2display/display-api-mock.git json-server
 
 # Install npm packages
-docker-compose run node bash -c 'yarn install'
+docker-compose run json-server npm install
+```
 
-# Restart node
-docker-compose restart node
+Start docker setup
+
+```
+# Install npm packages
+docker-compose run node yarn install
+
+# Up the containers
+docker-compose up -d
 
 # Follow the node logs to see when the code is compiled.
 docker-compose logs -f node
@@ -23,14 +31,6 @@ docker-compose logs -f node
 The display client can opened at `http://display-client.local.itkdev.dk/`.
 
 The code is compiled when changed.
-
-Setup mock api:
-
-```
-docker-compose run json-server -c 'npm install'
-
-docker-composer restart json-server
-```
 
 ## Coding standards
 

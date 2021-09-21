@@ -62,8 +62,6 @@ services:
     command: npm start
     networks:
       - app
-    ports:
-      - '3000'
     working_dir: /app
     volumes:
-      - ./data:/app:delegated
+      - ./json-server:/app:delegated

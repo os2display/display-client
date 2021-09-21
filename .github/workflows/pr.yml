@@ -65,8 +65,11 @@ jobs:
       - name: Install client
         run: docker-compose run node yarn
 
+      - name: Clone repo
+        run: git clone https://github.com/os2display/display-api-mock.git json-server
+
       - name: Install json-server
-        run: docker-compose run json-server bash -c 'npm install'
+        run: docker-compose run json-server npm install
 
       - name: Cypress run
         run: docker-compose run cypress run --browser ${{ matrix.browser }}
