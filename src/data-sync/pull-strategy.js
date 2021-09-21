@@ -187,7 +187,10 @@ class PullStrategy {
       this.stop();
 
       // Start interval for pull periodically.
-      this.activeInterval = setInterval(this.getScreen, this.interval);
+      this.activeInterval = setInterval(
+        () => this.getScreen(this.entryPoint),
+        this.interval
+      );
     });
   }
 
