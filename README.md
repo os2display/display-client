@@ -6,6 +6,12 @@ Currently, this is a create-react-app.
 
 ## Docker development setup
 
+Get the api mock project
+
+```
+git clone https://github.com/os2display/display-api-mock.git data
+```
+
 ```
 # Up the containers
 docker-compose up -d
@@ -24,7 +30,7 @@ The display client can opened at `http://display-client.local.itkdev.dk/`.
 
 The code is compiled when changed.
 
-Setup mock api:
+### Setup mock api:
 
 ```
 docker-compose run json-server -c 'npm install'
