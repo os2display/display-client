@@ -125,9 +125,11 @@ class ContentService {
     } else {
       Logger.log('info', 'Screen has not changed. Not emitting screen.');
 
-      data.screen.regionData.forEach((region, key) =>
-        this.scheduleService.updateRegion(key, region)
-      );
+      // eslint-disable-next-line guard-for-in,no-restricted-syntax
+      for (const regionKey in data.screen.regionData) {
+        const region = data.screen.regionData[regionKey];
+        this.scheduleService.updateRegion(regionKey, region);
+      }
     }
   }
 
