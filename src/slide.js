@@ -1,6 +1,9 @@
 import { React } from 'react';
 import PropTypes from 'prop-types';
-import TextBox from './templates/image-text/image-text';
+import {
+  createRemoteComponent,
+  createRequires,
+} from '@paciolan/remote-component';
 import Slideshow from './templates/slideshow/slideshow';
 import Calendar from './templates/calendar/calendar';
 import BookReview from './templates/book-review/book-review';
@@ -11,6 +14,7 @@ import Sparkle from './templates/sparkle/sparkle';
 import Transition from './transition';
 import RSS from './templates/rss/rss';
 import './slide.scss';
+import { resolve } from './remote-component.config';
 
 /**
  * Slide component.
@@ -26,101 +30,25 @@ import './slide.scss';
  * @param {Function} props.slideDone
  *   The function to call when the slide is done running.
  * @param {boolean} props.isNextSlide
- *  A boolean indicating whether this is the next slide.
+ *   A boolean indicating whether this is the next slide.
  * @param {number} props.prevSlideDuration
- *  The previous slide duration.
+ *   The previous slide duration.
  * @returns {object}
  *   The component.
  */
 function Slide({ slide, id, run, slideDone, isNextSlide, prevSlideDuration }) {
-  let slideComponent;
+  const requires = createRequires(resolve);
+  const RemoteComponent = createRemoteComponent({ requires });
 
-  if (slide.templateData.templateKey === 'template-image-text') {
-    slideComponent = (
-      <TextBox
-        slide={slide}
-        content={slide.content}
-        run={run}
-        slideDone={slideDone}
-      />
-    );
-  } else if (slide.templateData.templateKey === 'template-slideshow') {
-    slideComponent = (
-      <Slideshow
-        slide={slide}
-        content={slide.content}
-        run={run}
-        slideDone={slideDone}
-      />
-    );
-  } else if (slide.templateData.templateKey === 'template-calendar') {
-    slideComponent = (
-      <Calendar
-        slide={slide}
-        content={slide.content}
-        run={run}
-        slideDone={slideDone}
-      />
-    );
-  } else if (slide.templateData.templateKey === 'template-book-review') {
-    slideComponent = (
-      <BookReview
-        slide={slide}
-        content={slide.content}
-        run={run}
-        slideDone={slideDone}
-      />
-    );
-  } else if (
-    slide.templateData.templateKey === 'template-meeting-room-schedule'
-  ) {
-    slideComponent = (
-      <MeetingRoomSchedule
-        slide={slide}
-        content={slide.content}
-        run={run}
-        slideDone={slideDone}
-      />
-    );
-  } else if (slide.templateData.templateKey === 'template-quote') {
-    slideComponent = (
-      <Quote
-        slide={slide}
-        content={slide.content}
-        run={run}
-        slideDone={slideDone}
-      />
-    );
-  } else if (slide.templateData.templateKey === 'template-poster') {
-    slideComponent = (
-      <Poster
-        slide={slide}
-        content={slide.content}
-        run={run}
-        slideDone={slideDone}
-      />
-    );
-  } else if (slide.templateData.templateKey === 'template-sparkle') {
-    slideComponent = (
-      <Sparkle
-        slide={slide}
-        content={slide.content}
-        run={run}
-        slideDone={slideDone}
-      />
-    );
-  } else if (slide.templateData.templateKey === 'template-rss') {
-    slideComponent = (
-      <RSS
-        slide={slide}
-        content={slide.content}
-        run={run}
-        slideDone={slideDone}
-      />
-    );
-  } else {
-    slideComponent = <>Unknown template</>;
-  }
+  const slideComponent = (
+    <RemoteComponent
+      url={slide.templateData.resources.component}
+      slide={slide}
+      content={slide.content}
+      run={run}
+      slideDone={slideDone}
+    />
+  );
 
   const styles = {};
   let classes = 'Slide';
@@ -162,6 +90,7 @@ Slide.propTypes = {
   slide: PropTypes.shape({
     templateData: PropTypes.shape({
       templateKey: PropTypes.string.isRequired,
+      resources: PropTypes.shape({ component: PropTypes.string.isRequired }),
     }).isRequired,
     duration: PropTypes.number.isRequired,
     instanceId: PropTypes.string.isRequired,

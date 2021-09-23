@@ -15,6 +15,15 @@ git clone https://github.com/os2display/display-api-mock.git json-server
 docker-compose run json-server npm install
 ```
 
+Get the templates project
+
+```
+git clone https://github.com/os2display/display-templates.git templates
+
+# Install npm packages
+docker-compose run templates yarn install
+```
+
 Start docker setup
 
 ```

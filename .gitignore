@@ -27,3 +27,4 @@ cypress/screenshots/*
 temp/
 
 json-server/
+templates/

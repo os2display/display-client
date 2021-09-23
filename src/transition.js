@@ -27,7 +27,7 @@ const Transition = ({
   isNextSlide,
   children,
 }) => {
-  const animationDuration = 500;
+  const animationDuration = 1000;
   const [style, setStyle] = useState({});
 
   /**

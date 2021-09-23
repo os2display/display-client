@@ -16,6 +16,7 @@ services:
     depends_on:
       - node
       - json-server
+      - templates
     ports:
       - '80'
     volumes:
@@ -64,4 +65,17 @@ services:
       - app
     working_dir: /app
     volumes:
-      - ./json-server:/app:delegated
+      - ${PWD}/json-server:/app
+
+  templates:
+    image: node:14
+    environment:
+      - DEBUG=*
+    command: npm start
+    ports:
+      - '3000:3000'
+    networks:
+      - app
+    working_dir: /app
+    volumes:
+      - ${PWD}/templates:/app
