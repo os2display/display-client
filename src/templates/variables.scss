@@ -1,0 +1,74 @@
+html {
+  /*
+  * Blur
+  */
+  --blur-background: 10px;
+
+  /*
+  * Colors
+  */
+  --color-white: #fff;
+  --color-grey-100: #f5f5f5;
+  --color-grey-300: #c8c8c8;
+  --color-grey-500: #909090;
+  --color-grey-700: #5f5f5f;
+  --color-grey-900: #2e2e2e;
+  --color-black: #000;
+  --color-blue: blue;
+  --color-indigo: indigo;
+  --color-purple: purple;
+  --color-pink: pink;
+  --color-red: red;
+  --color-orange: orange;
+  --color-yellow: yellow;
+  --color-green: green;
+  --color-teal: teal;
+  --color-cyan: cyan;
+  --color-gray: var(--color-grey-500);
+  --color-gray-dark: var(--color-grey-900);
+  --color-primary: var(--color-blue);
+  --color-secondary: var(--color-orange);
+  --color-success: var(--color-green);
+  --color-info: var(--color-teal);
+  --color-warning: var(--color-yellow);
+  --color-danger: var(--color-red);
+  --color-light: var(--color-grey-100);
+  --color-dark: var(--color-grey-900);
+  --bg-light: var(--color-grey-100);
+  --bg-dark: var(--color-grey-100);
+  --text-light: var(--color-light);
+  --text-dark: var(--color-dark);
+
+  /*
+  * Fonts
+  */
+  --font-family-base: system-ui, -apple-system, Roboto, "Helvetica Neue", Arial,
+    sans-serif;
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-bold: 700;
+
+  /*
+  * Sizes
+  */
+  --spacer: 1rem;
+  --margin-size-base: var(--spacer);
+  --padding-size-base: var(--spacer);
+  --font-size-base: 1rem; // Assumes the browser default, typically `16px`
+  --font-size-sm: calc(var(--font-size-base) * 0.875);
+  --font-size-lg: calc(var(--font-size-base) * 1.25);
+  --h1-font-size: calc(var(--font-size-base) * 2.5);
+  --h2-font-size: calc(var(--font-size-base) * 2);
+  --h3-font-size: calc(var(--font-size-base) * 1.75);
+  --h4-font-size: calc(var(--font-size-base) * 1.5);
+  --h5-font-size: calc(var(--font-size-base) * 1.25);
+  --h6-font-size: calc(var(--font-size-base));
+
+  /*
+  * Shadow
+  */
+  --box-shadow: 0 0.5rem 1rem rgba(var(--color-black), 0.15);
+  --box-shadow-sm: 0 0.125rem 0.25rem rgba(var(--color-black), 0.075);
+  --box-shadow-lg: 0 1rem 3rem rgba(var(--color-black), 0.175);
+  --box-shadow-inset: inset 0 1px 2px rgba(var(--color-black), 0.075);
+}

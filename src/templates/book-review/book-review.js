@@ -49,7 +49,7 @@ function BookReview({ slide, content, run, slideDone }) {
    */
 
   /* TODO: Css from theme editor goes inside `ThemeStyles` */
-  /* TODO: Replace class `.template-book-review` widt unique id from slide. */
+  /* TODO: Replace class `.template-book-review` with unique id/class from slide. */
   const ThemeStyles = createGlobalStyle`
     .template-book-review {
       --bg-white: #fff;
