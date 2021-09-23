@@ -1,5 +1,4 @@
-$color-shadow: rgba(0, 0, 0, 0.26);
-$shadow-box: 0 4px 16px $color-shadow;
+@use "../variables.scss";
 
 .template-image-text {
   height: 100%;
@@ -21,21 +20,21 @@ $shadow-box: 0 4px 16px $color-shadow;
     order: 0;
     flex: 1 0 auto;
     align-self: auto;
-    background-color: beige;
-    color: black;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
     width: 40%;
 
     &.s {
-      font-size: 10px;
+      font-size: var(--font-size-sm);
     }
     &.m {
-      font-size: 15px;
+      font-size: var(--font-size-base);
     }
     &.l {
-      font-size: 20px;
+      font-size: var(--font-size-lg);
     }
     &.xl {
-      font-size: 25px;
+      font-size: var(--font-size-lx);
     }
 
     h1 {
@@ -67,13 +66,13 @@ $shadow-box: 0 4px 16px $color-shadow;
 
   &.shadow {
     .box {
-      box-shadow: $shadow-box;
+      box-shadow: var(--box-shadow-lg);
     }
   }
 
   &.animated-header {
     .box {
-      box-shadow: $shadow-box;
+      box-shadow: var(--box-shadow-lg);
       display: flex;
       flex-direction: column;
     }
