@@ -4,6 +4,7 @@ import dayjs from 'dayjs';
 import localeDa from 'dayjs/locale/da';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 import { IntlProvider, FormattedMessage } from 'react-intl';
+import { createGlobalStyle } from 'styled-components';
 import BaseSlideExecution from '../baseSlideExecution';
 import './poster.scss';
 
@@ -119,69 +120,87 @@ function Poster({ slide, content, run, slideDone }) {
     return s.charAt(0).toUpperCase() + s.slice(1);
   };
 
+  /**
+   * Setup theme vars
+   */
+  /* TODO: Css from theme editor goes inside `ThemeStyles` */
+  /* TODO: Replace class `.template-poster` with unique id/class from slide. */
+  const ThemeStyles = createGlobalStyle`
+    .template-poster {
+      --font-size-base: 1em;
+    }
+  `;
+
   return (
-    <IntlProvider messages={translations} locale="da" defaultLocale="da">
-      <div className="template-poster">
-        <div
-          className="image-area"
-          style={{
-            backgroundImage: `url("${image}")`,
-            ...(show
-              ? { animation: `fade-in ${animationDuration}ms` }
-              : { animation: `fade-out ${animationDuration}ms` }),
-          }}
-        />
-        {/* todo theme color */}
-        <div className="header-area" style={{ backgroundColor: 'Azure' }}>
-          <div className="center">
-            <h1>{name}</h1>
-            <p className="lead">{excerpt}</p>
+    <>
+      <ThemeStyles />
+      <IntlProvider messages={translations} locale="da" defaultLocale="da">
+        <div className="template-poster">
+          <div
+            className="image-area"
+            style={{
+              backgroundImage: `url("${image}")`,
+              ...(show
+                ? { animation: `fade-in ${animationDuration}ms` }
+                : { animation: `fade-out ${animationDuration}ms` }),
+            }}
+          />
+          {/* todo theme color */}
+          <div className="header-area" style={{ backgroundColor: 'Azure' }}>
+            <div className="center">
+              <h1>{name}</h1>
+              <p className="lead">{excerpt}</p>
+            </div>
+          </div>
+          {/* todo theme color */}
+          <div className="info-area" style={{ backgroundColor: 'Aquamarine' }}>
+            <div className="center">
+              {startDate && endDate && (
+                <span>
+                  {singleDayEvent && (
+                    <span>
+                      <p className="date">
+                        {capitalize(
+                          dayjs(startDate).locale(localeDa).format('LLLL')
+                        )}
+                      </p>
+                    </span>
+                  )}
+                  {/* todo if startdate is not equal to enddate */}
+                  {!singleDayEvent && (
+                    <span>
+                      <p className="date">
+                        {capitalize(
+                          dayjs(startDate).locale(localeDa).format('LLLL')
+                        )}{' '}
+                        -{' '}
+                        {capitalize(
+                          dayjs(endDate).locale(localeDa).format('LLLL')
+                        )}
+                      </p>
+                    </span>
+                  )}
+                </span>
+              )}
+              {place && <p className="place">{place.name}</p>}
+              {!ticketPriceRange && (
+                <p className="ticket">
+                  <FormattedMessage id="free" defaultMessage="free" />
+                </p>
+              )}
+              {ticketPriceRange && <p className="ticket">{ticketPriceRange}</p>}
+              {/* todo theme color link */}
+              {readMoreText && url && (
+                <p className="moreinfo">
+                  {readMoreText} <span className="look-like-link">{url}</span>
+                </p>
+              )}
+              {readMoreText && !url && <p className="moreinfo">{readMoreText}</p>}
+            </div>
           </div>
         </div>
-        {/* todo theme color */}
-        <div className="info-area" style={{ backgroundColor: 'Aquamarine' }}>
-          {startDate && endDate && (
-            <span>
-              {singleDayEvent && (
-                <span>
-                  <p className="date">
-                    {capitalize(
-                      dayjs(startDate).locale(localeDa).format('LLLL')
-                    )}
-                  </p>
-                </span>
-              )}
-              {/* todo if startdate is not equal to enddate */}
-              {!singleDayEvent && (
-                <span>
-                  <p className="date">
-                    {capitalize(
-                      dayjs(startDate).locale(localeDa).format('LLLL')
-                    )}{' '}
-                    -{' '}
-                    {capitalize(dayjs(endDate).locale(localeDa).format('LLLL'))}
-                  </p>
-                </span>
-              )}
-            </span>
-          )}
-          {place && <p className="place">{place.name}</p>}
-          {!ticketPriceRange && (
-            <p className="ticket">
-              <FormattedMessage id="free" defaultMessage="free" />
-            </p>
-          )}
-          {ticketPriceRange && <p className="ticket">{ticketPriceRange}</p>}
-          {/* todo theme color link */}
-          {readMoreText && url && (
-            <p className="moreinfo">
-              {readMoreText} <span className="look-like-link">{url}</span>
-            </p>
-          )}
-          {readMoreText && !url && <p className="moreinfo">{readMoreText}</p>}
-        </div>
-      </div>
-    </IntlProvider>
+      </IntlProvider>
+    </>
   );
 }
 

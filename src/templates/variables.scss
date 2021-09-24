@@ -34,8 +34,10 @@ html {
   --color-danger: var(--color-red);
   --color-light: var(--color-grey-100);
   --color-dark: var(--color-grey-900);
-  --bg-light: var(--color-grey-100);
-  --bg-dark: var(--color-grey-100);
+  --bg-light: var(--color-light);
+  --bg-dark: var(--color-dark);
+  --bg-primary: var(--color-primary);
+  --bg-secondary: var(--color-secondary);
   --text-light: var(--color-light);
   --text-dark: var(--color-dark);
 
