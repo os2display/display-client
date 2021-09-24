@@ -54,16 +54,7 @@ function Slide({ slide, id, run, slideDone, isNextSlide, prevSlideDuration }) {
         slideDone={slideDone}
       />
     );
-  } else if (slide.template === 'template-contacts') {
-    slideComponent = (
-      <Contacts
-        slide={slide}
-        content={slide.content}
-        run={run}
-        slideDone={slideDone}
-      />
-    );
-  } else if (slide.template === 'template-calendar') {
+  } else if (slide.templateData.templateKey === 'template-calendar') {
     slideComponent = (
       <Calendar
         slide={slide}
