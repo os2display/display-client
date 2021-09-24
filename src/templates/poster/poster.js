@@ -195,7 +195,9 @@ function Poster({ slide, content, run, slideDone }) {
                   {readMoreText} <span className="look-like-link">{url}</span>
                 </p>
               )}
-              {readMoreText && !url && <p className="moreinfo">{readMoreText}</p>}
+              {readMoreText && !url && (
+                <p className="moreinfo">{readMoreText}</p>
+              )}
             </div>
           </div>
         </div>
