@@ -128,6 +128,15 @@ function Slide({ slide, id, run, slideDone, isNextSlide, prevSlideDuration }) {
         slideDone={slideDone}
       />
     );
+  } else if (slide.templateData.templateKey === 'template-contacts') {
+    slideComponent = (
+      <Contacts
+        slide={slide}
+        content={slide.content}
+        run={run}
+        slideDone={slideDone}
+      />
+    );
   } else {
     slideComponent = <>Unknown template</>;
   }

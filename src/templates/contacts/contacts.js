@@ -61,15 +61,15 @@ function Contacts({ slide, content, run, slideDone }) {
         <div className="contacts">
           {contacts.map((contact) => (
             <div className="contact">
-              {contact.image && (
+              {contact.media && (
                 <div
                   className="image-area"
                   style={{
-                    backgroundImage: `url("${contact.image.url}")`,
+                    backgroundImage: `url("${contact.media.image.url}")`,
                   }}
                 />
               )}
-              {!contact.image && <div className="image-area" />}
+              {!contact.media && <div className="image-area" />}
               <div className="text-container">
                 <div>{contact.title}</div>
                 <div>{contact.name}</div>
