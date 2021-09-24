@@ -1,7 +1,9 @@
 describe('Make sure contacts loads', () => {
   it('should have title', () => {
     cy.visit('/');
-    cy.get('.debug-bar-select').select('/v1/slides/a97f6ec4-5278-4993-bfeb-53cded000041');
+    cy.get('.debug-bar-select').select(
+      '/v1/screens/497f6eca-6276-1596-bfeb-53ceb4000030'
+    );
     cy.get('h1')
       .first()
       .invoke('text')
