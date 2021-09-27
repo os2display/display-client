@@ -1,3 +1,8 @@
+/*
+* We use the classes `horizontal` and `vertical` to define the orientation of the screen.
+* This is calculated and added through the slide template component.
+*/
+
 html {
   /*
   * Blur
@@ -49,6 +54,13 @@ html {
   --font-weight-light: 300;
   --font-weight-normal: 400;
   --font-weight-bold: 700;
+
+  /*
+  * Line height
+  */
+  --line-height-base: 1.5;
+  --line-height-sm: 1.25;
+  --line-height-lg: 2;
 
   /*
   * Sizes
