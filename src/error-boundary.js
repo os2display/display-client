@@ -24,7 +24,11 @@ class ErrorBoundary extends Component {
   render() {
     const { hasError } = this.state;
     if (hasError) {
-      return <div className="ErrorBoundary"><div className="ErrorBoundaryLoader">Loading...</div></div>;
+      return (
+        <div className="ErrorBoundary">
+          <div className="ErrorBoundaryLoader">Loading...</div>
+        </div>
+      );
     }
 
     const { children } = this.props;
