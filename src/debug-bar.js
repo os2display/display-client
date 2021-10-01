@@ -1,5 +1,6 @@
 import { React, useEffect, useState } from 'react';
 import './debug-bar.scss';
+import ErrorBoundary from './error-boundary';
 
 /**
  * DebugBar component.
@@ -47,41 +48,47 @@ function DebugBar() {
 
   return (
     <>
-      {show && (
-        <div className="debug-bar">
-          <div className="debug-bar-header">Debug</div>
-          <div className="debug-bar-content">
-            <button
-              className="debug-bar-button"
-              type="button"
-              onClick={() => setShow(false)}
-            >
-              Hide
-            </button>
-            <select
-              className="debug-bar-select"
-              onChange={handleFixtureSelectChange}
-            >
-              <option value="">None selected</option>
-              {screens['hydra:member']?.length > 0 &&
-                screens['hydra:member'].map((screen) => (
-                  <option value={screen['@id']} id={screen.id} key={screen.id}>
-                    {screen.title}
-                  </option>
-                ))}
-            </select>
+      <ErrorBoundary>
+        {show && (
+          <div className="debug-bar">
+            <div className="debug-bar-header">Debug</div>
+            <div className="debug-bar-content">
+              <button
+                className="debug-bar-button"
+                type="button"
+                onClick={() => setShow(false)}
+              >
+                Hide
+              </button>
+              <select
+                className="debug-bar-select"
+                onChange={handleFixtureSelectChange}
+              >
+                <option value="">None selected</option>
+                {screens['hydra:member']?.length > 0 &&
+                  screens['hydra:member'].map((screen) => (
+                    <option
+                      value={screen['@id']}
+                      id={screen.id}
+                      key={screen.id}
+                    >
+                      {screen.title}
+                    </option>
+                  ))}
+              </select>
+            </div>
           </div>
-        </div>
-      )}
-      {!show && (
-        <button
-          className="debug-bar-toggle-button-show"
-          type="button"
-          onClick={() => setShow(true)}
-        >
-          Debug
-        </button>
-      )}
+        )}
+        {!show && (
+          <button
+            className="debug-bar-toggle-button-show"
+            type="button"
+            onClick={() => setShow(true)}
+          >
+            Debug
+          </button>
+        )}
+      </ErrorBoundary>
     </>
   );
 }

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './region.scss';
 import { createGridArea } from 'os2display-grid-generator';
 import Slide from './slide';
-import RegionErrorBoundary from './region-error-boundary';
+import ErrorBoundary from './error-boundary';
 
 /**
  * Region component.
@@ -121,7 +121,7 @@ function Region({ region }) {
 
   return (
     <div className="Region" style={rootStyle}>
-      <RegionErrorBoundary>
+      <ErrorBoundary>
         <>
           {slides &&
             currentSlide &&
@@ -137,7 +137,7 @@ function Region({ region }) {
               />
             ))}
         </>
-      </RegionErrorBoundary>
+      </ErrorBoundary>
     </div>
   );
 }

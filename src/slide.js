@@ -12,6 +12,7 @@ import Transition from './transition';
 import Contacts from './templates/contacts/contacts';
 import RSS from './templates/rss/rss';
 import './slide.scss';
+import ErrorBoundary from './error-boundary';
 
 /**
  * Slide component.
@@ -146,7 +147,17 @@ function Slide({ slide, id, run, slideDone, isNextSlide, prevSlideDuration }) {
     styles.zIndex = -1;
   }
 
-  // @TODO: Load template.
+  /**
+   * Handle errors in ErrorBoundary.
+   *
+   * Call slideDone after a timeout to ensure progression.
+   */
+  function handleError() {
+    setTimeout(() => {
+      slideDone(slide);
+    }, 5000);
+  }
+
   return (
     <>
       {slideComponent && (
@@ -157,7 +168,9 @@ function Slide({ slide, id, run, slideDone, isNextSlide, prevSlideDuration }) {
             prevSlideDuration={prevSlideDuration}
             isNextSlide={isNextSlide}
           >
-            {slideComponent}
+            <ErrorBoundary errorHandler={handleError}>
+              {slideComponent}
+            </ErrorBoundary>
           </Transition>
         </div>
       )}
