@@ -41,7 +41,7 @@ function DebugBar() {
   // Get screens data from mock api.
   useEffect(() => {
     // @TODO: Move screens url into configuration.
-    fetch('/api/v1/screens')
+    fetch('/api/v1/screens?itemsPerPage=1000')
       .then((response) => response.json())
       .then((data) => setScreens(data));
   }, []);
@@ -69,8 +69,8 @@ function DebugBar() {
                   screens['hydra:member'].map((screen) => (
                     <option
                       value={screen['@id']}
-                      id={screen.id}
-                      key={screen.id}
+                      id={screen['@id']}
+                      key={screen['@id']}
                     >
                       {screen.title}
                     </option>
