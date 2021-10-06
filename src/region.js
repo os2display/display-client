@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import './region.scss';
 import { createGridArea } from 'os2display-grid-generator';
 import Slide from './slide';
+import ErrorBoundary from './error-boundary';
 
 /**
  * Region component.
@@ -120,19 +121,23 @@ function Region({ region }) {
 
   return (
     <div className="Region" style={rootStyle}>
-      {slides &&
-        currentSlide &&
-        slides.map((slide) => (
-          <Slide
-            slide={slide}
-            id={slide.executionId}
-            run={currentSlide.executionId === slide.executionId}
-            slideDone={slideDone}
-            isNextSlide={nextSlide.executionId === slide.executionId}
-            prevSlideDuration={currentSlide.duration}
-            key={slide.executionId}
-          />
-        ))}
+      <ErrorBoundary>
+        <>
+          {slides &&
+            currentSlide &&
+            slides.map((slide) => (
+              <Slide
+                slide={slide}
+                id={slide.executionId}
+                run={currentSlide.executionId === slide.executionId}
+                slideDone={slideDone}
+                isNextSlide={nextSlide.executionId === slide.executionId}
+                prevSlideDuration={currentSlide.duration}
+                key={slide.executionId}
+              />
+            ))}
+        </>
+      </ErrorBoundary>
     </div>
   );
 }
