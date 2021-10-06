@@ -28,3 +28,5 @@ temp/
 templates/
 
 json-server/
+
+public/config.json
