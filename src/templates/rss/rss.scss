@@ -1,28 +1,36 @@
+@use "../variables.scss";
+
 .rss-slide {
   background-size: cover;
   background-position: center;
   overflow: hidden;
   height: 100%;
   position: relative;
+  background-color: var(--bg-light);
 
   @mixin text($font-size) {
     .progress {
       padding: 2%;
       font-size: 1em * $font-size;
+      color: var(--text-primary);
     }
 
     .title {
       font-size: 2.5em * $font-size;
       padding: 1% 2%;
+      color: var(--text-dark);
+      line-height: 1.1;
     }
 
     .date {
       font-size: 1em * $font-size;
       padding: 1% 2%;
+      color: var(--text-primary);
     }
     .description {
       font-size: 1.5em * $font-size;
       padding: 1% 2%;
+      color: var(--text-dark);
       a,
       a:link,
       a:visited,
@@ -30,7 +38,7 @@
       a:focus,
       a:active {
         text-decoration: none;
-        color: white;
+        color: var(--text-dark);
       }
     }
   }
