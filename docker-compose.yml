@@ -59,7 +59,7 @@ services:
     environment:
       - NODE_ENV=development
       - DEBUG=*
-    command: npm start
+    command: npm run monitor
     networks:
       - app
     working_dir: /app

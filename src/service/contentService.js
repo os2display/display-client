@@ -38,23 +38,25 @@ class ContentService {
    *
    * @param {string} screenPath Path to the screen.
    */
-  startSyncing(screenPath = null) {
+  startSyncing(screenPath) {
     Logger.log('info', 'Starting data synchronization');
 
+    // @TODO: Moved config load into index.js and feed config to this function.
     // @TODO: Remove config.json from git to allow for configuring backend.
+    // @TODO: The entrypoint should come from screen login information instead of config.json or fixtures in dev.
     // Fetch config and launch data synchronization.
     fetch('./config.json')
       .then((response) => response.json())
       .then((config) => {
         const dataStrategy = { ...config.dataStrategy };
-        if (screenPath !== null) {
+        if (screenPath) {
           dataStrategy.config.entryPoint = screenPath;
         }
         this.dataSync = new DataSync(dataStrategy);
         this.dataSync.start();
       })
       .catch((err) => {
-        Logger.log('info', 'Error staring data synchronization');
+        Logger.log('info', 'Error starting data synchronization');
         Logger.log('error', err);
 
         // Retry starting synchronization after 1 min.
