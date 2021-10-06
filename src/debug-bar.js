@@ -1,6 +1,7 @@
 import { React, useEffect, useState } from 'react';
 import './debug-bar.scss';
 import ErrorBoundary from './error-boundary';
+import ConfigLoader from './config-loader';
 
 /**
  * DebugBar component.
@@ -9,6 +10,7 @@ import ErrorBoundary from './error-boundary';
  *   The component.
  */
 function DebugBar() {
+  const [enabled, setEnabled] = useState(false);
   const [show, setShow] = useState(true);
   const [screens, setScreens] = useState([]);
 
@@ -40,55 +42,61 @@ function DebugBar() {
 
   // Get screens data from mock api.
   useEffect(() => {
-    // @TODO: Move screens url into configuration.
-    fetch('/api/v1/screens?itemsPerPage=1000')
-      .then((response) => response.json())
-      .then((data) => setScreens(data));
+    ConfigLoader.loadConfig().then((config) => {
+      if (config.debug) {
+        setEnabled(true);
+        fetch('/api/v1/screens?itemsPerPage=1000')
+          .then((response) => response.json())
+          .then((data) => setScreens(data));
+      }
+    });
   }, []);
 
   return (
     <>
-      <ErrorBoundary>
-        {show && (
-          <div className="debug-bar">
-            <div className="debug-bar-header">Debug</div>
-            <div className="debug-bar-content">
-              <button
-                className="debug-bar-button"
-                type="button"
-                onClick={() => setShow(false)}
-              >
-                Hide
-              </button>
-              <select
-                className="debug-bar-select"
-                onChange={handleFixtureSelectChange}
-              >
-                <option value="">None selected</option>
-                {screens['hydra:member']?.length > 0 &&
-                  screens['hydra:member'].map((screen) => (
-                    <option
-                      value={screen['@id']}
-                      id={screen['@id']}
-                      key={screen['@id']}
-                    >
-                      {screen.title}
-                    </option>
-                  ))}
-              </select>
+      {enabled && (
+        <ErrorBoundary>
+          {show && (
+            <div className="debug-bar">
+              <div className="debug-bar-header">Debug</div>
+              <div className="debug-bar-content">
+                <button
+                  className="debug-bar-button"
+                  type="button"
+                  onClick={() => setShow(false)}
+                >
+                  Hide
+                </button>
+                <select
+                  className="debug-bar-select"
+                  onChange={handleFixtureSelectChange}
+                >
+                  <option value="">None selected</option>
+                  {screens['hydra:member']?.length > 0 &&
+                    screens['hydra:member'].map((screen) => (
+                      <option
+                        value={screen['@id']}
+                        id={screen['@id']}
+                        key={screen['@id']}
+                      >
+                        {screen.title}
+                      </option>
+                    ))}
+                </select>
+              </div>
             </div>
-          </div>
-        )}
-        {!show && (
-          <button
-            className="debug-bar-toggle-button-show"
-            type="button"
-            onClick={() => setShow(true)}
-          >
-            Debug
-          </button>
-        )}
-      </ErrorBoundary>
+          )}
+          {!show && (
+            <button
+              className="debug-bar-toggle-button-show"
+              type="button"
+              onClick={() => setShow(true)}
+            >
+              Debug
+            </button>
+          )}
+        </ErrorBoundary>
+      )}
     </>
   );
 }

@@ -1,0 +1,11 @@
+{
+  "dataStrategy": {
+    "type": "pull",
+    "config": {
+      "interval": 30000,
+      "endpoint": "http://displayapiservice.local.itkdev.dk",
+      "entryPoint": "/v1/screens/[ULID of screen to open]"
+    }
+  },
+  "debug": true
+}
