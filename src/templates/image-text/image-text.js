@@ -3,6 +3,7 @@ import './image-text.scss';
 import parse from 'html-react-parser';
 import DOMPurify from 'dompurify';
 import PropTypes from 'prop-types';
+import { createGlobalStyle } from 'styled-components';
 import BaseSlideExecution from '../baseSlideExecution';
 
 /**
@@ -106,26 +107,45 @@ function ImageText({ slide, content, run, slideDone }) {
     rootClasses.push('shadow');
   }
 
+  /**
+   * Setup theme vars
+   */
+  /* TODO: Css from theme editor goes inside `ThemeStyles` */
+  /* TODO: Replace class `.template-image-text` with unique id/class from slide. */
+  const ThemeStyles = createGlobalStyle`
+    .template-image-text {
+      --text-dark: #000;
+      --bg-light: #f5f5f5;
+      --font-size-sm: 10px;
+      --font-size-base: 15px;
+      --font-size-lg: 20px;
+      --font-size-xl: 25px;
+    }
+  `;
+
   return (
-    <div className={rootClasses.join(' ')} style={rootStyle}>
-      {title && (
-        <div className={boxClasses} style={imageTextStyle}>
-          {title && (
-            <h1>
-              {title}
-              {/* Todo theme the color of the below */}
-              {displaySeparator && (
-                <div
-                  className="separator"
-                  style={{ backgroundColor: '#ee0043' }}
-                />
-              )}
-            </h1>
-          )}
-          {text && <div className="text">{parse(sanitizedText)}</div>}
-        </div>
-      )}
-    </div>
+    <>
+      <ThemeStyles />
+      <div className={rootClasses.join(' ')} style={rootStyle}>
+        {title && (
+          <div className={boxClasses} style={imageTextStyle}>
+            {title && (
+              <h1>
+                {title}
+                {/* Todo theme the color of the below */}
+                {displaySeparator && (
+                  <div
+                    className="separator"
+                    style={{ backgroundColor: '#ee0043' }}
+                  />
+                )}
+              </h1>
+            )}
+            {text && <div className="text">{parse(sanitizedText)}</div>}
+          </div>
+        )}
+      </div>
+    </>
   );
 }
 

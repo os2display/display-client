@@ -6,6 +6,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 import parse from 'html-react-parser';
 import DOMPurify from 'dompurify';
+import { createGlobalStyle } from 'styled-components';
 import { ReactComponent as Shape } from './shape.svg';
 import { ReactComponent as InstagramLogo } from './instagram-logo.svg';
 import BaseSlideExecution from '../baseSlideExecution';
@@ -28,7 +29,7 @@ import './sparkle.scss';
  *   The component.
  */
 function Sparkle({ slide, content, run, slideDone }) {
-  // TODO what does horizontal/portrait/vertical do? Ask Troels!
+  // @TODO: what does horizontal/portrait/vertical do? Ask Troels!
   dayjs.extend(localizedFormat);
   dayjs.extend(relativeTime);
 
@@ -39,11 +40,10 @@ function Sparkle({ slide, content, run, slideDone }) {
 
   // Props from content and post.
   const { textMarkup, mediaUrl, username, createdTime, videoUrl } = currentPost;
-  // TODO should duration depend on number of instagram posts to show? Ask Troels!
-  let { duration, imageWidth } = content;
+  // @TODO: should duration depend on number of instagram posts to show? Ask Troels!
+  let { duration } = content;
   const { hashtagText } = content;
   duration = duration || 15000; // Add a default
-  imageWidth = imageWidth || 56.25; // Add a default
   const sanitizedTextMarkup = DOMPurify.sanitize(textMarkup);
 
   // Animation
@@ -87,46 +87,59 @@ function Sparkle({ slide, content, run, slideDone }) {
     };
   }, [currentPost]);
 
+  /**
+   * Setup theme vars
+   */
+
+  /* @TODO: Css from theme editor goes inside `ThemeStyles` */
+  /* @TODO: Replace class `.template-sparkle` with unique id/class from slide. */
+  const ThemeStyles = createGlobalStyle`
+    .template-sparkle {
+      --font-family-base: "Gibson SemiBold", Arial, sans-serif;
+      --font-size-lg: 2.5rem;
+      --font-size-base: 1.5rem;
+    }
+  `;
+
   return (
     <>
+      <ThemeStyles />
       <div className={show ? 'template-sparkle show' : 'template-sparkle hide'}>
-        {!videoUrl && (
-          <div
-            className="image"
-            style={{
-              backgroundImage: `url("${mediaUrl}")`,
-              width: `${imageWidth}%`,
-              ...(show
-                ? { animation: `fade-in ${animationDuration}ms` }
-                : { animation: `fade-out ${animationDuration}ms` }),
-            }}
-          />
-        )}
-        {videoUrl && (
-          <div style={{ width: `${imageWidth}%` }} className="video-container">
-            <video muted="muted" autoPlay="autoplay">
-              <source src={videoUrl} type="video/mp4" />
-              <track kind="captions" />
-            </video>
-          </div>
-        )}
-        <div
-          className="author-section"
-          style={{ width: `${100 - imageWidth}%` }}
-        >
-          <h1>{username}</h1>
-          <p>{parse(sanitizedTextMarkup)}</p>
-          <p>{dayjs(createdTime).locale(localeDa).fromNow()}</p>
+        <div className="media-section">
+          {!videoUrl && (
+            <div
+              className="image"
+              style={{
+                backgroundImage: `url("${mediaUrl}")`,
+                ...(show
+                  ? { animation: `fade-in ${animationDuration}ms` }
+                  : { animation: `fade-out ${animationDuration}ms` }),
+              }}
+            />
+          )}
+          {videoUrl && (
+            <div className="video-container">
+              <video muted="muted" autoPlay="autoplay" loop>
+                <source src={videoUrl} type="video/mp4" />
+                <track kind="captions" />
+              </video>
+            </div>
+          )}
+        </div>
+        <div className="author-section">
+          <h1 className="author">{username}</h1>
+          <p className="date">
+            {dayjs(createdTime).locale(localeDa).fromNow()}
+          </p>
+          <p className="description">{parse(sanitizedTextMarkup)}</p>
         </div>
         <div className="shape">
-          <Shape style={{ fill: 'black' }} />
+          <Shape />
         </div>
         <div className="brand">
           {/* todo make this themeable */}
-          <InstagramLogo className="brand-icon" style={{ fill: 'white' }} />
-          <span style={{ color: 'red' }} className="brand-tag">
-            {hashtagText}
-          </span>
+          <InstagramLogo className="brand-icon" />
+          <span className="brand-tag">{hashtagText}</span>
         </div>
       </div>
     </>
@@ -141,7 +154,6 @@ Sparkle.propTypes = {
   }).isRequired,
   content: PropTypes.shape({
     hashtagText: PropTypes.string,
-    imageWidth: PropTypes.number,
     duration: PropTypes.number,
     posts: PropTypes.arrayOf(
       PropTypes.shape({ quote: PropTypes.string, author: PropTypes.string })
