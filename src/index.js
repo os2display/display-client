@@ -15,3 +15,19 @@ ReactDOM.render(
 // Start the content service.
 const contentService = new ContentService();
 contentService.start();
+
+// Get entrypoint screen ULID from url.
+
+const searchParams = new URLSearchParams(window.location.search);
+
+if (searchParams.has('id')) {
+  const entrypoint = `/v1/screens/${searchParams.get('id')}`;
+
+  document.dispatchEvent(
+    new CustomEvent('startDataSync', {
+      detail: {
+        screenPath: entrypoint,
+      },
+    })
+  );
+}
