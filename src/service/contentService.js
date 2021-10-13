@@ -3,6 +3,7 @@ import Base64 from 'crypto-js/enc-base64';
 import Logger from '../logger/logger';
 import DataSync from '../data-sync/data-sync';
 import ScheduleService from './scheduleService';
+import ConfigLoader from '../config-loader';
 
 /**
  * ContentService.
@@ -38,28 +39,19 @@ class ContentService {
    *
    * @param {string} screenPath Path to the screen.
    */
-  startSyncing(screenPath = null) {
+  startSyncing(screenPath) {
     Logger.log('info', 'Starting data synchronization');
 
-    // @TODO: Remove config.json from git to allow for configuring backend.
-    // Fetch config and launch data synchronization.
-    fetch('./config.json')
-      .then((response) => response.json())
-      .then((config) => {
-        const dataStrategy = { ...config.dataStrategy };
-        if (screenPath !== null) {
-          dataStrategy.config.entryPoint = screenPath;
-        }
-        this.dataSync = new DataSync(dataStrategy);
-        this.dataSync.start();
-      })
-      .catch((err) => {
-        Logger.log('info', 'Error staring data synchronization');
-        Logger.log('error', err);
+    ConfigLoader.loadConfig().then((config) => {
+      const dataStrategy = { ...config.dataStrategy };
 
-        // Retry starting synchronization after 1 min.
-        setTimeout(this.startSyncing, 60 * 1000);
-      });
+      if (screenPath) {
+        dataStrategy.config.entryPoint = screenPath;
+      }
+
+      this.dataSync = new DataSync(dataStrategy);
+      this.dataSync.start();
+    });
   }
 
   /**

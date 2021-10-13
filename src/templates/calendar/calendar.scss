@@ -1,3 +1,5 @@
+@use "../variables.scss";
+
 $padding: 2%;
 $font-border-color: #000;
 $background-color: #b4b4b4;
@@ -32,8 +34,8 @@ $background-color: #b4b4b4;
 
 .template-calendar {
   height: 100%;
-  background-color: $background-color;
-  color: $font-border-color;
+  background-color: var(--bg-light);
+  color: var(--color-grey-300);
 
   .grid-container-title-date {
     display: grid;
@@ -59,18 +61,18 @@ $background-color: #b4b4b4;
   }
 
   &.red {
-    background-color: #d2421e;
-    color: white;
-    border-color: white;
+    background-color: var(--color-red);
+    color: var(--color-white);
+    border-color: var(--color-white);
   }
 
   &.blue {
-    background-color: #235587;
-    color: white;
-    border-color: white;
+    background-color: var(--color-blue);
+    color: var(--color-white);
+    border-color: var(--color-white);
   }
 
   &.yellow {
-    background-color: #ffb400;
+    background-color: var(--color-yellow);
   }
 }

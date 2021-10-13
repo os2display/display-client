@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 import localeDa from 'dayjs/locale/da';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
+import { createGlobalStyle } from 'styled-components';
 import BaseSlideExecution from '../baseSlideExecution';
 import './rss.scss';
 
@@ -26,8 +27,6 @@ function RSS({ slide, content, run, slideDone }) {
   const { source, rssDuration, rssNumber, fontSize, media } = content;
   // @TODO: theme the color of the below
   const rootStyle = {
-    backgroundColor: 'aliceblue',
-    color: 'navy',
     backgroundImage: `url("${media?.url}")`,
   };
   const [currentRSS, setCurrentRSS] = useState([]);
@@ -102,19 +101,35 @@ function RSS({ slide, content, run, slideDone }) {
 
   const { title, date, description } = currentRSS;
 
+  /**
+   * Setup theme vars
+   */
+  /* TODO: Css from theme editor goes inside `ThemeStyles` */
+  /* TODO: Replace class `.rss-slide` with unique id/class from slide. */
+  const ThemeStyles = createGlobalStyle`
+    .rss-slide {
+      --bg-light: aliceblue;
+      --text-dark: navy;
+      --text-primary: navy;
+    }
+  `;
+
   return (
-    <div className={`rss-slide ${fontSize}`} style={rootStyle}>
-      <div className="progress">
-        {feedTitle} {index} / {feed.length}
-      </div>
-      <div className="title">{title}</div>
-      {date && (
-        <div className="date">
-          {capitalize(dayjs(date).locale(localeDa).format('LLLL'))}
+    <>
+      <ThemeStyles />
+      <div className={`rss-slide ${fontSize}`} style={rootStyle}>
+        <div className="progress">
+          {feedTitle} {index} / {feed.length}
         </div>
-      )}
-      <div className="description">{description}</div>
-    </div>
+        <div className="title">{title}</div>
+        {date && (
+          <div className="date">
+            {capitalize(dayjs(date).locale(localeDa).format('LLLL'))}
+          </div>
+        )}
+        <div className="description">{description}</div>
+      </div>
+    </>
   );
 }
 

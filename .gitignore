@@ -25,6 +25,8 @@ cypress/videos/*
 cypress/screenshots/*
 
 temp/
+templates/
 
 json-server/
-templates/
+
+public/config.json

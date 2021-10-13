@@ -5,6 +5,7 @@ import { IntlProvider, FormattedMessage } from 'react-intl';
 import localeDa from 'dayjs/locale/da';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 import './meeting-room-schedule.scss';
+import { createGlobalStyle } from 'styled-components';
 import BaseSlideExecution from '../baseSlideExecution';
 
 /**
@@ -121,34 +122,50 @@ function MeetingRoomSchedule({ slide, content, run, slideDone }) {
     })
     .sort((a, b) => a.from.localeCompare(b.from));
 
+  /**
+   * Setup theme vars
+   */
+  /* TODO: Css from theme editor goes inside `ThemeStyles` */
+  /* TODO: Replace class `.template-meeting-room-schedule` with unique id/class from slide. */
+  const ThemeStyles = createGlobalStyle`
+    .template-meeting-room-schedule {
+      --bg-light: #b4b4b4;
+      --color-blue: #235587;
+      --color-yellow: #ffb400;
+    }
+  `;
+
   return (
-    <IntlProvider messages={translations} locale="da" defaultLocale="da">
-      <div className={rootClasses} style={rootStyle}>
-        <div className="header">
-          {title && <h1>{title}</h1>}
-          {metaData && <p>{metaData}</p>}
-          {sortedEvents.length === 0 && (
-            <FormattedMessage id="available" defaultMessage="available" />
+    <>
+      <ThemeStyles />
+      <IntlProvider messages={translations} locale="da" defaultLocale="da">
+        <div className={rootClasses} style={rootStyle}>
+          <div className="header">
+            {title && <h1>{title}</h1>}
+            {metaData && <p>{metaData}</p>}
+            {sortedEvents.length === 0 && (
+              <FormattedMessage id="available" defaultMessage="available" />
+            )}
+          </div>
+          {sortedEvents.length > 0 && (
+            <div className="flex-container">
+              {currentDate &&
+                sortedEvents.map((event) => (
+                  <div className={isNow(event)} key={event.id}>
+                    <div className="time">
+                      {dayjs(event.from).locale(localeDa).format('LT')} -{' '}
+                      {dayjs(event.to).locale(localeDa).format('LT')}
+                    </div>
+                    <div className="event-name">
+                      {event.eventName ? event.eventName : occupiedText}
+                    </div>
+                  </div>
+                ))}
+            </div>
           )}
         </div>
-        {sortedEvents.length > 0 && (
-          <div className="flex-container">
-            {currentDate &&
-              sortedEvents.map((event) => (
-                <div className={isNow(event)} key={event.id}>
-                  <div className="time">
-                    {dayjs(event.from).locale(localeDa).format('LT')} -{' '}
-                    {dayjs(event.to).locale(localeDa).format('LT')}
-                  </div>
-                  <div className="event-name">
-                    {event.eventName ? event.eventName : occupiedText}
-                  </div>
-                </div>
-              ))}
-          </div>
-        )}
-      </div>
-    </IntlProvider>
+      </IntlProvider>
+    </>
   );
 }
 MeetingRoomSchedule.propTypes = {

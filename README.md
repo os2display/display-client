@@ -41,6 +41,9 @@ The display client is here: `http://display-client.local.itkdev.dk/`.
 
 The code is compiled when changed.
 
+The client can be configured by creating `public/config.json` with relevant values.
+See `public/example_config.json` for values.
+
 ## Coding standards
 
 For code analysis we use the [Airbnb style guide for javascript](https://github.com/airbnb/javascript) and for formatting we use [Prettier](https://github.com/prettier/prettier).

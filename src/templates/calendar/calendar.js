@@ -4,6 +4,7 @@ import dayjs from 'dayjs';
 import localeDa from 'dayjs/locale/da';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 import { IntlProvider, FormattedMessage } from 'react-intl';
+import { createGlobalStyle } from 'styled-components';
 import BaseSlideExecution from '../baseSlideExecution';
 import './calendar.scss';
 
@@ -86,37 +87,54 @@ function Calendar({ slide, content, run, slideDone }) {
     return s.charAt(0).toUpperCase() + s.slice(1);
   };
 
+  /**
+   * Setup theme vars
+   */
+  /* TODO: Css from theme editor goes inside `ThemeStyles` */
+  /* TODO: Replace class `.template-calendar` with unique id/class from slide. */
+  const ThemeStyles = createGlobalStyle`
+    .template-calendar {
+      --color-red: #d2421e;
+      --color-blue: #235587;
+      --color-yellow: #ffb400;
+    }
+  `;
+
   return (
-    <IntlProvider messages={translations} locale="da" defaultLocale="da">
-      <div className={classes}>
-        <div className="grid-container-title-date">
-          <div className="grid-item">{title}</div>
-          <div className="grid-item-end">
-            {currentDate && capitalize(dayjs().locale(localeDa).format('LLLL'))}
+    <>
+      <ThemeStyles />
+      <IntlProvider messages={translations} locale="da" defaultLocale="da">
+        <div className={classes}>
+          <div className="grid-container-title-date">
+            <div className="grid-item">{title}</div>
+            <div className="grid-item-end">
+              {currentDate &&
+                capitalize(dayjs().locale(localeDa).format('LLLL'))}
+            </div>
+          </div>
+          <div className="grid-container">
+            <div className="grid-item" key={1}>
+              <FormattedMessage id="what" defaultMessage="what" />
+            </div>
+            <div className="grid-item" key={2}>
+              <FormattedMessage id="when" defaultMessage="when" />
+            </div>
+            <div className="grid-item" key={3}>
+              <FormattedMessage id="where" defaultMessage="where" />
+            </div>
+            {sortedEvents.map((entry) => (
+              <Fragment key={entry.id}>
+                <div className="grid-item">{entry.eventName}</div>
+                <div className="grid-item">
+                  {dayjs(entry.datetime).locale(localeDa).format('LT')}
+                </div>
+                <div className="grid-item">{entry.location}</div>
+              </Fragment>
+            ))}
           </div>
         </div>
-        <div className="grid-container">
-          <div className="grid-item" key={1}>
-            <FormattedMessage id="what" defaultMessage="what" />
-          </div>
-          <div className="grid-item" key={2}>
-            <FormattedMessage id="when" defaultMessage="when" />
-          </div>
-          <div className="grid-item" key={3}>
-            <FormattedMessage id="where" defaultMessage="where" />
-          </div>
-          {sortedEvents.map((entry) => (
-            <Fragment key={entry.id}>
-              <div className="grid-item">{entry.eventName}</div>
-              <div className="grid-item">
-                {dayjs(entry.datetime).locale(localeDa).format('LT')}
-              </div>
-              <div className="grid-item">{entry.location}</div>
-            </Fragment>
-          ))}
-        </div>
-      </div>
-    </IntlProvider>
+      </IntlProvider>
+    </>
   );
 }
 
