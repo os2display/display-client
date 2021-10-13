@@ -69,8 +69,6 @@ services:
 
   templates:
     image: node:14
-    environment:
-      - DEBUG=*
     command: npm start
     # @TODO: Fix setup so the ws connection between browser and webpack-dev-server can be achieved without exposing port.
     ports:

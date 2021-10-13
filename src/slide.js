@@ -1,4 +1,4 @@
-import { React } from 'react';
+import { React, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   createRemoteComponent,
@@ -30,18 +30,22 @@ import ErrorBoundary from './error-boundary';
  *   The component.
  */
 function Slide({ slide, id, run, slideDone, isNextSlide, prevSlideDuration }) {
-  const requires = createRequires(resolve);
-  const RemoteComponent = createRemoteComponent({ requires });
+  const [remoteComponent, setRemoteComponent] = useState(null);
 
-  const slideComponent = (
-    <RemoteComponent
-      url={slide.templateData.resources.component}
-      slide={slide}
-      content={slide.content}
-      run={run}
-      slideDone={slideDone}
-    />
-  );
+  useEffect(() => {
+    const requires = createRequires(resolve);
+    const RemoteComponent = createRemoteComponent({ requires });
+
+    setRemoteComponent(
+      <RemoteComponent
+        url={slide.templateData.resources.component}
+        slide={slide}
+        content={slide.content}
+        run={run}
+        slideDone={slideDone}
+      />
+    );
+  }, []);
 
   const styles = {};
   let classes = 'Slide';
@@ -70,7 +74,7 @@ function Slide({ slide, id, run, slideDone, isNextSlide, prevSlideDuration }) {
 
   return (
     <>
-      {slideComponent && (
+      {remoteComponent && (
         <div id={id} style={styles} className={classes}>
           <Transition
             run={run}
@@ -79,7 +83,7 @@ function Slide({ slide, id, run, slideDone, isNextSlide, prevSlideDuration }) {
             isNextSlide={isNextSlide}
           >
             <ErrorBoundary errorHandler={handleError}>
-              {slideComponent}
+              {remoteComponent}
             </ErrorBoundary>
           </Transition>
         </div>
