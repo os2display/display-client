@@ -55,7 +55,7 @@ const Transition = ({
         clearInterval(timer);
       }
     };
-  });
+  }, []);
 
   return (
     <div className="transition-component" style={style}>
