@@ -1,17 +1,12 @@
-import { React } from 'react';
+import { React, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import TextBox from './templates/image-text/image-text';
-import Slideshow from './templates/slideshow/slideshow';
-import Calendar from './templates/calendar/calendar';
-import BookReview from './templates/book-review/book-review';
-import Quote from './templates/quote/quote';
-import MeetingRoomSchedule from './templates/meeting-room-schedule/meeting-room-schedule';
-import Poster from './templates/poster/poster';
-import Sparkle from './templates/sparkle/sparkle';
+import {
+  createRemoteComponent,
+  createRequires,
+} from '@paciolan/remote-component';
 import Transition from './transition';
-import Contacts from './templates/contacts/contacts';
-import RSS from './templates/rss/rss';
 import './slide.scss';
+import { resolve } from './remote-component.config';
 import ErrorBoundary from './error-boundary';
 
 /**
@@ -28,110 +23,29 @@ import ErrorBoundary from './error-boundary';
  * @param {Function} props.slideDone
  *   The function to call when the slide is done running.
  * @param {boolean} props.isNextSlide
- *  A boolean indicating whether this is the next slide.
+ *   A boolean indicating whether this is the next slide.
  * @param {number} props.prevSlideDuration
- *  The previous slide duration.
+ *   The previous slide duration.
  * @returns {object}
  *   The component.
  */
 function Slide({ slide, id, run, slideDone, isNextSlide, prevSlideDuration }) {
-  let slideComponent;
+  const [remoteComponent, setRemoteComponent] = useState(null);
 
-  if (slide.templateData.templateKey === 'template-image-text') {
-    slideComponent = (
-      <TextBox
+  useEffect(() => {
+    const requires = createRequires(resolve);
+    const RemoteComponent = createRemoteComponent({ requires });
+
+    setRemoteComponent(
+      <RemoteComponent
+        url={slide.templateData.resources.component}
         slide={slide}
         content={slide.content}
         run={run}
         slideDone={slideDone}
       />
     );
-  } else if (slide.templateData.templateKey === 'template-slideshow') {
-    slideComponent = (
-      <Slideshow
-        slide={slide}
-        content={slide.content}
-        run={run}
-        slideDone={slideDone}
-      />
-    );
-  } else if (slide.templateData.templateKey === 'template-calendar') {
-    slideComponent = (
-      <Calendar
-        slide={slide}
-        content={slide.content}
-        run={run}
-        slideDone={slideDone}
-      />
-    );
-  } else if (slide.templateData.templateKey === 'template-book-review') {
-    slideComponent = (
-      <BookReview
-        slide={slide}
-        content={slide.content}
-        run={run}
-        slideDone={slideDone}
-      />
-    );
-  } else if (
-    slide.templateData.templateKey === 'template-meeting-room-schedule'
-  ) {
-    slideComponent = (
-      <MeetingRoomSchedule
-        slide={slide}
-        content={slide.content}
-        run={run}
-        slideDone={slideDone}
-      />
-    );
-  } else if (slide.templateData.templateKey === 'template-quote') {
-    slideComponent = (
-      <Quote
-        slide={slide}
-        content={slide.content}
-        run={run}
-        slideDone={slideDone}
-      />
-    );
-  } else if (slide.templateData.templateKey === 'template-poster') {
-    slideComponent = (
-      <Poster
-        slide={slide}
-        content={slide.content}
-        run={run}
-        slideDone={slideDone}
-      />
-    );
-  } else if (slide.templateData.templateKey === 'template-sparkle') {
-    slideComponent = (
-      <Sparkle
-        slide={slide}
-        content={slide.content}
-        run={run}
-        slideDone={slideDone}
-      />
-    );
-  } else if (slide.templateData.templateKey === 'template-rss') {
-    slideComponent = (
-      <RSS
-        slide={slide}
-        content={slide.content}
-        run={run}
-        slideDone={slideDone}
-      />
-    );
-  } else if (slide.templateData.templateKey === 'template-contacts') {
-    slideComponent = (
-      <Contacts
-        slide={slide}
-        content={slide.content}
-        run={run}
-        slideDone={slideDone}
-      />
-    );
-  } else {
-    slideComponent = <>Unknown template</>;
-  }
+  }, []);
 
   const styles = {};
   let classes = 'Slide';
@@ -160,7 +74,7 @@ function Slide({ slide, id, run, slideDone, isNextSlide, prevSlideDuration }) {
 
   return (
     <>
-      {slideComponent && (
+      {remoteComponent && (
         <div id={id} style={styles} className={classes}>
           <Transition
             run={run}
@@ -169,7 +83,7 @@ function Slide({ slide, id, run, slideDone, isNextSlide, prevSlideDuration }) {
             isNextSlide={isNextSlide}
           >
             <ErrorBoundary errorHandler={handleError}>
-              {slideComponent}
+              {remoteComponent}
             </ErrorBoundary>
           </Transition>
         </div>
@@ -185,6 +99,7 @@ Slide.propTypes = {
   slide: PropTypes.shape({
     templateData: PropTypes.shape({
       templateKey: PropTypes.string.isRequired,
+      resources: PropTypes.shape({ component: PropTypes.string.isRequired }),
     }).isRequired,
     duration: PropTypes.number.isRequired,
     instanceId: PropTypes.string.isRequired,
