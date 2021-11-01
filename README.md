@@ -6,15 +6,6 @@ Currently, this is a create-react-app.
 
 ## Docker development setup
 
-Get the api mock project
-
-```
-git clone https://github.com/os2display/display-api-mock.git json-server
-
-# Install npm packages
-docker-compose run json-server npm install
-```
-
 Get the templates project
 
 ```

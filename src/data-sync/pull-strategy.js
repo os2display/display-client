@@ -62,7 +62,15 @@ class PullStrategy {
       // eslint-disable-next-line no-await-in-loop
       const responseData = await this.getPath(nextPath);
       results = results.concat(responseData['hydra:member']);
-      nextPath = responseData['hydra:view']['hydra:next'];
+
+      if (
+        responseData['hydra:view'] &&
+        responseData['hydra:view']['hydra:next']
+      ) {
+        nextPath = responseData['hydra:view']['hydra:next'];
+      } else {
+        nextPath = false;
+      }
     } while (nextPath);
     return { path, results, keys };
   }
@@ -74,6 +82,8 @@ class PullStrategy {
    * @returns {Promise<object>} Regions data.
    */
   async getRegions(regions) {
+    const reg = /\/v1\/screens\/.*\/regions\/(?<regionId>.*)\/playlists/;
+
     return new Promise((resolve, reject) => {
       const promises = [];
       const regionData = {};
@@ -84,14 +94,15 @@ class PullStrategy {
 
       Promise.allSettled(promises)
         .then((results) => {
-          const reg = /\/v1\/screens\/.*\/region\/(?<regionId>.*)\/playlists/;
-
           results.forEach((result) => {
             if (result.status === 'fulfilled') {
               const members = result.value.results;
               const matches = result.value.path.match(reg);
+
               if (matches?.groups?.regionId) {
-                regionData[matches.groups.regionId] = members;
+                regionData[matches.groups.regionId] = members.map(
+                  (member) => member.playlist
+                );
               }
             }
           });
@@ -138,7 +149,7 @@ class PullStrategy {
             if (result.status === 'fulfilled') {
               regionData[result.value.keys.regionKey][
                 result.value.keys.playlistKey
-              ].slidesData = result.value.results;
+              ].slidesData = result.value.results.map((playlistSlide) => playlistSlide.slide);
             }
           });
 
@@ -169,8 +180,11 @@ class PullStrategy {
 
     // Template cache.
     const fetchedTemplates = {};
+    const fetchedMedia = {};
 
-    // Iterate all slides and attach template data.
+    // Iterate all slides:
+    // - attach template data.
+    // - attach media data.
     // @TODO: Fix eslint-raised issues.
     // eslint-disable-next-line guard-for-in,no-restricted-syntax
     for (const regionKey in newScreen.regionData) {
@@ -179,21 +193,35 @@ class PullStrategy {
         // eslint-disable-next-line guard-for-in,no-restricted-syntax
         for (const slideKey in newScreen.regionData[regionKey][playlistKey]
           .slidesData) {
-          const templatePath =
-            newScreen.regionData[regionKey][playlistKey].slidesData[slideKey]
-              .template['@id'];
+          const slide =
+            newScreen.regionData[regionKey][playlistKey].slidesData[slideKey];
+          const templatePath = slide.templateInfo['@id'];
+
+          // Load template into slide.templateData.
           // eslint-disable-next-line no-prototype-builtins
           if (fetchedTemplates.hasOwnProperty(templatePath)) {
-            newScreen.regionData[regionKey][playlistKey].slidesData[
-              slideKey
-            ].templateData = fetchedTemplates[templatePath];
+            slide.templateData = fetchedTemplates[templatePath];
           } else {
             // eslint-disable-next-line no-await-in-loop
             const templateData = await this.getPath(templatePath);
-            newScreen.regionData[regionKey][playlistKey].slidesData[
-              slideKey
-            ].templateData = templateData;
+            slide.templateData = templateData;
             fetchedTemplates[templatePath] = templateData;
+          }
+
+          slide.mediaData = {};
+
+          // Load media for the slide into slide.mediaData object.
+          // eslint-disable-next-line no-restricted-syntax
+          for (const mediaId of slide.media) {
+            // eslint-disable-next-line no-prototype-builtins
+            if (fetchedMedia.hasOwnProperty(mediaId)) {
+              slide.mediaData[mediaId] = fetchedMedia[mediaId];
+            } else {
+              // eslint-disable-next-line no-await-in-loop
+              const mediaData = await this.getPath(mediaId);
+              slide.mediaData[mediaId] = mediaData;
+              fetchedMedia[mediaId] = mediaData;
+            }
           }
         }
       }

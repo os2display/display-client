@@ -31,12 +31,18 @@ class ScheduleService {
   updateRegion(regionId, region) {
     Logger.log('info', `ScheduleService: updateRegion(${regionId})`);
 
+    if (!region || !regionId) {
+      Logger.log('info', `ScheduleService: regionId and/or region not set.`);
+      return;
+    }
+
     const firstRun = !this.regions[regionId] ?? false;
 
     // Extract slides from playlists.
     // @TODO: Make sure changes in region playlists after firstRun is handled correctly instead of replacing region object.
     // @TODO: Handle schedules for each playlist and slides instead of just extracting slides from playlists.
     const slides = [];
+
     region.forEach((playlist) => {
       playlist?.slidesData.forEach((slide) => {
         const newSlide = cloneDeep(slide);
@@ -140,6 +146,7 @@ class ScheduleService {
    *   Array of slides.
    */
   static sendSlides(regionId, nextSlides) {
+    Logger.log('info', `sendSlides regionContent-${regionId}`);
     const event = new CustomEvent(`regionContent-${regionId}`, {
       detail: {
         slides: nextSlides,

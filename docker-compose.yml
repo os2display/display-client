@@ -15,7 +15,6 @@ services:
       - frontend
     depends_on:
       - node
-      - json-server
       - templates
     ports:
       - '80'
@@ -54,18 +53,6 @@ services:
       - /tmp/.X11-unix:/tmp/.X11-unix
     working_dir: /e2e
     entrypoint: cypress
-
-  json-server:
-    image: node:14
-    environment:
-      - NODE_ENV=development
-      - DEBUG=*
-    command: npm start
-    networks:
-      - app
-    working_dir: /app
-    volumes:
-      - ${PWD}/json-server:/app
 
   templates:
     image: node:14
