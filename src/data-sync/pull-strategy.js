@@ -149,7 +149,9 @@ class PullStrategy {
             if (result.status === 'fulfilled') {
               regionData[result.value.keys.regionKey][
                 result.value.keys.playlistKey
-              ].slidesData = result.value.results.map((playlistSlide) => playlistSlide.slide);
+              ].slidesData = result.value.results.map(
+                (playlistSlide) => playlistSlide.slide
+              );
             }
           });
 
