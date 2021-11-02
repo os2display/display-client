@@ -4,6 +4,7 @@ import './region.scss';
 import { createGridArea } from 'os2display-grid-generator';
 import Slide from './slide';
 import ErrorBoundary from './error-boundary';
+import idFromPath from './id-from-path';
 
 /**
  * Region component.
@@ -20,6 +21,7 @@ function Region({ region }) {
   const [currentSlide, setCurrentSlide] = useState(null);
   const [nextSlide, setNextSlide] = useState(null);
   const rootStyle = {};
+  const regionId = idFromPath(region['@id']);
 
   /**
    * Find the slide after the slide with the fromId.
@@ -33,8 +35,7 @@ function Region({ region }) {
     const slideIndex = slides.findIndex(
       (slideElement) => slideElement.executionId === fromId
     );
-    const slide = slides[(slideIndex + 1) % slides.length];
-    return slide;
+    return slides[(slideIndex + 1) % slides.length];
   }
 
   rootStyle.gridArea = createGridArea(region.gridArea);
@@ -57,7 +58,7 @@ function Region({ region }) {
     // Emit slideDone event.
     const slideDoneEvent = new CustomEvent('slideDone', {
       detail: {
-        regionId: region.id,
+        regionId,
         instanceId: slide.instanceId,
         executionId: slide.executionId,
       },
@@ -77,13 +78,13 @@ function Region({ region }) {
 
   useEffect(() => {
     document.addEventListener(
-      `regionContent-${region.id}`,
+      `regionContent-${regionId}`,
       regionContentListener
     );
 
     return function cleanup() {
       document.removeEventListener(
-        `regionContent-${region.id}`,
+        `regionContent-${regionId}`,
         regionContentListener
       );
     };
@@ -93,7 +94,7 @@ function Region({ region }) {
     // Notify that region is ready.
     const event = new CustomEvent('regionReady', {
       detail: {
-        id: region.id,
+        id: regionId,
       },
     });
     document.dispatchEvent(event);
@@ -120,7 +121,7 @@ function Region({ region }) {
   }, [slides]);
 
   return (
-    <div className="Region" style={rootStyle}>
+    <div className="Region" style={rootStyle} id={regionId}>
       <ErrorBoundary>
         <>
           {slides &&
@@ -144,7 +145,7 @@ function Region({ region }) {
 
 Region.propTypes = {
   region: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    '@id': PropTypes.string.isRequired,
     gridArea: PropTypes.arrayOf(PropTypes.string.isRequired),
   }).isRequired,
 };

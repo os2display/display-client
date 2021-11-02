@@ -98,7 +98,6 @@ Slide.propTypes = {
   slideDone: PropTypes.func.isRequired,
   slide: PropTypes.shape({
     templateData: PropTypes.shape({
-      templateKey: PropTypes.string.isRequired,
       resources: PropTypes.shape({ component: PropTypes.string.isRequired }),
     }).isRequired,
     duration: PropTypes.number.isRequired,

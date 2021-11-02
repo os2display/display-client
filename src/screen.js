@@ -23,9 +23,9 @@ function Screen({ screen }) {
   };
 
   return (
-    <div className="Screen" style={rootStyle}>
+    <div className="Screen" style={rootStyle} id={screen['@id']}>
       {screen?.layoutData?.regions?.map((region) => (
-        <Region key={region.id} region={region} />
+        <Region key={region['@id']} region={region} />
       ))}
     </div>
   );
@@ -33,10 +33,11 @@ function Screen({ screen }) {
 
 Screen.propTypes = {
   screen: PropTypes.shape({
+    '@id': PropTypes.string.isRequired,
     layoutData: PropTypes.shape({
       regions: PropTypes.arrayOf(
         PropTypes.shape({
-          id: PropTypes.string.isRequired,
+          '@id': PropTypes.string.isRequired,
           // @TODO: Expand prop type.
         })
       ),
