@@ -4,7 +4,7 @@ import './region.scss';
 import { createGridArea } from 'os2display-grid-generator';
 import Slide from './slide';
 import ErrorBoundary from './error-boundary';
-import idFromHydra from './id-from-hydra';
+import idFromPath from './id-from-path';
 
 /**
  * Region component.
@@ -21,7 +21,7 @@ function Region({ region }) {
   const [currentSlide, setCurrentSlide] = useState(null);
   const [nextSlide, setNextSlide] = useState(null);
   const rootStyle = {};
-  const regionId = idFromHydra(region['@id']);
+  const regionId = idFromPath(region['@id']);
 
   /**
    * Find the slide after the slide with the fromId.
