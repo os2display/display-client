@@ -2,9 +2,9 @@
   "dataStrategy": {
     "type": "pull",
     "config": {
-      "interval": {{ getenv "APP_DATA_PULL_INTERVAL" 30000 }},
+      "interval": {{ getenv "APP_DATA_PULL_INTERVAL" "30000" }},
       "endpoint": "{{ getenv "APP_API_PATH" "/api/" }}"
     }
   },
-  "debug": {{ getenv "APP_DEBUG" false }}
+  "debug": {{ getenv "APP_DEBUG" "false" }}
 }
