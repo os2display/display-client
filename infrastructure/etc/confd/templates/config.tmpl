@@ -1,3 +1,11 @@
 {
-  "api": "{{ getenv "API_PATH" "/api/" }}"
+  "dataStrategy": {
+    "type": "pull",
+    "config": {
+      "interval": {{ getenv "APP_DATA_PULL_INTERVAL" 30000 }},
+      "endpoint": "{{ getenv "APP_API_PATH" "/api/" }}",
+      "entryPoint": {{ getenv "APP_ENTRY_POINT" null }}
+    }
+  },
+  "debug": {{ getenv "APP_DEBUG" false }}
 }

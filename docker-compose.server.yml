@@ -15,7 +15,10 @@ services:
       - app
       - frontend
     environment:
-      - API_PATH=https://displayapiservice.local.itkdev.dk/
+      - APP_API_PATH=https://displayapiservice.local.itkdev.dk/
+      - APP_DATA_PULL_INTERVAL=10000
+      - APP_DEBUG=false
+      - APP_ENTRY_POINT=null
     ports:
       - '80'
     labels:
