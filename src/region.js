@@ -35,6 +35,7 @@ function Region({ region }) {
     const slideIndex = slides.findIndex(
       (slideElement) => slideElement.executionId === fromId
     );
+
     return slides[(slideIndex + 1) % slides.length];
   }
 
@@ -45,12 +46,12 @@ function Region({ region }) {
    *   The slide.
    */
   function slideDone(slide) {
-    // Go to next slide.
+    // Go to next currentSlide.
     setCurrentSlide((previousSlide) => {
       return findNextSlide(previousSlide.executionId);
     });
 
-    // Go to next slide.
+    // Go to next nextSlide
     setNextSlide((previousSlide) => {
       return findNextSlide(previousSlide.executionId);
     });
@@ -127,15 +128,17 @@ function Region({ region }) {
           {slides &&
             currentSlide &&
             slides.map((slide) => (
-              <Slide
-                slide={slide}
-                id={slide.executionId}
-                run={currentSlide.executionId === slide.executionId}
-                slideDone={slideDone}
-                isNextSlide={nextSlide.executionId === slide.executionId}
-                prevSlideDuration={currentSlide.duration}
-                key={slide.executionId}
-              />
+              <div key={slide.executionId}>
+                <Slide
+                  slide={slide}
+                  id={slide.executionId}
+                  run={currentSlide.executionId === slide.executionId}
+                  slideDone={slideDone}
+                  isNextSlide={nextSlide.executionId === slide.executionId}
+                  prevSlideDuration={currentSlide.duration}
+                  data-execution-id={slide.executionId}
+                />
+              </div>
             ))}
         </>
       </ErrorBoundary>
