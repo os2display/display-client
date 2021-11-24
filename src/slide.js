@@ -16,6 +16,7 @@ import ErrorBoundary from './error-boundary';
  * @param {string} props.id - The unique slide id.
  * @param {boolean} props.run - Whether or not the slide should run.
  * @param {Function} props.slideDone - The function to call when the slide is done running.
+ * @param {React.ForwardRefRenderFunction} props.forwardRef - The ref for the slide.
  * @returns {object} - The component.
  */
 function Slide({ slide, id, run, slideDone, forwardRef }) {

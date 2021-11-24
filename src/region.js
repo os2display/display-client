@@ -1,4 +1,4 @@
-import { React, useEffect, useState, useRef, createRef } from 'react';
+import { React, useEffect, useState, createRef } from 'react';
 import PropTypes from 'prop-types';
 import './region.scss';
 import { createGridArea } from 'os2display-grid-generator';
