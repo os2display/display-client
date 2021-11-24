@@ -1,4 +1,4 @@
-import { React, useEffect, useState, useRef } from 'react';
+import { React, useEffect, useState, useRef, createRef } from 'react';
 import PropTypes from 'prop-types';
 import './region.scss';
 import { createGridArea } from 'os2display-grid-generator';
@@ -22,7 +22,7 @@ function Region({ region }) {
   const [currentSlide, setCurrentSlide] = useState(null);
   const rootStyle = {};
   const regionId = idFromPath(region['@id']);
-  const nodeRef = useRef(null);
+  const [nodeRefs, setNodeRefs] = useState([]);
 
   rootStyle.gridArea = createGridArea(region.gridArea);
 
@@ -55,9 +55,8 @@ function Region({ region }) {
     const slideDoneEvent = new CustomEvent('slideDone', {
       detail: {
         regionId,
-        instanceId: slide.instanceId,
-        executionId: slide.executionId
-      }
+        executionId: slide.executionId,
+      },
     });
     document.dispatchEvent(slideDoneEvent);
   }
@@ -69,7 +68,10 @@ function Region({ region }) {
    *   The event. The data is contained in detail.
    */
   function regionContentListener(event) {
-    if (slides.length === 0) setSlides([...event.detail.slides]);
+    // @TODO: Handle transition to new slide array.
+    if (slides.length === 0) {
+      setSlides([...event.detail.slides]);
+    }
   }
 
   // Setup event listener for region content.
@@ -91,8 +93,8 @@ function Region({ region }) {
     // Notify that region is ready.
     const event = new CustomEvent('regionReady', {
       detail: {
-        id: regionId
-      }
+        id: regionId,
+      },
     });
     document.dispatchEvent(event);
   }, [region]);
@@ -106,6 +108,15 @@ function Region({ region }) {
       const slide = slides[0];
       setCurrentSlide(slide);
     }
+
+    // add or remove refs
+    setNodeRefs((prevNodeRefs) =>
+      slides.reduce((res, element) => {
+        res[element.executionId] =
+          prevNodeRefs[element.executionId] || createRef();
+        return res;
+      }, {})
+    );
   }, [slides]);
 
   return (
@@ -116,9 +127,9 @@ function Region({ region }) {
             {currentSlide && (
               <CSSTransition
                 key={currentSlide.executionId}
-                timeout={5000}
+                timeout={1500}
                 classNames="Slide"
-                nodeRef={nodeRef}
+                nodeRef={nodeRefs[currentSlide.executionId]}
               >
                 <Slide
                   slide={currentSlide}
@@ -126,7 +137,7 @@ function Region({ region }) {
                   run
                   slideDone={slideDone}
                   key={currentSlide.executionId}
-                  forwardRef={nodeRef}
+                  forwardRef={nodeRefs[currentSlide.executionId]}
                 />
               </CSSTransition>
             )}
@@ -140,8 +151,8 @@ function Region({ region }) {
 Region.propTypes = {
   region: PropTypes.shape({
     '@id': PropTypes.string.isRequired,
-    gridArea: PropTypes.arrayOf(PropTypes.string.isRequired)
-  }).isRequired
+    gridArea: PropTypes.arrayOf(PropTypes.string.isRequired),
+  }).isRequired,
 };
 
 export default Region;

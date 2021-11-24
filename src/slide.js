@@ -44,7 +44,7 @@ function Slide({ slide, id, run, slideDone, forwardRef }) {
   function handleError() {
     setTimeout(() => {
       slideDone(slide);
-    }, 5000);
+    }, 2000);
   }
 
   return (
@@ -66,8 +66,6 @@ Slide.propTypes = {
     templateData: PropTypes.shape({
       resources: PropTypes.shape({ component: PropTypes.string.isRequired }),
     }).isRequired,
-    duration: PropTypes.number.isRequired,
-    instanceId: PropTypes.string.isRequired,
     content: PropTypes.objectOf(PropTypes.any).isRequired,
   }).isRequired,
   forwardRef: PropTypes.oneOfType([

@@ -40,13 +40,11 @@ class ScheduleService {
 
     // Extract slides from playlists.
     // @TODO: Make sure changes in region playlists after firstRun is handled correctly instead of replacing region object.
-    // @TODO: Handle schedules for each playlist and slides instead of just extracting slides from playlists.
     const slides = [];
 
     region.forEach((playlist) => {
       playlist?.slidesData.forEach((slide) => {
         const newSlide = cloneDeep(slide);
-        newSlide.instanceId = uuidv4();
         slides.push(newSlide);
       });
     });

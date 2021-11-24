@@ -11,12 +11,12 @@
 }
 .Slide-enter-active {
   opacity: 1;
-  transition: opacity 1000ms ease-in;
+  transition: opacity 1500ms linear;
 }
 .Slide-exit {
   opacity: 1;
 }
 .Slide-exit-active {
   opacity: 0;
-  transition: opacity 1000ms ease-in;
+  transition: opacity 1500ms linear;
 }
