@@ -183,6 +183,7 @@ class PullStrategy {
     // Template cache.
     const fetchedTemplates = {};
     const fetchedMedia = {};
+    const fetchedThemes = {};
 
     // Iterate all slides:
     // - attach template data.
@@ -223,6 +224,20 @@ class PullStrategy {
               const mediaData = await this.getPath(mediaId);
               slide.mediaData[mediaId] = mediaData;
               fetchedMedia[mediaId] = mediaData;
+            }
+          }
+
+          if (slide?.theme !== '') {
+            const themePath = slide.theme;
+            // Load theme into slide.themeData.
+            // eslint-disable-next-line no-prototype-builtins
+            if (fetchedThemes.hasOwnProperty(themePath)) {
+              slide.themeData = fetchedThemes[themePath];
+            } else {
+              // eslint-disable-next-line no-await-in-loop
+              const themeData = await this.getPath(themePath);
+              slide.themeData = themeData;
+              fetchedThemes[themePath] = themeData;
             }
           }
         }
