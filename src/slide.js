@@ -4,7 +4,6 @@ import {
   createRemoteComponent,
   createRequires,
 } from '@paciolan/remote-component';
-import Transition from './transition';
 import './slide.scss';
 import { resolve } from './remote-component.config';
 import ErrorBoundary from './error-boundary';
@@ -12,24 +11,15 @@ import ErrorBoundary from './error-boundary';
 /**
  * Slide component.
  *
- * @param {object} props
- *   Props.
- * @param {object} props.slide
- *   The slide data.
- * @param {string} props.id
- *   The unique slide id.
- * @param {boolean} props.run
- *   Whether or not the slide should run.
- * @param {Function} props.slideDone
- *   The function to call when the slide is done running.
- * @param {boolean} props.isNextSlide
- *   A boolean indicating whether this is the next slide.
- * @param {number} props.prevSlideDuration
- *   The previous slide duration.
- * @returns {object}
- *   The component.
+ * @param {object} props - Props.
+ * @param {object} props.slide - The slide data.
+ * @param {string} props.id - The unique slide id.
+ * @param {boolean} props.run - Whether or not the slide should run.
+ * @param {Function} props.slideDone - The function to call when the slide is done running.
+ * @param {React.ForwardRefRenderFunction} props.forwardRef - The ref for the slide.
+ * @returns {object} - The component.
  */
-function Slide({ slide, id, run, slideDone, isNextSlide, prevSlideDuration }) {
+function Slide({ slide, id, run, slideDone, forwardRef }) {
   const [remoteComponent, setRemoteComponent] = useState(null);
 
   useEffect(() => {
@@ -47,20 +37,6 @@ function Slide({ slide, id, run, slideDone, isNextSlide, prevSlideDuration }) {
     );
   }, []);
 
-  const styles = {};
-  let classes = 'Slide';
-  if (!run && !isNextSlide) {
-    classes = `${classes} invisible`;
-  }
-
-  if (run) {
-    styles.zIndex = 1;
-  }
-
-  if (isNextSlide) {
-    styles.zIndex = -1;
-  }
-
   /**
    * Handle errors in ErrorBoundary.
    *
@@ -69,26 +45,17 @@ function Slide({ slide, id, run, slideDone, isNextSlide, prevSlideDuration }) {
   function handleError() {
     setTimeout(() => {
       slideDone(slide);
-    }, 5000);
+    }, 2000);
   }
 
   return (
-    <>
+    <div id={id} className="Slide" ref={forwardRef}>
       {remoteComponent && (
-        <div id={id} style={styles} className={classes}>
-          <Transition
-            run={run}
-            duration={slide.duration}
-            prevSlideDuration={prevSlideDuration}
-            isNextSlide={isNextSlide}
-          >
-            <ErrorBoundary errorHandler={handleError}>
-              {remoteComponent}
-            </ErrorBoundary>
-          </Transition>
-        </div>
+        <ErrorBoundary errorHandler={handleError}>
+          {remoteComponent}
+        </ErrorBoundary>
       )}
-    </>
+    </div>
   );
 }
 
@@ -100,12 +67,12 @@ Slide.propTypes = {
     templateData: PropTypes.shape({
       resources: PropTypes.shape({ component: PropTypes.string.isRequired }),
     }).isRequired,
-    duration: PropTypes.number.isRequired,
-    instanceId: PropTypes.string.isRequired,
     content: PropTypes.objectOf(PropTypes.any).isRequired,
   }).isRequired,
-  isNextSlide: PropTypes.bool.isRequired,
-  prevSlideDuration: PropTypes.number.isRequired,
+  forwardRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+  ]).isRequired,
 };
 
 export default Slide;

@@ -1,7 +1,8 @@
-import { React, useEffect, useState } from 'react';
+import { React, useEffect, useState, createRef } from 'react';
 import PropTypes from 'prop-types';
 import './region.scss';
 import { createGridArea } from 'os2display-grid-generator';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import Slide from './slide';
 import ErrorBoundary from './error-boundary';
 import idFromPath from './id-from-path';
@@ -19,9 +20,11 @@ import idFromPath from './id-from-path';
 function Region({ region }) {
   const [slides, setSlides] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(null);
-  const [nextSlide, setNextSlide] = useState(null);
   const rootStyle = {};
   const regionId = idFromPath(region['@id']);
+  const [nodeRefs, setNodeRefs] = useState({});
+
+  rootStyle.gridArea = createGridArea(region.gridArea);
 
   /**
    * Find the slide after the slide with the fromId.
@@ -35,31 +38,23 @@ function Region({ region }) {
     const slideIndex = slides.findIndex(
       (slideElement) => slideElement.executionId === fromId
     );
+
     return slides[(slideIndex + 1) % slides.length];
   }
 
-  rootStyle.gridArea = createGridArea(region.gridArea);
-
   /**
-   * @param {object} slide
-   *   The slide.
+   * The slide is done executing.
+   *
+   * @param {object} slide - The slide.
    */
   function slideDone(slide) {
-    // Go to next slide.
-    setCurrentSlide((previousSlide) => {
-      return findNextSlide(previousSlide.executionId);
-    });
-
-    // Go to next slide.
-    setNextSlide((previousSlide) => {
-      return findNextSlide(previousSlide.executionId);
-    });
+    const nextSlide = findNextSlide(slide.executionId);
+    setCurrentSlide(nextSlide);
 
     // Emit slideDone event.
     const slideDoneEvent = new CustomEvent('slideDone', {
       detail: {
         regionId,
-        instanceId: slide.instanceId,
         executionId: slide.executionId,
       },
     });
@@ -76,6 +71,7 @@ function Region({ region }) {
     setSlides([...event.detail.slides]);
   }
 
+  // Setup event listener for region content.
   useEffect(() => {
     document.addEventListener(
       `regionContent-${regionId}`,
@@ -110,33 +106,39 @@ function Region({ region }) {
       setCurrentSlide(slide);
     }
 
-    const findNext = slides.find(
-      (slide) => nextSlide?.executionId === slide.executionId
+    // add or remove refs
+    setNodeRefs((prevNodeRefs) =>
+      slides.reduce((res, element) => {
+        res[element.executionId] =
+          prevNodeRefs[element.executionId] || createRef();
+        return res;
+      }, {})
     );
-
-    if (!findNext && slides?.length > 1) {
-      const slide = slides[1];
-      setNextSlide(slide);
-    }
   }, [slides]);
 
   return (
     <div className="Region" style={rootStyle} id={regionId}>
       <ErrorBoundary>
         <>
-          {slides &&
-            currentSlide &&
-            slides.map((slide) => (
-              <Slide
-                slide={slide}
-                id={slide.executionId}
-                run={currentSlide.executionId === slide.executionId}
-                slideDone={slideDone}
-                isNextSlide={nextSlide.executionId === slide.executionId}
-                prevSlideDuration={currentSlide.duration}
-                key={slide.executionId}
-              />
-            ))}
+          <TransitionGroup component={null}>
+            {currentSlide && (
+              <CSSTransition
+                key={currentSlide.executionId}
+                timeout={1000}
+                classNames="Slide"
+                nodeRef={nodeRefs[currentSlide.executionId]}
+              >
+                <Slide
+                  slide={currentSlide}
+                  id={currentSlide.executionId}
+                  run
+                  slideDone={slideDone}
+                  key={currentSlide.executionId}
+                  forwardRef={nodeRefs[currentSlide.executionId]}
+                />
+              </CSSTransition>
+            )}
+          </TransitionGroup>
         </>
       </ErrorBoundary>
     </div>
