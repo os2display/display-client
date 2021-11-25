@@ -1,5 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import cloneDeep from 'lodash.clonedeep';
+import sha256 from 'crypto-js/sha256';
+import Base64 from 'crypto-js/enc-base64';
 import Logger from '../logger/logger';
 
 /**
@@ -32,24 +34,45 @@ class ScheduleService {
     }
 
     // Extract slides from playlists.
-    // @TODO: Make sure changes in region playlists after firstRun is handled correctly instead of replacing region object.
     const slides = [];
 
-    region.forEach((playlist) => {
+    region.forEach((playlist, id) => {
       playlist?.slidesData.forEach((slide) => {
         const newSlide = cloneDeep(slide);
-        newSlide.executionId = uuidv4();
+        newSlide.executionId = id + uuidv4();
+
+        // Use old executionId if it exists.
+        if (this.regions[regionId]?.slides) {
+          const findSlide = this.regions[regionId].slides.find(
+            (oldSlide) => oldSlide['@id'] === newSlide['@id']
+          );
+
+          // @TODO: The same slide can exist in more than one playlist. These should have different executionIds.
+
+          if (findSlide) {
+            newSlide.executionId = findSlide.executionId;
+          }
+        }
+
         slides.push(newSlide);
       });
     });
 
+    // Calculate a hash of the region to test if it has changed.
+    const hash = Base64.stringify(sha256(JSON.stringify({ region, slides })));
+    const newContent = hash !== this?.regions[regionId]?.hash;
+
+    // Update region.
     this.regions[regionId] = {
+      hash,
       slides,
       region,
     };
 
-    // Send slides to region.
-    ScheduleService.sendSlides(regionId, slides);
+    if (newContent) {
+      // Send slides to region.
+      ScheduleService.sendSlides(regionId, slides);
+    }
   }
 
   /**

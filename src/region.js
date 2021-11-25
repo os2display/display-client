@@ -20,9 +20,10 @@ import idFromPath from './id-from-path';
 function Region({ region }) {
   const [slides, setSlides] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(null);
+  const [newSlides, setNewSlides] = useState(null);
   const rootStyle = {};
   const regionId = idFromPath(region['@id']);
-  const [nodeRefs, setNodeRefs] = useState([]);
+  const [nodeRefs, setNodeRefs] = useState({});
 
   rootStyle.gridArea = createGridArea(region.gridArea);
 
@@ -68,10 +69,7 @@ function Region({ region }) {
    *   The event. The data is contained in detail.
    */
   function regionContentListener(event) {
-    // @TODO: Handle transition to new slide array.
-    if (slides.length === 0) {
-      setSlides([...event.detail.slides]);
-    }
+    setSlides([...event.detail.slides]);
   }
 
   // Setup event listener for region content.
