@@ -20,7 +20,6 @@ import idFromPath from './id-from-path';
 function Region({ region }) {
   const [slides, setSlides] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(null);
-  const [newSlides, setNewSlides] = useState(null);
   const rootStyle = {};
   const regionId = idFromPath(region['@id']);
   const [nodeRefs, setNodeRefs] = useState({});

@@ -23,7 +23,6 @@
     "react-transition-group": "^4.4.2",
     "sass": "^1.37.5",
     "styled-components": "^5.3.1",
-    "uuid": "^8.3.2",
     "web-vitals": "^1.0.1",
     "winston": "^3.3.3"
   },
