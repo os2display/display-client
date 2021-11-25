@@ -58,8 +58,6 @@ class ScheduleService {
     };
 
     if (newContent) {
-      console.log('New Content', slides);
-
       // Send slides to region.
       ScheduleService.sendSlides(regionId, slides);
     }
