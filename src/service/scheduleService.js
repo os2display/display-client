@@ -36,24 +36,13 @@ class ScheduleService {
     // Extract slides from playlists.
     const slides = [];
 
-    region.forEach((playlist, id) => {
+    region.forEach((playlist) => {
       playlist?.slidesData.forEach((slide) => {
         const newSlide = cloneDeep(slide);
-        newSlide.executionId = id + uuidv4();
-
-        // Use old executionId if it exists.
-        if (this.regions[regionId]?.slides) {
-          const findSlide = this.regions[regionId].slides.find(
-            (oldSlide) => oldSlide['@id'] === newSlide['@id']
-          );
-
-          // @TODO: The same slide can exist in more than one playlist. These should have different executionIds.
-
-          if (findSlide) {
-            newSlide.executionId = findSlide.executionId;
-          }
-        }
-
+        // Execution id is the product of region, playlist and slide id, to ensure uniqueness in the client.
+        newSlide.executionId = Base64.stringify(
+          sha256(regionId + playlist['@id'] + slide['@id'])
+        );
         slides.push(newSlide);
       });
     });
@@ -70,6 +59,8 @@ class ScheduleService {
     };
 
     if (newContent) {
+      console.log('New Content', slides);
+
       // Send slides to region.
       ScheduleService.sendSlides(regionId, slides);
     }
