@@ -86,8 +86,8 @@ function Region({ region }) {
     };
   }, []);
 
+  // Notify that region is ready.
   useEffect(() => {
-    // Notify that region is ready.
     const event = new CustomEvent('regionReady', {
       detail: {
         id: regionId,
@@ -96,6 +96,8 @@ function Region({ region }) {
     document.dispatchEvent(event);
   }, [region]);
 
+  // Make sure current slide is set.
+  // Set nodeRefs for each slide.
   useEffect(() => {
     const findCurrent = slides.find(
       (slide) => currentSlide?.executionId === slide.executionId

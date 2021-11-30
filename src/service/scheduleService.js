@@ -3,6 +3,7 @@ import sha256 from 'crypto-js/sha256';
 import Base64 from 'crypto-js/enc-base64';
 import RRule from 'rrule';
 import Logger from '../logger/logger';
+import dayjs from 'dayjs';
 
 /**
  * ScheduleService.
@@ -71,6 +72,23 @@ class ScheduleService {
     document.dispatchEvent(event);
   }
 
+  static isPublished(publishedState) {
+    const now = dayjs(new Date());
+    const from = publishedState?.from ? dayjs(publishedState.from) : null;
+    const to = publishedState?.to ? dayjs(publishedState.to) : null;
+
+    if (from !== null && to !== null) {
+      return now.isAfter(from) && now.isBefore(to);
+    }
+    if (from !== null && to === null) {
+      return now.isAfter(from);
+    }
+    if (from === null && to !== null) {
+      return now.isBefore(to);
+    }
+    return true;
+  }
+
   static findScheduledSlides(region, regionId) {
     // Extract slides from playlists.
     const slides = [];
@@ -84,36 +102,46 @@ class ScheduleService {
     region.forEach((playlist) => {
       const { schedules } = playlist;
 
+      if (!this.isPublished(playlist?.published)) {
+        console.log('playlist not published');
+        return;
+      }
+
       let occurs = true;
 
       // If schedules are set for the playlist, do not show playlist unless a schedule is active.
       if (schedules.length > 0) {
         occurs = false;
-      }
 
-      schedules.forEach((schedule) => {
-        const rrule = RRule.fromString(schedule.rrule.replace('\\n', '\n'));
-        rrule.between(
-          startOfDay,
-          endOfDay,
-          true,
-          function iterator(occurrenceDate) {
-            const occurrenceEnd = new Date(
-              occurrenceDate.getTime() + schedule.duration * 1000
-            );
+        schedules.forEach((schedule) => {
+          const rrule = RRule.fromString(schedule.rrule.replace('\\n', '\n'));
+          rrule.between(
+            startOfDay,
+            endOfDay,
+            true,
+            function iterator(occurrenceDate) {
+              const occurrenceEnd = new Date(
+                occurrenceDate.getTime() + schedule.duration * 1000
+              );
 
-            if (now >= occurrenceDate && now <= occurrenceEnd) {
-              occurs = true;
-              // Break the iteration.
-              return false;
+              if (now >= occurrenceDate && now <= occurrenceEnd) {
+                occurs = true;
+                // Break the iteration.
+                return false;
+              }
+              return true;
             }
-            return true;
-          }
-        );
-      });
+          );
+        });
+      }
 
       if (occurs) {
         playlist?.slidesData?.forEach((slide) => {
+          if (!this.isPublished(slide.published)) {
+            console.log('slide not published');
+            return;
+          }
+
           const newSlide = cloneDeep(slide);
           // Execution id is the product of region, playlist and slide id, to ensure uniqueness in the client.
           newSlide.executionId = Base64.stringify(
