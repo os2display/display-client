@@ -169,7 +169,7 @@ class ContentService {
     document.addEventListener('startDataSync', this.startDataSyncHandler);
     document.addEventListener('content', this.contentHandler);
     document.addEventListener('regionReady', this.regionReadyHandler);
-    document.addEventListener('regionRemoved', this.regionRemovedHandler)
+    document.addEventListener('regionRemoved', this.regionRemovedHandler);
   }
 
   /**
