@@ -93,6 +93,15 @@ function Region({ region }) {
     );
 
     return function cleanup() {
+      // Emit event that region has been removed.
+      const event = new CustomEvent('regionRemoved', {
+        detail: {
+          id: regionId,
+        },
+      });
+      document.dispatchEvent(event);
+
+      // Cleanup event listener.
       document.removeEventListener(
         `regionContent-${regionId}`,
         regionContentListener

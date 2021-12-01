@@ -30,6 +30,7 @@ class ContentService {
     this.stopSyncHandler = this.stopSyncHandler.bind(this);
     this.startDataSyncHandler = this.startDataSyncHandler.bind(this);
     this.regionReadyHandler = this.regionReadyHandler.bind(this);
+    this.regionRemovedHandler = this.regionRemovedHandler.bind(this);
     this.contentHandler = this.contentHandler.bind(this);
     this.start = this.start.bind(this);
   }
@@ -144,6 +145,21 @@ class ContentService {
   }
 
   /**
+   * Region removed handler.
+   *
+   * @param {CustomEvent} event
+   *   The event.
+   */
+  regionRemovedHandler(event) {
+    const data = event.detail;
+    const regionId = data.id;
+
+    Logger.log('info', `Event received: regionRemoved for ${regionId}`);
+
+    this.scheduleService.regionRemoved(regionId);
+  }
+
+  /**
    * Start the engine.
    */
   start() {
@@ -153,6 +169,7 @@ class ContentService {
     document.addEventListener('startDataSync', this.startDataSyncHandler);
     document.addEventListener('content', this.contentHandler);
     document.addEventListener('regionReady', this.regionReadyHandler);
+    document.addEventListener('regionRemoved', this.regionRemovedHandler)
   }
 
   /**
@@ -165,6 +182,7 @@ class ContentService {
     document.removeEventListener('startDataSync', this.startDataSyncHandler);
     document.removeEventListener('content', this.contentHandler);
     document.removeEventListener('regionReady', this.regionReadyHandler);
+    document.removeEventListener('regionRemoved', this.regionRemovedHandler);
   }
 
   /**

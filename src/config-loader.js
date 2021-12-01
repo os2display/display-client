@@ -13,10 +13,10 @@ export default class ConfigLoader {
             config: {
               interval: 30000,
               endpoint: '/api',
-              // @TODO: Remove. This should not come from config.
-              entryPoint: '/v1/screens/497f6eca-6276-1596-bfeb-53ceb43a6f54',
+              entryPoint: null,
             },
           },
+          schedulingInterval: 60000,
           debug: true,
         };
       });
