@@ -72,7 +72,7 @@ class ScheduleService {
           `registering scheduling interval for region: ${regionId}, with an update rate of ${schedulingInterval}`
         );
 
-        this.intervals = setInterval(
+        this.intervals[regionId] = setInterval(
           () => this.checkScheduling(regionId),
           schedulingInterval
         );
