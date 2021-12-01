@@ -2,8 +2,8 @@ import cloneDeep from 'lodash.clonedeep';
 import sha256 from 'crypto-js/sha256';
 import Base64 from 'crypto-js/enc-base64';
 import RRule from 'rrule';
-import Logger from '../logger/logger';
 import dayjs from 'dayjs';
+import Logger from '../logger/logger';
 
 /**
  * ScheduleService.
@@ -19,7 +19,7 @@ class ScheduleService {
   }
 
   /**
-   * Handles region
+   * Handle region updates.
    *
    * @param {string} regionId
    *   The ID of the region.
@@ -72,6 +72,12 @@ class ScheduleService {
     document.dispatchEvent(event);
   }
 
+  /**
+   * Check published state.
+   *
+   * @param {object} publishedState - The published state.
+   * @returns {boolean} - Published true/false.
+   */
   static isPublished(publishedState) {
     const now = dayjs(new Date());
     const from = publishedState?.from ? dayjs(publishedState.from) : null;
@@ -89,8 +95,14 @@ class ScheduleService {
     return true;
   }
 
-  static findScheduledSlides(region, regionId) {
-    // Extract slides from playlists.
+  /**
+   * Find slides that are scheduled and published now in the given region.
+   *
+   * @param {Array} playlists - The playlists to look through, with the slidesData attached.
+   * @param {string} regionId - The region id. Used to creating a unique executionId for each slide.
+   * @returns {Array} - Array of slides.
+   */
+  static findScheduledSlides(playlists, regionId) {
     const slides = [];
 
     const now = new Date();
@@ -99,11 +111,10 @@ class ScheduleService {
     const endOfDay = new Date();
     endOfDay.setUTCHours(23, 59, 59, 999);
 
-    region.forEach((playlist) => {
+    playlists.forEach((playlist) => {
       const { schedules } = playlist;
 
       if (!this.isPublished(playlist?.published)) {
-        console.log('playlist not published');
         return;
       }
 
@@ -138,7 +149,6 @@ class ScheduleService {
       if (occurs) {
         playlist?.slidesData?.forEach((slide) => {
           if (!this.isPublished(slide.published)) {
-            console.log('slide not published');
             return;
           }
 
