@@ -15,7 +15,6 @@ import './screen.scss';
  *   The component.
  */
 function Screen({ screen }) {
-  // @TODO: Does the grid variable exist?
   const configColumns = screen?.layoutData?.grid?.columns || 1;
   const configRows = screen?.layoutData?.grid?.rows || 1;
   const rootStyle = {
