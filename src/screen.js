@@ -16,8 +16,8 @@ import './screen.scss';
  */
 function Screen({ screen }) {
   // @TODO: Does the grid variable exist?
-  const configColumns = screen.grid?.columns || 1;
-  const configRows = screen.grid?.rows || 1;
+  const configColumns = screen?.layoutData?.grid?.columns || 1;
+  const configRows = screen?.layoutData?.grid?.rows || 1;
   const rootStyle = {
     gridTemplateAreas: createGrid(configColumns, configRows),
   };
