@@ -2,7 +2,7 @@
 
 The display client for OS2Display ver. 2, currently a work in progress.
 
-Currently, this is a create-react-app.
+This is a create-react-app.
 
 ## Docker development setup
 

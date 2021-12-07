@@ -15,9 +15,8 @@ import './screen.scss';
  *   The component.
  */
 function Screen({ screen }) {
-  // @TODO: Does the grid variable exist?
-  const configColumns = screen.grid?.columns || 1;
-  const configRows = screen.grid?.rows || 1;
+  const configColumns = screen?.layoutData?.grid?.columns || 1;
+  const configRows = screen?.layoutData?.grid?.rows || 1;
   const rootStyle = {
     gridTemplateAreas: createGrid(configColumns, configRows),
   };
@@ -35,6 +34,10 @@ Screen.propTypes = {
   screen: PropTypes.shape({
     '@id': PropTypes.string.isRequired,
     layoutData: PropTypes.shape({
+      grid: PropTypes.shape({
+        columns: PropTypes.number.isRequired,
+        rows: PropTypes.number.isRequired,
+      }),
       regions: PropTypes.arrayOf(
         PropTypes.shape({
           '@id': PropTypes.string.isRequired,
@@ -42,10 +45,6 @@ Screen.propTypes = {
         })
       ),
     }).isRequired,
-    grid: PropTypes.shape({
-      columns: PropTypes.number.isRequired,
-      rows: PropTypes.number.isRequired,
-    }),
   }).isRequired,
 };
 
