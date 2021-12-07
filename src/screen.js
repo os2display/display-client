@@ -34,6 +34,10 @@ Screen.propTypes = {
   screen: PropTypes.shape({
     '@id': PropTypes.string.isRequired,
     layoutData: PropTypes.shape({
+      grid: PropTypes.shape({
+        columns: PropTypes.number.isRequired,
+        rows: PropTypes.number.isRequired,
+      }),
       regions: PropTypes.arrayOf(
         PropTypes.shape({
           '@id': PropTypes.string.isRequired,
@@ -41,10 +45,6 @@ Screen.propTypes = {
         })
       ),
     }).isRequired,
-    grid: PropTypes.shape({
-      columns: PropTypes.number.isRequired,
-      rows: PropTypes.number.isRequired,
-    }),
   }).isRequired,
 };
 
