@@ -168,8 +168,6 @@ class ScheduleService {
     const now = new Date();
     const startOfDay = new Date();
     startOfDay.setUTCHours(0, 0, 0, 0);
-    const endOfDay = new Date();
-    endOfDay.setUTCHours(23, 59, 59, 999);
 
     playlists.forEach((playlist) => {
       const { schedules } = playlist;
@@ -187,8 +185,11 @@ class ScheduleService {
         schedules.forEach((schedule) => {
           const rrule = RRule.fromString(schedule.rrule.replace('\\n', '\n'));
           rrule.between(
-            startOfDay,
-            endOfDay,
+            // Subtract duration from now to make sure all relevant occurrences are considered.
+            new Date(
+              now.getTime() - (schedule.duration ? schedule.duration * 1000 : 0)
+            ),
+            now,
             true,
             function iterator(occurrenceDate) {
               const occurrenceEnd = new Date(
