@@ -18,8 +18,9 @@ import idFromPath from './id-from-path';
  *   The component.
  */
 function Region({ region }) {
-  const [slides, setSlides] = useState([]);
+  const [slides, setSlides] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(null);
+  const [newSlides, setNewSlides] = useState(null);
   const rootStyle = {};
   const regionId = idFromPath(region['@id']);
   const [nodeRefs, setNodeRefs] = useState({});
@@ -39,7 +40,12 @@ function Region({ region }) {
       (slideElement) => slideElement.executionId === fromId
     );
 
-    return slides[(slideIndex + 1) % slides.length];
+    const nextIndex = (slideIndex + 1) % slides.length;
+
+    return {
+      nextSlide: slides[nextIndex],
+      nextIndex,
+    };
   }
 
   /**
@@ -48,8 +54,16 @@ function Region({ region }) {
    * @param {object} slide - The slide.
    */
   function slideDone(slide) {
-    const nextSlide = findNextSlide(slide.executionId);
-    setCurrentSlide(nextSlide);
+    const nextSlideAndIndex = findNextSlide(slide.executionId);
+
+    if (nextSlideAndIndex.nextIndex === 0 && Array.isArray(newSlides)) {
+      const nextSlides = [...newSlides];
+      setSlides(nextSlides);
+      setNewSlides(null);
+      setCurrentSlide(nextSlides[0]);
+    } else {
+      setCurrentSlide(nextSlideAndIndex.nextSlide);
+    }
 
     // Emit slideDone event.
     const slideDoneEvent = new CustomEvent('slideDone', {
@@ -68,7 +82,7 @@ function Region({ region }) {
    *   The event. The data is contained in detail.
    */
   function regionContentListener(event) {
-    setSlides([...event.detail.slides]);
+    setNewSlides([...event.detail.slides]);
   }
 
   // Setup event listener for region content.
@@ -79,6 +93,15 @@ function Region({ region }) {
     );
 
     return function cleanup() {
+      // Emit event that region has been removed.
+      const event = new CustomEvent('regionRemoved', {
+        detail: {
+          id: regionId,
+        },
+      });
+      document.dispatchEvent(event);
+
+      // Cleanup event listener.
       document.removeEventListener(
         `regionContent-${regionId}`,
         regionContentListener
@@ -86,8 +109,8 @@ function Region({ region }) {
     };
   }, []);
 
+  // Notify that region is ready.
   useEffect(() => {
-    // Notify that region is ready.
     const event = new CustomEvent('regionReady', {
       detail: {
         id: regionId,
@@ -96,17 +119,22 @@ function Region({ region }) {
     document.dispatchEvent(event);
   }, [region]);
 
+  // Start the progress when the first data is received.
   useEffect(() => {
-    const findCurrent = slides.find(
-      (slide) => currentSlide?.executionId === slide.executionId
-    );
+    if (newSlides !== null && slides === null) {
+      setSlides(newSlides);
+    }
+  }, [newSlides]);
 
-    if (!findCurrent && slides?.length > 0) {
-      const slide = slides[0];
-      setCurrentSlide(slide);
+  // Make sure current slide is set.
+  useEffect(() => {
+    if (!slides) return;
+
+    if (!currentSlide) {
+      setCurrentSlide(slides[0]);
     }
 
-    // add or remove refs
+    // Add or remove refs.
     setNodeRefs((prevNodeRefs) =>
       slides.reduce((res, element) => {
         res[element.executionId] =
