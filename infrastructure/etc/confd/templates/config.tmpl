@@ -6,5 +6,6 @@
       "endpoint": "{{ getenv "APP_API_PATH" "/api/" }}"
     }
   },
+  "schedulingInterval": {{ getenv "APP_SCHEDULING_INTERVAL" "60000" }},
   "debug": {{ getenv "APP_DEBUG" "false" }}
 }
