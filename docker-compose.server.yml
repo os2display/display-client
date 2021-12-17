@@ -16,7 +16,8 @@ services:
       - frontend
     environment:
       - APP_API_PATH=https://displayapiservice.local.itkdev.dk/
-      - APP_DATA_PULL_INTERVAL=10000
+      - APP_DATA_PULL_INTERVAL=60000
+      - APP_SCHEDULING_INTERVAL=60000
       - APP_DEBUG=false
     ports:
       - '80'
