@@ -240,6 +240,11 @@ class PullStrategy {
               fetchedThemes[themePath] = themeData;
             }
           }
+
+          if (slide?.feed?.feedUrl !== undefined) {
+            // eslint-disable-next-line no-await-in-loop
+            slide.feedData = await this.getPath(slide.feed.feedUrl);
+          }
         }
       }
     }
