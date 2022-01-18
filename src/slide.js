@@ -14,7 +14,7 @@ import ErrorBoundary from './error-boundary';
  * @param {object} props - Props.
  * @param {object} props.slide - The slide data.
  * @param {string} props.id - The unique slide id.
- * @param {boolean} props.run - Whether or not the slide should run.
+ * @param {number} props.run - Timestamp for when to run the slide.
  * @param {Function} props.slideDone - The function to call when the slide is done running.
  * @param {React.ForwardRefRenderFunction} props.forwardRef - The ref for the slide.
  * @returns {object} - The component.
@@ -35,7 +35,7 @@ function Slide({ slide, id, run, slideDone, forwardRef }) {
         slideDone={slideDone}
       />
     );
-  }, []);
+  }, [run]);
 
   /**
    * Handle errors in ErrorBoundary.
@@ -61,7 +61,7 @@ function Slide({ slide, id, run, slideDone, forwardRef }) {
 
 Slide.propTypes = {
   id: PropTypes.string.isRequired,
-  run: PropTypes.bool.isRequired,
+  run: PropTypes.string.isRequired,
   slideDone: PropTypes.func.isRequired,
   slide: PropTypes.shape({
     templateData: PropTypes.shape({

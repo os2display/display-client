@@ -21,9 +21,11 @@ function Region({ region }) {
   const [slides, setSlides] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(null);
   const [newSlides, setNewSlides] = useState(null);
+  const [nodeRefs, setNodeRefs] = useState({});
+  const [runId, setRunId] = useState(null);
+
   const rootStyle = {};
   const regionId = idFromPath(region['@id']);
-  const [nodeRefs, setNodeRefs] = useState({});
 
   rootStyle.gridArea = createGridArea(region.gridArea);
 
@@ -64,6 +66,8 @@ function Region({ region }) {
     } else {
       setCurrentSlide(nextSlideAndIndex.nextSlide);
     }
+
+    setRunId(new Date().toISOString());
 
     // Emit slideDone event.
     const slideDoneEvent = new CustomEvent('slideDone', {
@@ -132,6 +136,7 @@ function Region({ region }) {
 
     if (!currentSlide) {
       setCurrentSlide(slides[0]);
+      setRunId(new Date().toISOString());
     }
 
     // Add or remove refs.
@@ -159,7 +164,7 @@ function Region({ region }) {
                 <Slide
                   slide={currentSlide}
                   id={currentSlide.executionId}
-                  run
+                  run={runId}
                   slideDone={slideDone}
                   key={currentSlide.executionId}
                   forwardRef={nodeRefs[currentSlide.executionId]}
