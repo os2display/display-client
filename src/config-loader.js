@@ -8,6 +8,7 @@ export default class ConfigLoader {
       .catch(() => {
         // Defaults.
         return {
+          authenticationEndpoint: '/api/authentication/screen',
           dataStrategy: {
             type: 'pull',
             config: {
