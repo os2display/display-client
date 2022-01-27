@@ -20,3 +20,21 @@ body {
   margin: 0;
   padding: 0;
 }
+
+.BindKey {
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+
+  &--Header {
+    flex: auto;
+  }
+
+  &--Key {
+    flex: auto;
+  }
+}

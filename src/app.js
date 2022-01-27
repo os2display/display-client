@@ -3,6 +3,7 @@ import Screen from './screen';
 import './app.scss';
 import ContentService from './service/contentService';
 import ConfigLoader from './config-loader';
+import { ulid } from 'ulid';
 
 /**
  * App component.
@@ -11,9 +12,11 @@ import ConfigLoader from './config-loader';
  *   The component.
  */
 function App() {
-  const [screenId, setScreenId] = useState(null);
+  const localStorageApiTokenKey = 'apiToken';
+  const localStorageScreenIdKey = 'screenId';
+  const localStorageUniqueLoginIdKey = 'uniqueLoginId';
+
   const [screen, setScreen] = useState('');
-  const [token, setToken] = useState(null);
   const [bindKey, setBindKey] = useState(null);
   const timeoutRef = useRef();
 
@@ -32,13 +35,13 @@ function App() {
   }
 
   const refreshLogin = () => {
-    const localStorageToken = localStorage.getItem('api-token');
-    const localScreenId = localStorage.getItem('screen-id');
+    const localStorageToken = localStorage.getItem(localStorageApiTokenKey);
+    const localScreenId = localStorage.getItem(localStorageScreenIdKey);
+    const localStorageUniqueLoginId = localStorage.getItem(
+      localStorageUniqueLoginIdKey
+    );
 
     if (localStorageToken && localScreenId) {
-      setToken(localStorageToken);
-      setScreenId(localScreenId);
-
       // Start the content service.
       const contentService = new ContentService();
       contentService.start();
@@ -55,18 +58,31 @@ function App() {
     } else {
       timeoutRef.current = setTimeout(refreshLogin, 1000 * 30);
 
+      let requestLoginId = localStorageUniqueLoginId;
+
+      if (!localStorageUniqueLoginId) {
+        console.log('not');
+        requestLoginId = ulid();
+        localStorage.setItem(localStorageUniqueLoginIdKey, requestLoginId);
+      }
+
+      console.log(requestLoginId);
+
       ConfigLoader.loadConfig().then((config) => {
         fetch(config.authenticationEndpoint, {
           method: 'POST',
+          body: JSON.stringify({
+            uniqueLoginId: requestLoginId,
+          }),
         })
           .then((response) => response.json())
           .then((data) => {
             if (data?.status === 'awaitingBindKey' && data?.bindKey) {
               setBindKey(data.bindKey);
             }
-            if (data?.status === 'ready') {
-              localStorage.setItem('api-token', data.token);
-              localStorage.setItem('screen-id', data.screenId);
+            if (data?.status === 'ready' && data?.token && data?.screenId) {
+              localStorage.setItem(localStorageApiTokenKey, data.token);
+              localStorage.setItem(localStorageScreenIdKey, data.screenId);
             }
           });
       });
@@ -85,8 +101,19 @@ function App() {
 
   return (
     <div className="App">
-      {bindKey && <div style={{ color: 'wheat' }}>{bindKey}</div>}
-      {!token && <></>}
+      {!screen && (
+        <div className="BindKey">
+          {bindKey && (
+            <>
+              <h2 className="BindKey--Header">
+                Bind this machine to a screen entity in the administration to
+                receive content.
+              </h2>
+              <h1 className="BindKey--Key">Key to enter: {bindKey}</h1>
+            </>
+          )}
+        </div>
+      )}
       {screen && <Screen screen={screen} />}
     </div>
   );
