@@ -1,9 +1,9 @@
 import { React, useEffect, useRef, useState } from 'react';
+import { ulid } from 'ulid';
 import Screen from './screen';
 import './app.scss';
 import ContentService from './service/contentService';
 import ConfigLoader from './config-loader';
-import { ulid } from 'ulid';
 
 /**
  * App component.
@@ -15,7 +15,9 @@ function App() {
   const localStorageApiTokenKey = 'apiToken';
   const localStorageScreenIdKey = 'screenId';
   const localStorageUniqueLoginIdKey = 'uniqueLoginId';
+  const refreshTimeout = 30 * 1000;
 
+  const [running, setRunning] = useState(false);
   const [screen, setScreen] = useState('');
   const [bindKey, setBindKey] = useState(null);
   const timeoutRef = useRef();
@@ -34,6 +36,24 @@ function App() {
     }
   }
 
+  const startContent = (localScreenId) => {
+    setRunning(true);
+
+    // Start the content service.
+    const contentService = new ContentService();
+    contentService.start();
+
+    const entrypoint = `/v1/screens/${localScreenId}`;
+
+    document.dispatchEvent(
+      new CustomEvent('startDataSync', {
+        detail: {
+          screenPath: entrypoint,
+        },
+      })
+    );
+  };
+
   const refreshLogin = () => {
     const localStorageToken = localStorage.getItem(localStorageApiTokenKey);
     const localScreenId = localStorage.getItem(localStorageScreenIdKey);
@@ -41,32 +61,15 @@ function App() {
       localStorageUniqueLoginIdKey
     );
 
-    if (localStorageToken && localScreenId) {
-      // Start the content service.
-      const contentService = new ContentService();
-      contentService.start();
-
-      const entrypoint = `/v1/screens/${localScreenId}`;
-
-      document.dispatchEvent(
-        new CustomEvent('startDataSync', {
-          detail: {
-            screenPath: entrypoint,
-          },
-        })
-      );
+    if (!running && localStorageToken && localScreenId) {
+      startContent(localScreenId);
     } else {
-      timeoutRef.current = setTimeout(refreshLogin, 1000 * 30);
-
       let requestLoginId = localStorageUniqueLoginId;
 
       if (!localStorageUniqueLoginId) {
-        console.log('not');
         requestLoginId = ulid();
         localStorage.setItem(localStorageUniqueLoginIdKey, requestLoginId);
       }
-
-      console.log(requestLoginId);
 
       ConfigLoader.loadConfig().then((config) => {
         fetch(config.authenticationEndpoint, {
@@ -77,13 +80,20 @@ function App() {
         })
           .then((response) => response.json())
           .then((data) => {
-            if (data?.status === 'awaitingBindKey' && data?.bindKey) {
-              setBindKey(data.bindKey);
-            }
             if (data?.status === 'ready' && data?.token && data?.screenId) {
               localStorage.setItem(localStorageApiTokenKey, data.token);
               localStorage.setItem(localStorageScreenIdKey, data.screenId);
+
+              startContent(data.screenId);
+            } else if (data?.status === 'awaitingBindKey') {
+              if (data?.bindKey) {
+                setBindKey(data.bindKey);
+              }
+              timeoutRef.current = setTimeout(refreshLogin, refreshTimeout);
             }
+          })
+          .catch(() => {
+            timeoutRef.current = setTimeout(refreshLogin, refreshTimeout);
           });
       });
     }
@@ -96,6 +106,10 @@ function App() {
 
     return function cleanup() {
       document.removeEventListener('screen', screenHandler);
+
+      if (timeoutRef) {
+        clearTimeout(timeoutRef.current);
+      }
     };
   }, []);
 

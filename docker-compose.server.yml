@@ -15,6 +15,7 @@ services:
       - app
       - frontend
     environment:
+      - APP_API_AUTHENTICATION_ENDPOINT=https://displayapiservice.local.itkdev.dk/v1/authentication/screen
       - APP_API_PATH=https://displayapiservice.local.itkdev.dk/
       - APP_DATA_PULL_INTERVAL=60000
       - APP_SCHEDULING_INTERVAL=60000

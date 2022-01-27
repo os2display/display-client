@@ -1,9 +1,10 @@
 {
+  "authenticationEndpoint": "https://displayapiservice.local.itkdev.dk/v1/authentication/screen",
   "dataStrategy": {
     "type": "pull",
     "config": {
       "interval": 30000,
-      "endpoint": "http://displayapiservice.local.itkdev.dk",
+      "endpoint": "https://displayapiservice.local.itkdev.dk",
       "entryPoint": "/v1/screens/[ULID of screen to open]"
     }
   },
