@@ -38,9 +38,20 @@ class PullStrategy {
    * @returns {Promise<any>} Promise with data.
    */
   async getPath(path) {
-    const response = await fetch(this.endpoint + path);
+    const localStorageApiTokenKey = 'apiToken';
+    const token = localStorage.getItem(localStorageApiTokenKey) ?? '';
+
+    const response = await fetch(this.endpoint + path, {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
 
     if (!response.ok) {
+      if (response.status === 401) {
+        // Remove token.
+        localStorage.removeItem(localStorageApiTokenKey);
+      }
       const message = `An error has occured: ${response.status}`;
       throw new Error(message);
     }
