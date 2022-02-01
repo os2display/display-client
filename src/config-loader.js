@@ -3,10 +3,12 @@
  */
 export default class ConfigLoader {
   static async loadConfig() {
-    return fetch('/config.json')
+    return fetch('config.json')
       .then((response) => response.json())
-      .catch(() => {
-        // Defaults.
+      .catch((err) => {
+        /* eslint-disable-next-line no-console */
+        console.error('Could not find config.json. Returning defaults.', err);
+
         return {
           authenticationEndpoint: '/api/authentication/screen',
           dataStrategy: {
@@ -14,11 +16,10 @@ export default class ConfigLoader {
             config: {
               interval: 30000,
               endpoint: '/api',
-              entryPoint: null,
             },
           },
           schedulingInterval: 60000,
-          debug: true,
+          debug: false,
         };
       });
   }
