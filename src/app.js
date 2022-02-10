@@ -1,5 +1,4 @@
 import { React, useEffect, useRef, useState } from 'react';
-import { ulid } from 'ulid';
 import Screen from './screen';
 import './app.scss';
 import ContentService from './service/contentService';
@@ -14,13 +13,12 @@ import ConfigLoader from './config-loader';
 function App() {
   const localStorageApiTokenKey = 'apiToken';
   const localStorageScreenIdKey = 'screenId';
-  const localStorageUniqueLoginIdKey = 'uniqueLoginId';
   const refreshTimeout = 30 * 1000;
 
   const [running, setRunning] = useState(false);
   const [screen, setScreen] = useState('');
   const [bindKey, setBindKey] = useState(null);
-  const timeoutRef = useRef();
+  const timeoutRef = useRef(null);
 
   /**
    * Handles "screen" events.
@@ -57,26 +55,15 @@ function App() {
   const refreshLogin = () => {
     const localStorageToken = localStorage.getItem(localStorageApiTokenKey);
     const localScreenId = localStorage.getItem(localStorageScreenIdKey);
-    const localStorageUniqueLoginId = localStorage.getItem(
-      localStorageUniqueLoginIdKey
-    );
 
     if (!running && localStorageToken && localScreenId) {
       startContent(localScreenId);
     } else {
-      let requestLoginId = localStorageUniqueLoginId;
-
-      if (!localStorageUniqueLoginId) {
-        requestLoginId = ulid();
-        localStorage.setItem(localStorageUniqueLoginIdKey, requestLoginId);
-      }
-
       ConfigLoader.loadConfig().then((config) => {
         fetch(config.authenticationEndpoint, {
           method: 'POST',
-          body: JSON.stringify({
-            uniqueLoginId: requestLoginId,
-          }),
+          mode: 'cors',
+          credentials: 'include',
         })
           .then((response) => response.json())
           .then((data) => {
