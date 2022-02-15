@@ -2,7 +2,7 @@ import cloneDeep from 'lodash.clonedeep';
 import sha256 from 'crypto-js/sha256';
 import Base64 from 'crypto-js/enc-base64';
 import RRule from 'rrule';
-import dayjs from 'dayjs';
+import isPublished from '../util/isPublished';
 import Logger from '../logger/logger';
 import ConfigLoader from '../config-loader';
 
@@ -133,29 +133,6 @@ class ScheduleService {
   }
 
   /**
-   * Check published state.
-   *
-   * @param {object} publishedState - The published state.
-   * @returns {boolean} - Published true/false.
-   */
-  static isPublished(publishedState) {
-    const now = dayjs(new Date());
-    const from = publishedState?.from ? dayjs(publishedState.from) : null;
-    const to = publishedState?.to ? dayjs(publishedState.to) : null;
-
-    if (from !== null && to !== null) {
-      return now.isAfter(from) && now.isBefore(to);
-    }
-    if (from !== null && to === null) {
-      return now.isAfter(from);
-    }
-    if (from === null && to !== null) {
-      return now.isBefore(to);
-    }
-    return true;
-  }
-
-  /**
    * Find slides that are scheduled and published now in the given region.
    *
    * @param {Array} playlists - The playlists to look through, with the slidesData attached.
@@ -172,7 +149,7 @@ class ScheduleService {
     playlists.forEach((playlist) => {
       const { schedules } = playlist;
 
-      if (!this.isPublished(playlist?.published)) {
+      if (!isPublished(playlist?.published)) {
         return;
       }
 
@@ -209,7 +186,7 @@ class ScheduleService {
 
       if (occurs) {
         playlist?.slidesData?.forEach((slide) => {
-          if (!this.isPublished(slide.published)) {
+          if (!isPublished(slide.published)) {
             return;
           }
 
