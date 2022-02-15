@@ -278,7 +278,7 @@ class PullStrategy {
       // Create ulid to connect the campaign with the regions/playlists.
       const campaignRegionId = ulid();
 
-      // Full screen layout
+      // Campaigns are always in full screen layout, for simplicity.
       newScreen.layoutData = {
         grid: {
           rows: 1,
