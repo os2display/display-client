@@ -1,4 +1,6 @@
 import cloneDeep from 'lodash.clonedeep';
+import { ulid } from 'ulid';
+import isPublished from '../util/isPublished';
 
 /**
  * PullStrategy.
@@ -46,7 +48,6 @@ class PullStrategy {
         authorization: `Bearer ${token}`,
       },
     });
-
     if (!response.ok) {
       if (response.status === 401) {
         // Remove token.
@@ -84,6 +85,40 @@ class PullStrategy {
       }
     } while (nextPath);
     return { path, results, keys };
+  }
+
+  /**
+   * Gets all campaigns, both from screen and groups.
+   *
+   * @param {object} screen The screen object to extract campaigns from.
+   * @returns {Array} array of campaigns (playlists).
+   */
+  async getCampaignsData(screen) {
+    const groups = await this.getPath(screen.inScreenGroups);
+    const promises = [];
+    groups['hydra:member'].forEach((group) => {
+      promises.push(this.getAllResultsFromPath(group.campaigns));
+    });
+
+    const screenGroupCampaigns = [];
+    await Promise.allSettled(promises).then((results) => {
+      results.forEach((result) => {
+        if (result.status === 'fulfilled') {
+          result.value.results.forEach((campaign) => {
+            screenGroupCampaigns.push(campaign.campaign);
+          });
+        }
+      });
+    });
+
+    const screenCampaigns = await this.getPath(screen.campaigns);
+
+    return [
+      ...screenCampaigns['hydra:member'].map((campaign) => {
+        return campaign.campaign;
+      }),
+      ...screenGroupCampaigns,
+    ];
   }
 
   /**
@@ -172,6 +207,49 @@ class PullStrategy {
     });
   }
 
+  async getSlidesForCampaigns(data) {
+    return new Promise((resolve, reject) => {
+      const promises = [];
+      const campaigns = cloneDeep(data);
+
+      // @TODO: Fix eslint-raised issues.
+      // eslint-disable-next-line guard-for-in,no-restricted-syntax
+      for (const campaignKey in campaigns) {
+        const playlists = campaigns[campaignKey];
+        // eslint-disable-next-line guard-for-in,no-restricted-syntax
+        for (const playlistKey in playlists) {
+          // eslint-disable-next-line guard-for-in,no-restricted-syntax
+          // @TODO: Handle pagination.
+          promises.push(
+            this.getAllResultsFromPath(
+              campaigns[campaignKey][playlistKey].slides,
+              {
+                campaignKey,
+                playlistKey,
+              }
+            )
+          );
+        }
+      }
+
+      Promise.allSettled(promises)
+        .then((results) => {
+          results.forEach((result) => {
+            if (result.status === 'fulfilled') {
+              campaigns[result.value.keys.campaignKey][
+                result.value.keys.playlistKey
+              ].slidesData = result.value.results.map(
+                (playlistSlide) => playlistSlide.slide
+              );
+            }
+          });
+
+          resolve(campaigns);
+        })
+        .catch((err) => reject(err));
+    });
+  }
+
   /**
    * Fetch screen.
    *
@@ -184,12 +262,52 @@ class PullStrategy {
     const screen = await this.getPath(screenPath);
     const newScreen = cloneDeep(screen);
 
-    // Get layout: Defines layout and regions.
-    newScreen.layoutData = await this.getPath(screen.layout);
+    // Campaigns data
+    let hasActiveCampaign = false;
+    newScreen.campaignsData = await this.getCampaignsData(screen);
+    if (newScreen.campaignsData.length > 0) {
+      newScreen.campaignsData.forEach(({ published }) => {
+        if (isPublished(published)) {
+          hasActiveCampaign = true;
+        }
+      });
+    }
 
-    // Fetch regions playlists: Yields playlists of slides for the regions
-    const regions = await this.getRegions(newScreen.regions);
-    newScreen.regionData = await this.getSlidesForRegions(regions);
+    // With active campaigns, we override region/layout values.
+    if (hasActiveCampaign) {
+      // Create ulid to connect the campaign with the regions/playlists.
+      const campaignRegionId = ulid();
+
+      // Full screen layout
+      newScreen.layoutData = {
+        grid: {
+          rows: 1,
+          columns: 1,
+        },
+        regions: [
+          {
+            '@id': `/v1/layouts/regions/${campaignRegionId}`,
+            gridArea: ['a'],
+          },
+        ],
+      };
+
+      newScreen.regionData = {};
+      newScreen.regionData[campaignRegionId] = newScreen.campaignsData;
+      newScreen.regions = [
+        `/v1/screens/01FV9K4K0Y0X0K1J88SQ6B64VT/regions/${campaignRegionId}/playlists`,
+      ];
+      newScreen.regionData = await this.getSlidesForRegions(
+        newScreen.regionData
+      );
+    } else {
+      // Get layout: Defines layout and regions.
+      newScreen.layoutData = await this.getPath(screen.layout);
+
+      // Fetch regions playlists: Yields playlists of slides for the regions
+      const regions = await this.getRegions(newScreen.regions);
+      newScreen.regionData = await this.getSlidesForRegions(regions);
+    }
 
     // Template cache.
     const fetchedTemplates = {};
