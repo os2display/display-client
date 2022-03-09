@@ -41,11 +41,14 @@ class PullStrategy {
    */
   async getPath(path) {
     const localStorageApiTokenKey = 'apiToken';
+    const localStorageTenantKeyKey = 'tenantKey';
     const token = localStorage.getItem(localStorageApiTokenKey) ?? '';
+    const tenantKey = localStorage.getItem(localStorageTenantKeyKey) ?? '';
 
     const response = await fetch(this.endpoint + path, {
       headers: {
         authorization: `Bearer ${token}`,
+        'Authorization-Tenant-Key': tenantKey,
       },
     });
     if (!response.ok) {
