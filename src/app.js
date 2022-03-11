@@ -13,6 +13,7 @@ import ConfigLoader from './config-loader';
 function App() {
   const localStorageApiTokenKey = 'apiToken';
   const localStorageScreenIdKey = 'screenId';
+  const localStorageTenantKeyKey = 'tenantKey';
   const refreshTimeout = 30 * 1000;
 
   const [running, setRunning] = useState(false);
@@ -67,9 +68,15 @@ function App() {
         })
           .then((response) => response.json())
           .then((data) => {
-            if (data?.status === 'ready' && data?.token && data?.screenId) {
+            if (
+              data?.status === 'ready' &&
+              data?.token &&
+              data?.screenId &&
+              data?.tenantKey
+            ) {
               localStorage.setItem(localStorageApiTokenKey, data.token);
               localStorage.setItem(localStorageScreenIdKey, data.screenId);
+              localStorage.setItem(localStorageTenantKeyKey, data.tenantKey);
 
               startContent(data.screenId);
             } else if (data?.status === 'awaitingBindKey') {
