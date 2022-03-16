@@ -31,7 +31,6 @@ services:
     command: npm start
     networks:
       - app
-      - frontend
     working_dir: /app
     environment:
       - NODE_ENV=development
@@ -53,15 +52,3 @@ services:
       - /tmp/.X11-unix:/tmp/.X11-unix
     working_dir: /e2e
     entrypoint: cypress
-
-  templates:
-    image: node:14
-    command: npm start
-    # @TODO: Fix setup so the ws connection between browser and webpack-dev-server can be achieved without exposing port.
-    ports:
-      - '3000:3000'
-    networks:
-      - app
-    working_dir: /app
-    volumes:
-      - ${PWD}/templates:/app
