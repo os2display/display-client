@@ -1,19 +1,9 @@
-# DisplayClient
+# Client
 
-The display client for OS2Display ver. 2, currently a work in progress.
-
-This is a create-react-app.
+This is the client that will display slides from OS2Display.
+See [https://github.com/os2display/display-docs/blob/main/client.md](https://github.com/os2display/display-docs/blob/main/client.md) for more info about the client.
 
 ## Docker development setup
-
-Get the templates project
-
-```
-git clone https://github.com/os2display/display-templates.git templates
-
-# Install npm packages
-docker-compose run templates npm install
-```
 
 Start docker setup
 
@@ -24,7 +14,7 @@ docker-compose run node yarn install
 # Up the containers
 docker-compose up -d
 
-# Follow the node logs to see when the code is compiled.
+# Optional: Follow the node logs to see when the code is compiled.
 docker-compose logs -f node
 ```
 
@@ -57,23 +47,8 @@ To run cypress tests in the cypress container:
 docker-compose run cypress run
 ```
 
-## Debug bar
-
-The frontend has a debug bar, that allows for loading fixtures into the react app.
-See the `public/fixtures` for the data fixtures.
-
 ## Build for production
 
 Builds the app for production to the build folder.
 
 @TODO: Add production build instructions.
-
-## Event Model
-
-![Event model](docs/EventModel.png)
-
-## Templates
-
-See [docs/templates.md](docs/templates.md) for information about creating templates.
-
-Templates are loaded from outside the project with [Remote Component](https://github.com/Paciolan/remote-component).
