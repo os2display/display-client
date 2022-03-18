@@ -1,3 +1,4 @@
+import jwtDecode from 'jwt-decode';
 import { React, useEffect, useRef, useState } from 'react';
 import Screen from './screen';
 import './app.scss';
@@ -11,14 +12,18 @@ import ConfigLoader from './config-loader';
  *   The component.
  */
 function App() {
-  const localStorageApiTokenKey = 'apiToken';
-  const localStorageScreenIdKey = 'screenId';
-  const localStorageTenantKeyKey = 'tenantKey';
+  const lsApiToken = 'apiToken';
+  const lsApiTokenExpire = 'apiTokenExpire';
+  const lsApiTokenIssuedAt = 'apiTokenIssuedAt';
+  const lsScreenId = 'screenId';
+  const lsTenantKey = 'tenantKey';
+  const lsRefreshToken = 'refreshToken';
   const refreshTimeout = 30 * 1000;
 
   const [running, setRunning] = useState(false);
   const [screen, setScreen] = useState('');
   const [bindKey, setBindKey] = useState(null);
+  const [refreshingToken, setRefreshingToken] = useState(false);
   const timeoutRef = useRef(null);
 
   /**
@@ -54,8 +59,8 @@ function App() {
   };
 
   const refreshLogin = () => {
-    const localStorageToken = localStorage.getItem(localStorageApiTokenKey);
-    const localScreenId = localStorage.getItem(localStorageScreenIdKey);
+    const localStorageToken = localStorage.getItem(lsApiToken);
+    const localScreenId = localStorage.getItem(lsScreenId);
 
     if (!running && localStorageToken && localScreenId) {
       startContent(localScreenId);
@@ -72,11 +77,17 @@ function App() {
               data?.status === 'ready' &&
               data?.token &&
               data?.screenId &&
-              data?.tenantKey
+              data?.tenantKey &&
+              data?.refreshToken
             ) {
-              localStorage.setItem(localStorageApiTokenKey, data.token);
-              localStorage.setItem(localStorageScreenIdKey, data.screenId);
-              localStorage.setItem(localStorageTenantKeyKey, data.tenantKey);
+              const decodedToken = jwtDecode(data.token);
+
+              localStorage.setItem(lsApiToken, data.token);
+              localStorage.setItem(lsApiTokenExpire, decodedToken.exp);
+              localStorage.setItem(lsApiTokenIssuedAt, decodedToken.iat);
+              localStorage.setItem(lsScreenId, data.screenId);
+              localStorage.setItem(lsTenantKey, data.tenantKey);
+              localStorage.setItem(lsRefreshToken, data.refreshToken);
 
               startContent(data.screenId);
             } else if (data?.status === 'awaitingBindKey') {
@@ -93,13 +104,54 @@ function App() {
     }
   };
 
+  const checkToken = () => {
+    // Ignore if already refreshing token.
+    if (refreshingToken) {
+      return;
+    }
+
+    const rToken = localStorage.getItem(lsRefreshToken);
+    const exp = parseInt(localStorage.getItem(lsApiTokenExpire), 10);
+    const iat = parseInt(localStorage.getItem(lsApiTokenIssuedAt), 10);
+    const timeDiff = exp - iat;
+
+    const now = Math.floor(new Date().getTime() / 1000);
+
+    // If more than half the time till expire has been passed refresh the token.
+    if (now > iat + timeDiff / 2) {
+      setRefreshingToken(true);
+      ConfigLoader.loadConfig().then((config) => {
+        fetch(config.authenticationRefreshTokenEndpoint, {
+          method: 'POST',
+          body: JSON.stringify({
+            refresh_token: rToken,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            const decodedToken = jwtDecode(data.token);
+
+            localStorage.setItem(lsApiToken, data.token);
+            localStorage.setItem(lsApiTokenExpire, decodedToken.exp);
+            localStorage.setItem(lsApiTokenIssuedAt, decodedToken.iat);
+            localStorage.setItem(lsRefreshToken, data.refresh_token);
+          })
+          .finally(() => {
+            setRefreshingToken(false);
+          });
+      });
+    }
+  };
+
   useEffect(() => {
     document.addEventListener('screen', screenHandler);
+    document.addEventListener('checkToken', checkToken);
 
     refreshLogin();
 
     return function cleanup() {
       document.removeEventListener('screen', screenHandler);
+      document.removeEventListener('checkToken', checkToken);
 
       if (timeoutRef) {
         clearTimeout(timeoutRef.current);

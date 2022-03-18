@@ -11,6 +11,8 @@ export default class ConfigLoader {
 
         return {
           authenticationEndpoint: '/api/authentication/screen',
+          authenticationRefreshTokenEndpoint:
+            '/api/authentication/token/refresh',
           dataStrategy: {
             type: 'pull',
             config: {
