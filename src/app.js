@@ -19,7 +19,8 @@ function App() {
   const lsScreenId = 'screenId';
   const lsTenantKey = 'tenantKey';
   const lsRefreshToken = 'refreshToken';
-  const refreshTimeout = 30 * 1000;
+  const loginCheckTimeout = 30 * 1000;
+  const refreshTimeout = 60 * 1000;
 
   const [running, setRunning] = useState(false);
   const [screen, setScreen] = useState('');
@@ -80,7 +81,7 @@ function App() {
               data?.token &&
               data?.screenId &&
               data?.tenantKey &&
-              data?.refreshToken
+              data?.refresh_token
             ) {
               const decodedToken = jwtDecode(data.token);
 
@@ -89,28 +90,28 @@ function App() {
               localStorage.setItem(lsApiTokenIssuedAt, decodedToken.iat);
               localStorage.setItem(lsScreenId, data.screenId);
               localStorage.setItem(lsTenantKey, data.tenantKey);
-              localStorage.setItem(lsRefreshToken, data.refreshToken);
+              localStorage.setItem(lsRefreshToken, data.refresh_token);
 
               startContent(data.screenId);
             } else if (data?.status === 'awaitingBindKey') {
               if (data?.bindKey) {
                 setBindKey(data.bindKey);
               }
-              timeoutRef.current = setTimeout(refreshLogin, refreshTimeout);
+              timeoutRef.current = setTimeout(refreshLogin, loginCheckTimeout);
             }
           })
           .catch(() => {
-            timeoutRef.current = setTimeout(refreshLogin, refreshTimeout);
+            timeoutRef.current = setTimeout(refreshLogin, loginCheckTimeout);
           });
       });
     }
   };
 
   const checkToken = () => {
-    Logger.info('Refresh token check');
+    Logger.log('info', 'Refresh token check');
 
     // Ignore if already refreshing token.
-    if (refreshingToken) {
+    if (screen === '' || refreshingToken) {
       return;
     }
 
@@ -119,7 +120,7 @@ function App() {
     const iat = parseInt(localStorage.getItem(lsApiTokenIssuedAt), 10);
 
     if (!rToken || !exp || !iat) {
-      Logger.warning('Refresh token, exp or iat not set.');
+      Logger.log('warn', 'Refresh token, exp or iat not set.');
       return;
     }
 
@@ -130,7 +131,7 @@ function App() {
     // If more than half the time till expire has been passed refresh the token.
     if (now > iat + timeDiff / 2) {
       setRefreshingToken(true);
-      Logger.info('Refreshing token.');
+      Logger.log('info', 'Refreshing token.');
 
       ConfigLoader.loadConfig().then((config) => {
         fetch(config.authenticationRefreshTokenEndpoint, {
@@ -141,7 +142,7 @@ function App() {
         })
           .then((response) => response.json())
           .then((data) => {
-            Logger.info('Token refreshed.');
+            Logger.log('info', 'Token refreshed.');
 
             const decodedToken = jwtDecode(data.token);
 
@@ -151,7 +152,7 @@ function App() {
             localStorage.setItem(lsRefreshToken, data.refresh_token);
           })
           .catch(() => {
-            Logger.error('Token refresh error.');
+            Logger.log('error', 'Token refresh error.');
           })
           .finally(() => {
             setRefreshingToken(false);
