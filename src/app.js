@@ -4,6 +4,7 @@ import Screen from './screen';
 import './app.scss';
 import ContentService from './service/contentService';
 import ConfigLoader from './config-loader';
+import Logger from './logger/logger';
 
 /**
  * App component.
@@ -25,6 +26,7 @@ function App() {
   const [bindKey, setBindKey] = useState(null);
   const [refreshingToken, setRefreshingToken] = useState(false);
   const timeoutRef = useRef(null);
+  const refreshTokenIntervalRef = useRef(null);
 
   /**
    * Handles "screen" events.
@@ -105,6 +107,8 @@ function App() {
   };
 
   const checkToken = () => {
+    Logger.info('Refresh token check');
+
     // Ignore if already refreshing token.
     if (refreshingToken) {
       return;
@@ -113,6 +117,12 @@ function App() {
     const rToken = localStorage.getItem(lsRefreshToken);
     const exp = parseInt(localStorage.getItem(lsApiTokenExpire), 10);
     const iat = parseInt(localStorage.getItem(lsApiTokenIssuedAt), 10);
+
+    if (!rToken || !exp || !iat) {
+      Logger.warning('Refresh token, exp or iat not set.');
+      return;
+    }
+
     const timeDiff = exp - iat;
 
     const now = Math.floor(new Date().getTime() / 1000);
@@ -120,6 +130,8 @@ function App() {
     // If more than half the time till expire has been passed refresh the token.
     if (now > iat + timeDiff / 2) {
       setRefreshingToken(true);
+      Logger.info('Refreshing token.');
+
       ConfigLoader.loadConfig().then((config) => {
         fetch(config.authenticationRefreshTokenEndpoint, {
           method: 'POST',
@@ -129,12 +141,17 @@ function App() {
         })
           .then((response) => response.json())
           .then((data) => {
+            Logger.info('Token refreshed.');
+
             const decodedToken = jwtDecode(data.token);
 
             localStorage.setItem(lsApiToken, data.token);
             localStorage.setItem(lsApiTokenExpire, decodedToken.exp);
             localStorage.setItem(lsApiTokenIssuedAt, decodedToken.iat);
             localStorage.setItem(lsRefreshToken, data.refresh_token);
+          })
+          .catch(() => {
+            Logger.error('Token refresh error.');
           })
           .finally(() => {
             setRefreshingToken(false);
@@ -143,18 +160,35 @@ function App() {
     }
   };
 
+  const reauthenticateHandler = () => {
+    localStorage.removeItem(lsApiToken);
+    localStorage.removeItem(lsApiTokenExpire);
+    localStorage.removeItem(lsApiTokenIssuedAt);
+    localStorage.removeItem(lsRefreshToken);
+    localStorage.removeItem(lsScreenId);
+    localStorage.removeItem(lsTenantKey);
+
+    setScreen('');
+  };
+
   useEffect(() => {
     document.addEventListener('screen', screenHandler);
-    document.addEventListener('checkToken', checkToken);
+    document.addEventListener('reauthenticate', reauthenticateHandler);
 
     refreshLogin();
 
+    refreshTokenIntervalRef.current = setInterval(checkToken, refreshTimeout);
+
     return function cleanup() {
       document.removeEventListener('screen', screenHandler);
-      document.removeEventListener('checkToken', checkToken);
+      document.removeEventListener('reauthenticate', reauthenticateHandler);
 
       if (timeoutRef) {
         clearTimeout(timeoutRef.current);
+      }
+
+      if (refreshTokenIntervalRef) {
+        clearInterval(refreshTokenIntervalRef.current);
       }
     };
   }, []);

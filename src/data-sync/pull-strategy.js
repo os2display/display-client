@@ -51,10 +51,11 @@ class PullStrategy {
         'Authorization-Tenant-Key': tenantKey,
       },
     });
+
     if (!response.ok) {
       if (response.status === 401) {
-        // Remove token.
-        localStorage.removeItem(localStorageApiTokenKey);
+        const event = new Event('reauthenticate');
+        document.dispatchEvent(event);
       }
       const message = `An error has occured: ${response.status}`;
       throw new Error(message);
