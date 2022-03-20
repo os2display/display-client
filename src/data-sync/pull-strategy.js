@@ -1,6 +1,7 @@
 import cloneDeep from 'lodash.clonedeep';
 import { ulid } from 'ulid';
 import isPublished from '../util/isPublished';
+import * as Logger from '../logger/logger';
 
 /**
  * PullStrategy.
@@ -45,18 +46,30 @@ class PullStrategy {
     const token = localStorage.getItem(localStorageApiTokenKey) ?? '';
     const tenantKey = localStorage.getItem(localStorageTenantKeyKey) ?? '';
 
+    if (!path) {
+      return null;
+    }
+
     const response = await fetch(this.endpoint + path, {
       headers: {
         authorization: `Bearer ${token}`,
         'Authorization-Tenant-Key': tenantKey,
       },
+    }).catch((err) => {
+      Logger.log('error', `Failed to fetch. ${err}`);
     });
+
+    if (!response) {
+      return false;
+    }
 
     if (!response.ok) {
       if (response.status === 401) {
-        const event = new Event('reauthenticate');
-        document.dispatchEvent(event);
+        document.dispatchEvent(new Event('stopDataSync'));
+        document.dispatchEvent(new Event('reauthenticate'));
+        return false;
       }
+
       const message = `An error has occured: ${response.status}`;
       throw new Error(message);
     }
@@ -77,6 +90,11 @@ class PullStrategy {
     do {
       // eslint-disable-next-line no-await-in-loop
       const responseData = await this.getPath(nextPath);
+
+      if (!responseData) {
+        return {};
+      }
+
       results = results.concat(responseData['hydra:member']);
 
       if (
@@ -99,7 +117,13 @@ class PullStrategy {
    */
   async getCampaignsData(screen) {
     const groups = await this.getPath(screen.inScreenGroups);
+
+    if (!groups) {
+      return [];
+    }
+
     const promises = [];
+
     groups['hydra:member'].forEach((group) => {
       promises.push(this.getAllResultsFromPath(group.campaigns));
     });
@@ -115,7 +139,9 @@ class PullStrategy {
       });
     });
 
-    const screenCampaigns = await this.getPath(screen.campaigns);
+    const screenCampaigns = (await this.getPath(screen.campaigns)) || {
+      'hydra:member': [],
+    };
 
     return [
       ...screenCampaigns['hydra:member'].map((campaign) => {
@@ -264,6 +290,11 @@ class PullStrategy {
 
     // Fetch screen
     const screen = await this.getPath(screenPath);
+
+    if (!screen) {
+      return;
+    }
+
     const newScreen = cloneDeep(screen);
 
     // Campaigns data

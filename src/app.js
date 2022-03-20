@@ -1,10 +1,12 @@
 import jwtDecode from 'jwt-decode';
 import { React, useEffect, useRef, useState } from 'react';
+import { Spinner } from 'react-bootstrap';
 import Screen from './screen';
-import './app.scss';
 import ContentService from './service/contentService';
 import ConfigLoader from './config-loader';
 import Logger from './logger/logger';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './app.scss';
 
 /**
  * App component.
@@ -19,8 +21,8 @@ function App() {
   const lsScreenId = 'screenId';
   const lsTenantKey = 'tenantKey';
   const lsRefreshToken = 'refreshToken';
-  const loginCheckTimeout = 30 * 1000;
-  const refreshTimeout = 60 * 1000;
+  const loginCheckTimeout = 5 * 1000;
+  const refreshTimeout = 10 * 1000;
 
   const [running, setRunning] = useState(false);
   const [screen, setScreen] = useState('');
@@ -28,6 +30,7 @@ function App() {
   const [refreshingToken, setRefreshingToken] = useState(false);
   const timeoutRef = useRef(null);
   const refreshTokenIntervalRef = useRef(null);
+  const contentServiceRef = useRef(null);
 
   /**
    * Handles "screen" events.
@@ -43,12 +46,78 @@ function App() {
     }
   }
 
+  const checkToken = () => {
+    Logger.log('info', 'Refresh token check');
+
+    // Ignore if already refreshing token.
+    if (refreshingToken) {
+      Logger.log('info', 'Already refreshing token.');
+      return;
+    }
+
+    const rToken = localStorage.getItem(lsRefreshToken);
+    const exp = parseInt(localStorage.getItem(lsApiTokenExpire), 10);
+    const iat = parseInt(localStorage.getItem(lsApiTokenIssuedAt), 10);
+
+    if (!rToken || !exp || !iat) {
+      Logger.log('warn', 'Refresh token, exp or iat not set.');
+      return;
+    }
+
+    const timeDiff = exp - iat;
+
+    const now = Math.floor(new Date().getTime() / 1000);
+
+    // If more than half the time till expire has been passed refresh the token.
+    if (now > iat + timeDiff / 2) {
+      setRefreshingToken(true);
+      Logger.log('info', 'Refreshing token.');
+
+      ConfigLoader.loadConfig().then((config) => {
+        fetch(config.authenticationRefreshTokenEndpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            refresh_token: rToken,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            Logger.log('info', 'Token refreshed.');
+
+            const decodedToken = jwtDecode(data.token);
+
+            localStorage.setItem(lsApiToken, data.token);
+            localStorage.setItem(lsApiTokenExpire, decodedToken.exp);
+            localStorage.setItem(lsApiTokenIssuedAt, decodedToken.iat);
+            localStorage.setItem(lsRefreshToken, data.refresh_token);
+          })
+          .catch(() => {
+            Logger.log('error', 'Token refresh error.');
+          })
+          .finally(() => {
+            setRefreshingToken(false);
+          });
+      });
+    } else {
+      Logger.log(
+        'info',
+        `Half the time until expire has not been reached. Will not refresh. Token will expire at ${new Date(
+          exp * 1000
+        ).toISOString()}`
+      );
+    }
+  };
+
   const startContent = (localScreenId) => {
     setRunning(true);
 
     // Start the content service.
-    const contentService = new ContentService();
-    contentService.start();
+    const newContentService = new ContentService();
+    contentServiceRef.current = newContentService;
+    newContentService.start();
 
     const entrypoint = `/v1/screens/${localScreenId}`;
 
@@ -59,6 +128,9 @@ function App() {
         },
       })
     );
+
+    // Start refresh token interval.
+    refreshTokenIntervalRef.current = setInterval(checkToken, refreshTimeout);
   };
 
   const refreshLogin = () => {
@@ -107,61 +179,9 @@ function App() {
     }
   };
 
-  const checkToken = () => {
-    Logger.log('info', 'Refresh token check');
-
-    // Ignore if already refreshing token.
-    if (screen === '' || refreshingToken) {
-      return;
-    }
-
-    const rToken = localStorage.getItem(lsRefreshToken);
-    const exp = parseInt(localStorage.getItem(lsApiTokenExpire), 10);
-    const iat = parseInt(localStorage.getItem(lsApiTokenIssuedAt), 10);
-
-    if (!rToken || !exp || !iat) {
-      Logger.log('warn', 'Refresh token, exp or iat not set.');
-      return;
-    }
-
-    const timeDiff = exp - iat;
-
-    const now = Math.floor(new Date().getTime() / 1000);
-
-    // If more than half the time till expire has been passed refresh the token.
-    if (now > iat + timeDiff / 2) {
-      setRefreshingToken(true);
-      Logger.log('info', 'Refreshing token.');
-
-      ConfigLoader.loadConfig().then((config) => {
-        fetch(config.authenticationRefreshTokenEndpoint, {
-          method: 'POST',
-          body: JSON.stringify({
-            refresh_token: rToken,
-          }),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            Logger.log('info', 'Token refreshed.');
-
-            const decodedToken = jwtDecode(data.token);
-
-            localStorage.setItem(lsApiToken, data.token);
-            localStorage.setItem(lsApiTokenExpire, decodedToken.exp);
-            localStorage.setItem(lsApiTokenIssuedAt, decodedToken.iat);
-            localStorage.setItem(lsRefreshToken, data.refresh_token);
-          })
-          .catch(() => {
-            Logger.log('error', 'Token refresh error.');
-          })
-          .finally(() => {
-            setRefreshingToken(false);
-          });
-      });
-    }
-  };
-
   const reauthenticateHandler = () => {
+    Logger.log('info', 'Reauthenticate.');
+
     localStorage.removeItem(lsApiToken);
     localStorage.removeItem(lsApiTokenExpire);
     localStorage.removeItem(lsApiTokenIssuedAt);
@@ -169,7 +189,17 @@ function App() {
     localStorage.removeItem(lsScreenId);
     localStorage.removeItem(lsTenantKey);
 
-    setScreen('');
+    if (contentServiceRef?.current) {
+      contentServiceRef.current.stop();
+      contentServiceRef.current = null;
+    }
+
+    setScreen(null);
+    if (refreshTokenIntervalRef) {
+      clearInterval(refreshTokenIntervalRef.current);
+    }
+    setRunning(false);
+    refreshLogin();
   };
 
   useEffect(() => {
@@ -177,8 +207,6 @@ function App() {
     document.addEventListener('reauthenticate', reauthenticateHandler);
 
     refreshLogin();
-
-    refreshTokenIntervalRef.current = setInterval(checkToken, refreshTimeout);
 
     return function cleanup() {
       document.removeEventListener('screen', screenHandler);
@@ -204,6 +232,16 @@ function App() {
                 Bind this machine to a screen entity in the administration to
                 receive content.
               </h2>
+              <Spinner
+                animation="border"
+                className="m-5"
+                style={{
+                  width: '50px',
+                  height: '50px',
+                  color: '#333',
+                  animationDuration: '3s',
+                }}
+              />
               <h1 className="BindKey--Key">Key to enter: {bindKey}</h1>
             </>
           )}

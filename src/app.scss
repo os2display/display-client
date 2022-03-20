@@ -32,6 +32,9 @@ body {
 
   &--Header {
     flex: auto;
+    margin: 1em;
+    max-width: 800px;
+    text-align: center;
   }
 
   &--Key {
