@@ -20,6 +20,7 @@ function Screen({ screen }) {
   const rootStyle = {
     gridTemplateAreas: createGrid(configColumns, configRows),
   };
+  screen
 
   return (
     <div className="Screen" style={rootStyle} id={screen['@id']}>

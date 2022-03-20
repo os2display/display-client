@@ -61,6 +61,7 @@ function Region({ region }) {
     if (nextSlideAndIndex.nextIndex === 0 && Array.isArray(newSlides)) {
       const nextSlides = [...newSlides];
       setSlides(nextSlides);
+      debugger
       setNewSlides(null);
       setCurrentSlide(nextSlides[0]);
     } else {
@@ -126,7 +127,16 @@ function Region({ region }) {
   // Start the progress when the first data is received.
   useEffect(() => {
     if (newSlides !== null && slides === null) {
-      setSlides(newSlides);
+      let dada = [];
+      newSlides.forEach(element => {
+        let newElement = element;
+        newElement.content = {}
+        newElement.templateData.resources.component = "123"
+        newElement.templateData
+        debugger
+        dada.push(newElement)
+      });
+      setSlides(dada);
     }
   }, [newSlides]);
 

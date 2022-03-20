@@ -1,0 +1,21 @@
+{
+  "@type": "Media",
+  "@id": "/v1/media/0007JD5AT619540YKH0J1V18C2",
+  "title": "Qui magnam provident.",
+  "description": "Fugiat modi unde modi. Eius commodi fuga ratione vel voluptatem accusamus autem. Officiis expedita tempora ut voluptatem magnam ea.",
+  "license": "Attribution-NonCommercial-NoDerivs License",
+  "created": "1970-04-05T03:26:18+01:00",
+  "modified": "2022-03-18T11:48:36+01:00",
+  "modifiedBy": "",
+  "createdBy": "",
+  "media": [],
+  "assets": {
+    "type": "image/jpeg",
+    "uri": "dadada",
+    "dimensions": {
+      "height": 2592,
+      "width": 3888
+    },
+    "size": 4855058
+  }
+}
