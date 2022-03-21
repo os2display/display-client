@@ -48,30 +48,30 @@ jobs:
       - name: React coding standards
         run: yarn check-coding-standards
 
- cypress:
-   name: Cypress
-   runs-on: ubuntu-latest
-   strategy:
-     fail-fast: false
-     matrix:
-       browser: ["chrome", "firefox"]
-   steps:
-     - name: Checkout
-       uses: actions/checkout@v2
+  cypress:
+    name: Cypress
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: ["chrome", "firefox"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
 
-     - name: Setup network
-       run: docker network create frontend
+      - name: Setup network
+        run: docker network create frontend
 
-     - name: Install client
-       run: docker-compose run node yarn
+      - name: Install client
+        run: docker-compose run node yarn
 
-     - name: Cypress run
-       run: docker-compose run cypress run --browser ${{ matrix.browser }}
+      - name: Cypress run
+        run: docker-compose run cypress run --browser ${{ matrix.browser }}
 
-     - name: Archive screenshots
-       if: ${{ failure() }}
-       uses: actions/upload-artifact@v2
-       with:
-         name: cypress-screenhosts-${{ matrix.browser }}
-         path: cypress/screenshots
-         retention-days: 7
+      - name: Archive screenshots
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: cypress-screenhosts-${{ matrix.browser }}
+          path: cypress/screenshots
+          retention-days: 7
