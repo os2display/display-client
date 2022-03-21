@@ -65,9 +65,6 @@ jobs:
      - name: Install client
        run: docker-compose run node yarn
 
-     - name: Clone templates repo
-       run: git clone https://github.com/os2display/display-templates.git templates
-
      - name: Cypress run
        run: docker-compose run cypress run --browser ${{ matrix.browser }}
 
