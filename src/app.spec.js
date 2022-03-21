@@ -4,7 +4,7 @@ beforeEach(() => {
   });
 });
 
-describe('Simple app loads', () => {
+describe('Client tests', () => {
   it('It loads bindkey', () => {
     cy.visit('/');
     cy.intercept('POST', '**/screen', {
