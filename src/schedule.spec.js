@@ -3,6 +3,7 @@ beforeEach(() => {
     return false;
   });
 });
+
 describe('Schedule tests', () => {
   it('It should load the playlist on Friday (2022-03-25)', () => {
     const friday20220325 = new Date('2022-03-25T12:30:00.000Z');
