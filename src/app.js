@@ -74,7 +74,6 @@ function App() {
               data?.screenId &&
               data?.tenantKey
             ) {
-              debugger
               localStorage.setItem(localStorageApiTokenKey, data.token);
               localStorage.setItem(localStorageScreenIdKey, data.screenId);
               localStorage.setItem(localStorageTenantKeyKey, data.tenantKey);
