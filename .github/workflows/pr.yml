@@ -48,37 +48,33 @@ jobs:
       - name: React coding standards
         run: yarn check-coding-standards
 
-# @TODO: Readd when tests are not reliant on json-server.
-#  cypress:
-#    name: Cypress
-#    runs-on: ubuntu-latest
-#    strategy:
-#      fail-fast: false
-#      matrix:
-#        browser: ["chrome", "firefox"]
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v2
-#
-#      - name: Setup network
-#        run: docker network create frontend
-#
-#      - name: Install client
-#        run: docker-compose run node yarn
-#
-#      - name: Clone templates repo
-#        run: git clone https://github.com/os2display/display-templates.git templates
-#
-#      - name: Install templates
-#        run: docker-compose run templates npm install
-#
-#      - name: Cypress run
-#        run: docker-compose run cypress run --browser ${{ matrix.browser }}
-#
-#      - name: Archive screenshots
-#        if: ${{ failure() }}
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: cypress-screenhosts-${{ matrix.browser }}
-#          path: cypress/screenshots
-#          retention-days: 7
+ cypress:
+   name: Cypress
+   runs-on: ubuntu-latest
+   strategy:
+     fail-fast: false
+     matrix:
+       browser: ["chrome", "firefox"]
+   steps:
+     - name: Checkout
+       uses: actions/checkout@v2
+
+     - name: Setup network
+       run: docker network create frontend
+
+     - name: Install client
+       run: docker-compose run node yarn
+
+     - name: Clone templates repo
+       run: git clone https://github.com/os2display/display-templates.git templates
+
+     - name: Cypress run
+       run: docker-compose run cypress run --browser ${{ matrix.browser }}
+
+     - name: Archive screenshots
+       if: ${{ failure() }}
+       uses: actions/upload-artifact@v2
+       with:
+         name: cypress-screenhosts-${{ matrix.browser }}
+         path: cypress/screenshots
+         retention-days: 7
