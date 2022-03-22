@@ -1,6 +1,7 @@
 {
   "integrationFolder": "./src",
-  "testFiles": "**/*.test.js",
+  "testFiles": "**/*.spec.js",
   "pluginsFile": false,
-  "supportFile": false
+  "supportFile": false,
+  "viewportHeight": 1400
 }

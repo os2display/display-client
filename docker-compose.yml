@@ -15,7 +15,6 @@ services:
       - frontend
     depends_on:
       - node
-      - templates
     ports:
       - '80'
     volumes:

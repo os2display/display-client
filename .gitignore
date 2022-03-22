@@ -27,6 +27,4 @@ cypress/screenshots/*
 temp/
 templates/
 
-json-server/
-
 public/config.json
