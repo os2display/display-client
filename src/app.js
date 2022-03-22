@@ -21,8 +21,8 @@ function App() {
   const lsScreenId = 'screenId';
   const lsTenantKey = 'tenantKey';
   const lsRefreshToken = 'refreshToken';
-  const loginCheckTimeout = 5 * 1000;
-  const refreshTimeout = 10 * 1000;
+  const loginCheckTimeout = 15 * 1000;
+  const refreshTimeout = 60 * 1000;
 
   const [running, setRunning] = useState(false);
   const [screen, setScreen] = useState('');
