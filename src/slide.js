@@ -67,7 +67,10 @@ Slide.propTypes = {
     templateData: PropTypes.shape({
       resources: PropTypes.shape({ component: PropTypes.string.isRequired }),
     }).isRequired,
-    content: PropTypes.objectOf(PropTypes.any).isRequired,
+    content: PropTypes.oneOfType([
+      PropTypes.objectOf(PropTypes.any),
+      PropTypes.array,
+    ]).isRequired,
   }).isRequired,
   forwardRef: PropTypes.oneOfType([
     PropTypes.func,
