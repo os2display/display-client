@@ -43,6 +43,7 @@ describe('Client tests', () => {
       statusCode: 201,
       fixture: 'campaigns-empty.json',
     }).as('campaigns');
+
     cy.intercept('GET', '**/layouts/01FMYMAB1EQYQ40QE0C7Y6NVBK', {
       statusCode: 201,
       fixture: 'layout.json',
@@ -73,6 +74,7 @@ describe('Client tests', () => {
     }).as('media');
 
     cy.visit('/');
+
     cy.wait([
       '@bindKey',
       '@config',

@@ -2,5 +2,6 @@
   "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2NDc2MDc1MjIsImV4cCI6MTY1MDE5OTUyMiwicm9sZXMiOlsiUk9MRV9VU0VSIiwiUk9MRV9TQ1JFRU4iXSwidXNlcm5hbWUiOiIwMUZZRURXMU4xMzNTRzUxNkpWSjNWRzVGWSJ9.U_Zk0aykV5Lj7V3ceMPbS9t_PsubmhnzTEFHlTFf-n5DbbuTaCbZHuS2w0RIFXFFI2nk8sE2wd-vezWRLU9-EviGWIW27Opu2rPuQ0_12QLgmuvJz4XN4zGfESLSF9bldPiMjNCsLWQy6c_knHrYq2u_cbL6gTDFLOFgbLpq012a_RO9Nr4SuirQx86IJUCh4hwbijumlz0XqWR2FQZNUbd1ycb2Bnqg9wuTvCrckOYhF3BByNk-v2XfMwBka2tE1i88Jfguh_J-wcsp1pXd4yvhlVitUfawVrE63tkH5CMJlMjc_nxWg1qsN1DYkNTCian5Wcn17_O0jb9hdYCNSg",
   "screenId": "01FYEDW1N133SG516JVJ3VG5FY",
   "tenantKey": "ABC",
-  "status": "ready"
+  "status": "ready",
+  "refresh_token": "1234567890"
 }
