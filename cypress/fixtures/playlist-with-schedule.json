@@ -1,0 +1,42 @@
+{
+  "@id": "/v1/playlist-screen-regions",
+  "@type": "hydra:Collection",
+  "hydra:member": [
+    {
+      "@type": "PlaylistScreenRegion",
+      "@id": "/v1/playlist-screen-regions/01FYEDW287N2KCH595ERPJC5CX",
+      "playlist": {
+        "@type": "Playlist",
+        "@id": "/v1/playlists/01FYEDV33FTQVHG0K3PK7N2GXH",
+        "title": "Spilleliste test",
+        "description": "",
+        "schedules": [
+          {
+            "id": "01FYP5VAXKX4DZ0Y9D56T0AF1N",
+            "rrule": "DTSTART:20220321T110000Z\\nRRULE:WKST=MO;FREQ=WEEKLY;UNTIL=20220327T102800Z;BYDAY=FR,TU;BYMONTH=3,1",
+            "duration": 10800
+          },
+          {
+            "id": "01FYP5VAXKX4DZ0Y9D56T0AF1N",
+            "rrule": "DTSTART:20220101T124400Z\\nRRULE:WKST=MO;FREQ=YEARLY;UNTIL=20220327T114400Z;BYDAY=MO;BYMONTH=2",
+            "duration": 10800
+          }
+        ],
+        "created": "2022-03-18T12:50:39+01:00",
+        "modified": "2022-03-18T12:50:43+01:00",
+        "modifiedBy": "johndoe@example.com",
+        "createdBy": "johndoe@example.com",
+        "slides": "/v1/playlists/01FYEDV33FTQVHG0K3PK7N2GXH/slides",
+        "campaignScreens": [],
+        "campaignScreenGroups": [],
+        "isCampaign": false,
+        "published": {
+          "from": "2022-03-18T11:50:00+01:00",
+          "to": "2034-10-18T10:50:00+02:00"
+        }
+      },
+      "weight": 0
+    }
+  ],
+  "hydra:totalItems": 1
+}

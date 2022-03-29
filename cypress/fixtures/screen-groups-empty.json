@@ -1,0 +1,25 @@
+{
+  "@id": "/v1/screen-groups",
+  "@type": "hydra:Collection",
+  "hydra:member": [],
+  "hydra:totalItems": 0,
+  "hydra:search": {
+    "@type": "hydra:IriTemplate",
+    "hydra:template": "/v1/screens/01FYEDW1N133SG516JVJ3VG5FY/screen-groups{?order[title],order[description]}",
+    "hydra:variableRepresentation": "BasicRepresentation",
+    "hydra:mapping": [
+      {
+        "@type": "IriTemplateMapping",
+        "variable": "order[title]",
+        "property": "title",
+        "required": false
+      },
+      {
+        "@type": "IriTemplateMapping",
+        "variable": "order[description]",
+        "property": "description",
+        "required": false
+      }
+    ]
+  }
+}

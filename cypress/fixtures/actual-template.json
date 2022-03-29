@@ -1,0 +1,18 @@
+{
+  "@type": "Template",
+  "@id": "/v1/templates/01FP2SNGFN0BZQH03KCBXHKYHG",
+  "title": "Billede og tekst",
+  "description": "Mulighed for at sætte billede og tekst, med forskellige visninger.",
+  "created": "2021-12-04T13:20:51+01:00",
+  "modified": "2022-03-21T08:52:22+01:00",
+  "modifiedBy": "",
+  "createdBy": "",
+  "resources": {
+    "component": "https://raw.githubusercontent.com/os2display/display-templates/develop/build/image-text.js",
+    "admin": "https://raw.githubusercontent.com/os2display/display-templates/develop/build/image-text/image-text-admin.json",
+    "schema": "https://raw.githubusercontent.com/os2display/display-templates/develop/build/image-text/image-text-schema.json",
+    "assets": [],
+    "options": [],
+    "content": []
+  }
+}

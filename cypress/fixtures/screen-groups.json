@@ -1,0 +1,37 @@
+{
+  "@id": "/v1/screen-groups",
+  "@type": "hydra:Collection",
+  "hydra:member": [
+    {
+      "@type": "ScreenGroup",
+      "@id": "/v1/screen-groups/01AGD290CV12PM1H3N0B2X0TTM",
+      "title": "Voluptas similique aut exercitationem quia.",
+      "description": "Sunt aliquid quaerat iste et ab itaque. Et explicabo quae corporis ut aliquam quo et.",
+      "created": "2016-04-15T13:38:00+02:00",
+      "modified": "2022-03-19T21:13:43+01:00",
+      "modifiedBy": "johndoe@example.com",
+      "createdBy": "",
+      "campaigns": "/v1/screen-groups/01AGD290CV12PM1H3N0B2X0TTM/campaigns"
+    }
+  ],
+  "hydra:totalItems": 1,
+  "hydra:search": {
+    "@type": "hydra:IriTemplate",
+    "hydra:template": "/v1/screens/01FYEDW1N133SG516JVJ3VG5FY/screen-groups{?order[title],order[description]}",
+    "hydra:variableRepresentation": "BasicRepresentation",
+    "hydra:mapping": [
+      {
+        "@type": "IriTemplateMapping",
+        "variable": "order[title]",
+        "property": "title",
+        "required": false
+      },
+      {
+        "@type": "IriTemplateMapping",
+        "variable": "order[description]",
+        "property": "description",
+        "required": false
+      }
+    ]
+  }
+}
