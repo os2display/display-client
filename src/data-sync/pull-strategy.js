@@ -47,27 +47,27 @@ class PullStrategy {
     const tenantKey = localStorage.getItem(localStorageTenantKeyKey) ?? '';
 
     if (!path) {
-      return null;
+      throw new Error('No path');
     }
 
-    const response = await fetch(this.endpoint + path, {
-      headers: {
-        authorization: `Bearer ${token}`,
-        'Authorization-Tenant-Key': tenantKey,
-      },
-    }).catch((err) => {
+    let response;
+
+    try {
+      response = await fetch(this.endpoint + path, {
+        headers: {
+          authorization: `Bearer ${token}`,
+          'Authorization-Tenant-Key': tenantKey,
+        },
+      });
+    } catch (err) {
       Logger.log('error', `Failed to fetch. ${err}`);
-    });
-
-    if (!response) {
-      return false;
+      throw err;
     }
 
-    if (!response.ok) {
+    if (response.ok === false) {
       if (response.status === 401) {
         document.dispatchEvent(new Event('stopDataSync'));
         document.dispatchEvent(new Event('reauthenticate'));
-        return false;
       }
 
       const message = `An error has occured: ${response.status}`;
@@ -88,22 +88,22 @@ class PullStrategy {
     let results = [];
     let nextPath = `${path}`;
     do {
-      // eslint-disable-next-line no-await-in-loop
-      const responseData = await this.getPath(nextPath);
+      try {
+        // eslint-disable-next-line no-await-in-loop
+        const responseData = await this.getPath(nextPath);
 
-      if (!responseData) {
+        results = results.concat(responseData['hydra:member']);
+
+        if (
+          responseData['hydra:view'] &&
+          responseData['hydra:view']['hydra:next']
+        ) {
+          nextPath = responseData['hydra:view']['hydra:next'];
+        } else {
+          nextPath = false;
+        }
+      } catch (err) {
         return {};
-      }
-
-      results = results.concat(responseData['hydra:member']);
-
-      if (
-        responseData['hydra:view'] &&
-        responseData['hydra:view']['hydra:next']
-      ) {
-        nextPath = responseData['hydra:view']['hydra:next'];
-      } else {
-        nextPath = false;
       }
     } while (nextPath);
     return { path, results, keys };
@@ -116,39 +116,45 @@ class PullStrategy {
    * @returns {Array} array of campaigns (playlists).
    */
   async getCampaignsData(screen) {
-    const groups = await this.getPath(screen.inScreenGroups);
+    const screenGroupCampaigns = [];
 
-    if (!groups) {
-      return [];
+    try {
+      const response = await this.getPath(screen.inScreenGroups);
+
+      if (Object.prototype.hasOwnProperty.call(response, 'hydra:member')) {
+        const promises = [];
+
+        response['hydra:member'].forEach((group) => {
+          promises.push(this.getAllResultsFromPath(group.campaigns));
+        });
+
+        await Promise.allSettled(promises).then((results) => {
+          results.forEach((result) => {
+            if (result.status === 'fulfilled') {
+              result.value.results.forEach((campaign) => {
+                screenGroupCampaigns.push(campaign.campaign);
+              });
+            }
+          });
+        });
+      }
+    } catch (err) {
+      Logger.log('error', err);
     }
 
-    const promises = [];
+    let screenCampaigns = [];
 
-    groups['hydra:member'].forEach((group) => {
-      promises.push(this.getAllResultsFromPath(group.campaigns));
-    });
+    try {
+      const screenCampaignsResponse = await this.getPath(screen.campaigns);
 
-    const screenGroupCampaigns = [];
-    await Promise.allSettled(promises).then((results) => {
-      results.forEach((result) => {
-        if (result.status === 'fulfilled') {
-          result.value.results.forEach((campaign) => {
-            screenGroupCampaigns.push(campaign.campaign);
-          });
-        }
-      });
-    });
+      screenCampaigns = screenCampaignsResponse['hydra:member'].map(
+        (campaign) => campaign.campaign
+      );
+    } catch (err) {
+      Logger.log('error', err);
+    }
 
-    const screenCampaigns = (await this.getPath(screen.campaigns)) || {
-      'hydra:member': [],
-    };
-
-    return [
-      ...screenCampaigns['hydra:member'].map((campaign) => {
-        return campaign.campaign;
-      }),
-      ...screenGroupCampaigns,
-    ];
+    return [...screenCampaigns, ...screenGroupCampaigns];
   }
 
   /**
@@ -286,12 +292,12 @@ class PullStrategy {
    * @param {string} screenPath Path to the screen.
    */
   async getScreen(screenPath) {
-    // @TODO: Error handling.
+    let screen;
 
     // Fetch screen
-    const screen = await this.getPath(screenPath);
-
-    if (!screen) {
+    try {
+      screen = await this.getPath(screenPath);
+    } catch (err) {
       return;
     }
 
@@ -299,7 +305,9 @@ class PullStrategy {
 
     // Campaigns data
     let hasActiveCampaign = false;
-    newScreen.campaignsData = await this.getCampaignsData(screen);
+
+    newScreen.campaignsData = this.getCampaignsData(screen);
+
     if (newScreen.campaignsData.length > 0) {
       newScreen.campaignsData.forEach(({ published }) => {
         if (isPublished(published)) {
