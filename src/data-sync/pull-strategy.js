@@ -63,7 +63,6 @@ class PullStrategy {
       });
     } catch (err) {
       Logger.log('error', `Failed to fetch: ${this.endpoint + path}`);
-      console.error(err);
       throw err;
     }
 
