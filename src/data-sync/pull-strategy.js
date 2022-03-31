@@ -53,6 +53,8 @@ class PullStrategy {
     let response;
 
     try {
+      Logger.log('info', `Fetching: ${this.endpoint + path}`);
+
       response = await fetch(this.endpoint + path, {
         headers: {
           authorization: `Bearer ${token}`,
@@ -60,7 +62,8 @@ class PullStrategy {
         },
       });
     } catch (err) {
-      Logger.log('error', `Failed to fetch. ${err}`);
+      Logger.log('error', `Failed to fetch: ${this.endpoint + path}`);
+      console.error(err);
       throw err;
     }
 
@@ -306,7 +309,7 @@ class PullStrategy {
     // Campaigns data
     let hasActiveCampaign = false;
 
-    newScreen.campaignsData = this.getCampaignsData(screen);
+    newScreen.campaignsData = await this.getCampaignsData(screen);
 
     if (newScreen.campaignsData.length > 0) {
       newScreen.campaignsData.forEach(({ published }) => {

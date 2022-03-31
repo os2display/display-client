@@ -48,6 +48,8 @@ services:
     environment:
       - CYPRESS_VIDEO=false
       - CYPRESS_baseUrl=http://nginx
+      # Uncomment to see console output:
+      #- ELECTRON_ENABLE_LOGGING=1
       #- DISPLAY=host.docker.internal:0
     volumes:
       - .:/e2e

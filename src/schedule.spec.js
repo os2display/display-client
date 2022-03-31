@@ -54,6 +54,15 @@ describe('Schedule tests', () => {
       fixture: 'slides.json',
     }).as('slides');
 
+    cy.intercept(
+      'GET',
+      '**/screen-groups/01AGD290CV12PM1H3N0B2X0TTM/campaigns',
+      {
+        statusCode: 201,
+        fixture: 'campaigns-empty.json',
+      }
+    ).as('campaigns');
+
     cy.intercept('GET', '**/templates/01FP2SNGFN0BZQH03KCBXHKYHG', {
       statusCode: 201,
       fixture: 'templates.json',
@@ -115,6 +124,15 @@ describe('Schedule tests', () => {
       statusCode: 201,
       fixture: 'layout.json',
     }).as('layout');
+
+    cy.intercept(
+      'GET',
+      '**/screen-groups/01AGD290CV12PM1H3N0B2X0TTM/campaigns',
+      {
+        statusCode: 201,
+        fixture: 'campaigns-empty.json',
+      }
+    ).as('campaigns');
 
     cy.intercept(
       'GET',
@@ -201,6 +219,15 @@ describe('Schedule tests', () => {
       }
     ).as('playlists');
 
+    cy.intercept(
+      'GET',
+      '**/screen-groups/01AGD290CV12PM1H3N0B2X0TTM/campaigns',
+      {
+        statusCode: 201,
+        fixture: 'campaigns-empty.json',
+      }
+    ).as('campaigns');
+
     cy.intercept('GET', '**/playlists/01FYEDV33FTQVHG0K3PK7N2GXH/slides', {
       statusCode: 201,
       fixture: 'slides.json',
@@ -276,6 +303,15 @@ describe('Schedule tests', () => {
         fixture: 'playlist-with-schedule.json',
       }
     ).as('playlists');
+
+    cy.intercept(
+      'GET',
+      '**/screen-groups/01AGD290CV12PM1H3N0B2X0TTM/campaigns',
+      {
+        statusCode: 201,
+        fixture: 'campaigns-empty.json',
+      }
+    ).as('campaigns');
 
     cy.intercept('GET', '**/playlists/01FYEDV33FTQVHG0K3PK7N2GXH/slides', {
       statusCode: 201,
