@@ -138,10 +138,12 @@ class ContentService {
 
     Logger.log('info', `Event received: regionReady for ${regionId}`);
 
-    this.scheduleService.updateRegion(
-      regionId,
-      this.currentScreen.regionData[regionId]
-    );
+    if (this.currentScreen) {
+      this.scheduleService.updateRegion(
+        regionId,
+        this.currentScreen.regionData[regionId]
+      );
+    }
   }
 
   /**

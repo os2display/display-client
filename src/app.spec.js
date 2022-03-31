@@ -18,6 +18,51 @@ describe('Client tests', () => {
       .should('match', /^Key to enter: 26PCSL3Q/);
   });
 
+  it('It loads an empty screen with one region', () => {
+    cy.intercept('POST', '**/screen', {
+      statusCode: 201,
+      fixture: 'screen-response.json',
+    }).as('bindKey');
+
+    cy.intercept('GET', '**/config.json', {
+      statusCode: 200,
+      fixture: 'config.json',
+    }).as('config');
+
+    cy.intercept('GET', '**/screens/01FYEDW1N133SG516JVJ3VG5FY', {
+      statusCode: 200,
+      fixture: 'screen-empty.json',
+    }).as('screen');
+
+    cy.intercept('GET', '**/screens/01FYEDW1N133SG516JVJ3VG5FY/screen-groups', {
+      statusCode: 200,
+      fixture: 'screen-groups-empty.json',
+    }).as('groups');
+
+    cy.intercept('GET', '**/screens/01FYEDW1N133SG516JVJ3VG5FY/campaigns', {
+      statusCode: 200,
+      fixture: 'campaigns-empty.json',
+    }).as('campaigns');
+
+    cy.intercept('GET', '**/layouts/01FMYMAB1EQYQ40QE0C7Y6NVBK', {
+      statusCode: 200,
+      fixture: 'layout.json',
+    }).as('layout');
+
+    cy.visit('/');
+
+    cy.wait([
+      '@bindKey',
+      '@config',
+      '@screen',
+      '@groups',
+      '@campaigns',
+      '@layout',
+    ]);
+
+    cy.get('.Region').should('exist');
+  });
+
   it('It loads a screen with a playlist and a slide', () => {
     cy.intercept('POST', '**/screen', {
       statusCode: 201,
@@ -25,26 +70,27 @@ describe('Client tests', () => {
     }).as('bindKey');
 
     cy.intercept('GET', '**/config.json', {
-      statusCode: 201,
+      statusCode: 200,
       fixture: 'config.json',
     }).as('config');
 
     cy.intercept('GET', '**/screens/01FYEDW1N133SG516JVJ3VG5FY', {
-      statusCode: 201,
+      statusCode: 200,
       fixture: 'screen.json',
     }).as('screen');
 
     cy.intercept('GET', '**/screens/01FYEDW1N133SG516JVJ3VG5FY/screen-groups', {
-      statusCode: 201,
-      fixture: 'screen-groups.json',
+      statusCode: 200,
+      fixture: 'screen-groups-empty.json',
     }).as('groups');
 
     cy.intercept('GET', '**/screens/01FYEDW1N133SG516JVJ3VG5FY/campaigns', {
-      statusCode: 201,
+      statusCode: 200,
       fixture: 'campaigns-empty.json',
     }).as('campaigns');
+
     cy.intercept('GET', '**/layouts/01FMYMAB1EQYQ40QE0C7Y6NVBK', {
-      statusCode: 201,
+      statusCode: 200,
       fixture: 'layout.json',
     }).as('layout');
 
@@ -52,27 +98,28 @@ describe('Client tests', () => {
       'GET',
       '**/screens/01FYEDW1N133SG516JVJ3VG5FY/regions/01FYEDQKCJTVBY9ZGF57R9Q5FT/playlists',
       {
-        statusCode: 201,
+        statusCode: 200,
         fixture: 'playlists.json',
       }
     ).as('playlists');
 
     cy.intercept('GET', '**/playlists/01FYEDV33FTQVHG0K3PK7N2GXH/slides', {
-      statusCode: 201,
+      statusCode: 200,
       fixture: 'slides.json',
     }).as('slides');
 
     cy.intercept('GET', '**/templates/01FP2SNGFN0BZQH03KCBXHKYHG', {
-      statusCode: 201,
+      statusCode: 200,
       fixture: 'templates.json',
     }).as('templates');
 
     cy.intercept('GET', '**/media/0007JD5AT619540YKH0J1V18C2', {
-      statusCode: 201,
+      statusCode: 200,
       fixture: 'media.json',
     }).as('media');
 
     cy.visit('/');
+
     cy.wait([
       '@bindKey',
       '@config',
@@ -94,37 +141,37 @@ describe('Client tests', () => {
 
   it('It loads a screen with a playlist and a slide, and playlist is overridden by campaign', () => {
     cy.intercept('POST', '**/screen', {
-      statusCode: 201,
+      statusCode: 200,
       fixture: 'screen-response.json',
     }).as('bindKey');
 
     cy.intercept('GET', '**/config.json', {
-      statusCode: 201,
+      statusCode: 200,
       fixture: 'config.json',
     }).as('config');
 
     cy.intercept('GET', '**/screens/01FYEDW1N133SG516JVJ3VG5FY', {
-      statusCode: 201,
+      statusCode: 200,
       fixture: 'screen.json',
     }).as('screen');
 
     cy.intercept('GET', '**/screens/01FYEDW1N133SG516JVJ3VG5FY/screen-groups', {
-      statusCode: 201,
-      fixture: 'screen-groups.json',
+      statusCode: 200,
+      fixture: 'screen-groups-empty.json',
     }).as('groups');
 
     cy.intercept('GET', '**/screens/01FYEDW1N133SG516JVJ3VG5FY/campaigns', {
-      statusCode: 201,
+      statusCode: 200,
       fixture: 'campaigns.json',
     }).as('campaigns');
 
     cy.intercept('GET', '**/playlists/01FYHVQEKNQ5RGQNCW497M71M6/slides', {
-      statusCode: 201,
+      statusCode: 200,
       fixture: 'campaign-slide.json',
     }).as('slides');
 
     cy.intercept('GET', '**/templates/01FP2SNGFN0BZQH03KCBXHKYHG', {
-      statusCode: 201,
+      statusCode: 200,
       fixture: 'templates.json',
     }).as('templates');
 
@@ -162,32 +209,32 @@ describe('Client tests', () => {
     }).as('screen');
 
     cy.intercept('GET', '**/screens/01FYEDW1N133SG516JVJ3VG5FY/screen-groups', {
-      statusCode: 201,
+      statusCode: 200,
       fixture: 'screen-groups.json',
-    }).as('screen');
+    }).as('screen-groups');
 
     cy.intercept(
       'GET',
       '**/screen-groups/01AGD290CV12PM1H3N0B2X0TTM/campaigns',
       {
-        statusCode: 201,
+        statusCode: 200,
         fixture: 'screen-group-campaign.json',
       }
-    ).as('screen');
-
-    cy.intercept('GET', '**/screens/01FYEDW1N133SG516JVJ3VG5FY/screen-groups', {
-      statusCode: 201,
-      fixture: 'screen-groups.json',
-    }).as('groups');
+    ).as('campaigns');
 
     cy.intercept('GET', '**/screens/01FYEDW1N133SG516JVJ3VG5FY/campaigns', {
       statusCode: 201,
-      fixture: 'campaigns.json',
-    }).as('campaigns');
+      fixture: 'campaigns-empty.json',
+    }).as('screen-campaigns');
+
+    cy.intercept('GET', '**/playlists/01FYHVQEKNQ5RGQNCW497M71M6/slides', {
+      statusCode: 201,
+      fixture: 'campaign-slide.json',
+    }).as('slides');
 
     cy.intercept('GET', '**/playlists/00GCCG81TJ12N11H8J0HE502ZE/slides', {
       statusCode: 201,
-      fixture: 'campaign-slide.json',
+      fixture: 'slides-empty.json',
     }).as('slides');
 
     cy.intercept('GET', '**/templates/01FP2SNGFN0BZQH03KCBXHKYHG', {
@@ -200,7 +247,8 @@ describe('Client tests', () => {
       '@bindKey',
       '@config',
       '@screen',
-      '@groups',
+      '@screen-groups',
+      '@screen-campaigns',
       '@campaigns',
       '@slides',
       '@templates',
@@ -237,10 +285,20 @@ describe('Client tests', () => {
       fixture: 'screen-groups.json',
     }).as('groups');
 
+    cy.intercept(
+      'GET',
+      '**/screen-groups/01AGD290CV12PM1H3N0B2X0TTM/campaigns',
+      {
+        statusCode: 201,
+        fixture: 'campaigns-empty.json',
+      }
+    ).as('campaigns');
+
     cy.intercept('GET', '**/screens/01FYEDW1N133SG516JVJ3VG5FY/campaigns', {
       statusCode: 201,
       fixture: 'campaigns-empty.json',
     }).as('campaigns');
+
     cy.intercept('GET', '**/layouts/01FMYMAB1EQYQ40QE0C7Y6NVBK', {
       statusCode: 201,
       fixture: 'layout.json',
@@ -311,10 +369,20 @@ describe('Client tests', () => {
       fixture: 'screen-groups.json',
     }).as('groups');
 
+    cy.intercept(
+      'GET',
+      '**/screen-groups/01AGD290CV12PM1H3N0B2X0TTM/campaigns',
+      {
+        statusCode: 201,
+        fixture: 'campaigns-empty.json',
+      }
+    ).as('campaigns');
+
     cy.intercept('GET', '**/screens/01FYEDW1N133SG516JVJ3VG5FY/campaigns', {
       statusCode: 201,
       fixture: 'campaigns-empty.json',
     }).as('campaigns');
+
     cy.intercept('GET', '**/layouts/01FMYMAB1EQYQ40QE0C7Y6NVBK', {
       statusCode: 201,
       fixture: 'layout.json',
@@ -385,10 +453,38 @@ describe('Client tests', () => {
       fixture: 'screen-groups.json',
     }).as('groups');
 
+    cy.intercept(
+      'GET',
+      '**/screens/01FYEDW1N133SG516JVJ3VG5FY/regions/01FYHZ62T8H6QGRXPJC7RYZYNY/playlists',
+      {
+        statusCode: 201,
+        fixture: 'playlists-empty.json',
+      }
+    ).as('slides');
+
+    cy.intercept(
+      'GET',
+      '**/screens/01FYEDW1N133SG516JVJ3VG5FY/regions/01FYHZ62T7DXZ0YBM57NCYSX5E/playlists',
+      {
+        statusCode: 201,
+        fixture: 'playlists-empty.json',
+      }
+    ).as('slides');
+
+    cy.intercept(
+      'GET',
+      '**/screen-groups/01AGD290CV12PM1H3N0B2X0TTM/campaigns',
+      {
+        statusCode: 201,
+        fixture: 'campaigns-empty.json',
+      }
+    ).as('campaigns');
+
     cy.intercept('GET', '**/screens/01FYEDW1N133SG516JVJ3VG5FY/campaigns', {
       statusCode: 201,
       fixture: 'campaigns-empty.json',
     }).as('campaigns');
+
     cy.intercept('GET', '**/layouts/01FMYMBPSJQ7SG7BZZ1N8TB7GW', {
       statusCode: 201,
       fixture: 'layout-split.json',
@@ -432,6 +528,16 @@ describe('Client tests', () => {
       statusCode: 201,
       fixture: 'campaigns-empty.json',
     }).as('campaigns');
+
+    cy.intercept(
+      'GET',
+      '**/screen-groups/01AGD290CV12PM1H3N0B2X0TTM/campaigns',
+      {
+        statusCode: 201,
+        fixture: 'campaigns-empty.json',
+      }
+    ).as('campaigns');
+
     cy.intercept('GET', '**/layouts/01FMYMAB1EQYQ40QE0C7Y6NVBK', {
       statusCode: 201,
       fixture: 'layout.json',
