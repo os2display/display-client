@@ -1,12 +1,8 @@
-import { React, useEffect, useState } from 'react';
+import { React } from 'react';
 import PropTypes from 'prop-types';
-import {
-  createRemoteComponent,
-  createRequires,
-} from '@paciolan/remote-component';
 import './slide.scss';
-import { resolve } from './remote-component.config';
 import ErrorBoundary from './error-boundary';
+import { useRemoteComponent } from './useRemoteComponent';
 
 /**
  * Slide component.
@@ -20,22 +16,9 @@ import ErrorBoundary from './error-boundary';
  * @returns {object} - The component.
  */
 function Slide({ slide, id, run, slideDone, forwardRef }) {
-  const [remoteComponent, setRemoteComponent] = useState(null);
-
-  useEffect(() => {
-    const requires = createRequires(resolve);
-    const RemoteComponent = createRemoteComponent({ requires });
-
-    setRemoteComponent(
-      <RemoteComponent
-        url={slide.templateData.resources.component}
-        slide={slide}
-        content={slide.content}
-        run={run}
-        slideDone={slideDone}
-      />
-    );
-  }, [run]);
+  const [loading, err, Component] = useRemoteComponent(
+    slide.templateData.resources.component
+  );
 
   /**
    * Handle errors in ErrorBoundary.
@@ -49,10 +32,22 @@ function Slide({ slide, id, run, slideDone, forwardRef }) {
   }
 
   return (
-    <div id={id} className="Slide" ref={forwardRef}>
-      {remoteComponent && (
+    <div
+      id={id}
+      className="Slide"
+      ref={forwardRef}
+      data-run={run}
+      data-execution-id={slide.executionId}
+    >
+      {loading && <div>...</div>}
+      {!loading && err == null && Component && (
         <ErrorBoundary errorHandler={handleError}>
-          {remoteComponent}
+          <Component
+            slide={slide}
+            content={slide.content}
+            run={run}
+            slideDone={slideDone}
+          />
         </ErrorBoundary>
       )}
     </div>
@@ -64,6 +59,7 @@ Slide.propTypes = {
   run: PropTypes.string.isRequired,
   slideDone: PropTypes.func.isRequired,
   slide: PropTypes.shape({
+    executionId: PropTypes.string,
     templateData: PropTypes.shape({
       resources: PropTypes.shape({ component: PropTypes.string.isRequired }),
     }).isRequired,
