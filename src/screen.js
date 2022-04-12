@@ -18,10 +18,13 @@ import TouchRegion from './touch-region';
 function Screen({ screen }) {
   const configColumns = screen?.layoutData?.grid?.columns || 1;
   const configRows = screen?.layoutData?.grid?.rows || 1;
+  const gridTemplateColumns = '1fr '.repeat(configColumns);
+  const gridTemplateRows = '1fr '.repeat(configRows);
+
   const rootStyle = {
     gridTemplateAreas: createGrid(configColumns, configRows),
-    gridTemplateColumns: `${'1fr'.repeat(configColumns)}`,
-    gridTemplateRows: `${'1fr'.repeat(configRows)}%`,
+    gridTemplateColumns: gridTemplateRows,
+    gridTemplateRows: gridTemplateColumns,
   };
 
   return (
