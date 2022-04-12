@@ -4,7 +4,6 @@ import Screen from './screen';
 import ContentService from './service/contentService';
 import ConfigLoader from './config-loader';
 import Logger from './logger/logger';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.scss';
 import Spinner from './spinner';
 

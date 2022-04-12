@@ -20,6 +20,8 @@ function Screen({ screen }) {
   const configRows = screen?.layoutData?.grid?.rows || 1;
   const rootStyle = {
     gridTemplateAreas: createGrid(configColumns, configRows),
+    gridTemplateColumns: `${'1fr'.repeat(configColumns)}`,
+    gridTemplateRows: `${'1fr'.repeat(configRows)}%`,
   };
 
   return (

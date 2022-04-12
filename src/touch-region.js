@@ -133,7 +133,7 @@ function TouchRegion({ region }) {
                     />
                   </div>
                   <div className="TouchRegionFooter">
-                    <div className="touch-buttons m-3">
+                    <div className="touch-buttons">
                       <div className="touch-buttons--button no-border">
                         <div
                           className="touch-buttons--button-content"
