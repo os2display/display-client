@@ -1,0 +1,129 @@
+.TouchRegion {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  background-color: white;
+}
+
+.TouchRegionContainer {
+  position: fixed;
+  background-color: white;
+  left: 0;
+  top: 0;
+  padding: 5%;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+}
+
+.TouchRegionContent {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  position: relative;
+}
+
+.TouchRegionFooter {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.TouchSlide-enter {
+  opacity: 0;
+}
+.TouchSlide-enter-active {
+  opacity: 1;
+  transition: opacity 300ms linear;
+}
+.TouchSlide-exit {
+  opacity: 1;
+}
+.TouchSlide-exit-active {
+  opacity: 0;
+  transition: opacity 300ms linear;
+}
+
+$font-black: 'Arial Black', sans-serif;
+$font-regular: Arial, sans-serif;
+
+$color-highlight: #eaeaea;
+$color-base: #fff;
+$color-text: #333;
+
+.touch-buttons {
+  font-family: $font-regular;
+  font-size: 16px;
+  bottom: 0;
+  position: relative;
+  height: 100%;
+
+  display: flex;
+  align-items: flex-end;
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    user-select: none;
+  }
+
+  &--button {
+    background: $color-base;
+    border: 1px solid $color-highlight;
+    color: $color-text;
+    display: flex;
+    flex: 1 0 0;
+    height: 80%;
+    justify-content: center;
+
+    &.no-border {
+      border: 0;
+    }
+
+    &.is-open {
+      background: $color-highlight;
+      transition-duration: .7s;
+      transition-property: background, height;
+      height: 85%;
+    }
+
+    &.is-hidden {
+      background: $color-base;
+      transition-duration: .7s;
+      transition-property: background, height;
+      height: 80%;
+    }
+  }
+
+  &--button:last-child {
+    border-right: 0;
+  }
+
+  &--button:first-child {
+    border-left: 0;
+  }
+
+  &--button-content {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  &--button-icon {
+    display: flex;
+    flex-grow: 1;
+    justify-content: flex-end;
+  }
+
+  &--button-text {
+    flex-grow: 1;
+    font-size: 1.75em;
+    padding: 5%;
+  }
+}
