@@ -1,0 +1,96 @@
+$font-black: "Arial Black", sans-serif;
+$font-regular: Arial, sans-serif;
+
+$color-highlight: #eaeaea;
+$color-base: #fff;
+$color-text: #333;
+
+.TouchRegion {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  background-color: white;
+}
+
+.TouchRegionContainer {
+  position: fixed;
+  left: 0;
+  top: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+}
+
+.TouchRegionContent {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  position: relative;
+}
+
+.TouchRegionFooter {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.TouchButton {
+  background: $color-base;
+  border: 1px solid $color-highlight;
+  color: $color-text;
+  display: flex;
+  place-content: center;
+  place-items: center;
+  flex: 1 0 auto;
+
+  &:last-child {
+    border-right: 0;
+  }
+
+  &:first-child {
+    border-left: 0;
+  }
+}
+
+.TouchButtonClose {
+  background: hsla(0deg, 100%, 100%, 0.8);
+  box-shadow: 0 0 10px hsl(0deg, 0%, 0%, 0.25);
+  padding: 14px 30px 10px 30px;
+  color: $color-text;
+  display: flex;
+  place-content: center;
+  place-items: center;
+  flex: 1 0 auto;
+}
+
+.TouchButtonIcon {
+  margin-right: 1em;
+}
+
+.TouchButtonText {
+  font-size: 1.75em;
+}
+
+.TouchButtonsContainer {
+  font-family: $font-regular;
+  font-size: 16px;
+  bottom: 0;
+  position: relative;
+  height: 100%;
+  display: flex;
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    user-select: none;
+  }
+}

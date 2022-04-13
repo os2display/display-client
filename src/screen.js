@@ -1,8 +1,9 @@
-import { React } from 'react';
+import { Fragment, React } from 'react';
 import PropTypes from 'prop-types';
 import { createGrid } from 'os2display-grid-generator';
 import Region from './region';
 import './screen.scss';
+import TouchRegion from './touch-region';
 
 /**
  * Screen component.
@@ -17,14 +18,28 @@ import './screen.scss';
 function Screen({ screen }) {
   const configColumns = screen?.layoutData?.grid?.columns || 1;
   const configRows = screen?.layoutData?.grid?.rows || 1;
+  const gridTemplateColumns = '1fr '.repeat(configColumns);
+  const gridTemplateRows = '1fr '.repeat(configRows);
+
   const rootStyle = {
     gridTemplateAreas: createGrid(configColumns, configRows),
+    gridTemplateColumns: gridTemplateRows,
+    gridTemplateRows: gridTemplateColumns,
   };
 
   return (
     <div className="Screen" style={rootStyle} id={screen['@id']}>
       {screen?.layoutData?.regions?.map((region) => (
-        <Region key={region['@id']} region={region} />
+        <Fragment key={region['@id']}>
+          {/* Default region type */}
+          {(!region.type || region.type === 'default') && (
+            <Region key={region['@id']} region={region} />
+          )}
+          {/* Special region type: touch-buttons */}
+          {region?.type === 'touch-buttons' && (
+            <TouchRegion key={region['@id']} region={region} />
+          )}
+        </Fragment>
       ))}
     </div>
   );

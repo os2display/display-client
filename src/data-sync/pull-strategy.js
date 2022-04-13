@@ -180,8 +180,8 @@ class PullStrategy {
         .then((results) => {
           results.forEach((result) => {
             if (result.status === 'fulfilled') {
-              const members = result.value.results;
-              const matches = result.value.path.match(reg);
+              const members = result?.value?.results ?? [];
+              const matches = result?.value?.path?.match(reg) ?? [];
 
               if (matches?.groups?.regionId) {
                 regionData[matches.groups.regionId] = members.map(
@@ -230,7 +230,10 @@ class PullStrategy {
       Promise.allSettled(promises)
         .then((results) => {
           results.forEach((result) => {
-            if (result.status === 'fulfilled') {
+            if (
+              result.status === 'fulfilled' &&
+              Object.prototype.hasOwnProperty.call(result.value, 'keys')
+            ) {
               regionData[result.value.keys.regionKey][
                 result.value.keys.playlistKey
               ].slidesData = result.value.results.map(
@@ -273,7 +276,10 @@ class PullStrategy {
       Promise.allSettled(promises)
         .then((results) => {
           results.forEach((result) => {
-            if (result.status === 'fulfilled') {
+            if (
+              result.status === 'fulfilled' &&
+              Object.prototype.hasOwnProperty.call(result.value, 'keys')
+            ) {
               campaigns[result.value.keys.campaignKey][
                 result.value.keys.playlistKey
               ].slidesData = result.value.results.map(

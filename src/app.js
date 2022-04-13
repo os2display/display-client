@@ -1,12 +1,11 @@
 import jwtDecode from 'jwt-decode';
 import { React, useEffect, useRef, useState } from 'react';
-import { Spinner } from 'react-bootstrap';
 import Screen from './screen';
 import ContentService from './service/contentService';
 import ConfigLoader from './config-loader';
 import Logger from './logger/logger';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.scss';
+import Spinner from './spinner';
 
 /**
  * App component.
@@ -232,16 +231,7 @@ function App() {
                 Bind this machine to a screen entity in the administration to
                 receive content.
               </h2>
-              <Spinner
-                animation="border"
-                className="m-5"
-                style={{
-                  width: '50px',
-                  height: '50px',
-                  color: '#333',
-                  animationDuration: '3s',
-                }}
-              />
+              <Spinner />
               <h1 className="BindKey--Key">Key to enter: {bindKey}</h1>
             </>
           )}
