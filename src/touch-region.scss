@@ -1,3 +1,10 @@
+$font-black: "Arial Black", sans-serif;
+$font-regular: Arial, sans-serif;
+
+$color-highlight: #eaeaea;
+$color-base: #fff;
+$color-text: #333;
+
 .TouchRegion {
   width: 100%;
   height: 100%;
@@ -9,10 +16,8 @@
 
 .TouchRegionContainer {
   position: fixed;
-  background-color: white;
   left: 0;
   top: 0;
-  padding: 5%;
   margin: 0;
   width: 100%;
   height: 100%;
@@ -28,103 +33,64 @@
 }
 
 .TouchRegionFooter {
-  margin: 20px;
   display: flex;
   justify-content: center;
   align-content: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
-.TouchSlide-enter {
-  opacity: 0;
-}
-.TouchSlide-enter-active {
-  opacity: 1;
-  transition: opacity 300ms linear;
-}
-.TouchSlide-exit {
-  opacity: 1;
-}
-.TouchSlide-exit-active {
-  opacity: 0;
-  transition: opacity 300ms linear;
+.TouchButton {
+  background: $color-base;
+  border: 1px solid $color-highlight;
+  color: $color-text;
+  display: flex;
+  place-content: center;
+  place-items: center;
+  flex: 1 0 auto;
+
+  &:last-child {
+    border-right: 0;
+  }
+
+  &:first-child {
+    border-left: 0;
+  }
 }
 
-$font-black: "Arial Black", sans-serif;
-$font-regular: Arial, sans-serif;
+.TouchButtonClose {
+  background: hsla(0deg, 100%, 100%, 0.8);
+  box-shadow: 0 0 10px hsl(0deg, 0%, 0%, 0.25);
+  padding: 14px 30px 10px 30px;
+  color: $color-text;
+  display: flex;
+  place-content: center;
+  place-items: center;
+  flex: 1 0 auto;
+}
 
-$color-highlight: #eaeaea;
-$color-base: #fff;
-$color-text: #333;
+.TouchButtonIcon {
+  margin-right: 1em;
+}
 
-.touch-buttons {
+.TouchButtonText {
+  font-size: 1.75em;
+}
+
+.TouchButtonsContainer {
   font-family: $font-regular;
   font-size: 16px;
   bottom: 0;
   position: relative;
   height: 100%;
-
   display: flex;
-  align-items: flex-end;
 
   *,
   *::before,
   *::after {
     box-sizing: border-box;
     user-select: none;
-  }
-
-  &--button {
-    background: $color-base;
-    border: 1px solid $color-highlight;
-    color: $color-text;
-    display: flex;
-    flex: 1 0 0;
-    height: 100%;
-    justify-content: center;
-
-    &.no-border {
-      border: 0;
-    }
-
-    &.is-open {
-      background: $color-highlight;
-      transition-duration: 0.7s;
-      transition-property: background, height;
-      height: 100%;
-    }
-
-    &.is-hidden {
-      background: $color-base;
-      transition-duration: 0.7s;
-      transition-property: background, height;
-      height: 100%;
-    }
-  }
-
-  &--button:last-child {
-    border-right: 0;
-  }
-
-  &--button:first-child {
-    border-left: 0;
-  }
-
-  &--button-content {
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    width: 100%;
-  }
-
-  &--button-icon {
-    display: flex;
-    flex-grow: 1;
-    justify-content: flex-end;
-    margin-right: 1em;
-  }
-
-  &--button-text {
-    flex-grow: 1;
-    font-size: 1.75em;
   }
 }
