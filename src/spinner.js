@@ -11,15 +11,9 @@ import './spinner.scss';
 function Spinner() {
   return (
     <div className="lds-grid m-5">
-      <div> </div>
-      <div> </div>
-      <div> </div>
-      <div> </div>
-      <div> </div>
-      <div> </div>
-      <div> </div>
-      <div> </div>
-      <div> </div>
+      {[...Array(9)].map(() => (
+        <div />
+      ))}
     </div>
   );
 }
