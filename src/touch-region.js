@@ -2,7 +2,6 @@ import { React, useEffect, useState, createRef } from 'react';
 import PropTypes from 'prop-types';
 import './touch-region.scss';
 import { createGridArea } from 'os2display-grid-generator';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import Slide from './slide';
 import ErrorBoundary from './error-boundary';
 import idFromPath from './id-from-path';
