@@ -49,7 +49,7 @@
   transition: opacity 300ms linear;
 }
 
-$font-black: 'Arial Black', sans-serif;
+$font-black: "Arial Black", sans-serif;
 $font-regular: Arial, sans-serif;
 
 $color-highlight: #eaeaea;
@@ -88,14 +88,14 @@ $color-text: #333;
 
     &.is-open {
       background: $color-highlight;
-      transition-duration: .7s;
+      transition-duration: 0.7s;
       transition-property: background, height;
       height: 100%;
     }
 
     &.is-hidden {
       background: $color-base;
-      transition-duration: .7s;
+      transition-duration: 0.7s;
       transition-property: background, height;
       height: 100%;
     }

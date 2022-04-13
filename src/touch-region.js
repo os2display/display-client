@@ -138,6 +138,9 @@ function TouchRegion({ region }) {
                         <div
                           className="touch-buttons--button-content"
                           onClick={slideDone}
+                          onKeyDown={slideDone}
+                          role="button"
+                          tabIndex={0}
                         >
                           <div className="touch-buttons--button-icon">
                             <svg
@@ -184,6 +187,9 @@ function TouchRegion({ region }) {
                     <div
                       className="touch-buttons--button-content"
                       onClick={() => startSlide(slide)}
+                      onKeyDown={() => startSlide(slide)}
+                      role="button"
+                      tabIndex={0}
                     >
                       <div className="touch-buttons--button-icon">
                         <svg
