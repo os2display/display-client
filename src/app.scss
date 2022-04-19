@@ -29,17 +29,23 @@ body {
   display: flex;
   align-items: center;
   justify-items: center;
+  background-image: url('assets/fallback.png');
+  background-size: cover;
+  background-position: center;
+}
 
-  &--Header {
-    flex: auto;
-    margin: 1em;
-    max-width: 800px;
-    text-align: center;
-  }
+.BindKeyHeader {
+  margin: 1em;
+  max-width: 800px;
+  text-align: center;
+}
 
-  &--Key {
-    flex: auto;
-  }
+.BindKeyKey {
+  flex: auto;
+}
+
+.BindKeySpinner {
+  margin-bottom: 4em;
 }
 
 .ql-editor {
