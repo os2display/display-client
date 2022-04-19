@@ -224,7 +224,7 @@ function App() {
   return (
     <div className="App">
       {!screen && (
-        <div className="BindKey" style={{}}>
+        <div className="BindKey">
           {bindKey && (
             <>
               <h1 className="BindKeyHeader">
