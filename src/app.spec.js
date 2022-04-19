@@ -12,10 +12,13 @@ describe('Client tests', () => {
       fixture: 'awaiting-bind-key-response.json',
     });
 
-    cy.get('.BindKey').find('.BindKey--Key').should('exist');
+    cy.get('.BindKey').find('.BindKeyKey').should('exist');
     cy.get('h1')
       .invoke('text')
-      .should('match', /^Key to enter: 26PCSL3Q/);
+      .should(
+        'match',
+        /^Bind this machine to a screen entity in the administration to receive content.Key to enter: 26PCSL3Q/
+      );
   });
 
   it('It loads an empty screen with one region', () => {
