@@ -12,8 +12,8 @@ describe('Client tests', () => {
       fixture: 'awaiting-bind-key-response.json',
     });
 
-    cy.get('.BindKey').find('.BindKey--Key').should('exist');
-    cy.get('h1')
+    cy.get('.BindKeyKey').should('exist');
+    cy.get('.BindKeyKey')
       .invoke('text')
       .should('match', /^Key to enter: 26PCSL3Q/);
   });

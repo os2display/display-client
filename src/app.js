@@ -227,12 +227,14 @@ function App() {
         <div className="BindKey">
           {bindKey && (
             <>
-              <h2 className="BindKey--Header">
+              <h1 className="BindKeyHeader">
                 Bind this machine to a screen entity in the administration to
                 receive content.
-              </h2>
-              <Spinner />
-              <h1 className="BindKey--Key">Key to enter: {bindKey}</h1>
+              </h1>
+              <h1 className="BindKeyKey">Key to enter: {bindKey}</h1>
+              <div className="BindKeySpinner">
+                <Spinner />
+              </div>
             </>
           )}
         </div>
