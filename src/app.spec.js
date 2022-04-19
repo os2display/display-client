@@ -15,10 +15,7 @@ describe('Client tests', () => {
     cy.get('.BindKeyKey').should('exist');
     cy.get('.BindKeyKey')
       .invoke('text')
-      .should(
-        'match',
-        /^Key to enter: 26PCSL3Q/
-      );
+      .should('match', /^Key to enter: 26PCSL3Q/);
   });
 
   it('It loads an empty screen with one region', () => {
