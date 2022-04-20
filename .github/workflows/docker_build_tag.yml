@@ -1,16 +1,13 @@
 ---
 on:
   push:
-    branches:
-      - 'develop'
-name: Deployment (stg)
+    tags:
+      - '*'
+name: Build docker image (tag)
 
 jobs:
   docker:
     runs-on: ubuntu-latest
-    env:
-      VERSION: alpha
-      APP_VERSION: develop
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -27,7 +24,7 @@ jobs:
           context: ./infrastructure/
           file: ./infrastructure/Dockerfile
           build-args: |
-            APP_VERSION=${{ env.APP_VERSION }}
+            APP_VERSION=${{ env.GITHUB_REF_NAME }}
           push: true
-          tags: itkdev/os2display-client:${{ env.VERSION }}
+          tags: itkdev/os2display-client:${{ env.GITHUB_REF_NAME }}
 
