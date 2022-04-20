@@ -1,5 +1,4 @@
 import cloneDeep from 'lodash.clonedeep';
-import { ulid } from 'ulid';
 import isPublished from '../util/isPublished';
 import * as Logger from '../logger/logger';
 
@@ -185,7 +184,7 @@ class PullStrategy {
 
               if (matches?.groups?.regionId) {
                 regionData[matches.groups.regionId] = members.map(
-                  (member) => member.playlist
+                  ({playlist}) => playlist
                 );
               }
             }
@@ -248,52 +247,6 @@ class PullStrategy {
     });
   }
 
-  async getSlidesForCampaigns(data) {
-    return new Promise((resolve, reject) => {
-      const promises = [];
-      const campaigns = cloneDeep(data);
-
-      // @TODO: Fix eslint-raised issues.
-      // eslint-disable-next-line guard-for-in,no-restricted-syntax
-      for (const campaignKey in campaigns) {
-        const playlists = campaigns[campaignKey];
-        // eslint-disable-next-line guard-for-in,no-restricted-syntax
-        for (const playlistKey in playlists) {
-          // eslint-disable-next-line guard-for-in,no-restricted-syntax
-          // @TODO: Handle pagination.
-          promises.push(
-            this.getAllResultsFromPath(
-              campaigns[campaignKey][playlistKey].slides,
-              {
-                campaignKey,
-                playlistKey,
-              }
-            )
-          );
-        }
-      }
-
-      Promise.allSettled(promises)
-        .then((results) => {
-          results.forEach((result) => {
-            if (
-              result.status === 'fulfilled' &&
-              Object.prototype.hasOwnProperty.call(result.value, 'keys')
-            ) {
-              campaigns[result.value.keys.campaignKey][
-                result.value.keys.playlistKey
-              ].slidesData = result.value.results.map(
-                (playlistSlide) => playlistSlide.slide
-              );
-            }
-          });
-
-          resolve(campaigns);
-        })
-        .catch((err) => reject(err));
-    });
-  }
-
   /**
    * Fetch screen.
    *
@@ -327,7 +280,7 @@ class PullStrategy {
     // With active campaigns, we override region/layout values.
     if (hasActiveCampaign) {
       // Create ulid to connect the campaign with the regions/playlists.
-      const campaignRegionId = ulid();
+      const campaignRegionId = "01G112XBWFPY029RYFB8X2H4KD";
 
       // Campaigns are always in full screen layout, for simplicity.
       newScreen.layoutData = {
