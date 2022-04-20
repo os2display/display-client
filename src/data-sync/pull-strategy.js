@@ -184,7 +184,7 @@ class PullStrategy {
 
               if (matches?.groups?.regionId) {
                 regionData[matches.groups.regionId] = members.map(
-                  ({playlist}) => playlist
+                  ({ playlist }) => playlist
                 );
               }
             }
@@ -280,7 +280,7 @@ class PullStrategy {
     // With active campaigns, we override region/layout values.
     if (hasActiveCampaign) {
       // Create ulid to connect the campaign with the regions/playlists.
-      const campaignRegionId = "01G112XBWFPY029RYFB8X2H4KD";
+      const campaignRegionId = '01G112XBWFPY029RYFB8X2H4KD';
 
       // Campaigns are always in full screen layout, for simplicity.
       newScreen.layoutData = {
