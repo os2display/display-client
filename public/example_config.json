@@ -5,8 +5,7 @@
     "type": "pull",
     "config": {
       "interval": 30000,
-      "endpoint": "https://displayapiservice.local.itkdev.dk",
-      "entryPoint": "/v1/screens/[ULID of screen to open]"
+      "endpoint": "https://displayapiservice.local.itkdev.dk"
     }
   },
   "schedulingInterval": 60000,
