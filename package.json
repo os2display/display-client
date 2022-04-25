@@ -1,6 +1,7 @@
 {
   "name": "display-client",
   "version": "0.1.0",
+  "homepage": "/client/",
   "private": true,
   "dependencies": {
     "@paciolan/remote-component": "^2.11.0",
