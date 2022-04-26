@@ -3,7 +3,7 @@
  */
 export default class ConfigLoader {
   static async loadConfig() {
-    return fetch('config.json')
+    return fetch('/client/config.json')
       .then((response) => response.json())
       .catch((err) => {
         /* eslint-disable-next-line no-console */

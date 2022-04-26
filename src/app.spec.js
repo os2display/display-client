@@ -6,7 +6,7 @@ beforeEach(() => {
 
 describe('Client tests', () => {
   it('It loads bindkey', () => {
-    cy.visit('/');
+    cy.visit('/client/');
     cy.intercept('POST', '**/screen', {
       statusCode: 201,
       fixture: 'awaiting-bind-key-response.json',
@@ -49,7 +49,7 @@ describe('Client tests', () => {
       fixture: 'layout.json',
     }).as('layout');
 
-    cy.visit('/');
+    cy.visit('/client/');
 
     cy.wait([
       '@bindKey',
@@ -118,7 +118,7 @@ describe('Client tests', () => {
       fixture: 'media.json',
     }).as('media');
 
-    cy.visit('/');
+    cy.visit('/client/');
 
     cy.wait([
       '@bindKey',
@@ -175,7 +175,7 @@ describe('Client tests', () => {
       fixture: 'templates.json',
     }).as('templates');
 
-    cy.visit('/');
+    cy.visit('/client/');
     cy.wait([
       '@bindKey',
       '@config',
@@ -242,7 +242,7 @@ describe('Client tests', () => {
       fixture: 'actual-template.json',
     }).as('templates');
 
-    cy.visit('/');
+    cy.visit('/client/');
     cy.wait([
       '@bindKey',
       '@config',
@@ -328,7 +328,7 @@ describe('Client tests', () => {
       fixture: 'media.json',
     }).as('media');
 
-    cy.visit('/');
+    cy.visit('/client/');
     cy.wait([
       '@bindKey',
       '@config',
@@ -412,7 +412,7 @@ describe('Client tests', () => {
       fixture: 'media.json',
     }).as('media');
 
-    cy.visit('/');
+    cy.visit('/client/');
     cy.wait([
       '@bindKey',
       '@config',
@@ -490,7 +490,7 @@ describe('Client tests', () => {
       fixture: 'layout-split.json',
     }).as('layout');
 
-    cy.visit('/');
+    cy.visit('/client/');
     cy.wait(['@bindKey', '@config', '@screen', '@layout']);
 
     cy.get('.Region')
@@ -572,7 +572,7 @@ describe('Client tests', () => {
       'https://raw.githubusercontent.com/os2display/display-templates/develop/build/image-text.js'
     ).as('image-text');
 
-    cy.visit('/');
+    cy.visit('/client/');
     cy.wait([
       '@bindKey',
       '@config',

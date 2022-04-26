@@ -73,7 +73,7 @@ describe('Schedule tests', () => {
       fixture: 'media.json',
     }).as('media');
 
-    cy.visit('/');
+    cy.visit('/client/');
     cy.wait([
       '@bindKey',
       '@config',
@@ -158,7 +158,7 @@ describe('Schedule tests', () => {
       fixture: 'media.json',
     }).as('media');
 
-    cy.visit('/');
+    cy.visit('/client/');
     cy.wait([
       '@bindKey',
       '@config',
@@ -243,7 +243,7 @@ describe('Schedule tests', () => {
       fixture: 'media.json',
     }).as('media');
 
-    cy.visit('/');
+    cy.visit('/client/');
     cy.wait([
       '@bindKey',
       '@config',
@@ -328,7 +328,7 @@ describe('Schedule tests', () => {
       fixture: 'media.json',
     }).as('media');
 
-    cy.visit('/');
+    cy.visit('/client/');
     cy.wait([
       '@bindKey',
       '@config',
