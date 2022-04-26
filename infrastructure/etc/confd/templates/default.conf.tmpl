@@ -3,7 +3,7 @@ server {
     server_name localhost;
     root /var/www/html;
 
-    location {{ getenv "APP_SCREEN_CLIENT_PATH" "" }}/(.*) {
+    location ~ ^{{ getenv "APP_SCREEN_CLIENT_PATH" "" }}/(.*) {
         index index.html;
         autoindex off;
         try_files $1 $1/ =404;
