@@ -27,7 +27,7 @@ LABEL maintainer="ITK Dev <itkdev@mkb.aarhus.dk>"
 ENV APP_PATH=/var/www/html
 
 # Install the application.
-COPY --from=APP_BUILDER /app/build ${APP_PATH}/client
+COPY --from=APP_BUILDER /app/build ${APP_PATH}
 
 # Copy configuration.
 COPY etc/ /etc/
