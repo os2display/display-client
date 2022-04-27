@@ -20,6 +20,11 @@ export default class ConfigLoader {
               endpoint: '/api',
             },
           },
+          colorScheme: {
+            type: 'library',
+            lat: 56.0,
+            lng: 10.0,
+          },
           schedulingInterval: 60000,
           debug: false,
         };
