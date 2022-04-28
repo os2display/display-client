@@ -8,6 +8,13 @@
       "endpoint": "{{ getenv "APP_API_PATH" "/" }}"
     }
   },
+  "colorScheme": {
+    "type": "library",
+    "lat": {{ getenv "APP_CLIENT_LATITUDE" "56.0" }},
+    "lng": {{ getenv "APP_CLIENT_LONGITUDE" "10.0" }}
+  },
   "schedulingInterval": {{ getenv "APP_SCHEDULING_INTERVAL" "60000" }},
-  "debug": {{ getenv "APP_DEBUG" "false" }}
+  "debug": {{ getenv "APP_DEBUG" "false" }},
+  "releaseTimestamp": {{ getenv "APP_RELEASE_TIMESTAMP" "0" }},
+  "releaseVersion": "{{ getenv "APP_VERSION" "unknown" }}"
 }
