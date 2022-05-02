@@ -126,7 +126,7 @@ Screen.propTypes = {
         })
       ),
     }).isRequired,
-    enableColorSchemeChange: PropTypes.string,
+    enableColorSchemeChange: PropTypes.bool,
   }).isRequired,
 };
 
