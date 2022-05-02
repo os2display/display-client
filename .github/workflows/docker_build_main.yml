@@ -31,7 +31,7 @@ jobs:
           file: ./infrastructure/Dockerfile
           build-args: |
             APP_VERSION=${{ env.APP_VERSION }}
-            APP_RELEASE_TIMESTAMP={{ env.APP_RELEASE_TIMESTAMP }}
+            APP_RELEASE_TIMESTAMP=${{ env.APP_RELEASE_TIMESTAMP }}
           push: true
           tags: itkdev/os2display-client:${{ env.VERSION }}
 

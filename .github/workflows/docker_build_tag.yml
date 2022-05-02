@@ -28,7 +28,7 @@ jobs:
           file: ./infrastructure/Dockerfile
           build-args: |
             APP_VERSION=${{ env.GITHUB_REF_NAME }}
-            APP_RELEASE_TIMESTAMP={{ env.APP_RELEASE_TIMESTAMP }}
+            APP_RELEASE_TIMESTAMP=${{ env.APP_RELEASE_TIMESTAMP }}
           push: true
           tags: itkdev/os2display-client:${{ env.GITHUB_REF_NAME }}
 
