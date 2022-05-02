@@ -28,4 +28,5 @@ temp/
 templates/
 
 public/config.json
+public/release.json
 release.json
