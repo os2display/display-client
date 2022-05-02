@@ -36,7 +36,7 @@ COPY --from=APP_BUILDER /app/build ${APP_PATH}
 COPY etc/ /etc/
 
 # Create release file
-RUN echo "{\"releaseTimestamp\": $APP_RELEASE_TIMESTAMP, \"releaseVersion\": \"$APP_VERSION\"}" > public/release.json
+RUN echo "{\"releaseTimestamp\": $APP_RELEASE_TIMESTAMP, \"releaseVersion\": \"$APP_VERSION\"}" > ${APP_PATH}/release.json
 
 # Install configuration template handler
 ADD https://github.com/kelseyhightower/confd/releases/download/v0.16.0/confd-0.16.0-linux-amd64 /usr/local/bin/confd
