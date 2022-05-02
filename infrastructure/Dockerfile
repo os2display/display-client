@@ -27,6 +27,7 @@ LABEL maintainer="ITK Dev <itkdev@mkb.aarhus.dk>"
 
 ARG APP_VERSION="develop"
 ARG APP_RELEASE_TIMESTAMP=0
+ARG APP_RELEASE_TIME=0
 ENV APP_PATH=/var/www/html
 
 # Install the application.
@@ -36,7 +37,7 @@ COPY --from=APP_BUILDER /app/build ${APP_PATH}
 COPY etc/ /etc/
 
 # Create release file
-RUN echo "{\"releaseTimestamp\": $APP_RELEASE_TIMESTAMP, \"releaseVersion\": \"$APP_VERSION\"}" > ${APP_PATH}/release.json
+RUN echo "{\"releaseTimestamp\": $APP_RELEASE_TIMESTAMP, \"releaseTime\": \"$APP_RELEASE_TIME\", \"releaseVersion\": \"$APP_VERSION\"}" > ${APP_PATH}/release.json
 
 # Install configuration template handler
 ADD https://github.com/kelseyhightower/confd/releases/download/v0.16.0/confd-0.16.0-linux-amd64 /usr/local/bin/confd
