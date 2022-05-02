@@ -22,6 +22,7 @@ function App() {
   const lsRefreshToken = 'refreshToken';
   const loginCheckTimeout = 15 * 1000;
   const refreshTimeout = 60 * 1000;
+  const releaseTimestampIntervalTimeout = 1000 * 60 * 5;
 
   const [running, setRunning] = useState(false);
   const [screen, setScreen] = useState('');
@@ -30,6 +31,8 @@ function App() {
   const timeoutRef = useRef(null);
   const refreshTokenIntervalRef = useRef(null);
   const contentServiceRef = useRef(null);
+  const releaseTimestampRef = useRef(null);
+  const releaseTimestampIntervalRef = useRef(null);
 
   /**
    * Handles "screen" events.
@@ -201,22 +204,44 @@ function App() {
     refreshLogin();
   };
 
+  const checkForUpdates = () => {
+    Logger.log('info', 'Checking for new release timestamp.');
+
+    ConfigLoader.loadConfig().then((config) => {
+      if (releaseTimestampRef?.current === null) {
+        releaseTimestampRef.current = config.releaseTimestamp;
+      } else if (releaseTimestampRef?.current !== config.releaseTimestamp) {
+        window.location.reload(false);
+      }
+    });
+  };
+
   useEffect(() => {
     document.addEventListener('screen', screenHandler);
     document.addEventListener('reauthenticate', reauthenticateHandler);
 
     refreshLogin();
 
+    checkForUpdates();
+    releaseTimestampIntervalRef.current = setInterval(
+      checkForUpdates,
+      releaseTimestampIntervalTimeout
+    );
+
     return function cleanup() {
       document.removeEventListener('screen', screenHandler);
       document.removeEventListener('reauthenticate', reauthenticateHandler);
 
-      if (timeoutRef) {
+      if (timeoutRef?.current) {
         clearTimeout(timeoutRef.current);
       }
 
-      if (refreshTokenIntervalRef) {
+      if (refreshTokenIntervalRef?.current) {
         clearInterval(refreshTokenIntervalRef.current);
+      }
+
+      if (releaseTimestampIntervalRef?.current) {
+        clearInterval(releaseTimestampIntervalRef.current);
       }
     };
   }, []);
