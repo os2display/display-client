@@ -23,7 +23,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Set release timestamp
-        run: echo "APP_RELEASE_TIMESTAMP$(echo $(date +%s))" >> $GITHUB_ENV
+        run: echo "APP_RELEASE_TIMESTAMP=$(echo $(date +%s))" >> $GITHUB_ENV
 
       - name: Build and push (API)
         uses: docker/build-push-action@v2
