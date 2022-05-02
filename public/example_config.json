@@ -8,6 +8,13 @@
       "endpoint": "https://displayapiservice.local.itkdev.dk"
     }
   },
+  "colorScheme": {
+    "type": "library",
+    "lat": 56.0,
+    "lng": 10.0
+  },
   "schedulingInterval": 60000,
-  "debug": true
+  "debug": true,
+  "releaseTimestamp": 1651175120,
+  "releaseVersion": "1.0.0"
 }

@@ -3,7 +3,7 @@
  */
 export default class ConfigLoader {
   static async loadConfig() {
-    return fetch('config.json')
+    return fetch('/client/config.json')
       .then((response) => response.json())
       .catch((err) => {
         /* eslint-disable-next-line no-console */
@@ -19,6 +19,11 @@ export default class ConfigLoader {
               interval: 30000,
               endpoint: '/api',
             },
+          },
+          colorScheme: {
+            type: 'library',
+            lat: 56.0,
+            lng: 10.0,
           },
           schedulingInterval: 60000,
           debug: false,
