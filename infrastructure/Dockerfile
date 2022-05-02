@@ -20,7 +20,7 @@ RUN yarn install \
 RUN rm -rf public/fixtures
 
 # Create release file
-RUN echo $"{\"releaseTimestamp\": $APP_RELEASE_TIMESTAMP, \"releaseVersion\": \"$APP_VERSION\"}" > public/release.json
+RUN echo "{\"releaseTimestamp\": $APP_RELEASE_TIMESTAMP, \"releaseVersion\": \"$APP_VERSION\"}" > public/release.json
 
 ####
 ## Build main application image.
