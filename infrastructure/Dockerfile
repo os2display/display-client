@@ -19,15 +19,14 @@ RUN yarn install \
 # Remove fixtures
 RUN rm -rf public/fixtures
 
-# Create release file
-RUN echo "{\"releaseTimestamp\": $APP_RELEASE_TIMESTAMP, \"releaseVersion\": \"$APP_VERSION\"}" > public/release.json
-
 ####
 ## Build main application image.
 ####
 FROM nginx:1.21.3-alpine
 LABEL maintainer="ITK Dev <itkdev@mkb.aarhus.dk>"
 
+ARG APP_VERSION="develop"
+ARG APP_RELEASE_TIMESTAMP=0
 ENV APP_PATH=/var/www/html
 
 # Install the application.
@@ -35,6 +34,9 @@ COPY --from=APP_BUILDER /app/build ${APP_PATH}
 
 # Copy configuration.
 COPY etc/ /etc/
+
+# Create release file
+RUN echo "{\"releaseTimestamp\": $APP_RELEASE_TIMESTAMP, \"releaseVersion\": \"$APP_VERSION\"}" > public/release.json
 
 # Install configuration template handler
 ADD https://github.com/kelseyhightower/confd/releases/download/v0.16.0/confd-0.16.0-linux-amd64 /usr/local/bin/confd
