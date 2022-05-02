@@ -3,6 +3,7 @@ import { React, useEffect, useRef, useState } from 'react';
 import Screen from './screen';
 import ContentService from './service/contentService';
 import ConfigLoader from './config-loader';
+import ReleaseLoader from './release-loader';
 import Logger from './logger/logger';
 import './app.scss';
 import Spinner from './spinner';
@@ -207,7 +208,7 @@ function App() {
   const checkForUpdates = () => {
     Logger.log('info', 'Checking for new release timestamp.');
 
-    ConfigLoader.loadConfig().then((config) => {
+    ReleaseLoader.loadConfig().then((config) => {
       if (releaseTimestampRef?.current === null) {
         releaseTimestampRef.current = config.releaseTimestamp;
       } else if (releaseTimestampRef?.current !== config.releaseTimestamp) {
