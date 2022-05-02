@@ -2,6 +2,7 @@ FROM node:14 AS APP_BUILDER
 LABEL maintainer="ITK Dev <itkdev@mkb.aarhus.dk>"
 
 ARG APP_VERSION="develop"
+ARG APP_RELEASE_TIMESTAMP=0
 ENV APP_PATH=/app
 
 ADD https://github.com/os2display/display-client/archive/${APP_VERSION}.tar.gz /tmp/app.tar
@@ -17,6 +18,9 @@ RUN yarn install \
 
 # Remove fixtures
 RUN rm -rf public/fixtures
+
+# Create release file
+RUN echo "{\"releaseTimestamp\": $APP_RELEASE_TIMESTAMP, \"releaseVersion\": \"$APP_VERSION\"}" > public/release.json
 
 ####
 ## Build main application image.
