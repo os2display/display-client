@@ -15,6 +15,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: itkdev/os2display-client
+
       - name: Login to DockerHub
         uses: docker/login-action@v1
         with:
@@ -36,5 +42,6 @@ jobs:
             APP_RELEASE_TIMESTAMP=${{ env.APP_RELEASE_TIMESTAMP }}
             APP_RELEASE_TIME=${{ env.APP_RELEASE_TIME }}
           push: true
-          tags: itkdev/os2display-client:${{ env.VERSION }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
 
