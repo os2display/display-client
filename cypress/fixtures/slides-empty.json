@@ -1,0 +1,6 @@
+{
+  "@id": "/v1/playlist-slides",
+  "@type": "hydra:Collection",
+  "hydra:member": [],
+  "hydra:totalItems": 0
+}

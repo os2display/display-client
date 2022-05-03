@@ -1,4 +1,12 @@
 {
   "integrationFolder": "./src",
-  "testFiles": "**/*.test.js"
+  "testFiles": "**/*.spec.js",
+  "pluginsFile": false,
+  "supportFile": false,
+  "viewportHeight": 1400,
+  "baseUrl": "http://client/",
+  "retries": {
+    "runMode": 2,
+    "openMode": 0
+  }
 }

@@ -16,8 +16,6 @@
 .env.production.local
 
 npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
 
 # Ignore VS-code
 .vscode
@@ -25,3 +23,10 @@ yarn-error.log*
 # Cypress
 cypress/videos/*
 cypress/screenshots/*
+
+temp/
+templates/
+
+public/config.json
+public/release.json
+release.json

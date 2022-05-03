@@ -1,0 +1,20 @@
+{
+  "authenticationEndpoint": "https://displayapiservice.local.itkdev.dk/v1/authentication/screen",
+  "authenticationRefreshTokenEndpoint": "https://displayapiservice.local.itkdev.dk/v1/authentication/token/refresh",
+  "dataStrategy": {
+    "type": "pull",
+    "config": {
+      "interval": 30000,
+      "endpoint": "https://displayapiservice.local.itkdev.dk"
+    }
+  },
+  "colorScheme": {
+    "type": "library",
+    "lat": 56.0,
+    "lng": 10.0
+  },
+  "schedulingInterval": 60000,
+  "debug": true,
+  "releaseTimestamp": 1651175120,
+  "releaseVersion": "1.0.0"
+}

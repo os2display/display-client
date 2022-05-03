@@ -1,33 +1,32 @@
-# DisplayClient
-A display client for OS2Display ver. 2, currently a work in progress.
+# Client
 
-Currently, this is a create-react-app.
+This is the client that will display slides from OS2Display.
+See [https://github.com/os2display/display-docs/blob/main/client.md](https://github.com/os2display/display-docs/blob/main/client.md) for more info about the client.
 
-## Docker
+## Docker development setup
 
-@TODO: Provide a docker setup, and modify readme to use docker instead.
-
-## Install
-
-Install the node modules using yarn.
+Start docker setup
 
 ```
-yarn
+# Install npm packages
+docker-compose run node yarn install
+
+# Up the containers
+docker-compose up -d
+
+# Optional: Follow the node logs to see when the code is compiled.
+docker-compose logs -f node
 ```
-## Start
 
-Runs the app in the development mode.
-Open http://localhost:3000 to view it in the browser.
+The display client is here: `http://display-client.local.itkdev.dk/`.
 
-```
-yarn start
-```
+The code is compiled when changed.
 
-## Build
-Builds the app for production to the build folder.
+The client can be configured by creating `public/config.json` with relevant values.
+See `public/example_config.json` for values.
 
-@TODO: Add production build instructions.
-
+The client should have `public/release.json` with relevant values.
+See `public/example_release.json` for values.
 
 ## Coding standards
 
@@ -35,26 +34,24 @@ For code analysis we use the [Airbnb style guide for javascript](https://github.
 
 ```
 # Check for coding standards issues
-yarn check-coding-standards
+docker-compose exec node bash -c 'yarn check-coding-standards'
 
 # Auto-correct coding standards issues
-yarn apply-coding-standards
+docker-compose exec node bash -c 'yarn apply-coding-standards'
 ```
 
 ## Testing with cypress
 
 We use [cypress](https://www.cypress.io/) for testing.
 
+To run cypress tests in the cypress container:
 
 ```
-yarn test
+docker-compose run cypress run
 ```
 
-Or spinning up electron:
+## Build for production
 
-```
-test-ui
-```
+Builds the app for production to the build folder.
 
-
-
+@TODO: Add production build instructions.

@@ -1,0 +1,14 @@
+{
+  "authenticationEndpoint": "https://displayapiservice.local.itkdev.dk/v1/authentication/screen",
+  "authenticationRefreshTokenEndpoint": "https://displayapiservice.local.itkdev.dk/v1/authentication/token/refresh",
+  "dataStrategy": {
+    "type": "pull",
+    "config": {
+      "interval": 4000,
+      "endpoint": "https://displayapiservice.local.itkdev.dk",
+      "entryPoint": "/v1/screens/01FVVYJKN3EZS829CK5DG7RP7A"
+    }
+  },
+  "schedulingInterval": 60000,
+  "debug": false
+}

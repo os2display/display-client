@@ -1,0 +1,32 @@
+{
+  "@id": "/v1/screen-campaigns",
+  "@type": "hydra:Collection",
+  "hydra:member": [
+    {
+      "@type": "ScreenCampaign",
+      "@id": "/v1/screen-campaigns/01FYHVQF96GN4RWZV9YYVW3PCM",
+      "campaign": {
+        "@type": "Playlist",
+        "@id": "/v1/playlists/01FYHVQEKNQ5RGQNCW497M71M6",
+        "title": "campaign",
+        "description": "",
+        "schedules": [],
+        "created": "2000-03-19T20:51:03+01:00",
+        "modified": "2050-03-19T20:51:03+01:00",
+        "modifiedBy": "johndoe@example.com",
+        "createdBy": "johndoe@example.com",
+        "slides": "/v1/playlists/01FYHVQEKNQ5RGQNCW497M71M6/slides",
+        "campaignScreens": [
+          "/v1/screens/01FYEDW1N133SG516JVJ3VG5FY"
+        ],
+        "campaignScreenGroups": [],
+        "isCampaign": true,
+        "published": {
+          "from": "2022-03-19T19:50:00+01:00",
+          "to": "2036-12-20T19:50:00+01:00"
+        }
+      }
+    }
+  ],
+  "hydra:totalItems": 1
+}

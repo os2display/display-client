@@ -1,0 +1,53 @@
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  bottom: 0;
+  position: absolute;
+  background-color: black;
+}
+
+.root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  bottom: 0;
+}
+
+.App {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.BindKey {
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  background-image: url("assets/fallback.png");
+  background-size: cover;
+  background-position: center;
+}
+
+.BindKeyHeader {
+  margin: 1em;
+  max-width: 800px;
+  text-align: center;
+}
+
+.BindKeyKey {
+  flex: auto;
+}
+
+.BindKeySpinner {
+  margin-bottom: 4em;
+}
+
+.ql-editor {
+  min-height: 200px;
+}

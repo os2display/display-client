@@ -1,0 +1,18 @@
+{
+  "authenticationEndpoint": "{{ getenv "APP_API_AUTHENTICATION_ENDPOINT" "/v1/authentication/token" }}",
+  "authenticationRefreshTokenEndpoint": "{{ getenv "APP_API_AUTHENTICATION_REFRESH_ENDPOINT" "/v1/authentication/token/refresh" }}",
+  "dataStrategy": {
+    "type": "pull",
+    "config": {
+      "interval": {{ getenv "APP_DATA_PULL_INTERVAL" "30000" }},
+      "endpoint": "{{ getenv "APP_API_PATH" "/" }}"
+    }
+  },
+  "colorScheme": {
+    "type": "library",
+    "lat": {{ getenv "APP_CLIENT_LATITUDE" "56.0" }},
+    "lng": {{ getenv "APP_CLIENT_LONGITUDE" "10.0" }}
+  },
+  "schedulingInterval": {{ getenv "APP_SCHEDULING_INTERVAL" "60000" }},
+  "debug": {{ getenv "APP_DEBUG" "false" }}
+}

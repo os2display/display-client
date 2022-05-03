@@ -1,0 +1,58 @@
+version: "3"
+
+networks:
+  frontend:
+    external: true
+  app:
+    driver: bridge
+    internal: false
+
+services:
+  nginx:
+    image: nginx:latest
+    networks:
+      - app
+      - frontend
+    depends_on:
+      - node
+    ports:
+      - '80'
+    volumes:
+      - ${PWD}/.docker/vhost.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./:/app:delegated
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=frontend"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}.rule=Host(`${COMPOSE_DOMAIN}`)"
+      #      HTTPS config - uncomment to enable redirect from :80 to :443
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}.middlewares=redirect-to-https"
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+
+  node:
+    image: node:14
+    command: npm start
+    networks:
+      - app
+    working_dir: /app
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - .:/app:delegated
+
+  cypress:
+    image: cypress/included:7.5.0
+    networks:
+      - app
+    depends_on:
+      - nginx
+    environment:
+      - CYPRESS_VIDEO=false
+      - CYPRESS_baseUrl=http://nginx
+      # Uncomment to see console output:
+      #- ELECTRON_ENABLE_LOGGING=1
+      #- DISPLAY=host.docker.internal:0
+    volumes:
+      - .:/e2e
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    working_dir: /e2e
+    entrypoint: cypress

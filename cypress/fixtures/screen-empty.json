@@ -1,0 +1,21 @@
+{
+  "@type": "Screen",
+  "@id": "/v1/screens/01FYEDW1N133SG516JVJ3VG5FY",
+  "title": "Skærm",
+  "description": "",
+  "size": "0",
+  "created": "2022-03-18T12:51:10+01:00",
+  "modified": "2022-03-18T12:51:10+01:00",
+  "modifiedBy": "johndoe@example.com",
+  "createdBy": "johndoe@example.com",
+  "campaigns": "/v1/screens/01FYEDW1N133SG516JVJ3VG5FY/campaigns",
+  "layout": "/v1/layouts/01FMYMAB1EQYQ40QE0C7Y6NVBK",
+  "location": "",
+  "regions": [],
+  "inScreenGroups": "/v1/screens/01FYEDW1N133SG516JVJ3VG5FY/screen-groups",
+  "dimensions": {
+    "width": 1920,
+    "height": 1080
+  },
+  "screenUser": "01FYEDWJ0MNT1XXZH5Z38BHKBP"
+}

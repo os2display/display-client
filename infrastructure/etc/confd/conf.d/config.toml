@@ -1,0 +1,7 @@
+[template]
+src = "config.tmpl"
+dest = "/var/www/html/config.json"
+mode = "0644"
+keys = [
+    "/app-config"
+]
