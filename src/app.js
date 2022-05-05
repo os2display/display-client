@@ -286,7 +286,7 @@ function App() {
   return (
     <div className="App">
       {!screen && (
-        <div className="BindKey">
+        <div className="BindKey" style={fallbackStyle}>
           {bindKey && (
             <>
               <h1 className="BindKeyHeader">
@@ -303,7 +303,7 @@ function App() {
       )}
       {screen && (
         <>
-          {!displayFallback && <Screen screen={screen} />}
+          <Screen screen={screen} />
           {displayFallback && (
             <div className="Fallback" style={fallbackStyle} />
           )}

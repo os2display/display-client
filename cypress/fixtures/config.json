@@ -9,6 +9,10 @@
       "entryPoint": "/v1/screens/01FVVYJKN3EZS829CK5DG7RP7A"
     }
   },
+  "fallbackImage": null,
+  "tenantFallbackImages": {},
+  "releaseTimestamp": 1651175127,
+  "releaseVersion": "1.0.0",
   "schedulingInterval": 60000,
   "debug": false
 }

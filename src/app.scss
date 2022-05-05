@@ -55,6 +55,12 @@ body {
 .Fallback {
   height: 100%;
   width: 100%;
+  position: fixed;
+  z-index: 99999;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   background-image: url("assets/fallback.png");
   background-size: cover;
   background-position: center;
