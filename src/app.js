@@ -304,7 +304,9 @@ function App() {
       {screen && (
         <>
           {!displayFallback && <Screen screen={screen} />}
-          {displayFallback && <div className="Fallback" style={fallbackStyle} />}
+          {displayFallback && (
+            <div className="Fallback" style={fallbackStyle} />
+          )}
         </>
       )}
     </div>
