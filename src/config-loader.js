@@ -25,6 +25,8 @@ export default class ConfigLoader {
             lat: 56.0,
             lng: 10.0,
           },
+          fallbackImage: './assets/fallback.png',
+          tenantFallbackImages: {},
           schedulingInterval: 60000,
           debug: false,
         };

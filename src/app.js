@@ -34,6 +34,14 @@ function App() {
   const contentServiceRef = useRef(null);
   const releaseTimestampRef = useRef(null);
   const releaseTimestampIntervalRef = useRef(null);
+  const [displayFallback, setDisplayFallback] = useState(false);
+  const [fallbackImageUrl, setFallbackImageUrl] = useState(
+    './assets/fallback.png'
+  );
+
+  const fallbackStyle = {
+    backgroundImage: `url('${fallbackImageUrl}')`,
+  };
 
   /**
    * Handles "screen" events.
@@ -217,9 +225,39 @@ function App() {
     });
   };
 
+  const contentEmpty = () => {
+    Logger.log('info', 'Content empty. Displaying fallback.');
+    ConfigLoader.loadConfig().then((config) => {
+      const tenantKey = localStorage.getItem(lsTenantKey);
+
+      console.log(tenantKey);
+      console.log(config);
+
+      if (
+        Object.prototype.hasOwnProperty.call(
+          config?.tenantFallbackImages,
+          tenantKey
+        )
+      ) {
+        console.log(config.tenantFallbackImages[tenantKey]);
+        setFallbackImageUrl(config.tenantFallbackImages[tenantKey]);
+      } else if (config.fallbackImage) {
+        setFallbackImageUrl(config.fallbackImage);
+      }
+    });
+    setDisplayFallback(true);
+  };
+
+  const contentNotEmpty = () => {
+    Logger.log('info', 'Content not empty. Displaying content.');
+    setDisplayFallback(false);
+  };
+
   useEffect(() => {
     document.addEventListener('screen', screenHandler);
     document.addEventListener('reauthenticate', reauthenticateHandler);
+    document.addEventListener('contentEmpty', contentEmpty);
+    document.addEventListener('contentNotEmpty', contentNotEmpty);
 
     refreshLogin();
 
@@ -232,6 +270,8 @@ function App() {
     return function cleanup() {
       document.removeEventListener('screen', screenHandler);
       document.removeEventListener('reauthenticate', reauthenticateHandler);
+      document.removeEventListener('contentEmpty', contentEmpty);
+      document.removeEventListener('contentNotEmpty', contentNotEmpty);
 
       if (timeoutRef?.current) {
         clearTimeout(timeoutRef.current);
@@ -246,6 +286,8 @@ function App() {
       }
     };
   }, []);
+
+  console.log('fallbackStyle', fallbackStyle);
 
   return (
     <div className="App">
@@ -265,7 +307,12 @@ function App() {
           )}
         </div>
       )}
-      {screen && <Screen screen={screen} />}
+      {screen && (
+        <>
+          {!displayFallback && <Screen screen={screen} />}
+          {displayFallback && <div className="Fallback" style={fallbackStyle} />}
+        </>
+      )}
     </div>
   );
 }

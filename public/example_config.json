@@ -15,6 +15,10 @@
   },
   "schedulingInterval": 60000,
   "debug": true,
+  "fallbackImage": "./client/fallback/fallback_default.png",
+  "tenantFallbackImages": {
+    "TENANT1": "./client/fallback/tenant1.jpg"
+  },
   "releaseTimestamp": 1651175120,
   "releaseVersion": "1.0.0"
 }

@@ -51,3 +51,11 @@ body {
 .ql-editor {
   min-height: 200px;
 }
+
+.Fallback {
+  height: 100%;
+  width: 100%;
+  background-image: url("assets/fallback.png");
+  background-size: cover;
+  background-position: center;
+}
