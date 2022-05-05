@@ -230,16 +230,12 @@ function App() {
     ConfigLoader.loadConfig().then((config) => {
       const tenantKey = localStorage.getItem(lsTenantKey);
 
-      console.log(tenantKey);
-      console.log(config);
-
       if (
         Object.prototype.hasOwnProperty.call(
           config?.tenantFallbackImages,
           tenantKey
         )
       ) {
-        console.log(config.tenantFallbackImages[tenantKey]);
         setFallbackImageUrl(config.tenantFallbackImages[tenantKey]);
       } else if (config.fallbackImage) {
         setFallbackImageUrl(config.fallbackImage);
@@ -286,8 +282,6 @@ function App() {
       }
     };
   }, []);
-
-  console.log('fallbackStyle', fallbackStyle);
 
   return (
     <div className="App">

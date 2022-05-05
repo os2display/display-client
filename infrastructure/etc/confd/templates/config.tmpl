@@ -14,5 +14,7 @@
     "lng": {{ getenv "APP_CLIENT_LONGITUDE" "10.0" }}
   },
   "schedulingInterval": {{ getenv "APP_SCHEDULING_INTERVAL" "60000" }},
-  "debug": {{ getenv "APP_DEBUG" "false" }}
+  "debug": {{ getenv "APP_DEBUG" "false" }},
+  "fallbackImage": {{ getenv "APP_FALLBACK_IMAGE" "null" }},
+  "tenantFallbackImages": {{ getenv "APP_TENANT_FALLBACK_IMAGES" "{}" }}
 }

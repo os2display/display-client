@@ -247,8 +247,6 @@ class PullStrategy {
             }
           });
 
-          console.log('contentEmpty', contentEmpty);
-
           // Deliver result to rendering
           const event = new Event(
             contentEmpty ? 'contentEmpty' : 'contentNotEmpty'

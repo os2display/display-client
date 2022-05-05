@@ -21,6 +21,8 @@ services:
       - APP_DATA_PULL_INTERVAL=60000
       - APP_SCHEDULING_INTERVAL=60000
       - APP_DEBUG=false
+      - APP_FALLBACK_IMAGE=null
+      - 'APP_TENANT_FALLBACK_IMAGES={}'
     ports:
       - '80'
     labels:
