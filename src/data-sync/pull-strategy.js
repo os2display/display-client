@@ -228,17 +228,11 @@ class PullStrategy {
 
       Promise.allSettled(promises)
         .then((results) => {
-          let contentEmpty = true;
-
           results.forEach((result) => {
             if (
               result.status === 'fulfilled' &&
               Object.prototype.hasOwnProperty.call(result.value, 'keys')
             ) {
-              if (result.value.results?.length > 0) {
-                contentEmpty = false;
-              }
-
               regionData[result.value.keys.regionKey][
                 result.value.keys.playlistKey
               ].slidesData = result.value.results.map(
@@ -246,12 +240,6 @@ class PullStrategy {
               );
             }
           });
-
-          // Deliver result to rendering
-          const event = new Event(
-            contentEmpty ? 'contentEmpty' : 'contentNotEmpty'
-          );
-          document.dispatchEvent(event);
 
           resolve(regionData);
         })
