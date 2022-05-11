@@ -1,4 +1,4 @@
-FROM node:14 AS APP_BUILDER
+FROM node:16 AS APP_BUILDER
 LABEL maintainer="ITK Dev <itkdev@mkb.aarhus.dk>"
 
 ARG APP_VERSION="develop"
