@@ -20,15 +20,18 @@ body {
   margin: 0;
   padding: 0;
 
-  .bind-key {
+  .bind-key-container {
     position: absolute;
     bottom: 10px;
     right: 10px;
-    color: white;
-    margin: 0;
-    font-size: 60px;
 
+    .bind-key {
+      color: white;
+      margin: 0;
+      font-size: 40px;
+    }
     &::before {
+      position: relative;
       margin-right: 16px;
       content: url("assets/logo.svg");
     }

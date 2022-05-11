@@ -248,7 +248,11 @@ function App() {
 
   return (
     <div className="app">
-      {!screen && bindKey && <h1 className="bind-key">{bindKey}</h1>}
+      {!screen && bindKey && (
+        <div className="bind-key-container">
+          <h1 className="bind-key">{bindKey}</h1>
+        </div>
+      )}
       {screen && <Screen screen={screen} />}
     </div>
   );
