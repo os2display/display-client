@@ -38,7 +38,7 @@ function App() {
   const handleKeyboard = ({ repeat, metaKey, key, ctrlKey }) => {
     if (!repeat && (metaKey || ctrlKey) && key === 'i') {
       localStorage.clear();
-      location.reload();
+      window.location.reload(false);
     }
   };
 
