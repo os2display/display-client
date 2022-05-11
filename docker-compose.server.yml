@@ -21,7 +21,7 @@ services:
       - APP_DATA_PULL_INTERVAL=60000
       - APP_SCHEDULING_INTERVAL=60000
       - APP_DEBUG=false
-      - APP_API_ENDPOINT=https://displayapiservice.local.itkdev.dk/v1
+      - APP_API_ENDPOINT=https://displayapiservice.local.itkdev.dk
     ports:
       - '80'
     labels:

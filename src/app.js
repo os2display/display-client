@@ -196,7 +196,7 @@ function App() {
               localStorage.setItem(localStorageKeys.TENANT_ID, data.tenantId);
 
               // Get fallback image.
-              fetch(`${config.apiEndpoint}/tenants/${data.tenantId}`, {
+              fetch(`${config.apiEndpoint}/v1/tenants/${data.tenantId}`, {
                 headers: {
                   authorization: `Bearer ${data.token}`,
                   'Authorization-Tenant-Key': data.tenantKey,
