@@ -27,6 +27,7 @@ FROM nginx:1.21.3-alpine
 LABEL maintainer="ITK Dev <itkdev@mkb.aarhus.dk>"
 
 ARG APP_VERSION="develop"
+ARG APP_RELEASE_VERSION="develop"
 ARG APP_RELEASE_TIMESTAMP=0
 ARG APP_RELEASE_TIME=0
 ENV APP_PATH=/var/www/html
