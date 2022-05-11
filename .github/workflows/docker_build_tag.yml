@@ -29,13 +29,18 @@ jobs:
           echo "APP_RELEASE_TIMESTAMP=$(echo $(date +%s))" >> $GITHUB_ENV
           echo "APP_RELEASE_TIME=$(echo $(date))" >> $GITHUB_ENV
 
+      - name: Get the tag
+        id: get_tag
+        run: echo ::set-output name=git_tag::$(echo $GITHUB_REF_NAME)
+
       - name: Build and push (API)
         uses: docker/build-push-action@v2
         with:
           context: ./infrastructure/
           file: ./infrastructure/Dockerfile
           build-args: |
-            APP_VERSION=${{ env.GITHUB_REF_NAME }}
+            APP_VERSION=${{ env.GITHUB_REF }}
+            APP_RELEASE_VERSION=${{ steps.get_tag.outputs.git_tag }}
             APP_RELEASE_TIMESTAMP=${{ env.APP_RELEASE_TIMESTAMP }}
             APP_RELEASE_TIME=${{ env.APP_RELEASE_TIME }}
           push: true
