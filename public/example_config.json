@@ -1,4 +1,5 @@
 {
+  "apiEndpoint": "https://displayapiservice.local.itkdev.dk/v1",
   "authenticationEndpoint": "https://displayapiservice.local.itkdev.dk/v1/authentication/screen",
   "authenticationRefreshTokenEndpoint": "https://displayapiservice.local.itkdev.dk/v1/authentication/token/refresh",
   "dataStrategy": {
@@ -15,10 +16,6 @@
   },
   "schedulingInterval": 60000,
   "debug": true,
-  "fallbackImage": "./client/fallback/fallback_default.png",
-  "tenantFallbackImages": {
-    "TENANT1": "./client/fallback/tenant1.jpg"
-  },
   "releaseTimestamp": 1651175120,
   "releaseVersion": "1.0.0"
 }

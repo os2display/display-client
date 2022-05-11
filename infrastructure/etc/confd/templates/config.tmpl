@@ -1,4 +1,5 @@
 {
+  "apiEndpoint": "{{ getenv "APP_API_ENDPOINT" "/v1" }}",
   "authenticationEndpoint": "{{ getenv "APP_API_AUTHENTICATION_ENDPOINT" "/v1/authentication/token" }}",
   "authenticationRefreshTokenEndpoint": "{{ getenv "APP_API_AUTHENTICATION_REFRESH_ENDPOINT" "/v1/authentication/token/refresh" }}",
   "dataStrategy": {
@@ -14,7 +15,5 @@
     "lng": {{ getenv "APP_CLIENT_LONGITUDE" "10.0" }}
   },
   "schedulingInterval": {{ getenv "APP_SCHEDULING_INTERVAL" "60000" }},
-  "debug": {{ getenv "APP_DEBUG" "false" }},
-  "fallbackImage": {{ getenv "APP_FALLBACK_IMAGE" "null" }},
-  "tenantFallbackImages": {{ getenv "APP_TENANT_FALLBACK_IMAGES" "{}" }}
+  "debug": {{ getenv "APP_DEBUG" "false" }}
 }

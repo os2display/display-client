@@ -1,6 +1,7 @@
 import cloneDeep from 'lodash.clonedeep';
 import isPublished from '../util/isPublished';
 import * as Logger from '../logger/logger';
+import localStorageKeys from '../local-storage-keys';
 
 /**
  * PullStrategy.
@@ -40,10 +41,8 @@ class PullStrategy {
    * @returns {Promise<any>} Promise with data.
    */
   async getPath(path) {
-    const localStorageApiTokenKey = 'apiToken';
-    const localStorageTenantKeyKey = 'tenantKey';
-    const token = localStorage.getItem(localStorageApiTokenKey) ?? '';
-    const tenantKey = localStorage.getItem(localStorageTenantKeyKey) ?? '';
+    const token = localStorage.getItem(localStorageKeys.API_TOKEN) ?? '';
+    const tenantKey = localStorage.getItem(localStorageKeys.TENANT_KEY) ?? '';
 
     if (!path) {
       throw new Error('No path');

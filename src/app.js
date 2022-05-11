@@ -7,6 +7,7 @@ import ReleaseLoader from './release-loader';
 import Logger from './logger/logger';
 import './app.scss';
 import Spinner from './spinner';
+import localStorageKeys from './local-storage-keys';
 
 /**
  * App component.
@@ -15,12 +16,6 @@ import Spinner from './spinner';
  *   The component.
  */
 function App() {
-  const lsApiToken = 'apiToken';
-  const lsApiTokenExpire = 'apiTokenExpire';
-  const lsApiTokenIssuedAt = 'apiTokenIssuedAt';
-  const lsScreenId = 'screenId';
-  const lsTenantKey = 'tenantKey';
-  const lsRefreshToken = 'refreshToken';
   const loginCheckTimeout = 15 * 1000;
   const refreshTimeout = 60 * 1000;
   const releaseTimestampIntervalTimeout = 1000 * 60 * 5;
@@ -35,13 +30,13 @@ function App() {
   const releaseTimestampRef = useRef(null);
   const releaseTimestampIntervalRef = useRef(null);
   const [displayFallback, setDisplayFallback] = useState(false);
-  const [fallbackImageUrl, setFallbackImageUrl] = useState(
-    './assets/fallback.png'
-  );
+  const [fallbackImageUrl, setFallbackImageUrl] = useState(null);
 
-  const fallbackStyle = {
-    backgroundImage: `url('${fallbackImageUrl}')`,
-  };
+  const fallbackStyle = {};
+
+  if (fallbackImageUrl !== null) {
+    fallbackStyle.backgroundImage = `url('${fallbackImageUrl}')`;
+  }
 
   /**
    * Handles "screen" events.
@@ -66,9 +61,15 @@ function App() {
       return;
     }
 
-    const rToken = localStorage.getItem(lsRefreshToken);
-    const exp = parseInt(localStorage.getItem(lsApiTokenExpire), 10);
-    const iat = parseInt(localStorage.getItem(lsApiTokenIssuedAt), 10);
+    const rToken = localStorage.getItem(localStorageKeys.REFRESH_TOKEN);
+    const exp = parseInt(
+      localStorage.getItem(localStorageKeys.API_TOKEN_EXPIRE),
+      10
+    );
+    const iat = parseInt(
+      localStorage.getItem(localStorageKeys.API_TOKEN_ISSUED_AT),
+      10
+    );
 
     if (!rToken || !exp || !iat) {
       Logger.log('warn', 'Refresh token, exp or iat not set.');
@@ -100,10 +101,19 @@ function App() {
 
             const decodedToken = jwtDecode(data.token);
 
-            localStorage.setItem(lsApiToken, data.token);
-            localStorage.setItem(lsApiTokenExpire, decodedToken.exp);
-            localStorage.setItem(lsApiTokenIssuedAt, decodedToken.iat);
-            localStorage.setItem(lsRefreshToken, data.refresh_token);
+            localStorage.setItem(localStorageKeys.API_TOKEN, data.token);
+            localStorage.setItem(
+              localStorageKeys.API_TOKEN_EXPIRE,
+              decodedToken.exp
+            );
+            localStorage.setItem(
+              localStorageKeys.API_TOKEN_ISSUED_AT,
+              decodedToken.iat
+            );
+            localStorage.setItem(
+              localStorageKeys.REFRESH_TOKEN,
+              data.refresh_token
+            );
           })
           .catch(() => {
             Logger.log('error', 'Token refresh error.');
@@ -145,8 +155,8 @@ function App() {
   };
 
   const refreshLogin = () => {
-    const localStorageToken = localStorage.getItem(lsApiToken);
-    const localScreenId = localStorage.getItem(lsScreenId);
+    const localStorageToken = localStorage.getItem(localStorageKeys.API_TOKEN);
+    const localScreenId = localStorage.getItem(localStorageKeys.SCREEN_ID);
 
     if (!running && localStorageToken && localScreenId) {
       startContent(localScreenId);
@@ -168,12 +178,37 @@ function App() {
             ) {
               const decodedToken = jwtDecode(data.token);
 
-              localStorage.setItem(lsApiToken, data.token);
-              localStorage.setItem(lsApiTokenExpire, decodedToken.exp);
-              localStorage.setItem(lsApiTokenIssuedAt, decodedToken.iat);
-              localStorage.setItem(lsScreenId, data.screenId);
-              localStorage.setItem(lsTenantKey, data.tenantKey);
-              localStorage.setItem(lsRefreshToken, data.refresh_token);
+              localStorage.setItem(localStorageKeys.API_TOKEN, data.token);
+              localStorage.setItem(
+                localStorageKeys.API_TOKEN_EXPIRE,
+                decodedToken.exp
+              );
+              localStorage.setItem(
+                localStorageKeys.API_TOKEN_ISSUED_AT,
+                decodedToken.iat
+              );
+              localStorage.setItem(localStorageKeys.SCREEN_ID, data.screenId);
+              localStorage.setItem(
+                localStorageKeys.REFRESH_TOKEN,
+                data.refresh_token
+              );
+              localStorage.setItem(localStorageKeys.TENANT_KEY, data.tenantKey);
+              localStorage.setItem(localStorageKeys.TENANT_ID, data.tenantId);
+
+              // Get fallback image.
+              fetch(`${config.apiEndpoint}/tenants/${data.tenantId}`, {
+                headers: {
+                  authorization: `Bearer ${data.token}`,
+                  'Authorization-Tenant-Key': data.tenantKey,
+                },
+              })
+                .then((response) => response.json())
+                .then((tenantData) => {
+                  localStorage.setItem(
+                    localStorageKeys.FALLBACK_IMAGE,
+                    tenantData.fallbackImageUrl ?? null
+                  );
+                });
 
               startContent(data.screenId);
             } else if (data?.status === 'awaitingBindKey') {
@@ -193,12 +228,14 @@ function App() {
   const reauthenticateHandler = () => {
     Logger.log('info', 'Reauthenticate.');
 
-    localStorage.removeItem(lsApiToken);
-    localStorage.removeItem(lsApiTokenExpire);
-    localStorage.removeItem(lsApiTokenIssuedAt);
-    localStorage.removeItem(lsRefreshToken);
-    localStorage.removeItem(lsScreenId);
-    localStorage.removeItem(lsTenantKey);
+    localStorage.removeItem(localStorageKeys.API_TOKEN);
+    localStorage.removeItem(localStorageKeys.API_TOKEN_EXPIRE);
+    localStorage.removeItem(localStorageKeys.API_TOKEN_ISSUED_AT);
+    localStorage.removeItem(localStorageKeys.REFRESH_TOKEN);
+    localStorage.removeItem(localStorageKeys.SCREEN_ID);
+    localStorage.removeItem(localStorageKeys.TENANT_KEY);
+    localStorage.removeItem(localStorageKeys.TENANT_ID);
+    localStorage.removeItem(localStorageKeys.FALLBACK_IMAGE);
 
     if (contentServiceRef?.current) {
       contentServiceRef.current.stop();
@@ -227,20 +264,7 @@ function App() {
 
   const contentEmpty = () => {
     Logger.log('info', 'Content empty. Displaying fallback.');
-    ConfigLoader.loadConfig().then((config) => {
-      const tenantKey = localStorage.getItem(lsTenantKey);
-
-      if (
-        Object.prototype.hasOwnProperty.call(
-          config?.tenantFallbackImages,
-          tenantKey
-        )
-      ) {
-        setFallbackImageUrl(config.tenantFallbackImages[tenantKey]);
-      } else if (config.fallbackImage) {
-        setFallbackImageUrl(config.fallbackImage);
-      }
-    });
+    setFallbackImageUrl(localStorage.getItem(localStorageKeys.FALLBACK_IMAGE));
     setDisplayFallback(true);
   };
 
@@ -262,6 +286,8 @@ function App() {
       checkForUpdates,
       releaseTimestampIntervalTimeout
     );
+
+    setFallbackImageUrl(localStorage.getItem(localStorageKeys.FALLBACK_IMAGE));
 
     return function cleanup() {
       document.removeEventListener('screen', screenHandler);
