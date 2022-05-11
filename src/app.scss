@@ -14,38 +14,25 @@ body {
   bottom: 0;
 }
 
-.App {
+.app {
   height: 100%;
   width: 100%;
   margin: 0;
   padding: 0;
-}
 
-.BindKey {
-  height: 100%;
-  width: 100%;
-  flex-direction: column;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-items: center;
-  background-image: url("assets/fallback.png");
-  background-size: cover;
-  background-position: center;
-}
+  .bind-key {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    color: white;
+    margin: 0;
+    font-size: 60px;
 
-.BindKeyHeader {
-  margin: 1em;
-  max-width: 800px;
-  text-align: center;
-}
-
-.BindKeyKey {
-  flex: auto;
-}
-
-.BindKeySpinner {
-  margin-bottom: 4em;
+    &::before {
+      margin-right: 16px;
+      content: url("assets/logo.svg");
+    }
+  }
 }
 
 .ql-editor {

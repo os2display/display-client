@@ -6,7 +6,6 @@ import ConfigLoader from './config-loader';
 import ReleaseLoader from './release-loader';
 import Logger from './logger/logger';
 import './app.scss';
-import Spinner from './spinner';
 
 /**
  * App component.
@@ -248,23 +247,8 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      {!screen && (
-        <div className="BindKey">
-          {bindKey && (
-            <>
-              <h1 className="BindKeyHeader">
-                Bind this machine to a screen entity in the administration to
-                receive content.
-              </h1>
-              <h1 className="BindKeyKey">Key to enter: {bindKey}</h1>
-              <div className="BindKeySpinner">
-                <Spinner />
-              </div>
-            </>
-          )}
-        </div>
-      )}
+    <div className="app">
+      {!screen && bindKey && <h1 className="bind-key">{bindKey}</h1>}
       {screen && <Screen screen={screen} />}
     </div>
   );
