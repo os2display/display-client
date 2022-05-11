@@ -12,10 +12,10 @@ describe('Client tests', () => {
       fixture: 'awaiting-bind-key-response.json',
     });
 
-    cy.get('.BindKeyKey').should('exist');
-    cy.get('.BindKeyKey')
+    cy.get('.bind-key').should('exist');
+    cy.get('.bind-key')
       .invoke('text')
-      .should('match', /^Key to enter: 26PCSL3Q/);
+      .should('match', /^26PCSL3Q/);
   });
 
   it('It loads an empty screen with one region', () => {
