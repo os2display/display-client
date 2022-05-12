@@ -6,7 +6,6 @@ import ConfigLoader from './config-loader';
 import ReleaseLoader from './release-loader';
 import Logger from './logger/logger';
 import './app.scss';
-import Spinner from './spinner';
 
 /**
  * App component.
@@ -34,6 +33,16 @@ function App() {
   const contentServiceRef = useRef(null);
   const releaseTimestampRef = useRef(null);
   const releaseTimestampIntervalRef = useRef(null);
+
+  // ctrl/cmd i will log screen out and refresh
+  const handleKeyboard = ({ repeat, metaKey, key, ctrlKey }) => {
+    if (!repeat && (metaKey || ctrlKey) && key === 'i') {
+      localStorage.clear();
+      window.location.reload(false);
+    }
+  };
+
+  document.addEventListener('keypress', handleKeyboard);
 
   /**
    * Handles "screen" events.
@@ -248,21 +257,10 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      {!screen && (
-        <div className="BindKey">
-          {bindKey && (
-            <>
-              <h1 className="BindKeyHeader">
-                Bind this machine to a screen entity in the administration to
-                receive content.
-              </h1>
-              <h1 className="BindKeyKey">Key to enter: {bindKey}</h1>
-              <div className="BindKeySpinner">
-                <Spinner />
-              </div>
-            </>
-          )}
+    <div className="app">
+      {!screen && bindKey && (
+        <div className="bind-key-container">
+          <h1 className="bind-key">{bindKey}</h1>
         </div>
       )}
       {screen && <Screen screen={screen} />}
