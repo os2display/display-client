@@ -40,6 +40,7 @@ jobs:
           file: ./infrastructure/Dockerfile
           build-args: |
             APP_VERSION=${{ env.APP_VERSION }}
+            APP_RELEASE_VERSION=${{ env.APP_VERSION }}
             APP_RELEASE_TIMESTAMP=${{ env.APP_RELEASE_TIMESTAMP }}
             APP_RELEASE_TIME=${{ env.APP_RELEASE_TIME }}
           push: true
