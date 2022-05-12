@@ -195,21 +195,6 @@ function App() {
               localStorage.setItem(localStorageKeys.TENANT_KEY, data.tenantKey);
               localStorage.setItem(localStorageKeys.TENANT_ID, data.tenantId);
 
-              // Get fallback image.
-              fetch(`${config.apiEndpoint}/v1/tenants/${data.tenantId}`, {
-                headers: {
-                  authorization: `Bearer ${data.token}`,
-                  'Authorization-Tenant-Key': data.tenantKey,
-                },
-              })
-                .then((response) => response.json())
-                .then((tenantData) => {
-                  localStorage.setItem(
-                    localStorageKeys.FALLBACK_IMAGE,
-                    tenantData.fallbackImageUrl ?? null
-                  );
-                });
-
               startContent(data.screenId);
             } else if (data?.status === 'awaitingBindKey') {
               if (data?.bindKey) {
@@ -273,6 +258,31 @@ function App() {
     setDisplayFallback(false);
   };
 
+  const fetchFallbackImage = () => {
+    ConfigLoader.loadConfig().then((config) => {
+      const token = localStorage.getItem(localStorageKeys.API_TOKEN);
+      const tenantKey = localStorage.getItem(localStorageKeys.TENANT_KEY);
+      const tenantId = localStorage.getItem(localStorageKeys.TENANT_ID);
+
+      if (token && tenantKey && tenantId) {
+        // Get fallback image.
+        fetch(`${config.apiEndpoint}/v1/tenants/${tenantId}`, {
+          headers: {
+            authorization: `Bearer ${token}`,
+            'Authorization-Tenant-Key': tenantKey,
+          },
+        })
+          .then((response) => response.json())
+          .then((tenantData) => {
+            localStorage.setItem(
+              localStorageKeys.FALLBACK_IMAGE,
+              tenantData.fallbackImageUrl ?? null
+            );
+          });
+      }
+    });
+  };
+
   useEffect(() => {
     document.addEventListener('screen', screenHandler);
     document.addEventListener('reauthenticate', reauthenticateHandler);
@@ -308,6 +318,10 @@ function App() {
       }
     };
   }, []);
+
+  useEffect(() => {
+    fetchFallbackImage();
+  }, [screen]);
 
   return (
     <div className="App">
