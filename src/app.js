@@ -34,6 +34,16 @@ function App() {
   const releaseTimestampRef = useRef(null);
   const releaseTimestampIntervalRef = useRef(null);
 
+  // ctrl/cmd i will log screen out and refresh
+  const handleKeyboard = ({ repeat, metaKey, key, ctrlKey }) => {
+    if (!repeat && (metaKey || ctrlKey) && key === 'i') {
+      localStorage.clear();
+      window.location.reload(false);
+    }
+  };
+
+  document.addEventListener('keypress', handleKeyboard);
+
   /**
    * Handles "screen" events.
    *
