@@ -6,7 +6,6 @@ import ConfigLoader from './config-loader';
 import ReleaseLoader from './release-loader';
 import Logger from './logger/logger';
 import './app.scss';
-import Spinner from './spinner';
 import localStorageKeys from './local-storage-keys';
 
 /**
@@ -37,6 +36,16 @@ function App() {
   if (fallbackImageUrl !== null) {
     fallbackStyle.backgroundImage = `url('${fallbackImageUrl}')`;
   }
+
+  // ctrl/cmd i will log screen out and refresh
+  const handleKeyboard = ({ repeat, metaKey, key, ctrlKey }) => {
+    if (!repeat && (metaKey || ctrlKey) && key === 'i') {
+      localStorage.clear();
+      window.location.reload(false);
+    }
+  };
+
+  document.addEventListener('keypress', handleKeyboard);
 
   /**
    * Handles "screen" events.
@@ -278,6 +287,9 @@ function App() {
               localStorageKeys.FALLBACK_IMAGE,
               tenantData.fallbackImageUrl ?? null
             );
+            setFallbackImageUrl(
+              localStorage.getItem(localStorageKeys.FALLBACK_IMAGE)
+            );
           });
       }
     });
@@ -324,28 +336,17 @@ function App() {
   }, [screen]);
 
   return (
-    <div className="App">
-      {!screen && (
-        <div className="BindKey" style={fallbackStyle}>
-          {bindKey && (
-            <>
-              <h1 className="BindKeyHeader">
-                Bind this machine to a screen entity in the administration to
-                receive content.
-              </h1>
-              <h1 className="BindKeyKey">Key to enter: {bindKey}</h1>
-              <div className="BindKeySpinner">
-                <Spinner />
-              </div>
-            </>
-          )}
+    <div className="app">
+      {!screen && bindKey && (
+        <div className="bind-key-container">
+          <h1 className="bind-key">{bindKey}</h1>
         </div>
       )}
       {screen && (
         <>
           <Screen screen={screen} />
           {displayFallback && (
-            <div className="Fallback" style={fallbackStyle} />
+            <div className="fallback" style={fallbackStyle} />
           )}
         </>
       )}
