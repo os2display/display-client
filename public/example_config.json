@@ -1,4 +1,5 @@
 {
+  "apiEndpoint": "https://displayapiservice.local.itkdev.dk",
   "authenticationEndpoint": "https://displayapiservice.local.itkdev.dk/v1/authentication/screen",
   "authenticationRefreshTokenEndpoint": "https://displayapiservice.local.itkdev.dk/v1/authentication/token/refresh",
   "dataStrategy": {
@@ -14,5 +15,5 @@
     "lng": 10.0
   },
   "schedulingInterval": 60000,
-  "debug": true
+  "debug": false
 }
