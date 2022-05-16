@@ -17,8 +17,32 @@ class ScheduleService {
 
   intervals = {};
 
+  contentEmpty = false;
+
   constructor() {
     this.updateRegion = this.updateRegion.bind(this);
+    this.checkForEmptyContent = this.checkForEmptyContent.bind(this);
+    this.sendSlides = this.sendSlides.bind(this);
+  }
+
+  checkForEmptyContent() {
+    Logger.log('info', 'Checking for empty content.');
+
+    // Check for empty content.
+    const values = Object.values(this.regions);
+
+    const contentEmpty =
+      values.filter((value) => value?.slides.length > 0).length === 0;
+
+    if (contentEmpty !== this.contentEmpty) {
+      this.contentEmpty = contentEmpty;
+
+      // Deliver result to rendering
+      const event = new Event(
+        contentEmpty ? 'contentEmpty' : 'contentNotEmpty'
+      );
+      document.dispatchEvent(event);
+    }
   }
 
   /**
@@ -81,7 +105,7 @@ class ScheduleService {
 
     if (newContent) {
       // Send slides to region.
-      ScheduleService.sendSlides(regionId, slides);
+      this.sendSlides(regionId, slides);
     }
   }
 
@@ -110,7 +134,7 @@ class ScheduleService {
 
     if (newContent) {
       // Send slides to region.
-      ScheduleService.sendSlides(regionId, slides);
+      this.sendSlides(regionId, slides);
     }
   }
 
@@ -122,7 +146,7 @@ class ScheduleService {
    * @param {Array} slides
    *   Array of slides.
    */
-  static sendSlides(regionId, slides) {
+  sendSlides(regionId, slides) {
     Logger.log('info', `sendSlides regionContent-${regionId}`);
     const event = new CustomEvent(`regionContent-${regionId}`, {
       detail: {
@@ -130,6 +154,8 @@ class ScheduleService {
       },
     });
     document.dispatchEvent(event);
+
+    this.checkForEmptyContent();
   }
 
   /**
