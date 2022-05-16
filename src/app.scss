@@ -26,10 +26,13 @@ body {
     right: 10px;
 
     .bind-key {
+      font-family: Arial, Helvetica, sans-serif;
+      letter-spacing: 0.2em;
       color: white;
       margin: 0;
       font-size: 40px;
     }
+
     &::before {
       position: relative;
       margin-right: 16px;
