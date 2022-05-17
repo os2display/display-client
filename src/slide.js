@@ -34,7 +34,7 @@ function Slide({ slide, id, run, slideDone, forwardRef }) {
   return (
     <div
       id={id}
-      className="slide"
+      className="Slide"
       ref={forwardRef}
       data-run={run}
       data-execution-id={slide.executionId}
