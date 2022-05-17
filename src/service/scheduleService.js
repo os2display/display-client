@@ -1,7 +1,8 @@
 import cloneDeep from 'lodash.clonedeep';
 import sha256 from 'crypto-js/sha256';
-import Base64 from 'crypto-js/enc-base64';
+import Md5 from 'crypto-js/md5';
 import RRule from 'rrule';
+import Base64 from 'crypto-js/enc-base64';
 import isPublished from '../util/isPublished';
 import Logger from '../logger/logger';
 import ConfigLoader from '../config-loader';
@@ -217,10 +218,10 @@ class ScheduleService {
           }
 
           const newSlide = cloneDeep(slide);
+
           // Execution id is the product of region, playlist and slide id, to ensure uniqueness in the client.
-          newSlide.executionId = Base64.stringify(
-            sha256(regionId + playlist['@id'] + slide['@id'])
-          );
+          const executionId = Md5(regionId + playlist['@id'] + slide['@id']);
+          newSlide.executionId = `EXE-ID-${executionId}`;
           slides.push(newSlide);
         });
       }
