@@ -161,7 +161,7 @@ function Region({ region }) {
               <CSSTransition
                 key={currentSlide.executionId}
                 timeout={1000}
-                classNames="Slide"
+                classNames="slide"
                 nodeRef={nodeRefs[currentSlide.executionId]}
               >
                 <Slide

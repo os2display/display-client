@@ -34,7 +34,7 @@ function Slide({ slide, id, run, slideDone, forwardRef }) {
   return (
     <div
       id={id}
-      className="Slide"
+      className="slide"
       ref={forwardRef}
       data-run={run}
       data-execution-id={slide.executionId}
@@ -47,6 +47,7 @@ function Slide({ slide, id, run, slideDone, forwardRef }) {
             content={slide.content}
             run={run}
             slideDone={slideDone}
+            executionId={slide.executionId}
           />
         </ErrorBoundary>
       )}
