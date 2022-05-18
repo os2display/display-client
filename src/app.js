@@ -6,7 +6,7 @@ import ConfigLoader from './config-loader';
 import ReleaseLoader from './release-loader';
 import Logger from './logger/logger';
 import './app.scss';
-import Spinner from './spinner';
+import localStorageKeys from './local-storage-keys';
 
 /**
  * App component.
@@ -15,12 +15,6 @@ import Spinner from './spinner';
  *   The component.
  */
 function App() {
-  const lsApiToken = 'apiToken';
-  const lsApiTokenExpire = 'apiTokenExpire';
-  const lsApiTokenIssuedAt = 'apiTokenIssuedAt';
-  const lsScreenId = 'screenId';
-  const lsTenantKey = 'tenantKey';
-  const lsRefreshToken = 'refreshToken';
   const loginCheckTimeout = 15 * 1000;
   const refreshTimeout = 60 * 1000;
   const releaseTimestampIntervalTimeout = 1000 * 60 * 5;
@@ -34,6 +28,31 @@ function App() {
   const contentServiceRef = useRef(null);
   const releaseTimestampRef = useRef(null);
   const releaseTimestampIntervalRef = useRef(null);
+  const [displayFallback, setDisplayFallback] = useState(false);
+  const [fallbackImageUrl, setFallbackImageUrl] = useState(null);
+  const [debug, setDebug] = useState(false);
+
+  const fallbackStyle = {};
+
+  if (fallbackImageUrl !== null) {
+    fallbackStyle.backgroundImage = `url('${fallbackImageUrl}')`;
+  }
+
+  const appStyle = {};
+
+  if (!debug) {
+    appStyle.cursor = 'none';
+  }
+
+  // ctrl/cmd i will log screen out and refresh
+  const handleKeyboard = ({ repeat, metaKey, ctrlKey, code }) => {
+    if (!repeat && (metaKey || ctrlKey) && code === 'KeyI') {
+      localStorage.clear();
+      window.location.reload(false);
+    }
+  };
+
+  document.addEventListener('keypress', handleKeyboard);
 
   /**
    * Handles "screen" events.
@@ -58,9 +77,15 @@ function App() {
       return;
     }
 
-    const rToken = localStorage.getItem(lsRefreshToken);
-    const exp = parseInt(localStorage.getItem(lsApiTokenExpire), 10);
-    const iat = parseInt(localStorage.getItem(lsApiTokenIssuedAt), 10);
+    const rToken = localStorage.getItem(localStorageKeys.REFRESH_TOKEN);
+    const exp = parseInt(
+      localStorage.getItem(localStorageKeys.API_TOKEN_EXPIRE),
+      10
+    );
+    const iat = parseInt(
+      localStorage.getItem(localStorageKeys.API_TOKEN_ISSUED_AT),
+      10
+    );
 
     if (!rToken || !exp || !iat) {
       Logger.log('warn', 'Refresh token, exp or iat not set.');
@@ -92,10 +117,19 @@ function App() {
 
             const decodedToken = jwtDecode(data.token);
 
-            localStorage.setItem(lsApiToken, data.token);
-            localStorage.setItem(lsApiTokenExpire, decodedToken.exp);
-            localStorage.setItem(lsApiTokenIssuedAt, decodedToken.iat);
-            localStorage.setItem(lsRefreshToken, data.refresh_token);
+            localStorage.setItem(localStorageKeys.API_TOKEN, data.token);
+            localStorage.setItem(
+              localStorageKeys.API_TOKEN_EXPIRE,
+              decodedToken.exp
+            );
+            localStorage.setItem(
+              localStorageKeys.API_TOKEN_ISSUED_AT,
+              decodedToken.iat
+            );
+            localStorage.setItem(
+              localStorageKeys.REFRESH_TOKEN,
+              data.refresh_token
+            );
           })
           .catch(() => {
             Logger.log('error', 'Token refresh error.');
@@ -137,8 +171,8 @@ function App() {
   };
 
   const refreshLogin = () => {
-    const localStorageToken = localStorage.getItem(lsApiToken);
-    const localScreenId = localStorage.getItem(lsScreenId);
+    const localStorageToken = localStorage.getItem(localStorageKeys.API_TOKEN);
+    const localScreenId = localStorage.getItem(localStorageKeys.SCREEN_ID);
 
     if (!running && localStorageToken && localScreenId) {
       startContent(localScreenId);
@@ -160,12 +194,22 @@ function App() {
             ) {
               const decodedToken = jwtDecode(data.token);
 
-              localStorage.setItem(lsApiToken, data.token);
-              localStorage.setItem(lsApiTokenExpire, decodedToken.exp);
-              localStorage.setItem(lsApiTokenIssuedAt, decodedToken.iat);
-              localStorage.setItem(lsScreenId, data.screenId);
-              localStorage.setItem(lsTenantKey, data.tenantKey);
-              localStorage.setItem(lsRefreshToken, data.refresh_token);
+              localStorage.setItem(localStorageKeys.API_TOKEN, data.token);
+              localStorage.setItem(
+                localStorageKeys.API_TOKEN_EXPIRE,
+                decodedToken.exp
+              );
+              localStorage.setItem(
+                localStorageKeys.API_TOKEN_ISSUED_AT,
+                decodedToken.iat
+              );
+              localStorage.setItem(localStorageKeys.SCREEN_ID, data.screenId);
+              localStorage.setItem(
+                localStorageKeys.REFRESH_TOKEN,
+                data.refresh_token
+              );
+              localStorage.setItem(localStorageKeys.TENANT_KEY, data.tenantKey);
+              localStorage.setItem(localStorageKeys.TENANT_ID, data.tenantId);
 
               startContent(data.screenId);
             } else if (data?.status === 'awaitingBindKey') {
@@ -185,12 +229,14 @@ function App() {
   const reauthenticateHandler = () => {
     Logger.log('info', 'Reauthenticate.');
 
-    localStorage.removeItem(lsApiToken);
-    localStorage.removeItem(lsApiTokenExpire);
-    localStorage.removeItem(lsApiTokenIssuedAt);
-    localStorage.removeItem(lsRefreshToken);
-    localStorage.removeItem(lsScreenId);
-    localStorage.removeItem(lsTenantKey);
+    localStorage.removeItem(localStorageKeys.API_TOKEN);
+    localStorage.removeItem(localStorageKeys.API_TOKEN_EXPIRE);
+    localStorage.removeItem(localStorageKeys.API_TOKEN_ISSUED_AT);
+    localStorage.removeItem(localStorageKeys.REFRESH_TOKEN);
+    localStorage.removeItem(localStorageKeys.SCREEN_ID);
+    localStorage.removeItem(localStorageKeys.TENANT_KEY);
+    localStorage.removeItem(localStorageKeys.TENANT_ID);
+    localStorage.removeItem(localStorageKeys.FALLBACK_IMAGE);
 
     if (contentServiceRef?.current) {
       contentServiceRef.current.stop();
@@ -217,9 +263,50 @@ function App() {
     });
   };
 
+  const contentEmpty = () => {
+    Logger.log('info', 'Content empty. Displaying fallback.');
+    setFallbackImageUrl(localStorage.getItem(localStorageKeys.FALLBACK_IMAGE));
+    setDisplayFallback(true);
+  };
+
+  const contentNotEmpty = () => {
+    Logger.log('info', 'Content not empty. Displaying content.');
+    setDisplayFallback(false);
+  };
+
+  const fetchFallbackImage = () => {
+    ConfigLoader.loadConfig().then((config) => {
+      const token = localStorage.getItem(localStorageKeys.API_TOKEN);
+      const tenantKey = localStorage.getItem(localStorageKeys.TENANT_KEY);
+      const tenantId = localStorage.getItem(localStorageKeys.TENANT_ID);
+
+      if (token && tenantKey && tenantId) {
+        // Get fallback image.
+        fetch(`${config.apiEndpoint}/v1/tenants/${tenantId}`, {
+          headers: {
+            authorization: `Bearer ${token}`,
+            'Authorization-Tenant-Key': tenantKey,
+          },
+        })
+          .then((response) => response.json())
+          .then((tenantData) => {
+            localStorage.setItem(
+              localStorageKeys.FALLBACK_IMAGE,
+              tenantData.fallbackImageUrl ?? null
+            );
+            setFallbackImageUrl(
+              localStorage.getItem(localStorageKeys.FALLBACK_IMAGE)
+            );
+          });
+      }
+    });
+  };
+
   useEffect(() => {
     document.addEventListener('screen', screenHandler);
     document.addEventListener('reauthenticate', reauthenticateHandler);
+    document.addEventListener('contentEmpty', contentEmpty);
+    document.addEventListener('contentNotEmpty', contentNotEmpty);
 
     refreshLogin();
 
@@ -229,9 +316,13 @@ function App() {
       releaseTimestampIntervalTimeout
     );
 
+    setFallbackImageUrl(localStorage.getItem(localStorageKeys.FALLBACK_IMAGE));
+
     return function cleanup() {
       document.removeEventListener('screen', screenHandler);
       document.removeEventListener('reauthenticate', reauthenticateHandler);
+      document.removeEventListener('contentEmpty', contentEmpty);
+      document.removeEventListener('contentNotEmpty', contentNotEmpty);
 
       if (timeoutRef?.current) {
         clearTimeout(timeoutRef.current);
@@ -247,25 +338,29 @@ function App() {
     };
   }, []);
 
+  useEffect(() => {
+    fetchFallbackImage();
+
+    ConfigLoader.loadConfig().then((config) => {
+      setDebug(config?.debug ?? false);
+    });
+  }, [screen]);
+
   return (
-    <div className="App">
-      {!screen && (
-        <div className="BindKey">
-          {bindKey && (
-            <>
-              <h1 className="BindKeyHeader">
-                Bind this machine to a screen entity in the administration to
-                receive content.
-              </h1>
-              <h1 className="BindKeyKey">Key to enter: {bindKey}</h1>
-              <div className="BindKeySpinner">
-                <Spinner />
-              </div>
-            </>
-          )}
+    <div className="app" style={appStyle}>
+      {!screen && bindKey && (
+        <div className="bind-key-container">
+          <h1 className="bind-key">{bindKey}</h1>
         </div>
       )}
-      {screen && <Screen screen={screen} />}
+      {screen && (
+        <>
+          <Screen screen={screen} />
+          {displayFallback && (
+            <div className="fallback" style={fallbackStyle} />
+          )}
+        </>
+      )}
     </div>
   );
 }

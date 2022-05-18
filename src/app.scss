@@ -14,40 +14,47 @@ body {
   bottom: 0;
 }
 
-.App {
+.app {
   height: 100%;
   width: 100%;
   margin: 0;
   padding: 0;
-}
 
-.BindKey {
-  height: 100%;
-  width: 100%;
-  flex-direction: column;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-items: center;
-  background-image: url("assets/fallback.png");
-  background-size: cover;
-  background-position: center;
-}
+  .bind-key-container {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
 
-.BindKeyHeader {
-  margin: 1em;
-  max-width: 800px;
-  text-align: center;
-}
+    .bind-key {
+      font-family: Arial, Helvetica, sans-serif;
+      letter-spacing: 0.2em;
+      color: white;
+      margin: 0;
+      font-size: 40px;
+    }
 
-.BindKeyKey {
-  flex: auto;
-}
-
-.BindKeySpinner {
-  margin-bottom: 4em;
+    &::before {
+      position: relative;
+      margin-right: 16px;
+      content: url("assets/logo.svg");
+    }
+  }
 }
 
 .ql-editor {
   min-height: 200px;
+}
+
+.fallback {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: 99999;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-image: url("assets/fallback.png");
+  background-size: cover;
+  background-position: center;
 }
