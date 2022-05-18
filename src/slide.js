@@ -47,6 +47,7 @@ function Slide({ slide, id, run, slideDone, forwardRef }) {
             content={slide.content}
             run={run}
             slideDone={slideDone}
+            executionId={slide.executionId}
           />
         </ErrorBoundary>
       )}
