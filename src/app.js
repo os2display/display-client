@@ -38,8 +38,8 @@ function App() {
   }
 
   // ctrl/cmd i will log screen out and refresh
-  const handleKeyboard = ({ repeat, metaKey, key, ctrlKey }) => {
-    if (!repeat && (metaKey || ctrlKey) && key === 'i') {
+  const handleKeyboard = ({ repeat, metaKey, ctrlKey, code }) => {
+    if (!repeat && (metaKey || ctrlKey) && code === 'KeyI') {
       localStorage.clear();
       window.location.reload(false);
     }
