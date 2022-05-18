@@ -30,11 +30,18 @@ function App() {
   const releaseTimestampIntervalRef = useRef(null);
   const [displayFallback, setDisplayFallback] = useState(false);
   const [fallbackImageUrl, setFallbackImageUrl] = useState(null);
+  const [debug, setDebug] = useState(false);
 
   const fallbackStyle = {};
 
   if (fallbackImageUrl !== null) {
     fallbackStyle.backgroundImage = `url('${fallbackImageUrl}')`;
+  }
+
+  const appStyle = {};
+
+  if (!debug) {
+    appStyle.cursor = 'none';
   }
 
   // ctrl/cmd i will log screen out and refresh
@@ -333,10 +340,14 @@ function App() {
 
   useEffect(() => {
     fetchFallbackImage();
+
+    ConfigLoader.loadConfig().then((config) => {
+      setDebug(config?.debug ?? false);
+    });
   }, [screen]);
 
   return (
-    <div className="app">
+    <div className="app" style={appStyle}>
       {!screen && bindKey && (
         <div className="bind-key-container">
           <h1 className="bind-key">{bindKey}</h1>
