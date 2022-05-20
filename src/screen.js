@@ -94,7 +94,7 @@ function Screen({ screen }) {
   }, [screen]);
 
   return (
-    <div className="Screen" style={rootStyle} id={screen['@id']}>
+    <div className="screen" style={rootStyle} id={screen['@id']}>
       {screen?.layoutData?.regions?.map((region) => (
         <Fragment key={region['@id']}>
           {/* Default region type */}

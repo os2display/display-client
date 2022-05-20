@@ -87,7 +87,7 @@ describe('Schedule tests', () => {
       '@media',
     ]);
 
-    cy.get('.Slide').should('exist');
+    cy.get('.slide').should('exist');
   });
 
   it('It should not load the playlist on Thursday (2022-03-24)', () => {
@@ -172,7 +172,7 @@ describe('Schedule tests', () => {
       '@media',
     ]);
 
-    cy.get('.Slide').should('not.exist');
+    cy.get('.slide').should('not.exist');
   });
 
   it('It should not load the playlist on Friday in February (2022-02-25)', () => {
@@ -257,7 +257,7 @@ describe('Schedule tests', () => {
       '@media',
     ]);
 
-    cy.get('.Slide').should('not.exist');
+    cy.get('.slide').should('not.exist');
   });
 
   it('It should load playlist on a Monday in February (2022-02-07)', () => {
@@ -342,6 +342,6 @@ describe('Schedule tests', () => {
       '@media',
     ]);
 
-    cy.get('.Slide').should('not.exist');
+    cy.get('.slide').should('not.exist');
   });
 });
