@@ -1,4 +1,4 @@
-.ErrorBoundary {
+.error-boundary {
   background-color: #b2b2b2;
   display: flex;
   align-items: center;
@@ -7,9 +7,9 @@
   height: 100%;
 
   // From: https://github.com/lukehaas/css-loaders
-  .ErrorBoundaryLoader,
-  .ErrorBoundaryLoader:before,
-  .ErrorBoundaryLoader:after {
+  .error-boundary-loader,
+  .error-boundary-loader:before,
+  .error-boundary-loader:after {
     border-radius: 50%;
     width: 2.5em;
     height: 2.5em;
@@ -19,7 +19,7 @@
     animation-fill-mode: both;
   }
 
-  .ErrorBoundaryLoader {
+  .error-boundary-loader {
     color: #ffffff;
     font-size: 10px;
     margin: 80px auto;
@@ -32,20 +32,20 @@
     animation-delay: -0.16s;
   }
 
-  .ErrorBoundaryLoader:before,
-  .ErrorBoundaryLoader:after {
+  .error-boundary-loader:before,
+  .error-boundary-loader:after {
     content: "";
     position: absolute;
     top: 0;
   }
 
-  .ErrorBoundaryLoader:before {
+  .error-boundary-loader:before {
     left: -3.5em;
     -webkit-animation-delay: -0.32s;
     animation-delay: -0.32s;
   }
 
-  .ErrorBoundaryLoader:after {
+  .error-boundary-loader:after {
     left: 3.5em;
   }
 

@@ -114,12 +114,12 @@ function TouchRegion({ region }) {
   };
 
   return (
-    <div className="TouchRegion" style={rootStyle} id={regionId}>
+    <div className="touch-region" style={rootStyle} id={regionId}>
       <ErrorBoundary>
         <>
           {currentSlide !== null && (
-            <div className="TouchRegionContainer">
-              <div className="TouchRegionContent">
+            <div className="touch-region-container">
+              <div className="touch-region-content">
                 <Slide
                   slide={currentSlide}
                   id={currentSlide.executionId}
@@ -129,41 +129,41 @@ function TouchRegion({ region }) {
                   forwardRef={nodeRefs[currentSlide.executionId]}
                 />
               </div>
-              <div className="TouchRegionFooter">
-                <div className="TouchButtonsContainer">
+              <div className="touch-region-footer">
+                <div className="touch-buttons-container">
                   {displayClose && (
                     <div
-                      className="TouchButtonClose"
+                      className="touch-button-close"
                       onClick={slideDone}
                       onKeyDown={slideDone}
                       role="button"
                       tabIndex={0}
                     >
-                      <div className="TouchButtonIcon">
+                      <div className="touch-button-icon">
                         <IconClose />
                       </div>
-                      <div className="TouchButtonText">LUK</div>
+                      <div className="touch-button-text">LUK</div>
                     </div>
                   )}
                 </div>
               </div>
             </div>
           )}
-          <div className="TouchButtonsContainer">
+          <div className="touch-buttons-container">
             {slides &&
               slides.map((slide) => (
                 <div
-                  className="TouchButton"
+                  className="touch-button"
                   key={`button-${slide.executionId}`}
                   onClick={() => startSlide(slide)}
                   onKeyDown={() => startSlide(slide)}
                   role="button"
                   tabIndex={0}
                 >
-                  <div className="TouchButtonIcon">
+                  <div className="touch-button-icon">
                     <IconPointer />
                   </div>
-                  <div className="TouchButtonText">
+                  <div className="touch-button-text">
                     {slide.content?.touchRegionButtonText ?? slide.title}
                   </div>
                 </div>

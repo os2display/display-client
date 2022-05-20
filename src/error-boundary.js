@@ -25,8 +25,8 @@ class ErrorBoundary extends Component {
     const { hasError } = this.state;
     if (hasError) {
       return (
-        <div className="ErrorBoundary">
-          <div className="ErrorBoundaryLoader">Loading...</div>
+        <div className="error-boundary">
+          <div className="error-boundary-loader">Loading...</div>
         </div>
       );
     }
