@@ -5,7 +5,7 @@ $color-highlight: #eaeaea;
 $color-base: #fff;
 $color-text: #333;
 
-.TouchRegion {
+.touch-region {
   width: 100%;
   height: 100%;
   margin: 0;
@@ -14,7 +14,7 @@ $color-text: #333;
   background-color: white;
 }
 
-.TouchRegionContainer {
+.touch-region-container {
   position: fixed;
   left: 0;
   top: 0;
@@ -24,7 +24,7 @@ $color-text: #333;
   z-index: 1000;
 }
 
-.TouchRegionContent {
+.touch-region-content {
   width: 100%;
   height: 100%;
   padding: 0;
@@ -32,7 +32,7 @@ $color-text: #333;
   position: relative;
 }
 
-.TouchRegionFooter {
+.touch-region-footer {
   display: flex;
   justify-content: center;
   align-content: center;
@@ -42,7 +42,7 @@ $color-text: #333;
   right: 0;
 }
 
-.TouchButton {
+.touch-button {
   background: $color-base;
   border: 1px solid $color-highlight;
   color: $color-text;
@@ -60,7 +60,7 @@ $color-text: #333;
   }
 }
 
-.TouchButtonClose {
+.touch-button-close {
   background: hsla(0deg, 100%, 100%, 0.8);
   box-shadow: 0 0 10px hsl(0deg, 0%, 0%, 0.25);
   padding: 14px 30px 10px 30px;
@@ -71,15 +71,15 @@ $color-text: #333;
   flex: 1 0 auto;
 }
 
-.TouchButtonIcon {
+.touch-button-icon {
   margin-right: 1em;
 }
 
-.TouchButtonText {
+.touch-button-text {
   font-size: 1.75em;
 }
 
-.TouchButtonsContainer {
+.touch-buttons-container {
   font-family: $font-regular;
   font-size: 16px;
   bottom: 0;

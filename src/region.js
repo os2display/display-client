@@ -153,7 +153,7 @@ function Region({ region }) {
   }, [slides]);
 
   return (
-    <div className="Region" style={rootStyle} id={regionId}>
+    <div className="region" style={rootStyle} id={regionId}>
       <ErrorBoundary>
         <>
           <TransitionGroup component={null}>
@@ -161,7 +161,7 @@ function Region({ region }) {
               <CSSTransition
                 key={currentSlide.executionId}
                 timeout={1000}
-                classNames="Slide"
+                classNames="slide"
                 nodeRef={nodeRefs[currentSlide.executionId]}
               >
                 <Slide

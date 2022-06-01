@@ -60,7 +60,7 @@ describe('Client tests', () => {
       '@layout',
     ]);
 
-    cy.get('.Region').should('exist');
+    cy.get('.region').should('exist');
   });
 
   it('It loads a screen with a playlist and a slide', () => {
@@ -133,10 +133,10 @@ describe('Client tests', () => {
       '@media',
     ]);
 
-    cy.get('.Region')
+    cy.get('.region')
       .should('have.css', 'grid-area')
       .and('eq', 'a / a / a / a');
-    cy.get('.Slide').should('exist');
+    cy.get('.slide').should('exist');
   });
 
   it('It loads a screen with a playlist and a slide, and playlist is overridden by campaign', () => {
@@ -186,10 +186,10 @@ describe('Client tests', () => {
       '@templates',
     ]);
 
-    cy.get('.Region')
+    cy.get('.region')
       .should('have.css', 'grid-area')
       .and('eq', 'a / a / a / a');
-    cy.get('.Slide').should('exist');
+    cy.get('.slide').should('exist');
   });
 
   it('It loads a screen with a playlist and a slide, and playlist is overridden by campaign from screen group', () => {
@@ -254,11 +254,11 @@ describe('Client tests', () => {
       '@templates',
     ]);
 
-    cy.get('.Region')
+    cy.get('.region')
       .should('have.css', 'grid-area')
       .and('eq', 'a / a / a / a');
-    cy.get('.Slide').should('exist');
-    cy.get('.Slide')
+    cy.get('.slide').should('exist');
+    cy.get('.slide')
       .get('h1')
       .invoke('text')
       .should('match', /^Campaign/);
@@ -342,10 +342,10 @@ describe('Client tests', () => {
       '@media',
     ]);
 
-    cy.get('.Region')
+    cy.get('.region')
       .should('have.css', 'grid-area')
       .and('eq', 'a / a / a / a');
-    cy.get('.Region').should('be.empty');
+    cy.get('.region').should('be.empty');
   });
 
   it('It loads a screen, connected playlist not showned because it is not published', () => {
@@ -426,10 +426,10 @@ describe('Client tests', () => {
       '@media',
     ]);
 
-    cy.get('.Region')
+    cy.get('.region')
       .should('have.css', 'grid-area')
       .and('eq', 'a / a / a / a');
-    cy.get('.Region').should('be.empty');
+    cy.get('.region').should('be.empty');
   });
 
   it('It loads two-part layout on screen', () => {
@@ -493,11 +493,11 @@ describe('Client tests', () => {
     cy.visit('/');
     cy.wait(['@bindKey', '@config', '@screen', '@layout']);
 
-    cy.get('.Region')
+    cy.get('.region')
       .eq(0)
       .should('have.css', 'grid-area')
       .and('eq', 'a / a / a / a');
-    cy.get('.Region')
+    cy.get('.region')
       .eq(1)
       .should('have.css', 'grid-area')
       .and('eq', 'b / b / b / b');
@@ -587,15 +587,15 @@ describe('Client tests', () => {
       '@image-text',
     ]);
 
-    cy.get('.Region')
+    cy.get('.region')
       .should('have.css', 'grid-area')
       .and('eq', 'a / a / a / a');
 
-    cy.get('.Region')
+    cy.get('.region')
       .should('have.css', 'grid-area')
       .and('eq', 'a / a / a / a');
-    cy.get('.Slide').should('exist');
-    cy.get('.Slide')
+    cy.get('.slide').should('exist');
+    cy.get('.slide')
       .get('h1')
       .invoke('text')
       .should('match', /^Tekst overskrift/);
