@@ -343,22 +343,6 @@ class PullStrategy {
             fetchedTemplates[templatePath] = templateData;
           }
 
-          slide.mediaData = {};
-
-          // Load media for the slide into slide.mediaData object.
-          // eslint-disable-next-line no-restricted-syntax
-          for (const mediaId of slide.media) {
-            // eslint-disable-next-line no-prototype-builtins
-            if (fetchedMedia.hasOwnProperty(mediaId)) {
-              slide.mediaData[mediaId] = fetchedMedia[mediaId];
-            } else {
-              // eslint-disable-next-line no-await-in-loop
-              const mediaData = await this.getPath(mediaId);
-              slide.mediaData[mediaId] = mediaData;
-              fetchedMedia[mediaId] = mediaData;
-            }
-          }
-
           if (slide?.theme !== '') {
             const themePath = slide.theme;
             // Load theme into slide.themeData.
@@ -370,6 +354,26 @@ class PullStrategy {
               const themeData = await this.getPath(themePath);
               slide.themeData = themeData;
               fetchedThemes[themePath] = themeData;
+            }
+          }
+
+          slide.mediaData = {};
+
+          // Load media for the slide into slide.mediaData object.
+          if (slide.themeData?.logo) {
+            slide.media.push(slide.themeData.logo);
+          }
+
+          // eslint-disable-next-line no-restricted-syntax
+          for (const mediaId of slide.media) {
+            // eslint-disable-next-line no-prototype-builtins
+            if (fetchedMedia.hasOwnProperty(mediaId)) {
+              slide.mediaData[mediaId] = fetchedMedia[mediaId];
+            } else {
+              // eslint-disable-next-line no-await-in-loop
+              const mediaData = await this.getPath(mediaId);
+              slide.mediaData[mediaId] = mediaData;
+              fetchedMedia[mediaId] = mediaData;
             }
           }
 
