@@ -62,7 +62,7 @@ $font-size-4K: 3em;
   display: flex;
   place-content: center;
   place-items: center;
-  column-gap: .5em;
+  column-gap: 0.5em;
   flex: 1 0 auto;
 
   &:last-child {
@@ -88,7 +88,7 @@ $font-size-4K: 3em;
   padding: 14px 30px 10px 30px;
   color: $color-text;
   display: flex;
-  column-gap: .5em;
+  column-gap: 0.5em;
   place-content: center;
   place-items: center;
   flex: 1 0 auto;
