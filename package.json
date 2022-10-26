@@ -12,7 +12,7 @@
     "jwt-decode": "^3.1.2",
     "lodash.clonedeep": "^4.5.0",
     "lodash.last": "^3.0.0",
-    "os2display-grid-generator": "^1.0.6",
+    "os2display-grid-generator": "^1.0.8",
     "prop-types": "^15.7.2",
     "react": "^18.2.0",
     "react-app-rewired": "^2.1.8",
