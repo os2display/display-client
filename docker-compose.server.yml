@@ -23,7 +23,7 @@ services:
       - APP_DEBUG=false
       - APP_API_ENDPOINT=https://displayapiservice.local.itkdev.dk
     ports:
-      - '80'
+      - '8080'
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=frontend"
