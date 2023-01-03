@@ -1,22 +1,45 @@
 const winston = require('winston');
+const ConfigLoader = require('../config-loader');
 
-// @TODO: Add configuration of the logger.
+let logger = null;
 
-const logger = winston.createLogger({
-  level: 'info',
-  format: winston.format.json(),
-  defaultMeta: { service: 'user-service' },
-  transports: [],
-});
+const getLogger = async () => {
+  if (logger == null) {
+    await ConfigLoader.loadConfig((config) => {
+      logger = winston.createLogger({
+        level: 'info',
+        format: winston.format.json(),
+        defaultMeta: { service: 'user-service' },
+        transports: [],
+      });
 
-// @TODO: Add based on configuration instead of always.
-logger.add(
-  new winston.transports.Console({
-    format: winston.format.combine(
-      winston.format.colorize(),
-      winston.format.simple()
-    ),
-  })
-);
+      if (config?.logging) {
+        config?.logging.forEach((loggingEntry) => {
+          let transport = null;
 
-module.exports = logger;
+          switch (loggingEntry.type) {
+            case 'console':
+              transport = new winston.transports.Console({
+                level: loggingEntry.level ?? 'info',
+                format: winston.format.combine(
+                  winston.format.colorize(),
+                  winston.format.simple()
+                ),
+              });
+              break;
+            default:
+              throw new Error(`Unsupported logging type ${loggingEntry.type}.`);
+          }
+
+          if (transport !== null) {
+            logger.add(transport);
+          }
+        });
+      }
+    });
+  }
+
+  return logger;
+};
+
+module.exports = getLogger;

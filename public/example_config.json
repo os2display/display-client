@@ -15,5 +15,11 @@
     "lng": 10.0
   },
   "schedulingInterval": 60000,
-  "debug": false
+  "debug": false,
+  "logging": [
+    {
+      "type": "console",
+      "level": "warn"
+    }
+  ]
 }

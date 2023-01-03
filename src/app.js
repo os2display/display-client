@@ -4,7 +4,7 @@ import Screen from './screen';
 import ContentService from './service/contentService';
 import ConfigLoader from './config-loader';
 import ReleaseLoader from './release-loader';
-import Logger from './logger/logger';
+import getLogger from './logger/logger';
 import './app.scss';
 import localStorageKeys from './local-storage-keys';
 
@@ -69,11 +69,11 @@ function App() {
   }
 
   const checkToken = () => {
-    Logger.log('info', 'Refresh token check');
+    getLogger().then((logger) => logger.log('info', 'Refresh token check'));
 
     // Ignore if already refreshing token.
     if (refreshingToken) {
-      Logger.log('info', 'Already refreshing token.');
+      getLogger().then((logger) => logger.log('info', 'Already refreshing token.'));
       return;
     }
 
@@ -88,7 +88,7 @@ function App() {
     );
 
     if (!rToken || !exp || !iat) {
-      Logger.log('warn', 'Refresh token, exp or iat not set.');
+      getLogger().then((logger) => logger.log('warn', 'Refresh token, exp or iat not set.'));
       return;
     }
 
@@ -99,7 +99,7 @@ function App() {
     // If more than half the time till expire has been passed refresh the token.
     if (now > iat + timeDiff / 2) {
       setRefreshingToken(true);
-      Logger.log('info', 'Refreshing token.');
+      getLogger().then((logger) => logger.log('info', 'Refreshing token.'));
 
       ConfigLoader.loadConfig().then((config) => {
         fetch(config.authenticationRefreshTokenEndpoint, {
@@ -113,7 +113,7 @@ function App() {
         })
           .then((response) => response.json())
           .then((data) => {
-            Logger.log('info', 'Token refreshed.');
+            getLogger().then((logger) => logger.log('info', 'Token refreshed.'));
 
             const decodedToken = jwtDecode(data.token);
 
@@ -132,19 +132,17 @@ function App() {
             );
           })
           .catch(() => {
-            Logger.log('error', 'Token refresh error.');
+            getLogger().then((logger) => logger.log('error', 'Token refresh error.'));
           })
           .finally(() => {
             setRefreshingToken(false);
           });
       });
     } else {
-      Logger.log(
-        'info',
-        `Half the time until expire has not been reached. Will not refresh. Token will expire at ${new Date(
+      getLogger().then((logger) => logger.log('info',
+          `Half the time until expire has not been reached. Will not refresh. Token will expire at ${new Date(
           exp * 1000
-        ).toISOString()}`
-      );
+        ).toISOString()}`));
     }
   };
 
@@ -227,7 +225,7 @@ function App() {
   };
 
   const reauthenticateHandler = () => {
-    Logger.log('info', 'Reauthenticate.');
+    getLogger().then((logger) => logger.log('info', 'Reauthenticate.'));
 
     localStorage.removeItem(localStorageKeys.API_TOKEN);
     localStorage.removeItem(localStorageKeys.API_TOKEN_EXPIRE);
@@ -252,7 +250,7 @@ function App() {
   };
 
   const checkForUpdates = () => {
-    Logger.log('info', 'Checking for new release timestamp.');
+    getLogger().then((logger) => logger.log('info', 'Checking for new release timestamp.'));
 
     ReleaseLoader.loadConfig().then((config) => {
       if (releaseTimestampRef?.current === null) {
@@ -264,13 +262,13 @@ function App() {
   };
 
   const contentEmpty = () => {
-    Logger.log('info', 'Content empty. Displaying fallback.');
+    getLogger().then((logger) => logger.log('info', 'Content empty. Displaying fallback.'));
     setFallbackImageUrl(localStorage.getItem(localStorageKeys.FALLBACK_IMAGE));
     setDisplayFallback(true);
   };
 
   const contentNotEmpty = () => {
-    Logger.log('info', 'Content not empty. Displaying content.');
+    getLogger().then((logger) => logger.log('info', 'Content not empty. Displaying content.'));
     setDisplayFallback(false);
   };
 

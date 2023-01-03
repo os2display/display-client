@@ -16,6 +16,7 @@
 .env.production.local
 
 npm-debug.log*
+yarn-error.log
 
 # Ignore VS-code
 .vscode
