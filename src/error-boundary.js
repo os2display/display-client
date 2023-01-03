@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Logger from './logger/logger';
+import getLogger from './logger/logger';
 import './error-boundary.scss';
 
 class ErrorBoundary extends Component {
@@ -15,7 +15,7 @@ class ErrorBoundary extends Component {
   }
 
   componentDidCatch(error, errorInfo) {
-    Logger.log('error', `ErrorBoundary caught error: ${error}`, errorInfo);
+    getLogger().then((logger) => logger.log('error', `ErrorBoundary caught error: ${error}`, errorInfo));
 
     const { errorHandler } = this.props;
     errorHandler(error, errorInfo);

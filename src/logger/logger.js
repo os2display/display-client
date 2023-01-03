@@ -1,11 +1,11 @@
-const winston = require('winston');
-const ConfigLoader = require('../config-loader');
+import winston from 'winston';
+import ConfigLoader from '../config-loader';
 
 let logger = null;
 
 const getLogger = async () => {
   if (logger == null) {
-    await ConfigLoader.loadConfig((config) => {
+    await ConfigLoader.loadConfig().then((config) => {
       logger = winston.createLogger({
         level: 'info',
         format: winston.format.json(),
@@ -13,7 +13,7 @@ const getLogger = async () => {
         transports: [],
       });
 
-      if (config?.logging) {
+      if (config?.logging?.length > 0) {
         config?.logging.forEach((loggingEntry) => {
           let transport = null;
 
@@ -35,6 +35,13 @@ const getLogger = async () => {
             logger.add(transport);
           }
         });
+      } else {
+        // Silent logger to avoid exceptions.
+        logger.add(
+          new winston.transports.Console({
+            silent: true,
+          })
+        );
       }
     });
   }
@@ -42,4 +49,4 @@ const getLogger = async () => {
   return logger;
 };
 
-module.exports = getLogger;
+export default getLogger;

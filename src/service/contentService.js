@@ -1,6 +1,6 @@
 import sha256 from 'crypto-js/sha256';
 import Base64 from 'crypto-js/enc-base64';
-import Logger from '../logger/logger';
+import getLogger from '../logger/logger';
 import DataSync from '../data-sync/data-sync';
 import ScheduleService from './scheduleService';
 import ConfigLoader from '../config-loader';
@@ -41,7 +41,7 @@ class ContentService {
    * @param {string} screenPath Path to the screen.
    */
   startSyncing(screenPath) {
-    Logger.log('info', 'Starting data synchronization');
+    getLogger().then((logger) => logger.log('info', 'Starting data synchronization'));
 
     ConfigLoader.loadConfig().then((config) => {
       const dataStrategy = { ...config.dataStrategy };
@@ -59,9 +59,9 @@ class ContentService {
    * Stop sync event handler.
    */
   stopSyncHandler() {
-    Logger.log('info', 'Event received: Stop data synchronization');
+    getLogger().then((logger) => logger.log('info', 'Event received: Stop data synchronization'));
     if (this.dataSync) {
-      Logger.log('info', 'Stopping data synchronization');
+      getLogger().then((logger) => logger.log('info', 'Stopping data synchronization'));
       this.dataSync.stop();
       this.dataSync = null;
     }
@@ -79,13 +79,10 @@ class ContentService {
     this.stopSyncHandler();
 
     if (data?.screenPath) {
-      Logger.log(
-        'info',
-        `Event received: Start data synchronization from ${data.screenPath}`
-      );
+      getLogger().then((logger) => logger.log('info', `Event received: Start data synchronization from ${data.screenPath}`));
       this.startSyncing(data.screenPath);
     } else {
-      Logger.log('info', 'Event received: Start data synchronization');
+      getLogger().then((logger) => logger.log('info', 'Event received: Start data synchronization'));
       this.startSyncing();
     }
   }
@@ -97,7 +94,7 @@ class ContentService {
    *   The event.
    */
   contentHandler(event) {
-    Logger.log('info', 'Event received: content');
+    getLogger().then((logger) => logger.log('info', 'Event received: content'));
 
     const data = event.detail;
     this.currentScreen = data.screen;
@@ -112,11 +109,11 @@ class ContentService {
     const newHash = Base64.stringify(sha256(JSON.stringify(screenData)));
 
     if (newHash !== this.screenHash) {
-      Logger.log('info', 'Screen has changed. Emitting screen.');
+      getLogger().then((logger) => logger.log('info', 'Screen has changed. Emitting screen.'));
       this.screenHash = newHash;
       ContentService.emitScreen(screenData);
     } else {
-      Logger.log('info', 'Screen has not changed. Not emitting screen.');
+      getLogger().then((logger) => logger.log('info', 'Screen has not changed. Not emitting screen.'));
 
       // eslint-disable-next-line guard-for-in,no-restricted-syntax
       for (const regionKey in data.screen.regionData) {
@@ -136,7 +133,7 @@ class ContentService {
     const data = event.detail;
     const regionId = data.id;
 
-    Logger.log('info', `Event received: regionReady for ${regionId}`);
+    getLogger().then((logger) => logger.log('info', `Event received: regionReady for ${regionId}`));
 
     if (this.currentScreen) {
       this.scheduleService.updateRegion(
@@ -156,7 +153,7 @@ class ContentService {
     const data = event.detail;
     const regionId = data.id;
 
-    Logger.log('info', `Event received: regionRemoved for ${regionId}`);
+    getLogger().then((logger) => logger.log('info', `Event received: regionRemoved for ${regionId}`));
 
     this.scheduleService.regionRemoved(regionId);
   }
@@ -165,7 +162,7 @@ class ContentService {
    * Start the engine.
    */
   start() {
-    Logger.log('info', 'Content service started.');
+    getLogger().then((logger) => logger.log('info', 'Content service started.'));
 
     document.addEventListener('stopDataSync', this.stopSyncHandler);
     document.addEventListener('startDataSync', this.startDataSyncHandler);
@@ -178,7 +175,7 @@ class ContentService {
    * Stop the engine.
    */
   stop() {
-    Logger.log('info', 'Content service stopped.');
+    getLogger().then((logger) => logger.log('info', 'Content service stopped.'));
 
     document.removeEventListener('stopDataSync', this.stopSyncHandler);
     document.removeEventListener('startDataSync', this.startDataSyncHandler);
@@ -194,7 +191,7 @@ class ContentService {
    *   Screen data.
    */
   static emitScreen(screen) {
-    Logger.log('info', 'Emitting screen');
+    getLogger().then((logger) => logger.log('info', 'Emitting screen'));
 
     const event = new CustomEvent('screen', {
       detail: {

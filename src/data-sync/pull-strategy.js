@@ -51,7 +51,7 @@ class PullStrategy {
     let response;
 
     try {
-      Logger.log('info', `Fetching: ${this.endpoint + path}`);
+      getLogger().then((logger) => logger.log('info', `Fetching: ${this.endpoint + path}`));
 
       response = await fetch(this.endpoint + path, {
         headers: {
@@ -60,7 +60,7 @@ class PullStrategy {
         },
       });
     } catch (err) {
-      Logger.log('error', `Failed to fetch: ${this.endpoint + path}`);
+      getLogger().then((logger) => logger.log('error', `Failed to fetch: ${this.endpoint + path}`));
       throw err;
     }
 
@@ -139,7 +139,7 @@ class PullStrategy {
         });
       }
     } catch (err) {
-      Logger.log('error', err);
+      getLogger().then((logger) => logger.log('error', err));
     }
 
     let screenCampaigns = [];
@@ -151,7 +151,7 @@ class PullStrategy {
         (campaign) => campaign.campaign
       );
     } catch (err) {
-      Logger.log('error', err);
+      getLogger().then((logger) => logger.log('error', err));
     }
 
     return [...screenCampaigns, ...screenGroupCampaigns];

@@ -4,7 +4,7 @@ import SunCalc from 'suncalc';
 import { createGrid } from 'os2display-grid-generator';
 import Region from './region';
 import './screen.scss';
-import Logger from './logger/logger';
+import getLogger from './logger/logger';
 import TouchRegion from './touch-region';
 import ConfigLoader from './config-loader';
 
@@ -33,7 +33,7 @@ function Screen({ screen }) {
 
   const refreshColorScheme = () => {
     ConfigLoader.loadConfig().then((config) => {
-      Logger.log('info', 'Refreshing color scheme.');
+      getLogger().then((logger) => logger.log('info', 'Refreshing color scheme.'));
 
       const now = new Date();
       let colorScheme = '';
@@ -47,10 +47,10 @@ function Screen({ screen }) {
         );
 
         if (now > times.sunrise && now < times.sunset) {
-          Logger.log('info', 'Light color scheme activated.');
+          getLogger().then((logger) => logger.log('info', 'Light color scheme activated.'));
           colorScheme = 'color-scheme-light';
         } else {
-          Logger.log('info', 'Dark color scheme activated.');
+          getLogger().then((logger) => logger.log('info', 'Dark color scheme activated.'));
           colorScheme = 'color-scheme-dark';
         }
       } else {
@@ -71,7 +71,7 @@ function Screen({ screen }) {
 
   useEffect(() => {
     if (screen?.enableColorSchemeChange) {
-      Logger.log('info', 'Enabling color scheme change.');
+      getLogger().then((logger) => logger.log('info', 'Enabling color scheme change.'));
       refreshColorScheme();
       // Refresh color scheme every 5 minutes.
       colorSchemeIntervalRef.current = setInterval(
