@@ -17,7 +17,7 @@ const getLogger = async () => {
         config?.logging.forEach((loggingEntry) => {
           let transport = null;
 
-          switch (loggingEntry.type) {
+          switch (loggingEntry.transport) {
             case 'console':
               transport = new winston.transports.Console({
                 level: loggingEntry.level ?? 'info',
