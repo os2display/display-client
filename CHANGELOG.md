@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+- [#97](https://github.com/os2display/display-client/pull/97)
+Changed port in vhost and change from npm start to yarn start.
+
 ## [1.2.0] - 2023-01-05
 
 - [#96](https://github.com/os2display/display-client/pull/96)
