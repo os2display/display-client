@@ -88,19 +88,24 @@ class ScheduleService {
       region,
     };
 
-    if (!Object.prototype.hasOwnProperty.call(this.intervals, regionId)) {
+    const intervals = this.intervals;
+
+    if (!Object.prototype.hasOwnProperty.call(intervals, regionId)) {
       ConfigLoader.loadConfig().then((config) => {
         const schedulingInterval = config?.schedulingInterval ?? 60000;
 
-        Logger.log(
-          'info',
-          `registering scheduling interval for region: ${regionId}, with an update rate of ${schedulingInterval}`
-        );
+        // Extra check because of async.
+        if (!Object.prototype.hasOwnProperty.call(intervals, regionId)) {
+          Logger.log(
+            'info',
+            `registering scheduling interval for region: ${regionId}, with an update rate of ${schedulingInterval}`
+          );
 
-        this.intervals[regionId] = setInterval(
-          () => this.checkScheduling(regionId),
-          schedulingInterval
-        );
+          this.intervals[regionId] = setInterval(
+            () => this.checkScheduling(regionId),
+            schedulingInterval
+          );
+        }
       });
     }
 

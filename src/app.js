@@ -1,5 +1,5 @@
 import jwtDecode from 'jwt-decode';
-import { React, useEffect, useRef, useState } from 'react';
+import {React, useEffect, useRef, useState} from 'react';
 import Screen from './screen';
 import ContentService from './service/contentService';
 import ConfigLoader from './config-loader';
@@ -149,12 +149,16 @@ function App() {
   };
 
   const startContent = (localScreenId) => {
+    if (contentServiceRef.current !== null) {
+      return;
+    }
+
     setRunning(true);
 
+    contentServiceRef.current = new ContentService();
+
     // Start the content service.
-    const newContentService = new ContentService();
-    contentServiceRef.current = newContentService;
-    newContentService.start();
+    contentServiceRef.current.start();
 
     const entrypoint = `/v1/screens/${localScreenId}`;
 
@@ -248,6 +252,12 @@ function App() {
       clearInterval(refreshTokenIntervalRef.current);
     }
     setRunning(false);
+
+    if (contentServiceRef.current !== null) {
+      contentServiceRef.current.stop();
+      contentServiceRef.current = null;
+    }
+
     refreshLogin();
   };
 
