@@ -88,7 +88,7 @@ class ScheduleService {
       region,
     };
 
-    const intervals = this.intervals;
+    const { intervals } = this;
 
     if (!Object.prototype.hasOwnProperty.call(intervals, regionId)) {
       ConfigLoader.loadConfig().then((config) => {

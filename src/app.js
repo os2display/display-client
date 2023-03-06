@@ -1,5 +1,5 @@
 import jwtDecode from 'jwt-decode';
-import {React, useEffect, useRef, useState} from 'react';
+import { React, useEffect, useRef, useState } from 'react';
 import Screen from './screen';
 import ContentService from './service/contentService';
 import ConfigLoader from './config-loader';
