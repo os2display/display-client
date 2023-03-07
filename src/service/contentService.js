@@ -60,6 +60,7 @@ class ContentService {
    */
   stopSyncHandler() {
     Logger.log('info', 'Event received: Stop data synchronization');
+
     if (this.dataSync) {
       Logger.log('info', 'Stopping data synchronization');
       this.dataSync.stop();
