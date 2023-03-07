@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.2.2] - 2023-03-07
+
 - [#98](https://github.com/os2display/display-client/pull/98)
 Removed possible multiple ContentService instantiations.
 Fixed checkScheduling interval being registered multiple times.
