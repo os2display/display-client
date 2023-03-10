@@ -10,7 +10,9 @@ describe('Client tests', () => {
     cy.intercept('POST', '**/screen', {
       statusCode: 201,
       fixture: 'awaiting-bind-key-response.json',
-    });
+    }).as('bindKey');
+
+    cy.wait('@bindKey');
 
     cy.get('.bind-key').should('exist');
     cy.get('.bind-key')
