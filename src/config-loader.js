@@ -1,4 +1,5 @@
-const configFetchInterval = 60 * 1000;
+// Only fetch new config if more than 5 minutes have passed.
+const configFetchInterval = 5 * 60 * 1000;
 
 // Defaults.
 let configData = null;

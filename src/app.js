@@ -1,5 +1,5 @@
 import jwtDecode from 'jwt-decode';
-import { React, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Screen from './screen';
 import ContentService from './service/contentService';
 import ConfigLoader from './config-loader';
@@ -7,6 +7,7 @@ import ReleaseLoader from './release-loader';
 import Logger from './logger/logger';
 import './app.scss';
 import localStorageKeys from './local-storage-keys';
+import fallback from './assets/fallback.png';
 
 /**
  * App component.
@@ -15,6 +16,10 @@ import localStorageKeys from './local-storage-keys';
  *   The component.
  */
 function App() {
+  const fallbackImageUrl = localStorage.getItem(
+    localStorageKeys.FALLBACK_IMAGE
+  );
+
   const loginCheckTimeout = 15 * 1000;
   const refreshTimeout = 60 * 1000;
   const releaseTimestampIntervalTimeout = 1000 * 60 * 5;
@@ -28,31 +33,20 @@ function App() {
   const contentServiceRef = useRef(null);
   const releaseTimestampRef = useRef(null);
   const releaseTimestampIntervalRef = useRef(null);
-  const [displayFallback, setDisplayFallback] = useState(false);
-  const [fallbackImageUrl, setFallbackImageUrl] = useState(null);
+  const [displayFallback, setDisplayFallback] = useState(true);
   const [debug, setDebug] = useState(false);
 
   const fallbackStyle = {};
 
-  if (fallbackImageUrl !== null) {
-    fallbackStyle.backgroundImage = `url('${fallbackImageUrl}')`;
-  }
+  fallbackStyle.backgroundImage = `url("${
+    fallbackImageUrl !== null ? fallbackImageUrl : fallback
+  }")`;
 
   const appStyle = {};
 
   if (!debug) {
     appStyle.cursor = 'none';
   }
-
-  // ctrl/cmd i will log screen out and refresh
-  const handleKeyboard = ({ repeat, metaKey, ctrlKey, code }) => {
-    if (!repeat && (metaKey || ctrlKey) && code === 'KeyI') {
-      localStorage.clear();
-      window.location.reload(false);
-    }
-  };
-
-  document.addEventListener('keypress', handleKeyboard);
 
   /**
    * Handles "screen" events.
@@ -149,10 +143,13 @@ function App() {
   };
 
   const startContent = (localScreenId) => {
+    Logger.log('info', 'Starting content.');
+
     if (contentServiceRef.current !== null) {
       return;
     }
 
+    setBindKey(null);
     setRunning(true);
 
     contentServiceRef.current = new ContentService();
@@ -174,7 +171,9 @@ function App() {
     refreshTokenIntervalRef.current = setInterval(checkToken, refreshTimeout);
   };
 
-  const refreshLogin = () => {
+  const checkLogin = () => {
+    Logger.log('info', 'Check login.');
+
     const localStorageToken = localStorage.getItem(localStorageKeys.API_TOKEN);
     const localScreenId = localStorage.getItem(localStorageKeys.SCREEN_ID);
 
@@ -220,11 +219,20 @@ function App() {
               if (data?.bindKey) {
                 setBindKey(data.bindKey);
               }
-              timeoutRef.current = setTimeout(refreshLogin, loginCheckTimeout);
+
+              if (timeoutRef.current !== null) {
+                clearTimeout(timeoutRef.current);
+              }
+
+              timeoutRef.current = setTimeout(checkLogin, loginCheckTimeout);
             }
           })
           .catch(() => {
-            timeoutRef.current = setTimeout(refreshLogin, loginCheckTimeout);
+            if (timeoutRef.current !== null) {
+              clearTimeout(timeoutRef.current);
+            }
+
+            timeoutRef.current = setTimeout(checkLogin, loginCheckTimeout);
           });
       });
     }
@@ -258,7 +266,7 @@ function App() {
       contentServiceRef.current = null;
     }
 
-    refreshLogin();
+    checkLogin();
   };
 
   const checkForUpdates = () => {
@@ -275,7 +283,6 @@ function App() {
 
   const contentEmpty = () => {
     Logger.log('info', 'Content empty. Displaying fallback.');
-    setFallbackImageUrl(localStorage.getItem(localStorageKeys.FALLBACK_IMAGE));
     setDisplayFallback(true);
   };
 
@@ -284,32 +291,12 @@ function App() {
     setDisplayFallback(false);
   };
 
-  const fetchFallbackImage = () => {
-    ConfigLoader.loadConfig().then((config) => {
-      const token = localStorage.getItem(localStorageKeys.API_TOKEN);
-      const tenantKey = localStorage.getItem(localStorageKeys.TENANT_KEY);
-      const tenantId = localStorage.getItem(localStorageKeys.TENANT_ID);
-
-      if (token && tenantKey && tenantId) {
-        // Get fallback image.
-        fetch(`${config.apiEndpoint}/v1/tenants/${tenantId}`, {
-          headers: {
-            authorization: `Bearer ${token}`,
-            'Authorization-Tenant-Key': tenantKey,
-          },
-        })
-          .then((response) => response.json())
-          .then((tenantData) => {
-            localStorage.setItem(
-              localStorageKeys.FALLBACK_IMAGE,
-              tenantData.fallbackImageUrl ?? null
-            );
-            setFallbackImageUrl(
-              localStorage.getItem(localStorageKeys.FALLBACK_IMAGE)
-            );
-          });
-      }
-    });
+  // ctrl/cmd i will log screen out and refresh
+  const handleKeyboard = ({ repeat, metaKey, ctrlKey, code }) => {
+    if (!repeat && (metaKey || ctrlKey) && code === 'KeyI') {
+      localStorage.clear();
+      window.location.reload(false);
+    }
   };
 
   useEffect(() => {
@@ -317,18 +304,21 @@ function App() {
     document.addEventListener('reauthenticate', reauthenticateHandler);
     document.addEventListener('contentEmpty', contentEmpty);
     document.addEventListener('contentNotEmpty', contentNotEmpty);
+    document.addEventListener('keypress', handleKeyboard);
 
-    refreshLogin();
+    checkLogin();
 
     checkForUpdates();
+
     releaseTimestampIntervalRef.current = setInterval(
       checkForUpdates,
       releaseTimestampIntervalTimeout
     );
 
-    setFallbackImageUrl(localStorage.getItem(localStorageKeys.FALLBACK_IMAGE));
-
     return function cleanup() {
+      Logger.log('info', 'Unmounting App.');
+
+      document.removeEventListener('keypress', handleKeyboard);
       document.removeEventListener('screen', screenHandler);
       document.removeEventListener('reauthenticate', reauthenticateHandler);
       document.removeEventListener('contentEmpty', contentEmpty);
@@ -349,9 +339,30 @@ function App() {
   }, []);
 
   useEffect(() => {
-    fetchFallbackImage();
-
     ConfigLoader.loadConfig().then((config) => {
+      const token = localStorage.getItem(localStorageKeys.API_TOKEN);
+      const tenantKey = localStorage.getItem(localStorageKeys.TENANT_KEY);
+      const tenantId = localStorage.getItem(localStorageKeys.TENANT_ID);
+
+      if (token && tenantKey && tenantId) {
+        // Get fallback image.
+        fetch(`${config.apiEndpoint}/v1/tenants/${tenantId}`, {
+          headers: {
+            authorization: `Bearer ${token}`,
+            'Authorization-Tenant-Key': tenantKey,
+          },
+        })
+          .then((response) => response.json())
+          .then((tenantData) => {
+            if (tenantData.fallbackImageUrl) {
+              localStorage.setItem(
+                localStorageKeys.FALLBACK_IMAGE,
+                tenantData.fallbackImageUrl
+              );
+            }
+          });
+      }
+
       setDebug(config?.debug ?? false);
     });
   }, [screen]);
@@ -366,10 +377,10 @@ function App() {
       {screen && (
         <>
           <Screen screen={screen} />
-          {displayFallback && (
-            <div className="fallback" style={fallbackStyle} />
-          )}
         </>
+      )}
+      {displayFallback && !bindKey && (
+        <div className="fallback" style={fallbackStyle} />
       )}
     </div>
   );
