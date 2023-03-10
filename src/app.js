@@ -250,7 +250,7 @@ function App() {
     localStorage.removeItem(localStorageKeys.TENANT_ID);
     localStorage.removeItem(localStorageKeys.FALLBACK_IMAGE);
 
-    if (contentServiceRef?.current) {
+    if (contentServiceRef?.current !== null) {
       contentServiceRef.current.stop();
       contentServiceRef.current = null;
     }
@@ -260,11 +260,6 @@ function App() {
       clearInterval(refreshTokenIntervalRef.current);
     }
     setRunning(false);
-
-    if (contentServiceRef.current !== null) {
-      contentServiceRef.current.stop();
-      contentServiceRef.current = null;
-    }
 
     checkLogin();
   };
