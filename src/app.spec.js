@@ -6,12 +6,13 @@ beforeEach(() => {
 
 describe('Client tests', () => {
   it('It loads bindkey', () => {
-    cy.visit('/');
 
     cy.intercept('POST', '**/screen', {
       statusCode: 201,
       fixture: 'awaiting-bind-key-response.json',
     }).as('bindKeyFirst');
+
+    cy.visit('/');
 
     cy.wait(['@bindKeyFirst']);
 

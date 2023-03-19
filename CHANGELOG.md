@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 - [#99](https://github.com/os2display/display-client/pull/99)
   Changed config loader to avoid competing fetches.
   Changed logic concerning when fallback image should be shown.
+  Removed throwing of exception on getPath when response.ok not okay.
 
 ## [1.2.2] - 2023-03-07
 
