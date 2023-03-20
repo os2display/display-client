@@ -7,19 +7,17 @@ beforeEach(() => {
 describe('Client tests', () => {
   it('It loads bindkey', () => {
     cy.intercept('POST', '**/screen', {
-      statusCode: 201,
+      statusCode: 200,
       fixture: 'awaiting-bind-key-response.json',
-    });
+    }).as('bindKey');
 
     cy.visit('/');
 
-    // eslint-disable-next-line cypress/no-unnecessary-waiting
-    cy.wait(1000);
-
-    cy.get('.bind-key').should('exist');
-    cy.get('.bind-key')
-      .invoke('text')
-      .should('match', /^26PCSL3Q/);
+    cy.wait('@bindKey').then(() => {
+      cy.get('.bind-key')
+        .invoke('text')
+        .should('match', /^26PCSL3Q/);
+    });
   });
 
   it('It loads an empty screen with one region', () => {
