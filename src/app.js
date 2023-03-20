@@ -216,8 +216,6 @@ function App() {
 
               startContent(data.screenId);
             } else if (data?.status === 'awaitingBindKey') {
-              setDisplayFallback(false);
-
               if (data?.bindKey) {
                 setBindKey(data.bindKey);
               }

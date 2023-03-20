@@ -6,8 +6,7 @@ beforeEach(() => {
 
 describe('Client tests', () => {
   it('It loads bindkey', () => {
-    cy.intercept('POST', '**/screen', {
-      statusCode: 200,
+    cy.intercept('**/screen', {
       fixture: 'awaiting-bind-key-response.json',
     }).as('bindKey');
 
