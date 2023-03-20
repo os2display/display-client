@@ -13,11 +13,12 @@ describe('Client tests', () => {
 
     cy.visit('/');
 
-    cy.wait('@bindKey').then(() => {
-      cy.get('.bind-key')
-        .invoke('text')
-        .should('match', /^26PCSL3Q/);
-    });
+    cy.wait('@bindKey');
+
+    cy.get('.bind-key').should('exist');
+    cy.get('.bind-key')
+      .invoke('text')
+      .should('match', /^26PCSL3Q/);
   });
 
   it('It loads an empty screen with one region', () => {
