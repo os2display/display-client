@@ -6,7 +6,6 @@ beforeEach(() => {
 
 describe('Client tests', () => {
   it('It loads bindkey', () => {
-
     cy.intercept('POST', '**/screen', {
       statusCode: 201,
       fixture: 'awaiting-bind-key-response.json',
@@ -15,6 +14,9 @@ describe('Client tests', () => {
     cy.visit('/');
 
     cy.wait(['@bindKeyFirst']);
+
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(200);
 
     cy.get('.bind-key').should('exist');
     cy.get('.bind-key')
