@@ -18,7 +18,7 @@ class ScheduleService {
 
   intervals = {};
 
-  contentEmpty = false;
+  contentEmpty = true;
 
   constructor() {
     this.updateRegion = this.updateRegion.bind(this);

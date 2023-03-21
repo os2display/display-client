@@ -112,6 +112,8 @@ class ContentService {
 
     const newHash = Base64.stringify(sha256(JSON.stringify(screenData)));
 
+    // TODO: Handle issue where region data is not present for a given region. Remove given region content.
+
     if (newHash !== this.screenHash) {
       Logger.log('info', 'Screen has changed. Emitting screen.');
       this.screenHash = newHash;

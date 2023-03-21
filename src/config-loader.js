@@ -1,33 +1,74 @@
-/**
- * Config loader.
- */
-export default class ConfigLoader {
-  static async loadConfig() {
-    return fetch('/client/config.json')
-      .then((response) => response.json())
-      .catch((err) => {
-        /* eslint-disable-next-line no-console */
-        console.error('Could not find config.json. Returning defaults.', err);
+// Only fetch new config if more than 5 minutes have passed.
+const configFetchInterval = 5 * 60 * 1000;
 
-        return {
-          authenticationEndpoint: '/api/authentication/screen',
-          authenticationRefreshTokenEndpoint:
-            '/api/authentication/token/refresh',
-          dataStrategy: {
-            type: 'pull',
-            config: {
-              interval: 30000,
-              endpoint: '/api',
-            },
-          },
-          colorScheme: {
-            type: 'library',
-            lat: 56.0,
-            lng: 10.0,
-          },
-          schedulingInterval: 60000,
-          debug: false,
-        };
-      });
-  }
-}
+// Defaults.
+let configData = null;
+
+// Last time the config was fetched.
+let latestFetchTimestamp = 0;
+
+let activePromise = null;
+
+const ConfigLoader = {
+  async loadConfig() {
+    if (activePromise) {
+      return activePromise;
+    }
+
+    activePromise = new Promise((resolve) => {
+      const nowTimestamp = new Date().getTime();
+
+      if (latestFetchTimestamp + configFetchInterval >= nowTimestamp) {
+        resolve(configData);
+      } else {
+        fetch('/client/config.json')
+          .then((response) => response.json())
+          .then((data) => {
+            latestFetchTimestamp = nowTimestamp;
+            configData = data;
+            resolve(configData);
+          })
+          .catch(() => {
+            if (configData !== null) {
+              resolve(configData);
+            } else {
+              // eslint-disable-next-line no-console
+              console.error(
+                'Could not load config.json. Will use default config.'
+              );
+
+              // Default config.
+              resolve({
+                authenticationEndpoint: '/api/authentication/screen',
+                authenticationRefreshTokenEndpoint:
+                  '/api/authentication/token/refresh',
+                dataStrategy: {
+                  type: 'pull',
+                  config: {
+                    interval: 30000,
+                    endpoint: '/api',
+                  },
+                },
+                colorScheme: {
+                  type: 'library',
+                  lat: 56.0,
+                  lng: 10.0,
+                },
+                schedulingInterval: 60000,
+                debug: false,
+              });
+            }
+          })
+          .finally(() => {
+            activePromise = null;
+          });
+      }
+    });
+
+    return activePromise;
+  },
+};
+
+Object.freeze(ConfigLoader);
+
+export default ConfigLoader;
