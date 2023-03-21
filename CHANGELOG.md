@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+- [#101](https://github.com/os2display/display-client/pull/101)
+  Added notranslate google meta.
 - [#100](https://github.com/os2display/display-client/pull/100)
   Handling issue where slides were not starting after region had been empty.
 - [#99](https://github.com/os2display/display-client/pull/99)
