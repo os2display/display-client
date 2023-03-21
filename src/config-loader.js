@@ -28,13 +28,35 @@ const ConfigLoader = {
             configData = data;
             resolve(configData);
           })
-          .catch((err) => {
+          .catch(() => {
             if (configData !== null) {
               resolve(configData);
             } else {
               // eslint-disable-next-line no-console
-              console.error('Could not load config.json');
-              reject(err);
+              console.error(
+                'Could not load config.json. Will use default config.'
+              );
+
+              // Default config.
+              resolve({
+                authenticationEndpoint: '/api/authentication/screen',
+                authenticationRefreshTokenEndpoint:
+                  '/api/authentication/token/refresh',
+                dataStrategy: {
+                  type: 'pull',
+                  config: {
+                    interval: 30000,
+                    endpoint: '/api',
+                  },
+                },
+                colorScheme: {
+                  type: 'library',
+                  lat: 56.0,
+                  lng: 10.0,
+                },
+                schedulingInterval: 60000,
+                debug: false,
+              });
             }
           })
           .finally(() => {
