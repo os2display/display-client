@@ -123,7 +123,7 @@ class ContentService {
 
       // eslint-disable-next-line guard-for-in,no-restricted-syntax
       for (const regionKey in data.screen.regionData) {
-        const region = data.screen.regionData[regionKey];
+        const region = this.currentScreen.regionData[regionKey];
         this.scheduleService.updateRegion(regionKey, region);
       }
     }
