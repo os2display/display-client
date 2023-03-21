@@ -15,7 +15,7 @@ const ConfigLoader = {
       return activePromise;
     }
 
-    activePromise = new Promise((resolve, reject) => {
+    activePromise = new Promise((resolve) => {
       const nowTimestamp = new Date().getTime();
 
       if (latestFetchTimestamp + configFetchInterval >= nowTimestamp) {
