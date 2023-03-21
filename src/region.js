@@ -126,9 +126,9 @@ function Region({ region }) {
     document.dispatchEvent(event);
   }, [region]);
 
-  // Start the progress when the first data is received.
+  // Start the progress if no slide is currently playing.
   useEffect(() => {
-    if (newSlides !== null && slides === null) {
+    if (newSlides !== null && !currentSlide) {
       setSlides(newSlides);
     }
   }, [newSlides]);
@@ -138,8 +138,10 @@ function Region({ region }) {
     if (!slides) return;
 
     if (!currentSlide) {
-      setCurrentSlide(slides[0]);
-      setRunId(new Date().toISOString());
+      if (slides.length > 0) {
+        setCurrentSlide(slides[0]);
+        setRunId(new Date().toISOString());
+      }
     }
 
     // Add or remove refs.

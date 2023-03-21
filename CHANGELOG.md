@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+- [#100](https://github.com/os2display/display-client/pull/100)
+  Handling issue where slides were not starting after region had been empty.
 - [#99](https://github.com/os2display/display-client/pull/99)
   Changed config loader to avoid competing fetches.
   Changed logic concerning when fallback image should be shown.
