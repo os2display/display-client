@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.2.3] - 2023-03-24
+
 - [#101](https://github.com/os2display/display-client/pull/101)
   Added notranslate google meta.
 - [#100](https://github.com/os2display/display-client/pull/100)
