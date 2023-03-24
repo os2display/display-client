@@ -70,8 +70,12 @@ class PullStrategy {
         document.dispatchEvent(new Event('reauthenticate'));
       }
 
-      const message = `An error has occured: ${response.status}`;
-      throw new Error(message);
+      Logger.log(
+        'error',
+        `Failed to fetch (status: ${response.status}): ${this.endpoint + path}`
+      );
+
+      return null;
     }
 
     return response.json();

@@ -112,6 +112,8 @@ class ContentService {
 
     const newHash = Base64.stringify(sha256(JSON.stringify(screenData)));
 
+    // TODO: Handle issue where region data is not present for a given region. Remove given region content.
+
     if (newHash !== this.screenHash) {
       Logger.log('info', 'Screen has changed. Emitting screen.');
       this.screenHash = newHash;
@@ -121,7 +123,7 @@ class ContentService {
 
       // eslint-disable-next-line guard-for-in,no-restricted-syntax
       for (const regionKey in data.screen.regionData) {
-        const region = data.screen.regionData[regionKey];
+        const region = this.currentScreen.regionData[regionKey];
         this.scheduleService.updateRegion(regionKey, region);
       }
     }
