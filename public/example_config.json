@@ -2,6 +2,7 @@
   "apiEndpoint": "https://displayapiservice.local.itkdev.dk",
   "authenticationEndpoint": "https://displayapiservice.local.itkdev.dk/v1/authentication/screen",
   "authenticationRefreshTokenEndpoint": "https://displayapiservice.local.itkdev.dk/v1/authentication/token/refresh",
+  "unbindEndpoint": "https://displayapiservice.local.itkdev.dk/v1/screens/REPLACEID/unbind",
   "dataStrategy": {
     "type": "pull",
     "config": {

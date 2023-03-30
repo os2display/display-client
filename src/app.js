@@ -288,7 +288,27 @@ function App() {
 
   // ctrl/cmd i will log screen out and refresh
   const handleKeyboard = ({ repeat, metaKey, ctrlKey, code }) => {
+    const localScreenId = localStorage.getItem(localStorageKeys.SCREEN_ID);
+    const token = localStorage.getItem(localStorageKeys.API_TOKEN);
+    const tenantKey = localStorage.getItem(localStorageKeys.TENANT_KEY);
     if (!repeat && (metaKey || ctrlKey) && code === 'KeyI') {
+      ConfigLoader.loadConfig().then((config) => {
+        fetch(config.unbindEndpoint.replace('REPLACEID', localScreenId), {
+          method: 'POST',
+          headers: {
+            authorization: `Bearer ${token}`,
+            'Authorization-Tenant-Key': tenantKey,
+            'Content-Type': 'application/json',
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+          })
+          .catch(() => {
+            Logger.log('error', 'Tsdfsdfsdfsdfsfd.');
+          });
+      });
       localStorage.clear();
       window.location.reload(false);
     }

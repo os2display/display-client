@@ -42,6 +42,7 @@ const ConfigLoader = {
                 authenticationEndpoint: '/api/authentication/screen',
                 authenticationRefreshTokenEndpoint:
                   '/api/authentication/token/refresh',
+                unbindEndpoint: 'api/screens/REPLACEID/unbind',
                 dataStrategy: {
                   type: 'pull',
                   config: {
