@@ -3,6 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+- [#103](https://github.com/os2display/display-client/pull/103)
+Update PullStrategy to handle pagination.
 
 ## [1.2.3] - 2023-03-24
 
