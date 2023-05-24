@@ -91,25 +91,26 @@ class PullStrategy {
   async getAllResultsFromPath(path, keys = {}) {
     let results = [];
     let nextPath = `${path}`;
+    let continueLoop = false;
+    let page = 1;
+
     do {
       try {
         // eslint-disable-next-line no-await-in-loop
         const responseData = await this.getPath(nextPath);
-
         results = results.concat(responseData['hydra:member']);
-
-        if (
-          responseData['hydra:view'] &&
-          responseData['hydra:view']['hydra:next']
-        ) {
-          nextPath = responseData['hydra:view']['hydra:next'];
+        if (results.length < responseData['hydra:totalItems']) {
+          page += 1;
+          continueLoop = true;
+          nextPath = `${path}?page=${page}`;
         } else {
-          nextPath = false;
+          continueLoop = false;
         }
       } catch (err) {
         return {};
       }
-    } while (nextPath);
+    } while (continueLoop);
+
     return { path, results, keys };
   }
 
@@ -216,7 +217,6 @@ class PullStrategy {
         const playlists = regionData[regionKey];
         // eslint-disable-next-line guard-for-in,no-restricted-syntax
         for (const playlistKey in playlists) {
-          // @TODO: Handle pagination.
           promises.push(
             this.getAllResultsFromPath(
               regionData[regionKey][playlistKey].slides,
@@ -243,7 +243,6 @@ class PullStrategy {
               );
             }
           });
-
           resolve(regionData);
         })
         .catch((err) => reject(err));
