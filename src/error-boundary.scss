@@ -18,6 +18,12 @@
   border-radius: 5px;
 }
 
+.error-boundary-header {
+  font-weight: bold;
+  font-family: "Arial", sans-serif;
+  font-size: 1.2em;
+}
+
 .error-boundary-stacktrace {
   overflow: hidden;
   display: -webkit-box;

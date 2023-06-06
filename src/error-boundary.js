@@ -37,8 +37,11 @@ class ErrorBoundary extends Component {
           style={{ backgroundImage: `url(${fallback})` }}
         >
           <div className="error-boundary-box">
-            <div>{errorMessage}</div>
-            <pre className="error-boundary-stacktrace">{errorStackTrace}</pre>
+            <div className="error-boundary-header">Seneste log hændelser</div>
+            <pre className="error-boundary-stacktrace">
+              {errorMessage}
+              {errorStackTrace}
+            </pre>
           </div>
         </div>
       );
