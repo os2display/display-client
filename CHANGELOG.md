@@ -4,7 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
-- [#104](https://github.com/os2display/display-client/pull/103)
+## [1.2.5] - 2023-06-06
+
+- [#104](https://github.com/os2display/display-client/pull/104)
   Changed error boundary page to show error.
 
 ## [1.2.4] - 2023-05-25
