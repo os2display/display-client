@@ -4,9 +4,15 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.2.5] - 2023-06-06
+
+- [#104](https://github.com/os2display/display-client/pull/104)
+  Changed error boundary page to show error.
+
 ## [1.2.4] - 2023-05-25
+
 - [#103](https://github.com/os2display/display-client/pull/103)
-Update PullStrategy to handle pagination.
+  Update PullStrategy to handle pagination.
 
 ## [1.2.3] - 2023-03-24
 
