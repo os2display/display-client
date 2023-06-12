@@ -3,7 +3,11 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
-- Update docker build
+- [#105](https://github.com/os2display/display-client/pull/105)
+  Update docker build to publish to "os2display" org on docker hup.
+  Update github workflow to latest actions.
+  Add github workflow to build and create release.
+  Change `example_config.json` to use relative paths.
 
 ## [1.2.5] - 2023-06-06
 
