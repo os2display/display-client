@@ -3,6 +3,9 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+## [1.2.6] - 2023-06-12
+
 - [#105](https://github.com/os2display/display-client/pull/105)
   Update docker build to publish to "os2display" org on docker hup.
   Update github workflow to latest actions.
