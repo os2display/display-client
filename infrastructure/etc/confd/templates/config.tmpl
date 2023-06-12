@@ -1,5 +1,5 @@
 {
-  "apiEndpoint": "{{ getenv "APP_API_ENDPOINT" "" }}",
+  "apiEndpoint": "{{ getenv "APP_API_ENDPOINT" "/" }}",
   "authenticationEndpoint": "{{ getenv "APP_API_AUTHENTICATION_ENDPOINT" "/v1/authentication/token" }}",
   "authenticationRefreshTokenEndpoint": "{{ getenv "APP_API_AUTHENTICATION_REFRESH_ENDPOINT" "/v1/authentication/token/refresh" }}",
   "dataStrategy": {
