@@ -1,52 +1,36 @@
 on: pull_request
-name: Review
+name: Pull Request Review
 jobs:
   frontend-build:
     name: Frontend build
     runs-on: ubuntu-latest
-    container: node:14
     steps:
-      - uses: actions/checkout@v2
-      - name: Cache node modules
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules
-        with:
-          path: ~/.yarn
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-      - name: install
-        run: yarn
+      - name: Checkout
+        uses: actions/checkout@v3
 
-      - name: Build production assets
-        run: yarn build
+      - name: Make build dir
+        run: |
+          mkdir -p build
+
+      - name: Build assets
+        run: |
+          docker network create frontend
+          docker compose run --rm node yarn install
+          docker compose run --rm node yarn build
 
   frontend-coding-standards:
     name: Frontend coding standards
     runs-on: ubuntu-latest
     container: node:14
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Cache node modules
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules
-        with:
-          path: ~/.yarn
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-      - name: install
-        run: yarn
+      - name: Checkout
+        uses: actions/checkout@v3
 
       - name: React coding standards
-        run: yarn check-coding-standards
+        run: |
+          docker network create frontend
+          docker compose run --rm node yarn install
+          docker compose run --rm node yarn check-coding-standards
 
   cypress:
     name: Cypress
@@ -57,33 +41,33 @@ jobs:
         browser: ["chrome"]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup network
         run: docker network create frontend
 
       - name: Install client
-        run: docker-compose run node yarn
+        run: docker compose run node yarn
 
       - name: Cypress run
-        run: docker-compose run cypress run --browser ${{ matrix.browser }}
+        run: docker compose run cypress run --browser ${{ matrix.browser }}
 
       - name: Archive screenshots
         if: ${{ failure() }}
         uses: actions/upload-artifact@v2
         with:
-          name: cypress-screenhosts-${{ matrix.browser }}
+          name: cypress-screenshots-${{ matrix.browser }}
           path: cypress/screenshots
           retention-days: 7
 
   changelog:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     name: Changelog should be updated
     strategy:
       fail-fast: false
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 2
 
