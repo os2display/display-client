@@ -21,7 +21,6 @@ jobs:
   frontend-coding-standards:
     name: Frontend coding standards
     runs-on: ubuntu-latest
-    container: node:14
     steps:
       - name: Checkout
         uses: actions/checkout@v3
