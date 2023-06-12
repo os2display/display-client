@@ -3,6 +3,7 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+- Update docker build
 
 ## [1.2.5] - 2023-06-06
 
