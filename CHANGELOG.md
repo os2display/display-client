@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+- [#108](https://github.com/os2display/display-client/pull/108)
+  Only slides with a loaded template should be rendered.
+
 ## [1.2.6] - 2023-06-12
 
 - [#105](https://github.com/os2display/display-client/pull/105)
