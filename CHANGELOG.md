@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+- [#108](https://github.com/os2display/display-client/pull/108)
+  Only slides with a loaded template should be rendered.
 - [#109](https://github.com/os2display/display-client/pull/109)
   Change docker image name from `os2display/os2display-client` to `os2display/display-client` to match image name and repository name
 

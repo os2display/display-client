@@ -1,6 +1,6 @@
 import cloneDeep from 'lodash.clonedeep';
 import isPublished from '../util/isPublished';
-import * as Logger from '../logger/logger';
+import Logger from '../logger/logger';
 import localStorageKeys from '../local-storage-keys';
 
 /**
@@ -61,7 +61,8 @@ class PullStrategy {
       });
     } catch (err) {
       Logger.log('error', `Failed to fetch: ${this.endpoint + path}`);
-      throw err;
+
+      return null;
     }
 
     if (response.ok === false) {
@@ -261,6 +262,11 @@ class PullStrategy {
     try {
       screen = await this.getPath(screenPath);
     } catch (err) {
+      Logger.log(
+        'warn',
+        `Screen (${screenPath}) not loaded. Aborting content update.`
+      );
+
       return;
     }
 
@@ -343,7 +349,19 @@ class PullStrategy {
             // eslint-disable-next-line no-await-in-loop
             const templateData = await this.getPath(templatePath);
             slide.templateData = templateData;
-            fetchedTemplates[templatePath] = templateData;
+
+            if (templateData !== null) {
+              fetchedTemplates[templatePath] = templateData;
+            }
+          }
+
+          // A slide cannot work without templateData. Mark as invalid.
+          if (slide.templateData === null) {
+            Logger.log(
+              'warn',
+              `Template (${templatePath}) not loaded for slide with id: ${slide['@id']}`
+            );
+            slide.invalid = true;
           }
 
           if (slide?.theme !== '') {
@@ -356,7 +374,10 @@ class PullStrategy {
               // eslint-disable-next-line no-await-in-loop
               const themeData = await this.getPath(themePath);
               slide.themeData = themeData;
-              fetchedThemes[themePath] = themeData;
+
+              if (themeData !== null) {
+                fetchedThemes[themePath] = themeData;
+              }
             }
           }
 
@@ -376,7 +397,10 @@ class PullStrategy {
               // eslint-disable-next-line no-await-in-loop
               const mediaData = await this.getPath(mediaId);
               slide.mediaData[mediaId] = mediaData;
-              fetchedMedia[mediaId] = mediaData;
+
+              if (mediaData !== null) {
+                fetchedMedia[mediaId] = mediaData;
+              }
             }
           }
 
