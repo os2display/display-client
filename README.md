@@ -52,7 +52,7 @@ docker compose run cypress run
 
 ## Build for production
 
-Github actions will build both docker images published to [docker hub](https://hub.docker.com/repository/docker/os2display/os2display-client/general) and release assets published as [github releases](https://github.com/os2display/display-client/releases). To run the display client choose which option suits you and download it.
+Github actions will build both docker images published to [docker hub](https://hub.docker.com/repository/docker/os2display/display-client/general) and release assets published as [github releases](https://github.com/os2display/display-client/releases). To run the display client choose which option suits you and download it.
 
 If you wish to do your own production build, you need to do
 ```shell
