@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+- [#109](https://github.com/os2display/display-client/pull/109)
+  Change docker image name from `os2display/os2display-client` to `os2display/display-client` to match image name and repository name
+
 ## [1.2.6] - 2023-06-12
 
 - [#105](https://github.com/os2display/display-client/pull/105)
