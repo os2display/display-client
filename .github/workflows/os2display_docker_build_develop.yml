@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - 'develop'
-name: Build docker image (develop)
+name: OS2display - Build docker image (develop)
 
 jobs:
   docker:
@@ -39,8 +39,8 @@ jobs:
       - name: Build and push (API)
         uses: docker/build-push-action@v4
         with:
-          context: ./infrastructure/
-          file: ./infrastructure/Dockerfile
+          context: ./infrastructure/os2display/
+          file: ./infrastructure/os2display/Dockerfile
           build-args: |
             APP_VERSION=${{ env.APP_VERSION }}
             APP_RELEASE_VERSION=${{ env.APP_VERSION }}
