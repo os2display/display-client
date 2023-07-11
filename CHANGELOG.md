@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.3.1] - 2023-07-11
+
+- [#111](https://github.com/os2display/display-client/pull/111)
+  Fix docker image name for itk images
+
 ## [1.3.0] - 2023-07-11
 
 - [#108](https://github.com/os2display/display-client/pull/108)
