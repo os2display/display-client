@@ -89,7 +89,10 @@ function Region({ region }) {
    *   The event. The data is contained in detail.
    */
   function regionContentListener(event) {
-    setNewSlides([...event.detail.slides]);
+    const receivedSlides = [...event.detail.slides];
+
+    // Filter out invalid slides.
+    setNewSlides(receivedSlides.filter((slide) => !slide.invalid));
   }
 
   // Setup event listener for region content.

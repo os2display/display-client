@@ -1,0 +1,7 @@
+[template]
+src = "nginx.conf.tmpl"
+dest = "/etc/nginx/nginx.conf"
+mode = "0644"
+keys = [
+    "/nginx-config"
+]

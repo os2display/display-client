@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.3.0] - 2023-07-11
+
+- [#108](https://github.com/os2display/display-client/pull/108)
+  Only slides with a loaded template should be rendered.
+- [#109](https://github.com/os2display/display-client/pull/109)
+  Change docker image name from `os2display/os2display-client` to `os2display/display-client` to match image name and repository name
+- [#110](https://github.com/os2display/display-client/pull/110)
+  Setup separate image builds for itkdev and os2display
+
+## [1.2.7] - 2023-06-30
+
+- [#104](https://github.com/os2display/display-client/pull/104)
+  Changed error boundary page to show error.
+
 ## [1.2.6] - 2023-06-12
 
 - [#105](https://github.com/os2display/display-client/pull/105)
