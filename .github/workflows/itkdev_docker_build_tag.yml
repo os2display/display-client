@@ -24,7 +24,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: itkdev/os2display-display-client
+          images: itkdev/os2display-client
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
