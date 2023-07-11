@@ -26,6 +26,7 @@ cypress/screenshots/*
 
 temp/
 templates/
+!infrastructure/**/templates
 
 public/config.json
 public/release.json
