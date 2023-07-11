@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - 'develop'
+
+# This Action builds to os2display/* using ./infrastructure/os2display/*
 name: OS2display - Build docker image (develop)
 
 jobs:
