@@ -38,7 +38,7 @@ USER root
 COPY --from=APP_BUILDER /app/build ${APP_PATH}
 
 # Copy configuration.
-COPY etc/ /etc/
+COPY etc /etc/
 
 # Create release file
 RUN echo "{\"releaseTimestamp\": $APP_RELEASE_TIMESTAMP, \"releaseTime\": \"$APP_RELEASE_TIME\", \"releaseVersion\": \"$APP_RELEASE_VERSION\"}" > ${APP_PATH}/release.json
