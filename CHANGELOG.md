@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.3.2] - 2023-07-11
+
+- [#112](https://github.com/os2display/display-client/pull/112)
+  Re-added infrastructure template files wrongfully excluded by gitignore
+
 ## [1.3.1] - 2023-07-11
 
 - [#111](https://github.com/os2display/display-client/pull/111)
