@@ -41,7 +41,7 @@ jobs:
           file: ./infrastructure/itkdev/Dockerfile
           build-args: |
             APP_VERSION=${{ github.ref }}
-            APP_RELEASE_VERSION=$GITHUB_REF_NAME
+            APP_RELEASE_VERSION=${{ github.ref_name }}
             APP_RELEASE_TIMESTAMP=${{ env.APP_RELEASE_TIMESTAMP }}
             APP_RELEASE_TIME=${{ env.APP_RELEASE_TIME }}
           push: true
