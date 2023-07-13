@@ -4,8 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.3.4] - 2023-07-13
+
 - [#114](https://github.com/os2display/display-client/pull/114)
-  Fix version not set in release.json
+  Added "online-check" page as optional startup page `/client/online-check`
 
 ## [1.3.3] - 2023-07-11
 
