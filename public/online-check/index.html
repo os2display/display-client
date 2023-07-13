@@ -16,7 +16,7 @@
     html {
       cursor: none;
     }
-    
+
     body {
       background-color: #333333;
       margin-top: 10%;
@@ -71,7 +71,7 @@
 
     const checkOnlineStatus = async () => {
       try {
-        const online = await fetch("1pixel.png");
+        const online = await fetch("1pixel.png?no_cache=" + Date.now());
         return online.status >= 200 && online.status < 300; // either true or false
       } catch (err) {
         return false; // definitely offline
