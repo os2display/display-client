@@ -3,6 +3,35 @@
 This is the client that will display slides from OS2Display.
 See [https://github.com/os2display/display-docs/blob/main/client.md](https://github.com/os2display/display-docs/blob/main/client.md) for more info about the client.
 
+## Config
+The client can be configured by creating `public/config.json` with relevant values.
+See `public/example_config.json` for values.
+
+```json
+{
+  "apiEndpoint": "",
+  "authenticationEndpoint": "/v1/authentication/screen",
+  "authenticationRefreshTokenEndpoint": "/v1/authentication/token/refresh",
+  "dataStrategy": {
+    "type": "pull",
+    "config": {
+      "interval": 30000,
+      "endpoint": ""
+    }
+  },
+  "colorScheme": {
+    "type": "library",
+    "lat": 56.0,
+    "lng": 10.0
+  },
+  "schedulingInterval": 60000,
+  "debug": false
+}
+```
+All endpoint should be configured with out a trailing slash. The endpoints `apiEndpoint` and `dataStrategy.config.endpoint` can be
+left empty if the api is hosted from the root of the same domain as the client. E.g. if the api is at https://example.org and the client is at
+https://example.org/client
+
 ## Docker development setup
 
 Start docker setup
