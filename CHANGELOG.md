@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.3.5] - 2023-09-14
+
+- [#115](https://github.com/os2display/display-client/pull/115)
+  Removed trailing slash from URLs in `/public/example_config.json` given that our fetch code expects no trailing slash
+
 ## [1.3.4] - 2023-07-13
 
 - [#114](https://github.com/os2display/display-client/pull/114)

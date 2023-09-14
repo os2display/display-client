@@ -1,12 +1,12 @@
 {
-  "apiEndpoint": "/",
+  "apiEndpoint": "",
   "authenticationEndpoint": "/v1/authentication/screen",
   "authenticationRefreshTokenEndpoint": "/v1/authentication/token/refresh",
   "dataStrategy": {
     "type": "pull",
     "config": {
       "interval": 30000,
-      "endpoint": "/"
+      "endpoint": ""
     }
   },
   "colorScheme": {
