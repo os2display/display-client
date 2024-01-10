@@ -204,22 +204,22 @@ class PullStrategy {
     // Campaigns data
     let hasActiveCampaign = false;
 
-    const newModified = newScreen.relationsModified ?? [];
-    const oldModified = this.lastestScreenData?.relationsModified ?? [];
+    const newScreenModified = newScreen.relationsModified ?? [];
+    const oldScreenModified = this.lastestScreenData?.relationsModified ?? [];
 
-    // TODO: Should also check for inScreenGroups, since campaign can come from this.
+    // Fetch campaigns if it has changed.
     if (
-      Object.hasOwn(newModified, 'campaigns') ||
-      Object.hasOwn(newModified, 'inScreenGroups')
+      Object.hasOwn(newScreenModified, 'campaigns') ||
+      Object.hasOwn(newScreenModified, 'inScreenGroups')
     ) {
       if (
-        oldModified?.campaigns !== newModified?.campaigns ||
-        oldModified?.inScreenGroups !== newModified?.inScreenGroups
+        oldScreenModified?.campaigns !== newScreenModified?.campaigns ||
+        oldScreenModified?.inScreenGroups !== newScreenModified?.inScreenGroups
       ) {
-        Logger.log('info', `Campaigns or screen groups are modified. Fetch.`);
+        Logger.log('info', `Campaigns or screen groups are modified.`);
         newScreen.campaignsData = this.getCampaignsData(newScreen);
       } else {
-        Logger.log('info', `Campaigns or screen groups not modified. Reuse.`);
+        Logger.log('info', `Campaigns or screen groups not modified.`);
         newScreen.campaignsData = this.lastestScreenData.campaignsData;
       }
     } else {
@@ -267,22 +267,22 @@ class PullStrategy {
       );
     } else {
       // Get layout: Defines layout and regions.
-      if (oldModified.layout !== newModified?.layout) {
-        Logger.log('info', `Layout changed since last fetch. Fetching.`);
+      if (oldScreenModified.layout !== newScreenModified?.layout) {
+        Logger.log('info', `Layout changed since last fetch.`);
         newScreen.layoutData = await this.apiHelper.getPath(screen.layout);
       } else {
         // Get layout: Defines layout and regions.
-        Logger.log('info', `Layout not changed since last fetch. Reusing.`);
+        Logger.log('info', `Layout not changed since last fetch.`);
         newScreen.layoutData = this.lastestScreenData.layoutData;
       }
 
       // Fetch regions playlists: Yields playlists of slides for the regions
-      if (oldModified?.regions !== newModified.regions) {
-        Logger.log('info', `Regions changed since last fetch. Fetching.`);
+      if (oldScreenModified?.regions !== newScreenModified.regions) {
+        Logger.log('info', `Regions changed since last fetch.`);
         const regions = await this.getRegions(newScreen.regions);
         newScreen.regionData = await this.getSlidesForRegions(regions);
       } else {
-        Logger.log('info', `Regions not changed since last fetch. Reusing.`);
+        Logger.log('info', `Regions not changed since last fetch.`);
         newScreen.regionData = this.lastestScreenData.regionData;
       }
     }
@@ -325,7 +325,7 @@ class PullStrategy {
           const newSlideModified = slide.relationsModified ?? [];
           const oldSlideModified = previousSlide?.relationsModified ?? [];
 
-
+          // Fetch template if it has changed.
           if (newSlideModified.templateInfo !== oldSlideModified.templateInfo) {
             const templatePath = slide.templateInfo['@id'];
 
@@ -353,6 +353,7 @@ class PullStrategy {
             slide.invalid = true;
           }
 
+          // Fetch theme if it has changed.
           if (newSlideModified.theme !== oldSlideModified.theme) {
             if (slide?.theme !== '') {
               const themePath = slide.theme;
@@ -377,6 +378,7 @@ class PullStrategy {
             slide.media.push(slide.themeData.logo);
           }
 
+          // Fetch media if it has changed.
           if (newSlideModified.media !== oldSlideModified.media) {
             const nextMediaData = {};
 
@@ -398,6 +400,7 @@ class PullStrategy {
             slide.mediaData = previousSlide.mediaData;
           }
 
+          // Fetch feed.
           if (slide?.feed?.feedUrl !== undefined) {
             slide.feedData = await this.apiHelper.getPath(slide.feed.feedUrl);
           }
