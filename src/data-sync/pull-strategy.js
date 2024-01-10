@@ -9,6 +9,8 @@ import ApiHelper from './api-helper';
  * Handles pull strategy.
  */
 class PullStrategy {
+  lastestScreenData;
+
   // Helper for all api calls.
   apiHelper;
 
@@ -202,7 +204,31 @@ class PullStrategy {
     // Campaigns data
     let hasActiveCampaign = false;
 
-    newScreen.campaignsData = this.getCampaignsData(screen);
+    const newModified = newScreen.relationsModified ?? [];
+    const oldModified = this.lastestScreenData?.relationsModified ?? [];
+
+    // TODO: Should also check for inScreenGroups, since campaign can come from this.
+    if (
+      Object.hasOwn(newModified, 'campaigns') ||
+      Object.hasOwn(newModified, 'inScreenGroups')
+    ) {
+      if (
+        oldModified?.campaigns !== newModified?.campaigns ||
+        oldModified?.inScreenGroups !== newModified?.inScreenGroups
+      ) {
+        Logger.log('info', `Campaigns or screen groups are modified. Fetch.`);
+        newScreen.campaignsData = this.getCampaignsData(newScreen);
+      } else {
+        Logger.log('info', `Campaigns or screen groups not modified. Reuse.`);
+        newScreen.campaignsData = this.lastestScreenData.campaignsData;
+      }
+    } else {
+      Logger.log(
+        'info',
+        `Campaigns and screen groups not set. Therefore, no campaign is assigned to the screen.`
+      );
+      newScreen.campaignsData = [];
+    }
 
     if (newScreen.campaignsData.length > 0) {
       newScreen.campaignsData.forEach(({ published }) => {
@@ -241,19 +267,32 @@ class PullStrategy {
       );
     } else {
       // Get layout: Defines layout and regions.
-      newScreen.layoutData = await this.apiHelper.getPath(screen.layout);
+      if (oldModified.layout !== newModified?.layout) {
+        Logger.log('info', `Layout changed since last fetch. Fetching.`);
+        newScreen.layoutData = await this.apiHelper.getPath(screen.layout);
+      } else {
+        // Get layout: Defines layout and regions.
+        Logger.log('info', `Layout not changed since last fetch. Reusing.`);
+        newScreen.layoutData = this.lastestScreenData.layoutData;
+      }
 
       // Fetch regions playlists: Yields playlists of slides for the regions
-      const regions = await this.getRegions(newScreen.regions);
-      newScreen.regionData = await this.getSlidesForRegions(regions);
+      if (oldModified?.regions !== newModified.regions) {
+        Logger.log('info', `Regions changed since last fetch. Fetching.`);
+        const regions = await this.getRegions(newScreen.regions);
+        newScreen.regionData = await this.getSlidesForRegions(regions);
+      } else {
+        Logger.log('info', `Regions not changed since last fetch. Reusing.`);
+        newScreen.regionData = this.lastestScreenData.regionData;
+      }
     }
 
-    // Cached responses.
+    // Cached data.
     const fetchedTemplates = {};
     const fetchedMedia = {};
     const fetchedThemes = {};
 
-    // Iterate all slides and at
+    // Iterate all slides and load required relations.
     const { regionData } = newScreen;
     /* eslint-disable no-restricted-syntax,no-await-in-loop */
     for (const regionKey of Object.keys(regionData)) {
@@ -264,72 +303,114 @@ class PullStrategy {
         const dataEntrySlidesData = dataEntryPlaylist.slidesData;
 
         for (const slideKey of Object.keys(dataEntrySlidesData)) {
-          const slide = dataEntrySlidesData[slideKey];
-          const templatePath = slide.templateInfo['@id'];
+          const slide = cloneDeep(dataEntrySlidesData[slideKey]);
 
-          // Load template into slide.templateData.
-          if (Object.hasOwn(fetchedTemplates, 'templatePath')) {
-            slide.templateData = fetchedTemplates[templatePath];
+          let previousSlide = null;
+
+          // Find slide in previous data for comparing relationsModified values.
+          if (
+            this.lastestScreenData?.regionData[regionKey] &&
+            this.lastestScreenData.regionData[regionKey][playlistKey] &&
+            this.lastestScreenData.regionData[regionKey][playlistKey]
+              .slidesData[slideKey]
+          ) {
+            previousSlide = cloneDeep(
+              this.lastestScreenData.regionData[regionKey][playlistKey]
+                .slidesData[slideKey]
+            );
           } else {
-            const templateData = await this.apiHelper.getPath(templatePath);
-            slide.templateData = templateData;
+            previousSlide = {};
+          }
 
-            if (templateData !== null) {
-              fetchedTemplates[templatePath] = templateData;
+          const newSlideModified = slide.relationsModified ?? [];
+          const oldSlideModified = previousSlide?.relationsModified ?? [];
+
+
+          if (newSlideModified.templateInfo !== oldSlideModified.templateInfo) {
+            const templatePath = slide.templateInfo['@id'];
+
+            // Load template into slide.templateData.
+            if (Object.hasOwn(fetchedTemplates, templatePath)) {
+              slide.templateData = fetchedTemplates[templatePath];
+            } else {
+              const templateData = await this.apiHelper.getPath(templatePath);
+              slide.templateData = templateData;
+
+              if (templateData !== null) {
+                fetchedTemplates[templatePath] = templateData;
+              }
             }
+          } else {
+            slide.templateData = previousSlide.templateData;
           }
 
           // A slide cannot work without templateData. Mark as invalid.
           if (slide.templateData === null) {
             Logger.log(
               'warn',
-              `Template (${templatePath}) not loaded, slideId: ${slide['@id']}`
+              `Template (${slide.templateInfo['@id']}) not loaded, slideId: ${slide['@id']}`
             );
             slide.invalid = true;
           }
 
-          if (slide?.theme !== '') {
-            const themePath = slide.theme;
-            // Load theme into slide.themeData.
-            if (Object.hasOwn(fetchedThemes, themePath)) {
-              slide.themeData = fetchedThemes[themePath];
-            } else {
-              const themeData = await this.apiHelper.getPath(themePath);
-              slide.themeData = themeData;
+          if (newSlideModified.theme !== oldSlideModified.theme) {
+            if (slide?.theme !== '') {
+              const themePath = slide.theme;
+              // Load theme into slide.themeData.
+              if (Object.hasOwn(fetchedThemes, themePath)) {
+                slide.themeData = fetchedThemes[themePath];
+              } else {
+                const themeData = await this.apiHelper.getPath(themePath);
+                slide.themeData = themeData;
 
-              if (themeData !== null) {
-                fetchedThemes[themePath] = themeData;
+                if (themeData !== null) {
+                  fetchedThemes[themePath] = themeData;
+                }
               }
             }
+          } else {
+            slide.themeData = previousSlide.themeData;
           }
-
-          slide.mediaData = {};
 
           // Load media for the slide into slide.mediaData object.
           if (slide.themeData?.logo) {
             slide.media.push(slide.themeData.logo);
           }
 
-          for (const mediaId of slide.media) {
-            if (Object.hasOwn(fetchedMedia, mediaId)) {
-              slide.mediaData[mediaId] = fetchedMedia[mediaId];
-            } else {
-              const mediaData = await this.apiHelper.getPath(mediaId);
-              slide.mediaData[mediaId] = mediaData;
+          if (newSlideModified.media !== oldSlideModified.media) {
+            const nextMediaData = {};
 
-              if (mediaData !== null) {
-                fetchedMedia[mediaId] = mediaData;
+            for (const mediaId of slide.media) {
+              if (Object.hasOwn(fetchedMedia, mediaId)) {
+                nextMediaData[mediaId] = fetchedMedia[mediaId];
+              } else {
+                const mediaData = await this.apiHelper.getPath(mediaId);
+                nextMediaData[mediaId] = mediaData;
+
+                if (mediaData !== null) {
+                  fetchedMedia[mediaId] = mediaData;
+                }
               }
             }
+
+            slide.mediaData = nextMediaData;
+          } else {
+            slide.mediaData = previousSlide.mediaData;
           }
 
           if (slide?.feed?.feedUrl !== undefined) {
             slide.feedData = await this.apiHelper.getPath(slide.feed.feedUrl);
           }
+
+          dataEntrySlidesData[slideKey] = slide;
         }
       }
     }
     /* eslint-enable no-restricted-syntax,no-await-in-loop */
+
+    Logger.log('info', `Emitting screen data.`);
+
+    this.lastestScreenData = newScreen;
 
     // Deliver result to rendering
     const event = new CustomEvent('content', {
