@@ -1,7 +1,7 @@
 import cloneDeep from 'lodash.clonedeep';
 import isPublished from '../util/isPublished';
 import Logger from '../logger/logger';
-import localStorageKeys from '../local-storage-keys';
+import ApiHelper from './api-helper';
 
 /**
  * PullStrategy.
@@ -9,12 +9,13 @@ import localStorageKeys from '../local-storage-keys';
  * Handles pull strategy.
  */
 class PullStrategy {
-  // The API endpoint.
-  endpoint;
+  // Helper for all api calls.
+  apiHelper;
 
   // Fetch-interval in ms.
   interval;
 
+  // Path to screen that should be loaded data for.
   entryPoint = '';
 
   /**
@@ -28,91 +29,10 @@ class PullStrategy {
     this.stop = this.stop.bind(this);
     this.getScreen = this.getScreen.bind(this);
 
-    this.interval = config?.interval ?? 5000;
-    this.endpoint = config?.endpoint ?? '';
-    // @TODO: Get this entry point in a more dynamic way.
+    this.interval = config?.interval ?? 60000 * 5;
     this.entryPoint = config.entryPoint;
-  }
 
-  /**
-   * Get result from path.
-   *
-   * @param {string} path Path to the resource.
-   * @returns {Promise<any>} Promise with data.
-   */
-  async getPath(path) {
-    const token = localStorage.getItem(localStorageKeys.API_TOKEN) ?? '';
-    const tenantKey = localStorage.getItem(localStorageKeys.TENANT_KEY) ?? '';
-
-    if (!path) {
-      throw new Error('No path');
-    }
-
-    let response;
-
-    try {
-      Logger.log('info', `Fetching: ${this.endpoint + path}`);
-
-      response = await fetch(this.endpoint + path, {
-        headers: {
-          authorization: `Bearer ${token}`,
-          'Authorization-Tenant-Key': tenantKey,
-        },
-      });
-    } catch (err) {
-      Logger.log('error', `Failed to fetch: ${this.endpoint + path}`);
-
-      return null;
-    }
-
-    if (response.ok === false) {
-      if (response.status === 401) {
-        document.dispatchEvent(new Event('stopDataSync'));
-        document.dispatchEvent(new Event('reauthenticate'));
-      }
-
-      Logger.log(
-        'error',
-        `Failed to fetch (status: ${response.status}): ${this.endpoint + path}`
-      );
-
-      return null;
-    }
-
-    return response.json();
-  }
-
-  /**
-   * Gets all resources from the given path. Follows hydra:view.hydra:next links.
-   *
-   * @param {string} path Path to the resources.
-   * @param {object} keys Keys that should be passed along with the result.
-   * @returns {Promise<*>} Promise with all resources from a path.
-   */
-  async getAllResultsFromPath(path, keys = {}) {
-    let results = [];
-    let nextPath = `${path}`;
-    let continueLoop = false;
-    let page = 1;
-
-    do {
-      try {
-        // eslint-disable-next-line no-await-in-loop
-        const responseData = await this.getPath(nextPath);
-        results = results.concat(responseData['hydra:member']);
-        if (results.length < responseData['hydra:totalItems']) {
-          page += 1;
-          continueLoop = true;
-          nextPath = `${path}?page=${page}`;
-        } else {
-          continueLoop = false;
-        }
-      } catch (err) {
-        return {};
-      }
-    } while (continueLoop);
-
-    return { path, results, keys };
+    this.apiHelper = new ApiHelper(config.endpoint ?? '');
   }
 
   /**
@@ -125,13 +45,13 @@ class PullStrategy {
     const screenGroupCampaigns = [];
 
     try {
-      const response = await this.getPath(screen.inScreenGroups);
+      const response = await this.apiHelper.getPath(screen.inScreenGroups);
 
       if (Object.prototype.hasOwnProperty.call(response, 'hydra:member')) {
         const promises = [];
 
         response['hydra:member'].forEach((group) => {
-          promises.push(this.getAllResultsFromPath(group.campaigns));
+          promises.push(this.apiHelper.getAllResultsFromPath(group.campaigns));
         });
 
         await Promise.allSettled(promises).then((results) => {
@@ -151,10 +71,12 @@ class PullStrategy {
     let screenCampaigns = [];
 
     try {
-      const screenCampaignsResponse = await this.getPath(screen.campaigns);
+      const screenCampaignsResponse = await this.apiHelper.getPath(
+        screen.campaigns
+      );
 
       screenCampaigns = screenCampaignsResponse['hydra:member'].map(
-        (campaign) => campaign.campaign
+        ({ campaign }) => campaign
       );
     } catch (err) {
       Logger.log('error', err);
@@ -177,7 +99,7 @@ class PullStrategy {
       const regionData = {};
 
       regions.forEach((regionPath) => {
-        promises.push(this.getAllResultsFromPath(regionPath));
+        promises.push(this.apiHelper.getAllResultsFromPath(regionPath));
       });
 
       Promise.allSettled(promises)
@@ -219,7 +141,7 @@ class PullStrategy {
         // eslint-disable-next-line guard-for-in,no-restricted-syntax
         for (const playlistKey in playlists) {
           promises.push(
-            this.getAllResultsFromPath(
+            this.apiHelper.getAllResultsFromPath(
               regionData[regionKey][playlistKey].slides,
               {
                 regionKey,
@@ -260,7 +182,7 @@ class PullStrategy {
 
     // Fetch screen
     try {
-      screen = await this.getPath(screenPath);
+      screen = await this.apiHelper.getPath(screenPath);
     } catch (err) {
       Logger.log(
         'warn',
@@ -270,12 +192,17 @@ class PullStrategy {
       return;
     }
 
+    if (screen === null) {
+      Logger.log('warn', `Screen (${screenPath}) not loaded`);
+      return;
+    }
+
     const newScreen = cloneDeep(screen);
 
     // Campaigns data
     let hasActiveCampaign = false;
 
-    newScreen.campaignsData = await this.getCampaignsData(screen);
+    newScreen.campaignsData = this.getCampaignsData(screen);
 
     if (newScreen.campaignsData.length > 0) {
       newScreen.campaignsData.forEach(({ published }) => {
@@ -314,40 +241,37 @@ class PullStrategy {
       );
     } else {
       // Get layout: Defines layout and regions.
-      newScreen.layoutData = await this.getPath(screen.layout);
+      newScreen.layoutData = await this.apiHelper.getPath(screen.layout);
 
       // Fetch regions playlists: Yields playlists of slides for the regions
       const regions = await this.getRegions(newScreen.regions);
       newScreen.regionData = await this.getSlidesForRegions(regions);
     }
 
-    // Template cache.
+    // Cached responses.
     const fetchedTemplates = {};
     const fetchedMedia = {};
     const fetchedThemes = {};
 
-    // Iterate all slides:
-    // - attach template data.
-    // - attach media data.
-    // @TODO: Fix eslint-raised issues.
-    // eslint-disable-next-line guard-for-in,no-restricted-syntax
-    for (const regionKey in newScreen.regionData) {
-      // eslint-disable-next-line guard-for-in,no-restricted-syntax
-      for (const playlistKey in newScreen.regionData[regionKey]) {
-        // eslint-disable-next-line guard-for-in,no-restricted-syntax
-        for (const slideKey in newScreen.regionData[regionKey][playlistKey]
-          .slidesData) {
-          const slide =
-            newScreen.regionData[regionKey][playlistKey].slidesData[slideKey];
+    // Iterate all slides and at
+    const { regionData } = newScreen;
+    /* eslint-disable no-restricted-syntax,no-await-in-loop */
+    for (const regionKey of Object.keys(regionData)) {
+      const regionDataEntry = regionData[regionKey];
+
+      for (const playlistKey of Object.keys(regionDataEntry)) {
+        const dataEntryPlaylist = regionDataEntry[playlistKey];
+        const dataEntrySlidesData = dataEntryPlaylist.slidesData;
+
+        for (const slideKey of Object.keys(dataEntrySlidesData)) {
+          const slide = dataEntrySlidesData[slideKey];
           const templatePath = slide.templateInfo['@id'];
 
           // Load template into slide.templateData.
-          // eslint-disable-next-line no-prototype-builtins
-          if (fetchedTemplates.hasOwnProperty(templatePath)) {
+          if (Object.hasOwn(fetchedTemplates, 'templatePath')) {
             slide.templateData = fetchedTemplates[templatePath];
           } else {
-            // eslint-disable-next-line no-await-in-loop
-            const templateData = await this.getPath(templatePath);
+            const templateData = await this.apiHelper.getPath(templatePath);
             slide.templateData = templateData;
 
             if (templateData !== null) {
@@ -359,7 +283,7 @@ class PullStrategy {
           if (slide.templateData === null) {
             Logger.log(
               'warn',
-              `Template (${templatePath}) not loaded for slide with id: ${slide['@id']}`
+              `Template (${templatePath}) not loaded, slideId: ${slide['@id']}`
             );
             slide.invalid = true;
           }
@@ -367,12 +291,10 @@ class PullStrategy {
           if (slide?.theme !== '') {
             const themePath = slide.theme;
             // Load theme into slide.themeData.
-            // eslint-disable-next-line no-prototype-builtins
-            if (fetchedThemes.hasOwnProperty(themePath)) {
+            if (Object.hasOwn(fetchedThemes, themePath)) {
               slide.themeData = fetchedThemes[themePath];
             } else {
-              // eslint-disable-next-line no-await-in-loop
-              const themeData = await this.getPath(themePath);
+              const themeData = await this.apiHelper.getPath(themePath);
               slide.themeData = themeData;
 
               if (themeData !== null) {
@@ -388,14 +310,11 @@ class PullStrategy {
             slide.media.push(slide.themeData.logo);
           }
 
-          // eslint-disable-next-line no-restricted-syntax
           for (const mediaId of slide.media) {
-            // eslint-disable-next-line no-prototype-builtins
-            if (fetchedMedia.hasOwnProperty(mediaId)) {
+            if (Object.hasOwn(fetchedMedia, mediaId)) {
               slide.mediaData[mediaId] = fetchedMedia[mediaId];
             } else {
-              // eslint-disable-next-line no-await-in-loop
-              const mediaData = await this.getPath(mediaId);
+              const mediaData = await this.apiHelper.getPath(mediaId);
               slide.mediaData[mediaId] = mediaData;
 
               if (mediaData !== null) {
@@ -405,12 +324,12 @@ class PullStrategy {
           }
 
           if (slide?.feed?.feedUrl !== undefined) {
-            // eslint-disable-next-line no-await-in-loop
-            slide.feedData = await this.getPath(slide.feed.feedUrl);
+            slide.feedData = await this.apiHelper.getPath(slide.feed.feedUrl);
           }
         }
       }
     }
+    /* eslint-enable no-restricted-syntax,no-await-in-loop */
 
     // Deliver result to rendering
     const event = new CustomEvent('content', {
