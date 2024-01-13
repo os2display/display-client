@@ -207,27 +207,15 @@ class PullStrategy {
     const newScreenModified = newScreen.relationsModified ?? [];
     const oldScreenModified = this.lastestScreenData?.relationsModified ?? [];
 
-    // Fetch campaigns if it has changed.
     if (
-      Object.hasOwn(newScreenModified, 'campaigns') ||
-      Object.hasOwn(newScreenModified, 'inScreenGroups')
+      oldScreenModified?.campaigns !== newScreenModified?.campaigns ||
+      oldScreenModified?.inScreenGroups !== newScreenModified?.inScreenGroups
     ) {
-      if (
-        oldScreenModified?.campaigns !== newScreenModified?.campaigns ||
-        oldScreenModified?.inScreenGroups !== newScreenModified?.inScreenGroups
-      ) {
-        Logger.log('info', `Campaigns or screen groups are modified.`);
-        newScreen.campaignsData = this.getCampaignsData(newScreen);
-      } else {
-        Logger.log('info', `Campaigns or screen groups not modified.`);
-        newScreen.campaignsData = this.lastestScreenData.campaignsData;
-      }
+      Logger.log('info', `Campaigns or screen groups are modified.`);
+      newScreen.campaignsData = this.getCampaignsData(newScreen);
     } else {
-      Logger.log(
-        'info',
-        `Campaigns and screen groups not set. Therefore, no campaign is assigned to the screen.`
-      );
-      newScreen.campaignsData = [];
+      Logger.log('info', `Campaigns or screen groups not modified.`);
+      newScreen.campaignsData = this.lastestScreenData.campaignsData;
     }
 
     if (newScreen.campaignsData.length > 0) {
@@ -269,7 +257,7 @@ class PullStrategy {
       // Get layout: Defines layout and regions.
       if (oldScreenModified.layout !== newScreenModified?.layout) {
         Logger.log('info', `Layout changed since last fetch.`);
-        newScreen.layoutData = await this.apiHelper.getPath(screen.layout);
+        newScreen.layoutData = await this.apiHelper.getPath(newScreen.layout);
       } else {
         // Get layout: Defines layout and regions.
         Logger.log('info', `Layout not changed since last fetch.`);
@@ -330,7 +318,12 @@ class PullStrategy {
             const templatePath = slide.templateInfo['@id'];
 
             // Load template into slide.templateData.
-            if (Object.hasOwn(fetchedTemplates, templatePath)) {
+            if (
+              Object.prototype.hasOwnProperty.call(
+                fetchedTemplates,
+                templatePath
+              )
+            ) {
               slide.templateData = fetchedTemplates[templatePath];
             } else {
               const templateData = await this.apiHelper.getPath(templatePath);
@@ -358,7 +351,9 @@ class PullStrategy {
             if (slide?.theme !== '') {
               const themePath = slide.theme;
               // Load theme into slide.themeData.
-              if (Object.hasOwn(fetchedThemes, themePath)) {
+              if (
+                Object.prototype.hasOwnProperty.call(fetchedThemes, themePath)
+              ) {
                 slide.themeData = fetchedThemes[themePath];
               } else {
                 const themeData = await this.apiHelper.getPath(themePath);
@@ -383,7 +378,7 @@ class PullStrategy {
             const nextMediaData = {};
 
             for (const mediaId of slide.media) {
-              if (Object.hasOwn(fetchedMedia, mediaId)) {
+              if (Object.prototype.hasOwnProperty.call(fetchedMedia, mediaId)) {
                 nextMediaData[mediaId] = fetchedMedia[mediaId];
               } else {
                 const mediaData = await this.apiHelper.getPath(mediaId);

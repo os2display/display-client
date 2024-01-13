@@ -33,6 +33,11 @@
         "published": {
           "from": "2022-03-18T11:50:00+01:00",
           "to": "2034-10-18T10:50:00+02:00"
+        },
+        "relationsModified": {
+          "slides": "2023-12-21T23:47:00+01:00",
+          "campaignScreens": "2023-12-21T23:47:00+01:00",
+          "campaignScreenGroups": "2023-12-21T23:47:00+01:00"
         }
       },
       "weight": 0

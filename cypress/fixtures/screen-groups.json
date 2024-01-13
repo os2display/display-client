@@ -11,7 +11,10 @@
       "modified": "2022-03-19T21:13:43+01:00",
       "modifiedBy": "johndoe@example.com",
       "createdBy": "",
-      "campaigns": "/v1/screen-groups/01AGD290CV12PM1H3N0B2X0TTM/campaigns"
+      "campaigns": "/v1/screen-groups/01AGD290CV12PM1H3N0B2X0TTM/campaigns",
+      "relationsModified": {
+        "campaigns": "2023-12-21T23:47:00+01:00"
+      }
     }
   ],
   "hydra:totalItems": 1,
