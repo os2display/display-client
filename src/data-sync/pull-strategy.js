@@ -41,7 +41,7 @@ class PullStrategy {
    * Gets all campaigns, both from screen and groups.
    *
    * @param {object} screen The screen object to extract campaigns from.
-   * @returns {Array} array of campaigns (playlists).
+   * @returns {Promise<object>} Array of campaigns (playlists).
    */
   async getCampaignsData(screen) {
     const screenGroupCampaigns = [];
@@ -59,8 +59,8 @@ class PullStrategy {
         await Promise.allSettled(promises).then((results) => {
           results.forEach((result) => {
             if (result.status === 'fulfilled') {
-              result.value.results.forEach((campaign) => {
-                screenGroupCampaigns.push(campaign.campaign);
+              result.value.results.forEach(({ campaign }) => {
+                screenGroupCampaigns.push(campaign);
               });
             }
           });
@@ -84,7 +84,9 @@ class PullStrategy {
       Logger.log('error', err);
     }
 
-    return [...screenCampaigns, ...screenGroupCampaigns];
+    return new Promise((resolve) => {
+      resolve([...screenCampaigns, ...screenGroupCampaigns]);
+    });
   }
 
   /**
@@ -204,15 +206,16 @@ class PullStrategy {
     // Campaigns data
     let hasActiveCampaign = false;
 
-    const newScreenModified = newScreen.relationsModified ?? [];
-    const oldScreenModified = this.lastestScreenData?.relationsModified ?? [];
+    const newScreenModified = newScreen?.relationsModified ?? [];
+    const oldScreenModified = this.lastestScreenData?.relationsModified ?? null;
 
     if (
+      oldScreenModified === null ||
       oldScreenModified?.campaigns !== newScreenModified?.campaigns ||
       oldScreenModified?.inScreenGroups !== newScreenModified?.inScreenGroups
     ) {
-      Logger.log('info', `Campaigns or screen groups are modified.`);
-      newScreen.campaignsData = this.getCampaignsData(newScreen);
+      Logger.log('info', `Campaigns or screen groups modified.`);
+      newScreen.campaignsData = await this.getCampaignsData(newScreen);
     } else {
       Logger.log('info', `Campaigns or screen groups not modified.`);
       newScreen.campaignsData = this.lastestScreenData.campaignsData;
@@ -228,6 +231,8 @@ class PullStrategy {
 
     // With active campaigns, we override region/layout values.
     if (hasActiveCampaign) {
+      Logger.log('info', `Has active campaign.`);
+
       // Create ulid to connect the campaign with the regions/playlists.
       const campaignRegionId = '01G112XBWFPY029RYFB8X2H4KD';
 
@@ -255,7 +260,10 @@ class PullStrategy {
       );
     } else {
       // Get layout: Defines layout and regions.
-      if (oldScreenModified.layout !== newScreenModified?.layout) {
+      if (
+        oldScreenModified === null ||
+        oldScreenModified?.layout !== newScreenModified?.layout
+      ) {
         Logger.log('info', `Layout changed since last fetch.`);
         newScreen.layoutData = await this.apiHelper.getPath(newScreen.layout);
       } else {
@@ -265,7 +273,10 @@ class PullStrategy {
       }
 
       // Fetch regions playlists: Yields playlists of slides for the regions
-      if (oldScreenModified?.regions !== newScreenModified.regions) {
+      if (
+        oldScreenModified === null ||
+        oldScreenModified?.regions !== newScreenModified?.regions
+      ) {
         Logger.log('info', `Regions changed since last fetch.`);
         const regions = await this.getRegions(newScreen.regions);
         newScreen.regionData = await this.getSlidesForRegions(regions);
@@ -311,10 +322,13 @@ class PullStrategy {
           }
 
           const newSlideModified = slide.relationsModified ?? [];
-          const oldSlideModified = previousSlide?.relationsModified ?? [];
+          const oldSlideModified = previousSlide?.relationsModified ?? null;
 
           // Fetch template if it has changed.
-          if (newSlideModified.templateInfo !== oldSlideModified.templateInfo) {
+          if (
+            oldSlideModified === null ||
+            newSlideModified.templateInfo !== oldSlideModified.templateInfo
+          ) {
             const templatePath = slide.templateInfo['@id'];
 
             // Load template into slide.templateData.
@@ -347,7 +361,10 @@ class PullStrategy {
           }
 
           // Fetch theme if it has changed.
-          if (newSlideModified.theme !== oldSlideModified.theme) {
+          if (
+            oldSlideModified === null ||
+            newSlideModified.theme !== oldSlideModified.theme
+          ) {
             if (slide?.theme !== '') {
               const themePath = slide.theme;
               // Load theme into slide.themeData.
@@ -374,7 +391,10 @@ class PullStrategy {
           }
 
           // Fetch media if it has changed.
-          if (newSlideModified.media !== oldSlideModified.media) {
+          if (
+            oldSlideModified === null ||
+            newSlideModified.media !== oldSlideModified.media
+          ) {
             const nextMediaData = {};
 
             for (const mediaId of slide.media) {

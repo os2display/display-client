@@ -6,7 +6,7 @@
   "viewportHeight": 1400,
   "baseUrl": "http://client/",
   "retries": {
-    "runMode": 2,
+    "runMode": 1,
     "openMode": 0
   }
 }
