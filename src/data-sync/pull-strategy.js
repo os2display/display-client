@@ -289,7 +289,6 @@ class PullStrategy {
     // Cached data.
     const fetchedTemplates = {};
     const fetchedMedia = {};
-    const fetchedThemes = {};
 
     // Iterate all slides and load required relations.
     const { regionData } = newScreen;
@@ -358,36 +357,6 @@ class PullStrategy {
               `Template (${slide.templateInfo['@id']}) not loaded, slideId: ${slide['@id']}`
             );
             slide.invalid = true;
-          }
-
-          // Fetch theme if it has changed.
-          if (
-            oldSlideModified === null ||
-            newSlideModified.theme !== oldSlideModified.theme
-          ) {
-            if (slide?.theme !== '') {
-              const themePath = slide.theme;
-              // Load theme into slide.themeData.
-              if (
-                Object.prototype.hasOwnProperty.call(fetchedThemes, themePath)
-              ) {
-                slide.themeData = fetchedThemes[themePath];
-              } else {
-                const themeData = await this.apiHelper.getPath(themePath);
-                slide.themeData = themeData;
-
-                if (themeData !== null) {
-                  fetchedThemes[themePath] = themeData;
-                }
-              }
-            }
-          } else {
-            slide.themeData = previousSlide.themeData;
-          }
-
-          // Load media for the slide into slide.mediaData object.
-          if (slide.themeData?.logo) {
-            slide.media.push(slide.themeData.logo);
           }
 
           // Fetch media if it has changed.
