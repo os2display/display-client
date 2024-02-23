@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
-- Limited the number of API calls by comparing relationsModified.
+- Limited the number of API calls by comparing relationsChecksum.
 
 ## [1.3.5] - 2023-09-14
 

@@ -206,8 +206,8 @@ class PullStrategy {
     // Campaigns data
     let hasActiveCampaign = false;
 
-    const newScreenModified = newScreen?.relationsModified ?? [];
-    const oldScreenModified = this.lastestScreenData?.relationsModified ?? null;
+    const newScreenModified = newScreen?.relationsChecksum ?? [];
+    const oldScreenModified = this.lastestScreenData?.relationsChecksum ?? null;
 
     if (
       oldScreenModified === null ||
@@ -305,7 +305,7 @@ class PullStrategy {
 
           let previousSlide = null;
 
-          // Find slide in previous data for comparing relationsModified values.
+          // Find slide in previous data for comparing relationsChecksum values.
           if (
             this.lastestScreenData?.regionData[regionKey] &&
             this.lastestScreenData.regionData[regionKey][playlistKey] &&
@@ -320,8 +320,8 @@ class PullStrategy {
             previousSlide = {};
           }
 
-          const newSlideModified = slide.relationsModified ?? [];
-          const oldSlideModified = previousSlide?.relationsModified ?? null;
+          const newSlideModified = slide.relationsChecksum ?? [];
+          const oldSlideModified = previousSlide?.relationsChecksum ?? null;
 
           // Fetch template if it has changed.
           if (

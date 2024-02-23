@@ -12,7 +12,7 @@
       "modifiedBy": "johndoe@example.com",
       "createdBy": "",
       "campaigns": "/v1/screen-groups/01AGD290CV12PM1H3N0B2X0TTM/campaigns",
-      "relationsModified": {
+      "relationsChecksum": {
         "campaigns": "2023-12-21T23:47:00+01:00"
       }
     }
