@@ -206,13 +206,13 @@ class PullStrategy {
     // Campaigns data
     let hasActiveCampaign = false;
 
-    const newScreenModified = newScreen?.relationsChecksum ?? [];
-    const oldScreenModified = this.lastestScreenData?.relationsChecksum ?? null;
+    const newScreenChecksums = newScreen?.relationsChecksum ?? [];
+    const oldScreenChecksums = this.lastestScreenData?.relationsChecksum ?? null;
 
     if (
-      oldScreenModified === null ||
-      oldScreenModified?.campaigns !== newScreenModified?.campaigns ||
-      oldScreenModified?.inScreenGroups !== newScreenModified?.inScreenGroups
+      oldScreenChecksums === null ||
+      oldScreenChecksums?.campaigns !== newScreenChecksums?.campaigns ||
+      oldScreenChecksums?.inScreenGroups !== newScreenChecksums?.inScreenGroups
     ) {
       Logger.log('info', `Campaigns or screen groups modified.`);
       newScreen.campaignsData = await this.getCampaignsData(newScreen);
@@ -261,8 +261,8 @@ class PullStrategy {
     } else {
       // Get layout: Defines layout and regions.
       if (
-        oldScreenModified === null ||
-        oldScreenModified?.layout !== newScreenModified?.layout
+        oldScreenChecksums === null ||
+        oldScreenChecksums?.layout !== newScreenChecksums?.layout
       ) {
         Logger.log('info', `Layout changed since last fetch.`);
         newScreen.layoutData = await this.apiHelper.getPath(newScreen.layout);
@@ -274,8 +274,8 @@ class PullStrategy {
 
       // Fetch regions playlists: Yields playlists of slides for the regions
       if (
-        oldScreenModified === null ||
-        oldScreenModified?.regions !== newScreenModified?.regions
+        oldScreenChecksums === null ||
+        oldScreenChecksums?.regions !== newScreenChecksums?.regions
       ) {
         Logger.log('info', `Regions changed since last fetch.`);
         const regions = await this.getRegions(newScreen.regions);
@@ -320,13 +320,13 @@ class PullStrategy {
             previousSlide = {};
           }
 
-          const newSlideModified = slide.relationsChecksum ?? [];
-          const oldSlideModified = previousSlide?.relationsChecksum ?? null;
+          const newSlideChecksums = slide.relationsChecksum ?? [];
+          const oldSlideChecksums = previousSlide?.relationsChecksum ?? null;
 
           // Fetch template if it has changed.
           if (
-            oldSlideModified === null ||
-            newSlideModified.templateInfo !== oldSlideModified.templateInfo
+            oldSlideChecksums === null ||
+            newSlideChecksums.templateInfo !== oldSlideChecksums.templateInfo
           ) {
             const templatePath = slide.templateInfo['@id'];
 
@@ -361,8 +361,8 @@ class PullStrategy {
 
           // Fetch media if it has changed.
           if (
-            oldSlideModified === null ||
-            newSlideModified.media !== oldSlideModified.media
+            oldSlideChecksums === null ||
+            newSlideChecksums.media !== oldSlideChecksums.media
           ) {
             const nextMediaData = {};
 
