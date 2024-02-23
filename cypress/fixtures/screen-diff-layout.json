@@ -20,5 +20,11 @@
     "width": 0,
     "height": 0
   },
-  "screenUser": "01FYHYD35YMBX97EA2V3QJMEMH"
+  "screenUser": "01FYHYD35YMBX97EA2V3QJMEMH",
+  "relationsChecksum": {
+    "layout": "2023-12-21T23:47:00+01:00",
+    "regions": "2023-12-21T23:47:00+01:00",
+    "inScreenGroups": "2023-12-21T23:47:00+01:00",
+    "campaigns": "2023-12-21T23:47:00+01:00"
+  }
 }
