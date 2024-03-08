@@ -4,7 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
-- Limited the number of API calls by comparing relationsChecksum.
+- [#118](https://github.com/os2display/display-client/pull/118)
+  - Added api url to localstorage.
+- [#117](https://github.com/os2display/display-client/pull/117)
+  - Limited the number of API calls by comparing relationsChecksum.
 
 ## [1.3.5] - 2023-09-14
 
