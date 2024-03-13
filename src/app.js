@@ -339,6 +339,9 @@ function App() {
       const tenantKey = localStorage.getItem(localStorageKeys.TENANT_KEY);
       const tenantId = localStorage.getItem(localStorageKeys.TENANT_ID);
 
+      // Make api endpoint available through localstorage.
+      localStorage.setItem(localStorageKeys.API_URL, config.apiEndpoint);
+
       if (token && tenantKey && tenantId) {
         // Get fallback image.
         fetch(`${config.apiEndpoint}/v1/tenants/${tenantId}`, {
