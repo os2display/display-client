@@ -1,11 +1,11 @@
 {
-  "@id": "/v1/screen-groups",
+  "@id": "/v2/screen-groups",
   "@type": "hydra:Collection",
   "hydra:member": [],
   "hydra:totalItems": 0,
   "hydra:search": {
     "@type": "hydra:IriTemplate",
-    "hydra:template": "/v1/screens/01FYEDW1N133SG516JVJ3VG5FY/screen-groups{?order[title],order[description]}",
+    "hydra:template": "/v2/screens/01FYEDW1N133SG516JVJ3VG5FY/screen-groups{?order[title],order[description]}",
     "hydra:variableRepresentation": "BasicRepresentation",
     "hydra:mapping": [
       {

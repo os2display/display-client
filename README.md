@@ -10,8 +10,8 @@ See `public/example_config.json` for values.
 ```json
 {
   "apiEndpoint": "",
-  "authenticationEndpoint": "/v1/authentication/screen",
-  "authenticationRefreshTokenEndpoint": "/v1/authentication/token/refresh",
+  "authenticationEndpoint": "/v2/authentication/screen",
+  "authenticationRefreshTokenEndpoint": "/v2/authentication/token/refresh",
   "dataStrategy": {
     "type": "pull",
     "config": {

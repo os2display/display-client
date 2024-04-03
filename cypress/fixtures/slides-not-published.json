@@ -1,13 +1,13 @@
 {
-  "@id": "/v1/playlist-slides",
+  "@id": "/v2/playlist-slides",
   "@type": "hydra:Collection",
   "hydra:member": [
     {
       "@type": "PlaylistSlide",
-      "@id": "/v1/playlist-slides/01FYEDV7MW9MTY43F2F7EV4SAB",
+      "@id": "/v2/playlist-slides/01FYEDV7MW9MTY43F2F7EV4SAB",
       "slide": {
         "@type": "Slide",
-        "@id": "/v1/slides/01FYEDTBZNJSG76V6XRZ1BQADZ",
+        "@id": "/v2/slides/01FYEDTBZNJSG76V6XRZ1BQADZ",
         "title": "Test slide",
         "description": "",
         "created": "2022-03-18T12:50:15+01:00",
@@ -15,12 +15,12 @@
         "modifiedBy": "johndoe@example.com",
         "createdBy": "johndoe@example.com",
         "templateInfo": {
-          "@id": "/v1/templates/01FP2SNGFN0BZQH03KCBXHKYHG",
+          "@id": "/v2/templates/01FP2SNGFN0BZQH03KCBXHKYHG",
           "options": []
         },
         "theme": "",
         "onPlaylists": [
-          "/v1/playlists/01FYEDV33FTQVHG0K3PK7N2GXH"
+          "/v2/playlists/01FYEDV33FTQVHG0K3PK7N2GXH"
         ],
         "duration": null,
         "published": {
@@ -28,13 +28,13 @@
           "to": "2022-03-11T11:50:00+01:00"
         },
         "media": [
-          "/v1/media/0007JD5AT619540YKH0J1V18C2"
+          "/v2/media/0007JD5AT619540YKH0J1v28C2"
         ],
         "content": {
           "title": "Tekst overskrift",
           "text": "\u003Cp\u003ETekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst\u003C/p\u003E",
           "image": [
-            "/v1/media/0007JD5AT619540YKH0J1V18C2"
+            "/v2/media/0007JD5AT619540YKH0J1v28C2"
           ],
           "boxMargin": true
         },
