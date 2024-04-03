@@ -28,13 +28,13 @@
           "to": "2022-03-11T11:50:00+01:00"
         },
         "media": [
-          "/v2/media/0007JD5AT619540YKH0J1v28C2"
+          "/v2/media/0007JD5AT619540YKH0J1V18C2"
         ],
         "content": {
           "title": "Tekst overskrift",
           "text": "\u003Cp\u003ETekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst\u003C/p\u003E",
           "image": [
-            "/v2/media/0007JD5AT619540YKH0J1v28C2"
+            "/v2/media/0007JD5AT619540YKH0J1V18C2"
           ],
           "boxMargin": true
         },

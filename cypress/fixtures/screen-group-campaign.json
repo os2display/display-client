@@ -22,7 +22,7 @@
           "/v2/screens/00B1T4T1FK1WGQ1XYV0AC01Q57"
         ],
         "campaignScreenGroups": [
-          "/v2/screen-groups/01AGD290Cv22PM1H3N0B2X0TTM"
+          "/v2/screen-groups/01AGD290CV12PM1H3N0B2X0TTM"
         ],
         "isCampaign": false,
         "published": {
@@ -52,7 +52,7 @@
         "slides": "/v2/playlists/01FYHVQEKNQ5RGQNCW497M71M6/slides",
         "campaignScreens": [],
         "campaignScreenGroups": [
-          "/v2/screen-groups/01AGD290Cv22PM1H3N0B2X0TTM"
+          "/v2/screen-groups/01AGD290CV12PM1H3N0B2X0TTM"
         ],
         "isCampaign": true,
         "published": {

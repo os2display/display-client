@@ -237,7 +237,7 @@ describe('Client tests', () => {
     cy.intercept('GET', '**/playlists/00GCCG81TJ12N11H8J0HE502ZE/slides', {
       statusCode: 201,
       fixture: 'slides-empty.json',
-    }).as('slides2');
+    }).as('slides');
 
     cy.intercept('GET', '**/templates/01FP2SNGFN0BZQH03KCBXHKYHG', {
       statusCode: 201,
@@ -253,7 +253,6 @@ describe('Client tests', () => {
       '@screen-campaigns',
       '@campaigns',
       '@slides',
-      '@slides2',
       '@templates',
     ]);
 
