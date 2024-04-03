@@ -1,5 +1,5 @@
 {
-  "@id": "/v1/playlist-screen-regions",
+  "@id": "/v2/playlist-screen-regions",
   "@type": "hydra:Collection",
   "hydra:member": [],
   "hydra:totalItems": 0
