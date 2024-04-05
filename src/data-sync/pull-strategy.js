@@ -96,7 +96,7 @@ class PullStrategy {
    * @returns {Promise<object>} Regions data.
    */
   async getRegions(regions) {
-    const reg = /\/v1\/screens\/.*\/regions\/(?<regionId>.*)\/playlists/;
+    const reg = /\/v2\/screens\/.*\/regions\/(?<regionId>.*)\/playlists/;
 
     return new Promise((resolve, reject) => {
       const promises = [];
@@ -244,7 +244,7 @@ class PullStrategy {
         },
         regions: [
           {
-            '@id': `/v1/layouts/regions/${campaignRegionId}`,
+            '@id': `/v2/layouts/regions/${campaignRegionId}`,
             gridArea: ['a'],
           },
         ],
@@ -253,7 +253,7 @@ class PullStrategy {
       newScreen.regionData = {};
       newScreen.regionData[campaignRegionId] = newScreen.campaignsData;
       newScreen.regions = [
-        `/v1/screens/01FV9K4K0Y0X0K1J88SQ6B64VT/regions/${campaignRegionId}/playlists`,
+        `/v2/screens/01FV9K4K0Y0X0K1J88SQ6B64VT/regions/${campaignRegionId}/playlists`,
       ];
       newScreen.regionData = await this.getSlidesForRegions(
         newScreen.regionData

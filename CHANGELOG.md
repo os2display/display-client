@@ -9,6 +9,8 @@ All notable changes to this project will be documented in this file.
   - Removed React strict mode.
 - [#117](https://github.com/os2display/display-client/pull/117)
   - Limited the number of API calls by comparing relationsChecksum.
+- [#119](https://github.com/os2display/display-client/pull/119)
+  - Changed to v2 routing.
 
 ## [1.3.5] - 2023-09-14
 
