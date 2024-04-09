@@ -7,10 +7,13 @@ All notable changes to this project will be documented in this file.
 - [#118](https://github.com/os2display/display-client/pull/118)
   - Added api url to localstorage.
   - Removed React strict mode.
-- [#117](https://github.com/os2display/display-client/pull/117)
-  - Limited the number of API calls by comparing relationsChecksum.
+
+## [2.0.0] - 2024-04-09
+
 - [#119](https://github.com/os2display/display-client/pull/119)
   - Changed to v2 routing.
+- [#117](https://github.com/os2display/display-client/pull/117)
+  - Limited the number of API calls by comparing relationsChecksum.
 
 ## [1.3.5] - 2023-09-14
 
