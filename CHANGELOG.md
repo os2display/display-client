@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [2.0.0] - 2024-04-09
+
 - [#119](https://github.com/os2display/display-client/pull/119)
   - Changed to v2 routing.
 - Limited the number of API calls by comparing relationsChecksum.
