@@ -1,7 +1,7 @@
 import cloneDeep from 'lodash.clonedeep';
 import isPublished from '../util/isPublished';
 import Logger from '../logger/logger';
-import localStorageKeys from '../local-storage-keys';
+import ApiHelper from './api-helper';
 
 /**
  * PullStrategy.
@@ -9,12 +9,15 @@ import localStorageKeys from '../local-storage-keys';
  * Handles pull strategy.
  */
 class PullStrategy {
-  // The API endpoint.
-  endpoint;
+  lastestScreenData;
+
+  // Helper for all api calls.
+  apiHelper;
 
   // Fetch-interval in ms.
   interval;
 
+  // Path to screen that should be loaded data for.
   entryPoint = '';
 
   /**
@@ -28,117 +31,36 @@ class PullStrategy {
     this.stop = this.stop.bind(this);
     this.getScreen = this.getScreen.bind(this);
 
-    this.interval = config?.interval ?? 5000;
-    this.endpoint = config?.endpoint ?? '';
-    // @TODO: Get this entry point in a more dynamic way.
+    this.interval = config?.interval ?? 60000 * 5;
     this.entryPoint = config.entryPoint;
-  }
 
-  /**
-   * Get result from path.
-   *
-   * @param {string} path Path to the resource.
-   * @returns {Promise<any>} Promise with data.
-   */
-  async getPath(path) {
-    const token = localStorage.getItem(localStorageKeys.API_TOKEN) ?? '';
-    const tenantKey = localStorage.getItem(localStorageKeys.TENANT_KEY) ?? '';
-
-    if (!path) {
-      throw new Error('No path');
-    }
-
-    let response;
-
-    try {
-      Logger.log('info', `Fetching: ${this.endpoint + path}`);
-
-      response = await fetch(this.endpoint + path, {
-        headers: {
-          authorization: `Bearer ${token}`,
-          'Authorization-Tenant-Key': tenantKey,
-        },
-      });
-    } catch (err) {
-      Logger.log('error', `Failed to fetch: ${this.endpoint + path}`);
-
-      return null;
-    }
-
-    if (response.ok === false) {
-      if (response.status === 401) {
-        document.dispatchEvent(new Event('stopDataSync'));
-        document.dispatchEvent(new Event('reauthenticate'));
-      }
-
-      Logger.log(
-        'error',
-        `Failed to fetch (status: ${response.status}): ${this.endpoint + path}`
-      );
-
-      return null;
-    }
-
-    return response.json();
-  }
-
-  /**
-   * Gets all resources from the given path. Follows hydra:view.hydra:next links.
-   *
-   * @param {string} path Path to the resources.
-   * @param {object} keys Keys that should be passed along with the result.
-   * @returns {Promise<*>} Promise with all resources from a path.
-   */
-  async getAllResultsFromPath(path, keys = {}) {
-    let results = [];
-    let nextPath = `${path}`;
-    let continueLoop = false;
-    let page = 1;
-
-    do {
-      try {
-        // eslint-disable-next-line no-await-in-loop
-        const responseData = await this.getPath(nextPath);
-        results = results.concat(responseData['hydra:member']);
-        if (results.length < responseData['hydra:totalItems']) {
-          page += 1;
-          continueLoop = true;
-          nextPath = `${path}?page=${page}`;
-        } else {
-          continueLoop = false;
-        }
-      } catch (err) {
-        return {};
-      }
-    } while (continueLoop);
-
-    return { path, results, keys };
+    this.apiHelper = new ApiHelper(config.endpoint ?? '');
   }
 
   /**
    * Gets all campaigns, both from screen and groups.
    *
    * @param {object} screen The screen object to extract campaigns from.
-   * @returns {Array} array of campaigns (playlists).
+   * @returns {Promise<object>} Array of campaigns (playlists).
    */
   async getCampaignsData(screen) {
     const screenGroupCampaigns = [];
 
     try {
-      const response = await this.getPath(screen.inScreenGroups);
+      const response = await this.apiHelper.getPath(screen.inScreenGroups);
 
       if (Object.prototype.hasOwnProperty.call(response, 'hydra:member')) {
         const promises = [];
 
         response['hydra:member'].forEach((group) => {
-          promises.push(this.getAllResultsFromPath(group.campaigns));
+          promises.push(this.apiHelper.getAllResultsFromPath(group.campaigns));
         });
 
         await Promise.allSettled(promises).then((results) => {
           results.forEach((result) => {
             if (result.status === 'fulfilled') {
-              result.value.results.forEach((campaign) => {
-                screenGroupCampaigns.push(campaign.campaign);
+              result.value.results.forEach(({ campaign }) => {
+                screenGroupCampaigns.push(campaign);
               });
             }
           });
@@ -151,16 +73,20 @@ class PullStrategy {
     let screenCampaigns = [];
 
     try {
-      const screenCampaignsResponse = await this.getPath(screen.campaigns);
+      const screenCampaignsResponse = await this.apiHelper.getPath(
+        screen.campaigns
+      );
 
       screenCampaigns = screenCampaignsResponse['hydra:member'].map(
-        (campaign) => campaign.campaign
+        ({ campaign }) => campaign
       );
     } catch (err) {
       Logger.log('error', err);
     }
 
-    return [...screenCampaigns, ...screenGroupCampaigns];
+    return new Promise((resolve) => {
+      resolve([...screenCampaigns, ...screenGroupCampaigns]);
+    });
   }
 
   /**
@@ -170,14 +96,14 @@ class PullStrategy {
    * @returns {Promise<object>} Regions data.
    */
   async getRegions(regions) {
-    const reg = /\/v1\/screens\/.*\/regions\/(?<regionId>.*)\/playlists/;
+    const reg = /\/v2\/screens\/.*\/regions\/(?<regionId>.*)\/playlists/;
 
     return new Promise((resolve, reject) => {
       const promises = [];
       const regionData = {};
 
       regions.forEach((regionPath) => {
-        promises.push(this.getAllResultsFromPath(regionPath));
+        promises.push(this.apiHelper.getAllResultsFromPath(regionPath));
       });
 
       Promise.allSettled(promises)
@@ -219,7 +145,7 @@ class PullStrategy {
         // eslint-disable-next-line guard-for-in,no-restricted-syntax
         for (const playlistKey in playlists) {
           promises.push(
-            this.getAllResultsFromPath(
+            this.apiHelper.getAllResultsFromPath(
               regionData[regionKey][playlistKey].slides,
               {
                 regionKey,
@@ -260,7 +186,7 @@ class PullStrategy {
 
     // Fetch screen
     try {
-      screen = await this.getPath(screenPath);
+      screen = await this.apiHelper.getPath(screenPath);
     } catch (err) {
       Logger.log(
         'warn',
@@ -270,12 +196,30 @@ class PullStrategy {
       return;
     }
 
+    if (screen === null) {
+      Logger.log('warn', `Screen (${screenPath}) not loaded`);
+      return;
+    }
+
     const newScreen = cloneDeep(screen);
 
     // Campaigns data
     let hasActiveCampaign = false;
 
-    newScreen.campaignsData = await this.getCampaignsData(screen);
+    const newScreenChecksums = newScreen?.relationsChecksum ?? [];
+    const oldScreenChecksums = this.lastestScreenData?.relationsChecksum ?? null;
+
+    if (
+      oldScreenChecksums === null ||
+      oldScreenChecksums?.campaigns !== newScreenChecksums?.campaigns ||
+      oldScreenChecksums?.inScreenGroups !== newScreenChecksums?.inScreenGroups
+    ) {
+      Logger.log('info', `Campaigns or screen groups modified.`);
+      newScreen.campaignsData = await this.getCampaignsData(newScreen);
+    } else {
+      Logger.log('info', `Campaigns or screen groups not modified.`);
+      newScreen.campaignsData = this.lastestScreenData.campaignsData;
+    }
 
     if (newScreen.campaignsData.length > 0) {
       newScreen.campaignsData.forEach(({ published }) => {
@@ -287,6 +231,8 @@ class PullStrategy {
 
     // With active campaigns, we override region/layout values.
     if (hasActiveCampaign) {
+      Logger.log('info', `Has active campaign.`);
+
       // Create ulid to connect the campaign with the regions/playlists.
       const campaignRegionId = '01G112XBWFPY029RYFB8X2H4KD';
 
@@ -298,7 +244,7 @@ class PullStrategy {
         },
         regions: [
           {
-            '@id': `/v1/layouts/regions/${campaignRegionId}`,
+            '@id': `/v2/layouts/regions/${campaignRegionId}`,
             gridArea: ['a'],
           },
         ],
@@ -307,110 +253,151 @@ class PullStrategy {
       newScreen.regionData = {};
       newScreen.regionData[campaignRegionId] = newScreen.campaignsData;
       newScreen.regions = [
-        `/v1/screens/01FV9K4K0Y0X0K1J88SQ6B64VT/regions/${campaignRegionId}/playlists`,
+        `/v2/screens/01FV9K4K0Y0X0K1J88SQ6B64VT/regions/${campaignRegionId}/playlists`,
       ];
       newScreen.regionData = await this.getSlidesForRegions(
         newScreen.regionData
       );
     } else {
       // Get layout: Defines layout and regions.
-      newScreen.layoutData = await this.getPath(screen.layout);
+      if (
+        oldScreenChecksums === null ||
+        oldScreenChecksums?.layout !== newScreenChecksums?.layout
+      ) {
+        Logger.log('info', `Layout changed since last fetch.`);
+        newScreen.layoutData = await this.apiHelper.getPath(newScreen.layout);
+      } else {
+        // Get layout: Defines layout and regions.
+        Logger.log('info', `Layout not changed since last fetch.`);
+        newScreen.layoutData = this.lastestScreenData.layoutData;
+      }
 
       // Fetch regions playlists: Yields playlists of slides for the regions
-      const regions = await this.getRegions(newScreen.regions);
-      newScreen.regionData = await this.getSlidesForRegions(regions);
+      if (
+        oldScreenChecksums === null ||
+        oldScreenChecksums?.regions !== newScreenChecksums?.regions
+      ) {
+        Logger.log('info', `Regions changed since last fetch.`);
+        const regions = await this.getRegions(newScreen.regions);
+        newScreen.regionData = await this.getSlidesForRegions(regions);
+      } else {
+        Logger.log('info', `Regions not changed since last fetch.`);
+        newScreen.regionData = this.lastestScreenData.regionData;
+      }
     }
 
-    // Template cache.
+    // Cached data.
     const fetchedTemplates = {};
     const fetchedMedia = {};
-    const fetchedThemes = {};
 
-    // Iterate all slides:
-    // - attach template data.
-    // - attach media data.
-    // @TODO: Fix eslint-raised issues.
-    // eslint-disable-next-line guard-for-in,no-restricted-syntax
-    for (const regionKey in newScreen.regionData) {
-      // eslint-disable-next-line guard-for-in,no-restricted-syntax
-      for (const playlistKey in newScreen.regionData[regionKey]) {
-        // eslint-disable-next-line guard-for-in,no-restricted-syntax
-        for (const slideKey in newScreen.regionData[regionKey][playlistKey]
-          .slidesData) {
-          const slide =
-            newScreen.regionData[regionKey][playlistKey].slidesData[slideKey];
-          const templatePath = slide.templateInfo['@id'];
+    // Iterate all slides and load required relations.
+    const { regionData } = newScreen;
+    /* eslint-disable no-restricted-syntax,no-await-in-loop */
+    for (const regionKey of Object.keys(regionData)) {
+      const regionDataEntry = regionData[regionKey];
 
-          // Load template into slide.templateData.
-          // eslint-disable-next-line no-prototype-builtins
-          if (fetchedTemplates.hasOwnProperty(templatePath)) {
-            slide.templateData = fetchedTemplates[templatePath];
+      for (const playlistKey of Object.keys(regionDataEntry)) {
+        const dataEntryPlaylist = regionDataEntry[playlistKey];
+        const dataEntrySlidesData = dataEntryPlaylist.slidesData;
+
+        for (const slideKey of Object.keys(dataEntrySlidesData)) {
+          const slide = cloneDeep(dataEntrySlidesData[slideKey]);
+
+          let previousSlide = null;
+
+          // Find slide in previous data for comparing relationsChecksum values.
+          if (
+            this.lastestScreenData?.regionData[regionKey] &&
+            this.lastestScreenData.regionData[regionKey][playlistKey] &&
+            this.lastestScreenData.regionData[regionKey][playlistKey]
+              .slidesData[slideKey]
+          ) {
+            previousSlide = cloneDeep(
+              this.lastestScreenData.regionData[regionKey][playlistKey]
+                .slidesData[slideKey]
+            );
           } else {
-            // eslint-disable-next-line no-await-in-loop
-            const templateData = await this.getPath(templatePath);
-            slide.templateData = templateData;
+            previousSlide = {};
+          }
 
-            if (templateData !== null) {
-              fetchedTemplates[templatePath] = templateData;
+          const newSlideChecksums = slide.relationsChecksum ?? [];
+          const oldSlideChecksums = previousSlide?.relationsChecksum ?? null;
+
+          // Fetch template if it has changed.
+          if (
+            oldSlideChecksums === null ||
+            newSlideChecksums.templateInfo !== oldSlideChecksums.templateInfo
+          ) {
+            const templatePath = slide.templateInfo['@id'];
+
+            // Load template into slide.templateData.
+            if (
+              Object.prototype.hasOwnProperty.call(
+                fetchedTemplates,
+                templatePath
+              )
+            ) {
+              slide.templateData = fetchedTemplates[templatePath];
+            } else {
+              const templateData = await this.apiHelper.getPath(templatePath);
+              slide.templateData = templateData;
+
+              if (templateData !== null) {
+                fetchedTemplates[templatePath] = templateData;
+              }
             }
+          } else {
+            slide.templateData = previousSlide.templateData;
           }
 
           // A slide cannot work without templateData. Mark as invalid.
           if (slide.templateData === null) {
             Logger.log(
               'warn',
-              `Template (${templatePath}) not loaded for slide with id: ${slide['@id']}`
+              `Template (${slide.templateInfo['@id']}) not loaded, slideId: ${slide['@id']}`
             );
             slide.invalid = true;
           }
 
-          if (slide?.theme !== '') {
-            const themePath = slide.theme;
-            // Load theme into slide.themeData.
-            // eslint-disable-next-line no-prototype-builtins
-            if (fetchedThemes.hasOwnProperty(themePath)) {
-              slide.themeData = fetchedThemes[themePath];
-            } else {
-              // eslint-disable-next-line no-await-in-loop
-              const themeData = await this.getPath(themePath);
-              slide.themeData = themeData;
+          // Fetch media if it has changed.
+          if (
+            oldSlideChecksums === null ||
+            newSlideChecksums.media !== oldSlideChecksums.media
+          ) {
+            const nextMediaData = {};
 
-              if (themeData !== null) {
-                fetchedThemes[themePath] = themeData;
+            for (const mediaId of slide.media) {
+              if (Object.prototype.hasOwnProperty.call(fetchedMedia, mediaId)) {
+                nextMediaData[mediaId] = fetchedMedia[mediaId];
+              } else {
+                const mediaData = await this.apiHelper.getPath(mediaId);
+                nextMediaData[mediaId] = mediaData;
+
+                if (mediaData !== null) {
+                  fetchedMedia[mediaId] = mediaData;
+                }
               }
             }
+
+            slide.mediaData = nextMediaData;
+          } else {
+            slide.mediaData = previousSlide.mediaData;
           }
 
-          slide.mediaData = {};
-
-          // Load media for the slide into slide.mediaData object.
-          if (slide.themeData?.logo) {
-            slide.media.push(slide.themeData.logo);
-          }
-
-          // eslint-disable-next-line no-restricted-syntax
-          for (const mediaId of slide.media) {
-            // eslint-disable-next-line no-prototype-builtins
-            if (fetchedMedia.hasOwnProperty(mediaId)) {
-              slide.mediaData[mediaId] = fetchedMedia[mediaId];
-            } else {
-              // eslint-disable-next-line no-await-in-loop
-              const mediaData = await this.getPath(mediaId);
-              slide.mediaData[mediaId] = mediaData;
-
-              if (mediaData !== null) {
-                fetchedMedia[mediaId] = mediaData;
-              }
-            }
-          }
-
+          // Fetch feed.
           if (slide?.feed?.feedUrl !== undefined) {
-            // eslint-disable-next-line no-await-in-loop
-            slide.feedData = await this.getPath(slide.feed.feedUrl);
+            slide.feedData = await this.apiHelper.getPath(slide.feed.feedUrl);
           }
+
+          dataEntrySlidesData[slideKey] = slide;
         }
       }
     }
+    /* eslint-enable no-restricted-syntax,no-await-in-loop */
+
+    Logger.log('info', `Emitting screen data.`);
+
+    this.lastestScreenData = newScreen;
 
     // Deliver result to rendering
     const event = new CustomEvent('content', {

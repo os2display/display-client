@@ -1,6 +1,6 @@
 {
   "@type": "Screen",
-  "@id": "/v1/screens/01FYEDW1N133SG516JVJ3VG5FY",
+  "@id": "/v2/screens/01FYEDW1N133SG516JVJ3VG5FY",
   "title": "Skærm",
   "description": "",
   "size": "0",
@@ -8,17 +8,23 @@
   "modified": "2022-03-19T21:51:59+01:00",
   "modifiedBy": "johndoe@example.com",
   "createdBy": "johndoe@example.com",
-  "campaigns": "/v1/screens/01FYEDW1N133SG516JVJ3VG5FY/campaigns",
-  "layout": "/v1/layouts/01FMYMBPSJQ7SG7BZZ1N8TB7GW",
+  "campaigns": "/v2/screens/01FYEDW1N133SG516JVJ3VG5FY/campaigns",
+  "layout": "/v2/layouts/01FMYMBPSJQ7SG7BZZ1N8TB7GW",
   "location": "",
   "regions": [
-    "/v1/screens/01FYEDW1N133SG516JVJ3VG5FY/regions/01FYHZ62T7DXZ0YBM57NCYSX5E/playlists",
-    "/v1/screens/01FYEDW1N133SG516JVJ3VG5FY/regions/01FYHZ62T8H6QGRXPJC7RYZYNY/playlists"
+    "/v2/screens/01FYEDW1N133SG516JVJ3VG5FY/regions/01FYHZ62T7DXZ0YBM57NCYSX5E/playlists",
+    "/v2/screens/01FYEDW1N133SG516JVJ3VG5FY/regions/01FYHZ62T8H6QGRXPJC7RYZYNY/playlists"
   ],
-  "inScreenGroups": "/v1/screens/01FYEDW1N133SG516JVJ3VG5FY/screen-groups",
+  "inScreenGroups": "/v2/screens/01FYEDW1N133SG516JVJ3VG5FY/screen-groups",
   "dimensions": {
     "width": 0,
     "height": 0
   },
-  "screenUser": "01FYHYD35YMBX97EA2V3QJMEMH"
+  "screenUser": "01FYHYD35YMBX97EA2V3QJMEMH",
+  "relationsChecksum": {
+    "layout": "2023-12-21T23:47:00+01:00",
+    "regions": "2023-12-21T23:47:00+01:00",
+    "inScreenGroups": "2023-12-21T23:47:00+01:00",
+    "campaigns": "2023-12-21T23:47:00+01:00"
+  }
 }

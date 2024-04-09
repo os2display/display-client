@@ -1,6 +1,6 @@
 {
   "@type": "ScreenLayout",
-  "@id": "/v1/layouts/01FMYMAB1EQYQ40QE0C7Y6NVBK",
+  "@id": "/v2/layouts/01FMYMAB1EQYQ40QE0C7Y6NVBK",
   "title": "Fuld skærm",
   "grid": {
     "rows": 1,
@@ -8,12 +8,15 @@
   },
   "regions": [
     {
-      "@id": "/v1/layouts/regions/01FYEDQKCJTVBY9ZGF57R9Q5FT",
+      "@id": "/v2/layouts/regions/01FYEDQKCJTVBY9ZGF57R9Q5FT",
       "@type": "ScreenLayoutRegions",
       "title": "Skærmområde",
       "gridArea": [
         "a"
       ]
     }
-  ]
+  ],
+  "relationsChecksum": {
+    "regions": "2023-12-21T23:47:00+01:00"
+  }
 }

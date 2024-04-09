@@ -1,6 +1,6 @@
 {
   "@type": "ScreenLayout",
-  "@id": "/v1/layouts/01FMYMBPSJQ7SG7BZZ1N8TB7GW",
+  "@id": "/v2/layouts/01FMYMBPSJQ7SG7BZZ1N8TB7GW",
   "title": "2-delt",
   "grid": {
     "rows": 2,
@@ -8,7 +8,7 @@
   },
   "regions": [
     {
-      "@id": "/v1/layouts/regions/01FYHZ62T7DXZ0YBM57NCYSX5E",
+      "@id": "/v2/layouts/regions/01FYHZ62T7DXZ0YBM57NCYSX5E",
       "@type": "ScreenLayoutRegions",
       "title": "Venstre",
       "gridArea": [
@@ -16,12 +16,15 @@
       ]
     },
     {
-      "@id": "/v1/layouts/regions/01FYHZ62T8H6QGRXPJC7RYZYNY",
+      "@id": "/v2/layouts/regions/01FYHZ62T8H6QGRXPJC7RYZYNY",
       "@type": "ScreenLayoutRegions",
       "title": "Højre",
       "gridArea": [
         "b"
       ]
     }
-  ]
+  ],
+  "relationsChecksum": {
+    "regions": "2023-12-21T23:47:00+01:00"
+  }
 }

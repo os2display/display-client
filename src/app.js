@@ -157,7 +157,7 @@ function App() {
     // Start the content service.
     contentServiceRef.current.start();
 
-    const entrypoint = `/v1/screens/${localScreenId}`;
+    const entrypoint = `/v2/screens/${localScreenId}`;
 
     document.dispatchEvent(
       new CustomEvent('startDataSync', {
@@ -341,7 +341,7 @@ function App() {
 
       if (token && tenantKey && tenantId) {
         // Get fallback image.
-        fetch(`${config.apiEndpoint}/v1/tenants/${tenantId}`, {
+        fetch(`${config.apiEndpoint}/v2/tenants/${tenantId}`, {
           headers: {
             authorization: `Bearer ${token}`,
             'Authorization-Tenant-Key': tenantKey,

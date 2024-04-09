@@ -1,5 +1,5 @@
 {
-  "@id": "/v1/screen-campaigns",
+  "@id": "/v2/screen-campaigns",
   "@type": "hydra:Collection",
   "hydra:member": [],
   "hydra:totalItems": 0

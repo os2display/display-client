@@ -1,13 +1,13 @@
 {
-  "@id": "/v1/playlist-slides",
+  "@id": "/v2/playlist-slides",
   "@type": "hydra:Collection",
   "hydra:member": [
     {
       "@type": "PlaylistSlide",
-      "@id": "/v1/playlist-slides/01FYHVQFA2KZQS4PXZ968WDFN8",
+      "@id": "/v2/playlist-slides/01FYHVQFA2KZQS4PXZ968WDFN8",
       "slide": {
         "@type": "Slide",
-        "@id": "/v1/slides/01FYHVH36TA5AG3X8ZV7KXVVAK",
+        "@id": "/v2/slides/01FYHVH36TA5AG3X8ZV7KXVVAK",
         "title": "Slide 2",
         "description": "",
         "created": "2022-03-19T20:47:35+01:00",
@@ -15,12 +15,12 @@
         "modifiedBy": "johndoe@example.com",
         "createdBy": "johndoe@example.com",
         "templateInfo": {
-          "@id": "/v1/templates/01FP2SNGFN0BZQH03KCBXHKYHG",
+          "@id": "/v2/templates/01FP2SNGFN0BZQH03KCBXHKYHG",
           "options": []
         },
         "theme": "",
         "onPlaylists": [
-          "/v1/playlists/01FYHVQEKNQ5RGQNCW497M71M6"
+          "/v2/playlists/01FYHVQEKNQ5RGQNCW497M71M6"
         ],
         "duration": null,
         "published": {
@@ -31,6 +31,12 @@
         "content": {
           "title": "Campaign",
           "text": "\u003Cp\u003ECampaign campaign campaign campaign campaign campaign campaign campaign campaign campaign campaign campaign campaign campaign campaign campaign campaign\u003C/p\u003E"
+        },
+        "relationsChecksum": {
+          "templateInfo": "2023-12-21T23:47:00+01:00",
+          "onPlaylists": "2023-12-21T23:47:00+01:00",
+          "media": null,
+          "theme": null
         },
         "feed": null
       },

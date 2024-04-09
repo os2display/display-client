@@ -1,13 +1,13 @@
 {
-  "@id": "/v1/screen-group-campaigns",
+  "@id": "/v2/screen-group-campaigns",
   "@type": "hydra:Collection",
   "hydra:member": [
     {
       "@type": "ScreenGroupCampaign",
-      "@id": "/v1/screen-groups-campaigns/01C3M9ZKEC0DAG18C1130Y0493",
+      "@id": "/v2/screen-groups-campaigns/01C3M9ZKEC0DAG18C1130Y0493",
       "campaign": {
         "@type": "Playlist",
-        "@id": "/v1/playlists/00GCCG81TJ12N11H8J0HE502ZE",
+        "@id": "/v2/playlists/00GCCG81TJ12N11H8J0HE502ZE",
         "title": "Ut est commodi id sed provident.",
         "description": "Hic odit nisi pariatur quis dolores quaerat. Non reiciendis esse nulla est magnam reprehenderit. Magni nisi autem quaerat ut et quibusdam.",
         "schedules": [],
@@ -15,28 +15,33 @@
         "modified": "2022-03-18T11:48:35+01:00",
         "modifiedBy": "",
         "createdBy": "",
-        "slides": "/v1/playlists/00GCCG81TJ12N11H8J0HE502ZE/slides",
+        "slides": "/v2/playlists/00GCCG81TJ12N11H8J0HE502ZE/slides",
         "campaignScreens": [
-          "/v1/screens/019BGF06QT0R1H19D11D8N0HK1",
-          "/v1/screens/00034V2WGP0HJ00N6E0S281C7W",
-          "/v1/screens/00B1T4T1FK1WGQ1XYV0AC01Q57"
+          "/v2/screens/019BGF06QT0R1H19D11D8N0HK1",
+          "/v2/screens/00034V2WGP0HJ00N6E0S281C7W",
+          "/v2/screens/00B1T4T1FK1WGQ1XYV0AC01Q57"
         ],
         "campaignScreenGroups": [
-          "/v1/screen-groups/01AGD290CV12PM1H3N0B2X0TTM"
+          "/v2/screen-groups/01AGD290CV12PM1H3N0B2X0TTM"
         ],
         "isCampaign": false,
         "published": {
           "from": "2022-01-05T06:29:25+01:00",
           "to": "2022-04-21T13:29:06+02:00"
+        },
+        "relationsChecksum": {
+          "slides": "2023-12-21T23:47:00+01:00",
+          "campaignScreens": "2023-12-21T23:47:00+01:00",
+          "campaignScreenGroups": "2023-12-21T23:47:00+01:00"
         }
       }
     },
     {
       "@type": "ScreenGroupCampaign",
-      "@id": "/v1/screen-groups-campaigns/01FYHWY5K9N5PHCEVSF69XQYFF",
+      "@id": "/v2/screen-groups-campaigns/01FYHWY5K9N5PHCEVSF69XQYFF",
       "campaign": {
         "@type": "Playlist",
-        "@id": "/v1/playlists/01FYHVQEKNQ5RGQNCW497M71M6",
+        "@id": "/v2/playlists/01FYHVQEKNQ5RGQNCW497M71M6",
         "title": "campaign",
         "description": "",
         "schedules": [],
@@ -44,15 +49,20 @@
         "modified": "2022-03-19T21:12:11+01:00",
         "modifiedBy": "johndoe@example.com",
         "createdBy": "johndoe@example.com",
-        "slides": "/v1/playlists/01FYHVQEKNQ5RGQNCW497M71M6/slides",
+        "slides": "/v2/playlists/01FYHVQEKNQ5RGQNCW497M71M6/slides",
         "campaignScreens": [],
         "campaignScreenGroups": [
-          "/v1/screen-groups/01AGD290CV12PM1H3N0B2X0TTM"
+          "/v2/screen-groups/01AGD290CV12PM1H3N0B2X0TTM"
         ],
         "isCampaign": true,
         "published": {
           "from": "2022-03-19T19:50:00+01:00",
           "to": "2036-12-20T19:50:00+01:00"
+        },
+        "relationsChecksum": {
+          "slides": "2023-12-21T23:47:00+01:00",
+          "campaignScreens": "2023-12-21T23:47:00+01:00",
+          "campaignScreenGroups": "2023-12-21T23:47:00+01:00"
         }
       }
     }
