@@ -2,7 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## [2.0.1] - 2024-04-10
+
+- [#120](https://github.com/os2display/display-client/pull/120)
+  - Added cache busting.
 
 - [#118](https://github.com/os2display/display-client/pull/118)
   - Added api url to localstorage.
