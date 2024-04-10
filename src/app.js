@@ -271,7 +271,14 @@ function App() {
       if (releaseTimestampRef?.current === null) {
         releaseTimestampRef.current = config.releaseTimestamp;
       } else if (releaseTimestampRef?.current !== config.releaseTimestamp) {
-        window.location.reload(false);
+        const redirectUrl = new URL(window.location.href);
+        redirectUrl.searchParams.set(
+          'releaseTimestamp',
+          config.releaseTimestamp
+        );
+        redirectUrl.searchParams.set('releaseVersion', config.releaseVersion);
+
+        window.location.replace(redirectUrl);
       }
     });
   };
@@ -290,7 +297,7 @@ function App() {
   const handleKeyboard = ({ repeat, metaKey, ctrlKey, code }) => {
     if (!repeat && (metaKey || ctrlKey) && code === 'KeyI') {
       localStorage.clear();
-      window.location.reload(false);
+      window.location.reload();
     }
   };
 

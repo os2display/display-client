@@ -21,7 +21,7 @@ const ConfigLoader = {
       if (latestFetchTimestamp + configFetchInterval >= nowTimestamp) {
         resolve(configData);
       } else {
-        fetch(`/client/config.json?ts=${nowTimestamp}`)
+        fetch(`/client/config.json`)
           .then((response) => response.json())
           .then((data) => {
             latestFetchTimestamp = nowTimestamp;
