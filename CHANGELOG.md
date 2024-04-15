@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+- [#122](https://github.com/os2display/display-client/pull/122)
+  - Added max-age and expires 1 hour to config.json and release.json.
+
 ## [2.0.1] - 2024-04-10
 
 - [#120](https://github.com/os2display/display-client/pull/120)
