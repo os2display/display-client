@@ -360,7 +360,9 @@ function App() {
   }, []);
 
   useEffect(() => {
-    // Append screenId to current url for easier debugging.
+    // Append screenId to current url for easier debugging. If errors are logged in the API's standard http log this
+    // makes it easy to see what screen client has made the http call by putting the screen id in the referer http 
+    // header.
     if (screen && screen['@id']) {
       const url = new URL(window.location.href);
       url.searchParams.set('screenId', idFromPath(screen['@id']));
