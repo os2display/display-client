@@ -8,6 +8,7 @@ import Logger from './logger/logger';
 import './app.scss';
 import localStorageKeys from './local-storage-keys';
 import fallback from './assets/fallback.png';
+import idFromPath from './id-from-path';
 
 /**
  * App component.
@@ -302,6 +303,24 @@ function App() {
   };
 
   useEffect(() => {
+    const currentUrl = new URL(window.location.href);
+
+    // Make sure have releaseVersion and releaseTimestamp set in url parameters.
+    if (
+      !currentUrl.searchParams.has('releaseVersion') ||
+      !currentUrl.searchParams.has('releaseTimestamp')
+    ) {
+      ReleaseLoader.loadConfig().then((release) => {
+        currentUrl.searchParams.set(
+          'releaseTimestamp',
+          release.releaseTimestamp
+        );
+        currentUrl.searchParams.set('releaseVersion', release.releaseVersion);
+
+        window.history.replaceState(null, '', currentUrl);
+      });
+    }
+
     document.addEventListener('screen', screenHandler);
     document.addEventListener('reauthenticate', reauthenticateHandler);
     document.addEventListener('contentEmpty', contentEmpty);
@@ -341,6 +360,15 @@ function App() {
   }, []);
 
   useEffect(() => {
+    // Append screenId to current url for easier debugging. If errors are logged in the API's standard http log this
+    // makes it easy to see what screen client has made the http call by putting the screen id in the referer http 
+    // header.
+    if (screen && screen['@id']) {
+      const url = new URL(window.location.href);
+      url.searchParams.set('screenId', idFromPath(screen['@id']));
+      window.history.replaceState(null, '', url);
+    }
+
     ConfigLoader.loadConfig().then((config) => {
       const token = localStorage.getItem(localStorageKeys.API_TOKEN);
       const tenantKey = localStorage.getItem(localStorageKeys.TENANT_KEY);

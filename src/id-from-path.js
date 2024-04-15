@@ -1,6 +1,6 @@
 /**
  * @param {object} string - The url to cut id from.
- * @returns {boolean} The id or false.
+ * @returns {string|boolean} The id or false.
  */
 function idFromPath(string) {
   if (typeof string === 'string') {
