@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+- [#121](https://github.com/os2display/display-client/pull/120)
+  - Add releaseVersion, releaseTimestamp and screenId searchParams when starting app.
+
 ## [2.0.1] - 2024-04-10
 
 - [#120](https://github.com/os2display/display-client/pull/120)
