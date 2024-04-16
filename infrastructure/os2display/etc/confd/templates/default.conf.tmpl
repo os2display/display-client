@@ -16,7 +16,7 @@ server {
        return 200 "User-agent: *\nDisallow: /\n";
     }
 
-    location ~* ^/{{ getenv "APP_SCREEN_CLIENT_PATH" "/" }}(config|release)\.json$ {
+    location ~* ^{{ getenv "APP_SCREEN_CLIENT_PATH" "" }}/(config|release)\.json$ {
         add_header Cache-Control "public, max-age=3600";
         expires 1h;
         try_files $uri $uri/ =404;
