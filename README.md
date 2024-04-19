@@ -5,11 +5,11 @@ See [https://github.com/os2display/display-docs/blob/main/client.md](https://git
 
 ## Config
 The client can be configured by creating `public/config.json` with relevant values.
-See `public/example_config.json` for values.
+See `public/example_config.json` for example values.
 
 Values explained:
 
-* apiEndpoint - The endpoint where the API can be called.
+* apiEndpoint - The endpoint where the API is located.
 * loginCheckTimeout - How often (milliseconds) should the screen check for
 status when it is not logged in, and waiting for being activated in the
 administration.
@@ -28,7 +28,7 @@ screen be checked.
 * debug - Should the screen be in debug mode? If true, the cursor will be
 invisible.
 
-All endpoint should be configured with out a trailing slash. The endpoints `apiEndpoint` and `dataStrategy.config.endpoint` can be
+All endpoint should be configured without a trailing slash. The endpoints `apiEndpoint` can be
 left empty if the api is hosted from the root of the same domain as the client. E.g. if the api is at https://example.org and the client is at
 https://example.org/client
 
