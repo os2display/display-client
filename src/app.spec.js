@@ -19,7 +19,7 @@ describe('Client tests', () => {
 
     // After this point we assume the config file is served from the browser
     // cache, since it the nginx setup has a 1h caching set for config.json.
-    cy.wait(['@bindKey', '@config']);
+    cy.wait(['@bindKey']);
 
     cy.get('.bind-key').should('exist');
     cy.get('.bind-key')
@@ -32,6 +32,11 @@ describe('Client tests', () => {
       statusCode: 201,
       fixture: 'screen-response.json',
     }).as('bindKey');
+
+    cy.intercept('GET', '**/config.json', {
+      statusCode: 200,
+      fixture: 'config.json',
+    }).as('config');
 
     cy.intercept('GET', '**/screens/01FYEDW1N133SG516JVJ3VG5FY', {
       statusCode: 200,
@@ -71,6 +76,11 @@ describe('Client tests', () => {
       statusCode: 201,
       fixture: 'screen-response.json',
     }).as('bindKey');
+
+    cy.intercept('GET', '**/config.json', {
+      statusCode: 200,
+      fixture: 'config.json',
+    }).as('config');
 
     cy.intercept('GET', '**/screens/01FYEDW1N133SG516JVJ3VG5FY', {
       statusCode: 200,
@@ -143,6 +153,11 @@ describe('Client tests', () => {
       fixture: 'screen-response.json',
     }).as('bindKey');
 
+    cy.intercept('GET', '**/config.json', {
+      statusCode: 200,
+      fixture: 'config.json',
+    }).as('config');
+
     cy.intercept('GET', '**/screens/01FYEDW1N133SG516JVJ3VG5FY', {
       statusCode: 200,
       fixture: 'screen.json',
@@ -189,6 +204,11 @@ describe('Client tests', () => {
       statusCode: 201,
       fixture: 'screen-response.json',
     }).as('bindKey');
+
+    cy.intercept('GET', '**/config.json', {
+      statusCode: 200,
+      fixture: 'config.json',
+    }).as('config');
 
     cy.intercept('GET', '**/screens/01FYEDW1N133SG516JVJ3VG5FY', {
       statusCode: 201,
@@ -255,6 +275,11 @@ describe('Client tests', () => {
       statusCode: 201,
       fixture: 'screen-response.json',
     }).as('bindKey');
+
+    cy.intercept('GET', '**/config.json', {
+      statusCode: 200,
+      fixture: 'config.json',
+    }).as('config');
 
     cy.intercept('GET', '**/screens/01FYEDW1N133SG516JVJ3VG5FY', {
       statusCode: 201,
@@ -334,6 +359,11 @@ describe('Client tests', () => {
       fixture: 'screen-response.json',
     }).as('bindKey');
 
+    cy.intercept('GET', '**/config.json', {
+      statusCode: 200,
+      fixture: 'config.json',
+    }).as('config');
+
     cy.intercept('GET', '**/screens/01FYEDW1N133SG516JVJ3VG5FY', {
       statusCode: 201,
       fixture: 'screen.json',
@@ -412,6 +442,11 @@ describe('Client tests', () => {
       fixture: 'screen-response.json',
     }).as('bindKey');
 
+    cy.intercept('GET', '**/config.json', {
+      statusCode: 200,
+      fixture: 'config.json',
+    }).as('config');
+
     cy.intercept('GET', '**/screens/01FYEDW1N133SG516JVJ3VG5FY', {
       statusCode: 201,
       fixture: 'screen-diff-layout.json',
@@ -481,6 +516,11 @@ describe('Client tests', () => {
       statusCode: 201,
       fixture: 'screen-response.json',
     }).as('bindKey');
+
+    cy.intercept('GET', '**/config.json', {
+      statusCode: 200,
+      fixture: 'config.json',
+    }).as('config');
 
     cy.intercept('GET', '**/screens/01FYEDW1N133SG516JVJ3VG5FY', {
       statusCode: 201,

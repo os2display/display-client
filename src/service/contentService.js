@@ -44,13 +44,15 @@ class ContentService {
     Logger.log('info', 'Starting data synchronization');
 
     ConfigLoader.loadConfig().then((config) => {
-      const dataStrategy = { ...config.dataStrategy };
+      const dataStrategyConfig = { ...config.dataStrategy.config };
 
       if (screenPath) {
-        dataStrategy.config.entryPoint = screenPath;
+        dataStrategyConfig.entryPoint = screenPath;
       }
 
-      this.dataSync = new DataSync(dataStrategy);
+      dataStrategyConfig.endpoint = config.apiEndpoint;
+
+      this.dataSync = new DataSync(dataStrategyConfig);
       this.dataSync.start();
     });
   }

@@ -7,6 +7,8 @@ server {
         rewrite ^{{ getenv "APP_SCREEN_CLIENT_PATH" "/" }}(.*) /$1 break;
         index index.html;
         autoindex off;
+        add_header Cache-Control "public, max-age=604800";
+        expires 7d;
         try_files $uri $uri/ =404;
     }
 
@@ -14,12 +16,6 @@ server {
        add_header Content-Type text/plain;
        add_header X-Robots-Tag "noindex, nofollow, nosnippet, noarchive";
        return 200 "User-agent: *\nDisallow: /\n";
-    }
-
-    location ~* ^{{ getenv "APP_SCREEN_CLIENT_PATH" "" }}/(config|release)\.json$ {
-        add_header Cache-Control "public, max-age=3600";
-        expires 1h;
-        try_files $uri $uri/ =404;
     }
 
     error_log /var/log/nginx/error.log;
