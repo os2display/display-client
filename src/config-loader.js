@@ -1,5 +1,5 @@
-// Only fetch new config if more than 5 minutes have passed.
-const configFetchInterval = 5 * 60 * 1000;
+// Only fetch new config if more than 15 minutes have passed.
+const configFetchIntervalDefault = 15 * 60 * 1000;
 
 // Defaults.
 let configData = null;
@@ -18,10 +18,14 @@ const ConfigLoader = {
     activePromise = new Promise((resolve) => {
       const nowTimestamp = new Date().getTime();
 
-      if (latestFetchTimestamp + configFetchInterval >= nowTimestamp) {
+      if (
+        latestFetchTimestamp +
+          (configData?.configFetchInterval ?? configFetchIntervalDefault) >=
+        nowTimestamp
+      ) {
         resolve(configData);
       } else {
-        fetch('/client/config.json')
+        fetch(`/client/config.json?ts=${nowTimestamp}`)
           .then((response) => response.json())
           .then((data) => {
             latestFetchTimestamp = nowTimestamp;
@@ -49,6 +53,10 @@ const ConfigLoader = {
                     endpoint: '/api',
                   },
                 },
+                loginCheckTimeout: 20000,
+                configFetchInterval: 900000,
+                refreshTokenTimeout: 900000,
+                releaseTimestampIntervalTimeout: 600000,
                 colorScheme: {
                   type: 'library',
                   lat: 56.0,

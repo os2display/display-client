@@ -2,6 +2,10 @@
   "apiEndpoint": "",
   "authenticationEndpoint": "/v2/authentication/screen",
   "authenticationRefreshTokenEndpoint": "/v2/authentication/token/refresh",
+  "loginCheckTimeout": 20000,
+  "configFetchInterval": 90000,
+  "refreshTokenTimeout": 900000,
+  "releaseTimestampIntervalTimeout": 600000,
   "dataStrategy": {
     "type": "pull",
     "config": {
