@@ -10,9 +10,16 @@ describe('Client tests', () => {
       fixture: 'awaiting-bind-key-response.json',
     }).as('bindKey');
 
+    cy.intercept('GET', '**/config.json', {
+      statusCode: 200,
+      fixture: 'config.json',
+    }).as('config');
+
     cy.visit('/');
 
-    cy.wait('@bindKey');
+    // After this point we assume the config file is served from the browser
+    // cache, since it the nginx setup has a 1h caching set for config.json.
+    cy.wait(['@bindKey']);
 
     cy.get('.bind-key').should('exist');
     cy.get('.bind-key')
@@ -55,7 +62,6 @@ describe('Client tests', () => {
 
     cy.wait([
       '@bindKey',
-      '@config',
       '@screen',
       '@groups',
       '@campaigns',
@@ -124,7 +130,7 @@ describe('Client tests', () => {
 
     cy.wait([
       '@bindKey',
-      '@config',
+      // '@config',
       '@screen',
       '@groups',
       '@campaigns',
@@ -180,7 +186,6 @@ describe('Client tests', () => {
     cy.visit('/');
     cy.wait([
       '@bindKey',
-      '@config',
       '@screen',
       '@groups',
       '@campaigns',
@@ -201,7 +206,7 @@ describe('Client tests', () => {
     }).as('bindKey');
 
     cy.intercept('GET', '**/config.json', {
-      statusCode: 201,
+      statusCode: 200,
       fixture: 'config.json',
     }).as('config');
 
@@ -247,7 +252,6 @@ describe('Client tests', () => {
     cy.visit('/');
     cy.wait([
       '@bindKey',
-      '@config',
       '@screen',
       '@screen-groups',
       '@screen-campaigns',
@@ -273,7 +277,7 @@ describe('Client tests', () => {
     }).as('bindKey');
 
     cy.intercept('GET', '**/config.json', {
-      statusCode: 201,
+      statusCode: 200,
       fixture: 'config.json',
     }).as('config');
 
@@ -333,7 +337,6 @@ describe('Client tests', () => {
     cy.visit('/');
     cy.wait([
       '@bindKey',
-      '@config',
       '@screen',
       '@groups',
       '@campaigns',
@@ -357,7 +360,7 @@ describe('Client tests', () => {
     }).as('bindKey');
 
     cy.intercept('GET', '**/config.json', {
-      statusCode: 201,
+      statusCode: 200,
       fixture: 'config.json',
     }).as('config');
 
@@ -417,7 +420,6 @@ describe('Client tests', () => {
     cy.visit('/');
     cy.wait([
       '@bindKey',
-      '@config',
       '@screen',
       '@groups',
       '@campaigns',
@@ -441,7 +443,7 @@ describe('Client tests', () => {
     }).as('bindKey');
 
     cy.intercept('GET', '**/config.json', {
-      statusCode: 201,
+      statusCode: 200,
       fixture: 'config.json',
     }).as('config');
 
@@ -493,7 +495,11 @@ describe('Client tests', () => {
     }).as('layout');
 
     cy.visit('/');
-    cy.wait(['@bindKey', '@config', '@screen', '@layout']);
+    cy.wait([
+      '@bindKey',
+      '@screen',
+      '@layout',
+    ]);
 
     cy.get('.region')
       .eq(0)
@@ -512,7 +518,7 @@ describe('Client tests', () => {
     }).as('bindKey');
 
     cy.intercept('GET', '**/config.json', {
-      statusCode: 201,
+      statusCode: 200,
       fixture: 'config.json',
     }).as('config');
 
@@ -577,7 +583,6 @@ describe('Client tests', () => {
     cy.visit('/');
     cy.wait([
       '@bindKey',
-      '@config',
       '@screen',
       '@groups',
       '@campaigns',
