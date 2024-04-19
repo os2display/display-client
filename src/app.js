@@ -97,7 +97,7 @@ function App() {
       Logger.log('info', 'Refreshing token.');
 
       ConfigLoader.loadConfig().then((config) => {
-        fetch(config.authenticationRefreshTokenEndpoint, {
+        fetch(`${config.apiEndpoint}/v2/authentication/token/refresh`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -187,7 +187,7 @@ function App() {
       startContent(localScreenId);
     } else {
       ConfigLoader.loadConfig().then((config) => {
-        fetch(config.authenticationEndpoint, {
+        fetch(`${config.apiEndpoint}/v2/authentication/screen`, {
           method: 'POST',
           mode: 'cors',
           credentials: 'include',

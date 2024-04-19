@@ -1,16 +1,13 @@
 {
   "apiEndpoint": "{{ getenv "APP_API_ENDPOINT" "" }}",
-  "authenticationEndpoint": "{{ getenv "APP_API_AUTHENTICATION_ENDPOINT" "/v2/authentication/token" }}",
-  "authenticationRefreshTokenEndpoint": "{{ getenv "APP_API_AUTHENTICATION_REFRESH_ENDPOINT" "/v2/authentication/token/refresh" }}",
   "loginCheckTimeout": {{ getenv "APP_LOGIN_CHECK_TIMEOUT" "20000" }},
-  "configFetchInterval": {{ getenv "APP_CONFIG_FETCH_INTERVAL" "900000" }},
-  "refreshTokenTimeout": {{ getenv "APP_REFRESH_TOKEN_TIMEOUT" "900000" }},
+  "configFetchInterval": {{ getenv "APP_CONFIG_FETCH_INTERVAL" "600000" }},
+  "refreshTokenTimeout": {{ getenv "APP_REFRESH_TOKEN_TIMEOUT" "60000" }},
   "releaseTimestampIntervalTimeout": {{ getenv "APP_RELEASE_TIMESTAMP_INTERVAL_TIMEOUT" "600000" }},
   "dataStrategy": {
     "type": "pull",
     "config": {
-      "interval": {{ getenv "APP_DATA_PULL_INTERVAL" "30000" }},
-      "endpoint": "{{ getenv "APP_API_PATH" "" }}"
+      "interval": {{ getenv "APP_DATA_PULL_INTERVAL" "30000" }}
     }
   },
   "colorScheme": {

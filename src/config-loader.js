@@ -43,19 +43,16 @@ const ConfigLoader = {
 
               // Default config.
               resolve({
-                authenticationEndpoint: '/api/authentication/screen',
-                authenticationRefreshTokenEndpoint:
-                  '/api/authentication/token/refresh',
+                apiEndpoint: '/api',
                 dataStrategy: {
                   type: 'pull',
                   config: {
                     interval: 30000,
-                    endpoint: '/api',
                   },
                 },
                 loginCheckTimeout: 20000,
                 configFetchInterval: 900000,
-                refreshTokenTimeout: 900000,
+                refreshTokenTimeout: 15000,
                 releaseTimestampIntervalTimeout: 600000,
                 colorScheme: {
                   type: 'library',

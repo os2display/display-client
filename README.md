@@ -10,10 +10,6 @@ See `public/example_config.json` for values.
 Values explained:
 
 * apiEndpoint - The endpoint where the API can be called.
-* authenticationEndpoint - The endpoint where the screen should
-authenticate.
-* authenticationRefreshTokenEndpoint - The endpoint where the token can
-be refreshed.
 * loginCheckTimeout - How often (milliseconds) should the screen check for
 status when it is not logged in, and waiting for being activated in the
 administration.
@@ -25,7 +21,6 @@ whether the token needs to be refreshed?
 code check if a new release has been deployed, and reload if true?
 * dataStrategy.config.interval - How often (milliseconds) should data be fetched
 for the logged in screen?
-* dataStrategy.config.endpoint - The endpoint where the data should be fetched.
 * colorScheme.lat - Where is the screen located? Used for darkmode.
 * colorScheme.lng - Where is the screen located? Used for darkmode.
 * schedulingInterval - How often (milliseconds) should scheduling for the

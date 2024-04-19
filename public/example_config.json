@@ -1,7 +1,5 @@
 {
   "apiEndpoint": "",
-  "authenticationEndpoint": "/v2/authentication/screen",
-  "authenticationRefreshTokenEndpoint": "/v2/authentication/token/refresh",
   "loginCheckTimeout": 20000,
   "configFetchInterval": 90000,
   "refreshTokenTimeout": 900000,
@@ -9,8 +7,7 @@
   "dataStrategy": {
     "type": "pull",
     "config": {
-      "interval": 30000,
-      "endpoint": ""
+      "interval": 30000
     }
   },
   "colorScheme": {

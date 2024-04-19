@@ -7,10 +7,6 @@ This folder contains the infrastructure files for building the `os2display/displ
 ### config.json
 
 * APP_API_ENDPOINT - The endpoint where the API can be called.
-* APP_API_AUTHENTICATION_ENDPOINT - The endpoint where the screen should
-authenticate.
-* APP_API_AUTHENTICATION_REFRESH_ENDPOINT - The endpoint where the token can
-be refreshed.
 * APP_LOGIN_CHECK_TIMEOUT - How often (milliseconds) should the screen check for
 status when it is not logged in, and waiting for being activated in the
 administration.
@@ -22,7 +18,6 @@ whether the token needs to be refreshed?
 code check if a new release has been deployed, and reload if true?
 * APP_DATA_PULL_INTERVAL - How often (milliseconds) should data be fetched for
 the logged in screen?
-* APP_API_PATH - The endpoint where the data should be fetched.
 * APP_CLIENT_LATITUDE - Where is the screen located? Used for darkmode.
 * APP_CLIENT_LONGITUDE - Where is the screen located? Used for darkmode.
 * APP_SCHEDULING_INTERVAL - How often (milliseconds) should scheduling for the
