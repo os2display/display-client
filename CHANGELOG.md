@@ -3,6 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 - [#123](https://github.com/os2display/display-client/pull/123)
+  - Ensured real ip is logged in nginx.
+- [#124](https://github.com/os2display/display-client/pull/124)
   - Changed to apply max-age 7d to all files and added cache busting to config.json and release.json.
   - Added "loginCheckTimeout", "configFetchInterval", "refreshTokenTimeout", "releaseTimestampIntervalTimeout" to config.json.
   - Simplified config.json.
