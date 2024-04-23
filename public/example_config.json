@@ -1,12 +1,13 @@
 {
-  "apiEndpoint": "",
-  "authenticationEndpoint": "/v2/authentication/screen",
-  "authenticationRefreshTokenEndpoint": "/v2/authentication/token/refresh",
+  "apiEndpoint": "https://os2display.example.org",
+  "loginCheckTimeout": 20000,
+  "configFetchInterval": 90000,
+  "refreshTokenTimeout": 900000,
+  "releaseTimestampIntervalTimeout": 600000,
   "dataStrategy": {
     "type": "pull",
     "config": {
-      "interval": 30000,
-      "endpoint": ""
+      "interval": 30000
     }
   },
   "colorScheme": {
@@ -15,5 +16,11 @@
     "lng": 10.0
   },
   "schedulingInterval": 60000,
-  "debug": false
+  "debug": false,
+  "logging": [
+    {
+      "transport": "console",
+      "level": "info"
+    }
+  ]
 }
