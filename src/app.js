@@ -8,6 +8,7 @@ import Logger from './logger/logger';
 import './app.scss';
 import localStorageKeys from './local-storage-keys';
 import fallback from './assets/fallback.png';
+import idFromPath from './id-from-path';
 
 /**
  * App component.
@@ -20,9 +21,9 @@ function App() {
     localStorageKeys.FALLBACK_IMAGE
   );
 
-  const loginCheckTimeout = 15 * 1000;
-  const refreshTimeout = 60 * 1000;
-  const releaseTimestampIntervalTimeout = 1000 * 60 * 5;
+  const loginCheckTimeoutDefault = 20 * 1000;
+  const refreshTokenTimeoutDefault = 60 * 1000 * 15;
+  const releaseTimestampIntervalTimeoutDefault = 1000 * 60 * 10;
 
   const [running, setRunning] = useState(false);
   const [screen, setScreen] = useState('');
@@ -96,7 +97,7 @@ function App() {
       Logger.log('info', 'Refreshing token.');
 
       ConfigLoader.loadConfig().then((config) => {
-        fetch(config.authenticationRefreshTokenEndpoint, {
+        fetch(`${config.apiEndpoint}/v2/authentication/token/refresh`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -167,8 +168,13 @@ function App() {
       })
     );
 
-    // Start refresh token interval.
-    refreshTokenIntervalRef.current = setInterval(checkToken, refreshTimeout);
+    ConfigLoader.loadConfig().then((config) => {
+      // Start refresh token interval.
+      refreshTokenIntervalRef.current = setInterval(
+        checkToken,
+        config.refreshTokenTimeout ?? refreshTokenTimeoutDefault
+      );
+    });
   };
 
   const checkLogin = () => {
@@ -181,7 +187,7 @@ function App() {
       startContent(localScreenId);
     } else {
       ConfigLoader.loadConfig().then((config) => {
-        fetch(config.authenticationEndpoint, {
+        fetch(`${config.apiEndpoint}/v2/authentication/screen`, {
           method: 'POST',
           mode: 'cors',
           credentials: 'include',
@@ -224,7 +230,10 @@ function App() {
                 clearTimeout(timeoutRef.current);
               }
 
-              timeoutRef.current = setTimeout(checkLogin, loginCheckTimeout);
+              timeoutRef.current = setTimeout(
+                checkLogin,
+                config.loginCheckTimeout ?? loginCheckTimeoutDefault
+              );
             }
           })
           .catch(() => {
@@ -232,7 +241,10 @@ function App() {
               clearTimeout(timeoutRef.current);
             }
 
-            timeoutRef.current = setTimeout(checkLogin, loginCheckTimeout);
+            timeoutRef.current = setTimeout(
+              checkLogin,
+              config.loginCheckTimeout ?? loginCheckTimeoutDefault
+            );
           });
       });
     }
@@ -302,6 +314,24 @@ function App() {
   };
 
   useEffect(() => {
+    const currentUrl = new URL(window.location.href);
+
+    // Make sure have releaseVersion and releaseTimestamp set in url parameters.
+    if (
+      !currentUrl.searchParams.has('releaseVersion') ||
+      !currentUrl.searchParams.has('releaseTimestamp')
+    ) {
+      ReleaseLoader.loadConfig().then((release) => {
+        currentUrl.searchParams.set(
+          'releaseTimestamp',
+          release.releaseTimestamp
+        );
+        currentUrl.searchParams.set('releaseVersion', release.releaseVersion);
+
+        window.history.replaceState(null, '', currentUrl);
+      });
+    }
+
     document.addEventListener('screen', screenHandler);
     document.addEventListener('reauthenticate', reauthenticateHandler);
     document.addEventListener('contentEmpty', contentEmpty);
@@ -312,10 +342,13 @@ function App() {
 
     checkForUpdates();
 
-    releaseTimestampIntervalRef.current = setInterval(
-      checkForUpdates,
-      releaseTimestampIntervalTimeout
-    );
+    ConfigLoader.loadConfig().then((config) => {
+      releaseTimestampIntervalRef.current = setInterval(
+        checkForUpdates,
+        config.releaseTimestampIntervalTimeout ??
+          releaseTimestampIntervalTimeoutDefault
+      );
+    });
 
     return function cleanup() {
       Logger.log('info', 'Unmounting App.');
@@ -341,6 +374,15 @@ function App() {
   }, []);
 
   useEffect(() => {
+    // Append screenId to current url for easier debugging. If errors are logged in the API's standard http log this
+    // makes it easy to see what screen client has made the http call by putting the screen id in the referer http
+    // header.
+    if (screen && screen['@id']) {
+      const url = new URL(window.location.href);
+      url.searchParams.set('screenId', idFromPath(screen['@id']));
+      window.history.replaceState(null, '', url);
+    }
+
     ConfigLoader.loadConfig().then((config) => {
       const token = localStorage.getItem(localStorageKeys.API_TOKEN);
       const tenantKey = localStorage.getItem(localStorageKeys.TENANT_KEY);

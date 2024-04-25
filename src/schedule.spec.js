@@ -76,7 +76,6 @@ describe('Schedule tests', () => {
     cy.visit('/');
     cy.wait([
       '@bindKey',
-      '@config',
       '@screen',
       '@groups',
       '@campaigns',
@@ -161,7 +160,6 @@ describe('Schedule tests', () => {
     cy.visit('/');
     cy.wait([
       '@bindKey',
-      '@config',
       '@screen',
       '@groups',
       '@campaigns',
@@ -246,7 +244,6 @@ describe('Schedule tests', () => {
     cy.visit('/');
     cy.wait([
       '@bindKey',
-      '@config',
       '@screen',
       '@groups',
       '@campaigns',
@@ -331,7 +328,6 @@ describe('Schedule tests', () => {
     cy.visit('/');
     cy.wait([
       '@bindKey',
-      '@config',
       '@screen',
       '@groups',
       '@campaigns',

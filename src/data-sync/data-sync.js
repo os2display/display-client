@@ -15,7 +15,7 @@ class DataSync {
   constructor(config) {
     this.start = this.start.bind(this);
 
-    this.config = config.config;
+    this.config = config;
     this.strategy = null;
 
     switch (config.type) {
