@@ -1,5 +1,6 @@
 import jwtDecode from 'jwt-decode';
 import React, { useEffect, useRef, useState } from 'react';
+import PropTypes from 'prop-types';
 import Screen from './screen';
 import ContentService from './service/contentService';
 import ConfigLoader from './config-loader';
@@ -13,10 +14,12 @@ import idFromPath from './id-from-path';
 /**
  * App component.
  *
- * @returns {object}
- *   The component.
+ * @param {object} props The props.
+ * @param {string} props.preview Enable preview mode.
+ * @param {string} props.previewId Id of the item to preview.
+ * @returns {JSX.Element} The component.
  */
-function App() {
+function App({ preview, previewId }) {
   const fallbackImageUrl = localStorage.getItem(
     localStorageKeys.FALLBACK_IMAGE
   );
@@ -305,7 +308,7 @@ function App() {
     setDisplayFallback(false);
   };
 
-  // ctrl/cmd i will log screen out and refresh
+  // ctrl/cmd+i will log screen out and refresh
   const handleKeyboard = ({ repeat, metaKey, ctrlKey, code }) => {
     if (!repeat && (metaKey || ctrlKey) && code === 'KeyI') {
       localStorage.clear();
@@ -314,41 +317,49 @@ function App() {
   };
 
   useEffect(() => {
-    const currentUrl = new URL(window.location.href);
+    if (preview !== null) {
+      document.addEventListener('screen', screenHandler);
+      document.addEventListener('contentEmpty', contentEmpty);
+      document.addEventListener('contentNotEmpty', contentNotEmpty);
 
-    // Make sure have releaseVersion and releaseTimestamp set in url parameters.
-    if (
-      !currentUrl.searchParams.has('releaseVersion') ||
-      !currentUrl.searchParams.has('releaseTimestamp')
-    ) {
-      ReleaseLoader.loadConfig().then((release) => {
-        currentUrl.searchParams.set(
-          'releaseTimestamp',
-          release.releaseTimestamp
+      startContent(previewId);
+    } else {
+      const currentUrl = new URL(window.location.href);
+
+      // Make sure have releaseVersion and releaseTimestamp set in url parameters.
+      if (
+        !currentUrl.searchParams.has('releaseVersion') ||
+        !currentUrl.searchParams.has('releaseTimestamp')
+      ) {
+        ReleaseLoader.loadConfig().then((release) => {
+          currentUrl.searchParams.set(
+            'releaseTimestamp',
+            release.releaseTimestamp
+          );
+          currentUrl.searchParams.set('releaseVersion', release.releaseVersion);
+
+          window.history.replaceState(null, '', currentUrl);
+        });
+      }
+
+      document.addEventListener('screen', screenHandler);
+      document.addEventListener('reauthenticate', reauthenticateHandler);
+      document.addEventListener('contentEmpty', contentEmpty);
+      document.addEventListener('contentNotEmpty', contentNotEmpty);
+      document.addEventListener('keypress', handleKeyboard);
+
+      checkLogin();
+
+      checkForUpdates();
+
+      ConfigLoader.loadConfig().then((config) => {
+        releaseTimestampIntervalRef.current = setInterval(
+          checkForUpdates,
+          config.releaseTimestampIntervalTimeout ??
+            releaseTimestampIntervalTimeoutDefault
         );
-        currentUrl.searchParams.set('releaseVersion', release.releaseVersion);
-
-        window.history.replaceState(null, '', currentUrl);
       });
     }
-
-    document.addEventListener('screen', screenHandler);
-    document.addEventListener('reauthenticate', reauthenticateHandler);
-    document.addEventListener('contentEmpty', contentEmpty);
-    document.addEventListener('contentNotEmpty', contentNotEmpty);
-    document.addEventListener('keypress', handleKeyboard);
-
-    checkLogin();
-
-    checkForUpdates();
-
-    ConfigLoader.loadConfig().then((config) => {
-      releaseTimestampIntervalRef.current = setInterval(
-        checkForUpdates,
-        config.releaseTimestampIntervalTimeout ??
-          releaseTimestampIntervalTimeoutDefault
-      );
-    });
 
     return function cleanup() {
       Logger.log('info', 'Unmounting App.');
@@ -374,41 +385,45 @@ function App() {
   }, []);
 
   useEffect(() => {
-    // Append screenId to current url for easier debugging. If errors are logged in the API's standard http log this
-    // makes it easy to see what screen client has made the http call by putting the screen id in the referer http
-    // header.
-    if (screen && screen['@id']) {
-      const url = new URL(window.location.href);
-      url.searchParams.set('screenId', idFromPath(screen['@id']));
-      window.history.replaceState(null, '', url);
-    }
-
-    ConfigLoader.loadConfig().then((config) => {
-      const token = localStorage.getItem(localStorageKeys.API_TOKEN);
-      const tenantKey = localStorage.getItem(localStorageKeys.TENANT_KEY);
-      const tenantId = localStorage.getItem(localStorageKeys.TENANT_ID);
-
-      if (token && tenantKey && tenantId) {
-        // Get fallback image.
-        fetch(`${config.apiEndpoint}/v2/tenants/${tenantId}`, {
-          headers: {
-            authorization: `Bearer ${token}`,
-            'Authorization-Tenant-Key': tenantKey,
-          },
-        })
-          .then((response) => response.json())
-          .then((tenantData) => {
-            if (tenantData.fallbackImageUrl) {
-              localStorage.setItem(
-                localStorageKeys.FALLBACK_IMAGE,
-                tenantData.fallbackImageUrl
-              );
-            }
-          });
+    if (preview === null) {
+      // Append screenId to current url for easier debugging. If errors are logged in the API's standard http log this
+      // makes it easy to see what screen client has made the http call by putting the screen id in the referer http
+      // header.
+      if (screen && screen['@id']) {
+        const url = new URL(window.location.href);
+        url.searchParams.set('screenId', idFromPath(screen['@id']));
+        window.history.replaceState(null, '', url);
       }
 
-      setDebug(config?.debug ?? false);
-    });
+      ConfigLoader.loadConfig().then((config) => {
+        const token = localStorage.getItem(localStorageKeys.API_TOKEN);
+        const tenantKey = localStorage.getItem(localStorageKeys.TENANT_KEY);
+        const tenantId = localStorage.getItem(localStorageKeys.TENANT_ID);
+
+        if (token && tenantKey && tenantId) {
+          // Get fallback image.
+          fetch(`${config.apiEndpoint}/v2/tenants/${tenantId}`, {
+            headers: {
+              authorization: `Bearer ${token}`,
+              'Authorization-Tenant-Key': tenantKey,
+            },
+          })
+            .then((response) => response.json())
+            .then((tenantData) => {
+              if (tenantData.fallbackImageUrl) {
+                localStorage.setItem(
+                  localStorageKeys.FALLBACK_IMAGE,
+                  tenantData.fallbackImageUrl
+                );
+              }
+            });
+        }
+
+        setDebug(config?.debug ?? false);
+      });
+    } else {
+      setDebug(false);
+    }
   }, [screen]);
 
   return (
@@ -429,5 +444,15 @@ function App() {
     </div>
   );
 }
+
+App.defaultProps = {
+  preview: null,
+  previewId: null,
+};
+
+App.propTypes = {
+  preview: PropTypes.string,
+  previewId: PropTypes.string,
+};
 
 export default App;

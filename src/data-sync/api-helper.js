@@ -27,6 +27,10 @@ class ApiHelper {
     let response;
 
     try {
+      const url = new URL(window.location.href);
+      const previewToken = url.searchParams.get('preview-token');
+      const previewTenant = url.searchParams.get('preview-tenant');
+
       Logger.log('info', `Fetching: ${this.endpoint + path}`);
 
       const token = localStorage.getItem(localStorageKeys.API_TOKEN) ?? '';
@@ -34,8 +38,8 @@ class ApiHelper {
 
       response = await fetch(this.endpoint + path, {
         headers: {
-          authorization: `Bearer ${token}`,
-          'Authorization-Tenant-Key': tenantKey,
+          authorization: `Bearer ${previewToken ?? token}`,
+          'Authorization-Tenant-Key': previewTenant ?? tenantKey,
         },
       });
 

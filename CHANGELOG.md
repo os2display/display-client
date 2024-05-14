@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file.
 
+- Added support for previews.
+
 ## [2.0.2] - 2024-04-25
 
 - [#123](https://github.com/os2display/display-client/pull/123)
