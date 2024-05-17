@@ -279,18 +279,31 @@ function App() {
   const checkForUpdates = () => {
     Logger.log('info', 'Checking for new release timestamp.');
 
-    ReleaseLoader.loadConfig().then((config) => {
+    ReleaseLoader.loadConfig().then((release) => {
       if (releaseTimestampRef?.current === null) {
-        releaseTimestampRef.current = config.releaseTimestamp;
-      } else if (releaseTimestampRef?.current !== config.releaseTimestamp) {
-        const redirectUrl = new URL(window.location.href);
-        redirectUrl.searchParams.set(
-          'releaseTimestamp',
-          config.releaseTimestamp
-        );
-        redirectUrl.searchParams.set('releaseVersion', config.releaseVersion);
+        releaseTimestampRef.current = release.releaseTimestamp;
+      } else if (releaseTimestampRef?.current !== release.releaseTimestamp) {
+        if (
+          release.releaseTimestamp !== null &&
+          release.releaseVersion !== null
+        ) {
+          const redirectUrl = new URL(window.location.href);
+          redirectUrl.searchParams.set(
+            'releaseTimestamp',
+            release.releaseTimestamp
+          );
+          redirectUrl.searchParams.set(
+            'releaseVersion',
+            release.releaseVersion
+          );
 
-        window.location.replace(redirectUrl);
+          window.location.replace(redirectUrl);
+        } else {
+          Logger.log(
+            'info',
+            'Release timestamp or version null, not redirecting.'
+          );
+        }
       }
     });
   };
@@ -322,13 +335,23 @@ function App() {
       !currentUrl.searchParams.has('releaseTimestamp')
     ) {
       ReleaseLoader.loadConfig().then((release) => {
-        currentUrl.searchParams.set(
-          'releaseTimestamp',
-          release.releaseTimestamp
-        );
-        currentUrl.searchParams.set('releaseVersion', release.releaseVersion);
+        if (
+          release.releaseTimestamp !== null &&
+          release.releaseVersion !== null
+        ) {
+          currentUrl.searchParams.set(
+            'releaseTimestamp',
+            release.releaseTimestamp
+          );
+          currentUrl.searchParams.set('releaseVersion', release.releaseVersion);
 
-        window.history.replaceState(null, '', currentUrl);
+          window.history.replaceState(null, '', currentUrl);
+        } else {
+          Logger.log(
+            'info',
+            'Release timestamp or version null, not setting query parameters.'
+          );
+        }
       });
     }
 
