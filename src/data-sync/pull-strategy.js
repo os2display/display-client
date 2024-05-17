@@ -2,6 +2,7 @@ import cloneDeep from 'lodash.clonedeep';
 import isPublished from '../util/isPublished';
 import Logger from '../logger/logger';
 import ApiHelper from './api-helper';
+import apiHelper from "./api-helper";
 
 /**
  * PullStrategy.
@@ -406,6 +407,35 @@ class PullStrategy {
       },
     });
     document.dispatchEvent(event);
+  }
+
+  getPath(id) {
+    return this.apiHelper.getPath(id);
+  }
+
+  async addTemplateData(slide) {
+    return new Promise((resolve, reject) => {
+      const newSlide = cloneDeep(slide);
+      const templatePath = newSlide.templateInfo['@id'];
+
+      this.apiHelper.getPath(templatePath).then((templateData) => {
+        resolve(templateData);
+      });
+    });
+  }
+
+  async addFeedData(slide) {
+    return new Promise((resolve, reject) => {
+      const newSlide = cloneDeep(slide);
+
+      if (!newSlide?.feed?.feedUrl) {
+        resolve([]);
+      } else {
+        this.apiHelper.getPath(newSlide.feed.feedUrl).then((feedData) => {
+          resolve(feedData);
+        });
+      }
+    });
   }
 
   /**

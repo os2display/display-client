@@ -61,6 +61,8 @@ function App({ preview, previewId }) {
   function screenHandler(event) {
     const screenData = event.detail?.screen;
 
+    console.log('screenData', screenData);
+
     if (screenData !== null) {
       setScreen(screenData);
     }
@@ -322,7 +324,23 @@ function App({ preview, previewId }) {
       document.addEventListener('contentEmpty', contentEmpty);
       document.addEventListener('contentNotEmpty', contentNotEmpty);
 
-      startContent(previewId);
+      if (preview === 'screen') {
+        startContent(previewId);
+        return;
+      }
+
+      setRunning(true);
+      contentServiceRef.current = new ContentService();
+      contentServiceRef.current.start();
+
+      document.dispatchEvent(
+        new CustomEvent('startPreview', {
+          detail: {
+            mode: preview,
+            id: previewId,
+          },
+        })
+      );
     } else {
       const currentUrl = new URL(window.location.href);
 

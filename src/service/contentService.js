@@ -4,6 +4,7 @@ import Logger from '../logger/logger';
 import DataSync from '../data-sync/data-sync';
 import ScheduleService from './scheduleService';
 import ConfigLoader from '../config-loader';
+import PullStrategy from '../data-sync/pull-strategy';
 
 /**
  * ContentService.
@@ -176,6 +177,7 @@ class ContentService {
     document.addEventListener('content', this.contentHandler);
     document.addEventListener('regionReady', this.regionReadyHandler);
     document.addEventListener('regionRemoved', this.regionRemovedHandler);
+    document.addEventListener('startPreview', this.startPreview);
   }
 
   /**
@@ -189,6 +191,96 @@ class ContentService {
     document.removeEventListener('content', this.contentHandler);
     document.removeEventListener('regionReady', this.regionReadyHandler);
     document.removeEventListener('regionRemoved', this.regionRemovedHandler);
+    document.removeEventListener('startPreview', this.startPreview);
+  }
+
+  /**
+   * Start preview.
+   *
+   * @param event
+   */
+  async startPreview(event) {
+    const data = event.detail;
+    const { mode, id } = data;
+    Logger.log('info', `Starting preview. Mode: ${mode}, ID: ${id}`);
+
+    const config = await ConfigLoader.loadConfig();
+
+
+    if (mode === 'screen') {
+      this.startSyncing(`/v2/screen/${id}`);
+    } else if (mode === 'playlist') {
+      const pullStrategy = new PullStrategy({
+        endpoint: config.apiEndpoint,
+      });
+
+      const playlist = await pullStrategy.getPath(
+        `/v2/playlists/${id}`
+      );
+
+      const playlistSlidesResponse = await pullStrategy.getPath(
+        playlist.slides
+      );
+
+      playlist.slidesData = playlistSlidesResponse['hydra:member'].map(
+        (playlistSlide) => playlistSlide.slide
+      );
+
+      for (const item of playlist.slidesData) {
+        item.templateData = await pullStrategy.addTemplateData(item);
+      }
+
+      const screen = {
+        '@id': '/v2/screens/SCREEN01234567890123456789',
+        '@type': 'Screen',
+        title: 'Preview',
+        description: 'Screen for preview.',
+        layout: '/v2/layouts/LAYOUT01234567890123456789',
+        regions: [
+          '/v2/screens/SCREEN01234567890123456789/regions/REGION01234567890123456789/playlists',
+        ],
+        regionData: {
+          REGION01234567890123456789: [playlist],
+        },
+        layoutData: {
+          '@id': '/v2/layouts/LAYOUT01234567890123456789',
+          '@type': 'ScreenLayout',
+          title: 'Full screen',
+          grid: {
+            rows: 1,
+            columns: 1,
+          },
+          regions: [
+            {
+              '@type': 'ScreenLayoutRegions',
+              '@id': '/v2/layouts/regions/REGION01234567890123456789',
+              title: 'full',
+              gridArea: ['a'],
+              screenLayout: '/v2/layouts/LAYOUT01234567890123456789',
+            },
+          ],
+        },
+      };
+
+      document.dispatchEvent(
+        new CustomEvent('content', {
+          detail: {
+            screen,
+          },
+        })
+      );
+    } else if (mode === 'slide') {
+      const pullStrategy = new PullStrategy({});
+      // const slide = pullStrategy.getSlide(id);
+
+      const screen = {
+        // TODO: Build fake screen.
+      };
+
+      ContentService.emitScreen(screen);
+    } else {
+      Logger.error(`Unsupported preview mode: ${mode}.`);
+    }
   }
 
   /**
