@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+## [2.0.3] - 2024-05-21
+
 - [#125](https://github.com/os2display/display-client/pull/125)
   - Removed React strict mode.
   - Added null check to release query parameter changes, to avoid redirecting to ?releaseVersion=null&releaseTimestamp=null when release.json cannot be reached (eg. when the internet connection is down).
