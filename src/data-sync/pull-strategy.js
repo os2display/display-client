@@ -413,28 +413,33 @@ class PullStrategy {
     return this.apiHelper.getPath(id);
   }
 
-  async addTemplateData(slide) {
+  async getTemplateData(slide) {
     return new Promise((resolve, reject) => {
-      const newSlide = cloneDeep(slide);
-      const templatePath = newSlide.templateInfo['@id'];
+      const templatePath = slide.templateInfo['@id'];
 
-      this.apiHelper.getPath(templatePath).then((templateData) => {
-        resolve(templateData);
+      this.apiHelper.getPath(templatePath).then((data) => {
+        resolve(data);
       });
     });
   }
 
-  async addFeedData(slide) {
+  async getFeedData(slide) {
     return new Promise((resolve, reject) => {
-      const newSlide = cloneDeep(slide);
-
-      if (!newSlide?.feed?.feedUrl) {
+      if (!slide?.feed?.feedUrl) {
         resolve([]);
       } else {
-        this.apiHelper.getPath(newSlide.feed.feedUrl).then((feedData) => {
-          resolve(feedData);
+        this.apiHelper.getPath(slide.feed.feedUrl).then((data) => {
+          resolve(data);
         });
       }
+    });
+  }
+
+  async getMediaData(media) {
+    return new Promise((resolve, reject) => {
+      this.apiHelper.getPath(media).then((data) => {
+        resolve(data);
+      });
     });
   }
 

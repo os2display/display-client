@@ -61,8 +61,6 @@ function App({ preview, previewId }) {
   function screenHandler(event) {
     const screenData = event.detail?.screen;
 
-    console.log('screenData', screenData);
-
     if (screenData !== null) {
       setScreen(screenData);
     }

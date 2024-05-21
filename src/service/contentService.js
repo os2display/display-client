@@ -1,10 +1,16 @@
 import sha256 from 'crypto-js/sha256';
 import Base64 from 'crypto-js/enc-base64';
+import cloneDeep from 'lodash.clonedeep';
+import { object, string } from 'prop-types';
 import Logger from '../logger/logger';
 import DataSync from '../data-sync/data-sync';
 import ScheduleService from './scheduleService';
 import ConfigLoader from '../config-loader';
 import PullStrategy from '../data-sync/pull-strategy';
+import {
+  screenForPlaylistPreview,
+  screenForSlidePreview,
+} from '../util/preview';
 
 /**
  * ContentService.
@@ -197,7 +203,7 @@ class ContentService {
   /**
    * Start preview.
    *
-   * @param event
+   * @param {CustomEvent} event The event.
    */
   async startPreview(event) {
     const data = event.detail;
@@ -206,7 +212,6 @@ class ContentService {
 
     const config = await ConfigLoader.loadConfig();
 
-
     if (mode === 'screen') {
       this.startSyncing(`/v2/screen/${id}`);
     } else if (mode === 'playlist') {
@@ -214,9 +219,7 @@ class ContentService {
         endpoint: config.apiEndpoint,
       });
 
-      const playlist = await pullStrategy.getPath(
-        `/v2/playlists/${id}`
-      );
+      const playlist = await pullStrategy.getPath(`/v2/playlists/${id}`);
 
       const playlistSlidesResponse = await pullStrategy.getPath(
         playlist.slides
@@ -226,41 +229,13 @@ class ContentService {
         (playlistSlide) => playlistSlide.slide
       );
 
-      for (const item of playlist.slidesData) {
-        item.templateData = await pullStrategy.addTemplateData(item);
+      // eslint-disable-next-line no-restricted-syntax
+      for (const slide of playlist.slidesData) {
+        // eslint-disable-next-line no-await-in-loop
+        await ContentService.attachReferencesToSlide(pullStrategy, slide);
       }
 
-      const screen = {
-        '@id': '/v2/screens/SCREEN01234567890123456789',
-        '@type': 'Screen',
-        title: 'Preview',
-        description: 'Screen for preview.',
-        layout: '/v2/layouts/LAYOUT01234567890123456789',
-        regions: [
-          '/v2/screens/SCREEN01234567890123456789/regions/REGION01234567890123456789/playlists',
-        ],
-        regionData: {
-          REGION01234567890123456789: [playlist],
-        },
-        layoutData: {
-          '@id': '/v2/layouts/LAYOUT01234567890123456789',
-          '@type': 'ScreenLayout',
-          title: 'Full screen',
-          grid: {
-            rows: 1,
-            columns: 1,
-          },
-          regions: [
-            {
-              '@type': 'ScreenLayoutRegions',
-              '@id': '/v2/layouts/regions/REGION01234567890123456789',
-              title: 'full',
-              gridArea: ['a'],
-              screenLayout: '/v2/layouts/LAYOUT01234567890123456789',
-            },
-          ],
-        },
-      };
+      const screen = screenForPlaylistPreview(playlist);
 
       document.dispatchEvent(
         new CustomEvent('content', {
@@ -270,17 +245,45 @@ class ContentService {
         })
       );
     } else if (mode === 'slide') {
-      const pullStrategy = new PullStrategy({});
-      // const slide = pullStrategy.getSlide(id);
+      const pullStrategy = new PullStrategy({
+        endpoint: config.apiEndpoint,
+      });
 
-      const screen = {
-        // TODO: Build fake screen.
-      };
+      const slide = await pullStrategy.getPath(`/v2/slides/${id}`);
 
-      ContentService.emitScreen(screen);
+      // eslint-disable-next-line no-await-in-loop
+      await ContentService.attachReferencesToSlide(pullStrategy, slide);
+
+      const screen = screenForSlidePreview(slide);
+
+      document.dispatchEvent(
+        new CustomEvent('content', {
+          detail: {
+            screen,
+          },
+        })
+      );
     } else {
       Logger.error(`Unsupported preview mode: ${mode}.`);
     }
+  }
+
+  static async attachReferencesToSlide(strategy, slide) {
+    /* eslint-disable no-param-reassign */
+    slide.templateData = await strategy.getTemplateData(slide);
+    slide.feedData = await strategy.getFeedData(slide);
+
+    slide.mediaData = {};
+    // eslint-disable-next-line no-restricted-syntax
+    for (const media of slide.media) {
+      // eslint-disable-next-line no-await-in-loop
+      slide.mediaData[media] = await strategy.getMediaData(media);
+    }
+
+    if (typeof slide.theme === 'string' || slide.theme instanceof String) {
+      slide.theme = await strategy.getPath(slide.theme);
+    }
+    /* eslint-enable no-param-reassign */
   }
 
   /**
