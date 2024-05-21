@@ -284,18 +284,31 @@ function App({ preview, previewId }) {
   const checkForUpdates = () => {
     Logger.log('info', 'Checking for new release timestamp.');
 
-    ReleaseLoader.loadConfig().then((config) => {
+    ReleaseLoader.loadConfig().then((release) => {
       if (releaseTimestampRef?.current === null) {
-        releaseTimestampRef.current = config.releaseTimestamp;
-      } else if (releaseTimestampRef?.current !== config.releaseTimestamp) {
-        const redirectUrl = new URL(window.location.href);
-        redirectUrl.searchParams.set(
-          'releaseTimestamp',
-          config.releaseTimestamp
-        );
-        redirectUrl.searchParams.set('releaseVersion', config.releaseVersion);
+        releaseTimestampRef.current = release.releaseTimestamp;
+      } else if (releaseTimestampRef?.current !== release.releaseTimestamp) {
+        if (
+          release.releaseTimestamp !== null &&
+          release.releaseVersion !== null
+        ) {
+          const redirectUrl = new URL(window.location.href);
+          redirectUrl.searchParams.set(
+            'releaseTimestamp',
+            release.releaseTimestamp
+          );
+          redirectUrl.searchParams.set(
+            'releaseVersion',
+            release.releaseVersion
+          );
 
-        window.location.replace(redirectUrl);
+          window.location.replace(redirectUrl);
+        } else {
+          Logger.log(
+            'info',
+            'Release timestamp or version null, not redirecting.'
+          );
+        }
       }
     });
   };
@@ -350,56 +363,70 @@ function App({ preview, previewId }) {
         !currentUrl.searchParams.has('releaseTimestamp')
       ) {
         ReleaseLoader.loadConfig().then((release) => {
-          currentUrl.searchParams.set(
-            'releaseTimestamp',
-            release.releaseTimestamp
-          );
-          currentUrl.searchParams.set('releaseVersion', release.releaseVersion);
+          if (
+            release.releaseTimestamp !== null &&
+            release.releaseVersion !== null
+          ) {
+            currentUrl.searchParams.set(
+              'releaseTimestamp',
+              release.releaseTimestamp
+            );
+            currentUrl.searchParams.set(
+              'releaseVersion',
+              release.releaseVersion
+            );
 
-          window.history.replaceState(null, '', currentUrl);
+            window.history.replaceState(null, '', currentUrl);
+          } else {
+            Logger.log(
+              'info',
+              'Release timestamp or version null, not setting query parameters.'
+            );
+          }
+        });
+
+        document.addEventListener('screen', screenHandler);
+        document.addEventListener('reauthenticate', reauthenticateHandler);
+        document.addEventListener('contentEmpty', contentEmpty);
+        document.addEventListener('contentNotEmpty', contentNotEmpty);
+        document.addEventListener('keypress', handleKeyboard);
+
+        checkLogin();
+
+        checkForUpdates();
+
+        ConfigLoader.loadConfig().then((config) => {
+          releaseTimestampIntervalRef.current = setInterval(
+            checkForUpdates,
+            config.releaseTimestampIntervalTimeout ??
+              releaseTimestampIntervalTimeoutDefault
+          );
         });
       }
 
-      document.addEventListener('screen', screenHandler);
-      document.addEventListener('reauthenticate', reauthenticateHandler);
-      document.addEventListener('contentEmpty', contentEmpty);
-      document.addEventListener('contentNotEmpty', contentNotEmpty);
-      document.addEventListener('keypress', handleKeyboard);
+      // eslint-disable-next-line consistent-return
+      return function cleanup() {
+        Logger.log('info', 'Unmounting App.');
 
-      checkLogin();
+        document.removeEventListener('keypress', handleKeyboard);
+        document.removeEventListener('screen', screenHandler);
+        document.removeEventListener('reauthenticate', reauthenticateHandler);
+        document.removeEventListener('contentEmpty', contentEmpty);
+        document.removeEventListener('contentNotEmpty', contentNotEmpty);
 
-      checkForUpdates();
+        if (timeoutRef?.current) {
+          clearTimeout(timeoutRef.current);
+        }
 
-      ConfigLoader.loadConfig().then((config) => {
-        releaseTimestampIntervalRef.current = setInterval(
-          checkForUpdates,
-          config.releaseTimestampIntervalTimeout ??
-            releaseTimestampIntervalTimeoutDefault
-        );
-      });
+        if (refreshTokenIntervalRef?.current) {
+          clearInterval(refreshTokenIntervalRef.current);
+        }
+
+        if (releaseTimestampIntervalRef?.current) {
+          clearInterval(releaseTimestampIntervalRef.current);
+        }
+      };
     }
-
-    return function cleanup() {
-      Logger.log('info', 'Unmounting App.');
-
-      document.removeEventListener('keypress', handleKeyboard);
-      document.removeEventListener('screen', screenHandler);
-      document.removeEventListener('reauthenticate', reauthenticateHandler);
-      document.removeEventListener('contentEmpty', contentEmpty);
-      document.removeEventListener('contentNotEmpty', contentNotEmpty);
-
-      if (timeoutRef?.current) {
-        clearTimeout(timeoutRef.current);
-      }
-
-      if (refreshTokenIntervalRef?.current) {
-        clearInterval(refreshTokenIntervalRef.current);
-      }
-
-      if (releaseTimestampIntervalRef?.current) {
-        clearInterval(releaseTimestampIntervalRef.current);
-      }
-    };
   }, []);
 
   useEffect(() => {
