@@ -12,7 +12,6 @@ export default {
   },
   plugins: [
     react(),
-    tsconfigPaths(),
     {
       name: 'fix-node-globals-polyfill',
       setup(build) {
