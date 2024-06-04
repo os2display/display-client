@@ -1,14 +1,14 @@
-import jwtDecode from 'jwt-decode';
-import React, { useEffect, useRef, useState } from 'react';
-import Screen from './screen';
-import ContentService from './service/contentService';
-import ConfigLoader from './config-loader';
-import ReleaseLoader from './release-loader';
-import Logger from './logger/logger';
-import './app.scss';
-import localStorageKeys from './local-storage-keys';
-import fallback from './assets/fallback.png';
-import idFromPath from './id-from-path';
+import jwtDecode from "jwt-decode";
+import React, { useEffect, useRef, useState } from "react";
+import Screen from "./screen";
+import ContentService from "./service/contentService";
+import ConfigLoader from "./config-loader";
+import ReleaseLoader from "./release-loader";
+// import Logger from './logger/logger';
+import "./app.scss";
+import localStorageKeys from "./local-storage-keys";
+import fallback from "./assets/fallback.png";
+import idFromPath from "./id-from-path";
 
 /**
  * App component.
@@ -26,7 +26,7 @@ function App() {
   const releaseTimestampIntervalTimeoutDefault = 1000 * 60 * 10;
 
   const [running, setRunning] = useState(false);
-  const [screen, setScreen] = useState('');
+  const [screen, setScreen] = useState("");
   const [bindKey, setBindKey] = useState(null);
   const [refreshingToken, setRefreshingToken] = useState(false);
   const timeoutRef = useRef(null);
@@ -46,7 +46,7 @@ function App() {
   const appStyle = {};
 
   if (!debug) {
-    appStyle.cursor = 'none';
+    appStyle.cursor = "none";
   }
 
   /**
@@ -64,11 +64,11 @@ function App() {
   }
 
   const checkToken = () => {
-    Logger.log('info', 'Refresh token check');
+    // logger.log('info', 'Refresh token check');
 
     // Ignore if already refreshing token.
     if (refreshingToken) {
-      Logger.log('info', 'Already refreshing token.');
+      // logger.log('info', 'Already refreshing token.');
       return;
     }
 
@@ -83,7 +83,7 @@ function App() {
     );
 
     if (!rToken || !exp || !iat) {
-      Logger.log('warn', 'Refresh token, exp or iat not set.');
+      // logger.log('warn', 'Refresh token, exp or iat not set.');
       return;
     }
 
@@ -94,13 +94,13 @@ function App() {
     // If more than half the time till expire has been passed refresh the token.
     if (now > iat + timeDiff / 2) {
       setRefreshingToken(true);
-      Logger.log('info', 'Refreshing token.');
+      // logger.log('info', 'Refreshing token.');
 
       ConfigLoader.loadConfig().then((config) => {
         fetch(`${config.apiEndpoint}/v2/authentication/token/refresh`, {
-          method: 'POST',
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({
             refresh_token: rToken,
@@ -108,7 +108,7 @@ function App() {
         })
           .then((response) => response.json())
           .then((data) => {
-            Logger.log('info', 'Token refreshed.');
+            // logger.log('info', 'Token refreshed.');
 
             const decodedToken = jwtDecode(data.token);
 
@@ -127,24 +127,24 @@ function App() {
             );
           })
           .catch(() => {
-            Logger.log('error', 'Token refresh error.');
+            // logger.log('error', 'Token refresh error.');
           })
           .finally(() => {
             setRefreshingToken(false);
           });
       });
     } else {
-      Logger.log(
-        'info',
-        `Half the time until expire has not been reached. Will not refresh. Token will expire at ${new Date(
-          exp * 1000
-        ).toISOString()}`
-      );
+      // logger.log(
+      // 'info',
+      // `Half the time until expire has not been reached. Will not refresh. Token will expire at ${new Date(
+      //   exp * 1000
+      // ).toISOString()}`
+      // );
     }
   };
 
   const startContent = (localScreenId) => {
-    Logger.log('info', 'Starting content.');
+    // logger.log('info', 'Starting content.');
 
     if (contentServiceRef.current !== null) {
       return;
@@ -161,7 +161,7 @@ function App() {
     const entrypoint = `/v2/screens/${localScreenId}`;
 
     document.dispatchEvent(
-      new CustomEvent('startDataSync', {
+      new CustomEvent("startDataSync", {
         detail: {
           screenPath: entrypoint,
         },
@@ -178,7 +178,7 @@ function App() {
   };
 
   const checkLogin = () => {
-    Logger.log('info', 'Check login.');
+    // logger.log('info', 'Check login.');
 
     const localStorageToken = localStorage.getItem(localStorageKeys.API_TOKEN);
     const localScreenId = localStorage.getItem(localStorageKeys.SCREEN_ID);
@@ -188,14 +188,14 @@ function App() {
     } else {
       ConfigLoader.loadConfig().then((config) => {
         fetch(`${config.apiEndpoint}/v2/authentication/screen`, {
-          method: 'POST',
-          mode: 'cors',
-          credentials: 'include',
+          method: "POST",
+          mode: "cors",
+          credentials: "include",
         })
           .then((response) => response.json())
           .then((data) => {
             if (
-              data?.status === 'ready' &&
+              data?.status === "ready" &&
               data?.token &&
               data?.screenId &&
               data?.tenantKey &&
@@ -221,7 +221,7 @@ function App() {
               localStorage.setItem(localStorageKeys.TENANT_ID, data.tenantId);
 
               startContent(data.screenId);
-            } else if (data?.status === 'awaitingBindKey') {
+            } else if (data?.status === "awaitingBindKey") {
               if (data?.bindKey) {
                 setBindKey(data.bindKey);
               }
@@ -251,7 +251,7 @@ function App() {
   };
 
   const reauthenticateHandler = () => {
-    Logger.log('info', 'Reauthenticate.');
+    // logger.log('info', 'Reauthenticate.');
 
     localStorage.removeItem(localStorageKeys.API_TOKEN);
     localStorage.removeItem(localStorageKeys.API_TOKEN_EXPIRE);
@@ -277,7 +277,7 @@ function App() {
   };
 
   const checkForUpdates = () => {
-    Logger.log('info', 'Checking for new release timestamp.');
+    // logger.log('info', 'Checking for new release timestamp.');
 
     ReleaseLoader.loadConfig().then((release) => {
       if (releaseTimestampRef?.current === null) {
@@ -289,38 +289,38 @@ function App() {
         ) {
           const redirectUrl = new URL(window.location.href);
           redirectUrl.searchParams.set(
-            'releaseTimestamp',
+            "releaseTimestamp",
             release.releaseTimestamp
           );
           redirectUrl.searchParams.set(
-            'releaseVersion',
+            "releaseVersion",
             release.releaseVersion
           );
 
           window.location.replace(redirectUrl);
         } else {
-          Logger.log(
-            'info',
-            'Release timestamp or version null, not redirecting.'
-          );
+          // logger.log(
+          //   'info',
+          //   'Release timestamp or version null, not redirecting.'
+          // );
         }
       }
     });
   };
 
   const contentEmpty = () => {
-    Logger.log('info', 'Content empty. Displaying fallback.');
+    // logger.log('info', 'Content empty. Displaying fallback.');
     setDisplayFallback(true);
   };
 
   const contentNotEmpty = () => {
-    Logger.log('info', 'Content not empty. Displaying content.');
+    // logger.log('info', 'Content not empty. Displaying content.');
     setDisplayFallback(false);
   };
 
   // ctrl/cmd i will log screen out and refresh
   const handleKeyboard = ({ repeat, metaKey, ctrlKey, code }) => {
-    if (!repeat && (metaKey || ctrlKey) && code === 'KeyI') {
+    if (!repeat && (metaKey || ctrlKey) && code === "KeyI") {
       localStorage.clear();
       window.location.reload();
     }
@@ -331,8 +331,8 @@ function App() {
 
     // Make sure have releaseVersion and releaseTimestamp set in url parameters.
     if (
-      !currentUrl.searchParams.has('releaseVersion') ||
-      !currentUrl.searchParams.has('releaseTimestamp')
+      !currentUrl.searchParams.has("releaseVersion") ||
+      !currentUrl.searchParams.has("releaseTimestamp")
     ) {
       ReleaseLoader.loadConfig().then((release) => {
         if (
@@ -340,26 +340,26 @@ function App() {
           release.releaseVersion !== null
         ) {
           currentUrl.searchParams.set(
-            'releaseTimestamp',
+            "releaseTimestamp",
             release.releaseTimestamp
           );
-          currentUrl.searchParams.set('releaseVersion', release.releaseVersion);
+          currentUrl.searchParams.set("releaseVersion", release.releaseVersion);
 
-          window.history.replaceState(null, '', currentUrl);
+          window.history.replaceState(null, "", currentUrl);
         } else {
-          Logger.log(
-            'info',
-            'Release timestamp or version null, not setting query parameters.'
-          );
+          // logger.log(
+          //   'info',
+          //   'Release timestamp or version null, not setting query parameters.'
+          // );
         }
       });
     }
 
-    document.addEventListener('screen', screenHandler);
-    document.addEventListener('reauthenticate', reauthenticateHandler);
-    document.addEventListener('contentEmpty', contentEmpty);
-    document.addEventListener('contentNotEmpty', contentNotEmpty);
-    document.addEventListener('keypress', handleKeyboard);
+    document.addEventListener("screen", screenHandler);
+    document.addEventListener("reauthenticate", reauthenticateHandler);
+    document.addEventListener("contentEmpty", contentEmpty);
+    document.addEventListener("contentNotEmpty", contentNotEmpty);
+    document.addEventListener("keypress", handleKeyboard);
 
     checkLogin();
 
@@ -374,13 +374,13 @@ function App() {
     });
 
     return function cleanup() {
-      Logger.log('info', 'Unmounting App.');
+      // logger.log('info', 'Unmounting App.');
 
-      document.removeEventListener('keypress', handleKeyboard);
-      document.removeEventListener('screen', screenHandler);
-      document.removeEventListener('reauthenticate', reauthenticateHandler);
-      document.removeEventListener('contentEmpty', contentEmpty);
-      document.removeEventListener('contentNotEmpty', contentNotEmpty);
+      document.removeEventListener("keypress", handleKeyboard);
+      document.removeEventListener("screen", screenHandler);
+      document.removeEventListener("reauthenticate", reauthenticateHandler);
+      document.removeEventListener("contentEmpty", contentEmpty);
+      document.removeEventListener("contentNotEmpty", contentNotEmpty);
 
       if (timeoutRef?.current) {
         clearTimeout(timeoutRef.current);
@@ -400,10 +400,10 @@ function App() {
     // Append screenId to current url for easier debugging. If errors are logged in the API's standard http log this
     // makes it easy to see what screen client has made the http call by putting the screen id in the referer http
     // header.
-    if (screen && screen['@id']) {
+    if (screen && screen["@id"]) {
       const url = new URL(window.location.href);
-      url.searchParams.set('screenId', idFromPath(screen['@id']));
-      window.history.replaceState(null, '', url);
+      url.searchParams.set("screenId", idFromPath(screen["@id"]));
+      window.history.replaceState(null, "", url);
     }
 
     ConfigLoader.loadConfig().then((config) => {
@@ -416,7 +416,7 @@ function App() {
         fetch(`${config.apiEndpoint}/v2/tenants/${tenantId}`, {
           headers: {
             authorization: `Bearer ${token}`,
-            'Authorization-Tenant-Key': tenantKey,
+            "Authorization-Tenant-Key": tenantKey,
           },
         })
           .then((response) => response.json())

@@ -33,7 +33,7 @@ function Screen({ screen }) {
 
   const refreshColorScheme = () => {
     ConfigLoader.loadConfig().then((config) => {
-      Logger.log('info', 'Refreshing color scheme.');
+      // logger.log('info', 'Refreshing color scheme.');
 
       const now = new Date();
       let colorScheme = '';
@@ -47,10 +47,10 @@ function Screen({ screen }) {
         );
 
         if (now > times.sunrise && now < times.sunset) {
-          Logger.log('info', 'Light color scheme activated.');
+          // logger.log('info', 'Light color scheme activated.');
           colorScheme = 'color-scheme-light';
         } else {
-          Logger.log('info', 'Dark color scheme activated.');
+          // logger.log('info', 'Dark color scheme activated.');
           colorScheme = 'color-scheme-dark';
         }
       } else {
@@ -71,7 +71,7 @@ function Screen({ screen }) {
 
   useEffect(() => {
     if (screen?.enableColorSchemeChange) {
-      Logger.log('info', 'Enabling color scheme change.');
+      // logger.log('info', 'Enabling color scheme change.');
       refreshColorScheme();
       // Refresh color scheme every 5 minutes.
       colorSchemeIntervalRef.current = setInterval(

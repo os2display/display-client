@@ -4,7 +4,7 @@
 export default class ReleaseLoader {
   static async loadConfig() {
     const nowTimestamp = new Date().getTime();
-    return fetch(`/client/release.json?ts=${nowTimestamp}`)
+    return fetch(`/release.json?ts=${nowTimestamp}`)
       .then((response) => response.json())
       .catch((err) => {
         /* eslint-disable-next-line no-console */
