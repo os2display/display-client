@@ -1,12 +1,12 @@
-import { React, useEffect, useState, createRef } from 'react';
-import PropTypes from 'prop-types';
-import './touch-region.scss';
-import { createGridArea } from 'os2display-grid-generator';
-import Slide from './slide';
-import ErrorBoundary from './error-boundary';
-import idFromPath from './id-from-path';
-import { ReactComponent as IconClose } from './assets/icon-close.svg';
-import { ReactComponent as IconPointer } from './assets/icon-pointer.svg';
+import { React, useEffect, useState, createRef } from "react";
+import PropTypes from "prop-types";
+import "./touch-region.scss";
+import { createGridArea } from "os2display-grid-generator";
+import Slide from "./slide";
+import ErrorBoundary from "./error-boundary";
+import idFromPath from "./id-from-path";
+import IconClose from "./assets/icon-close.svg?react";
+import IconPointer from "./assets/icon-pointer.svg?react";
 
 /**
  * Region component.
@@ -26,7 +26,7 @@ function TouchRegion({ region }) {
   const [runId, setRunId] = useState(null);
 
   const rootStyle = {};
-  const regionId = idFromPath(region['@id']);
+  const regionId = idFromPath(region["@id"]);
 
   rootStyle.gridArea = createGridArea(region.gridArea);
 
@@ -40,7 +40,7 @@ function TouchRegion({ region }) {
     setCurrentSlide(null);
 
     // Emit slideDone event.
-    const slideDoneEvent = new CustomEvent('slideDone', {
+    const slideDoneEvent = new CustomEvent("slideDone", {
       detail: {
         regionId,
         executionId: slide.executionId,
@@ -68,7 +68,7 @@ function TouchRegion({ region }) {
 
     return function cleanup() {
       // Emit event that region has been removed.
-      const event = new CustomEvent('regionRemoved', {
+      const event = new CustomEvent("regionRemoved", {
         detail: {
           id: regionId,
         },
@@ -85,7 +85,7 @@ function TouchRegion({ region }) {
 
   // Notify that region is ready.
   useEffect(() => {
-    const event = new CustomEvent('regionReady', {
+    const event = new CustomEvent("regionReady", {
       detail: {
         id: regionId,
       },
@@ -177,7 +177,7 @@ function TouchRegion({ region }) {
 
 TouchRegion.propTypes = {
   region: PropTypes.shape({
-    '@id': PropTypes.string.isRequired,
+    "@id": PropTypes.string.isRequired,
     gridArea: PropTypes.arrayOf(PropTypes.string.isRequired),
   }).isRequired,
 };
