@@ -1,4 +1,4 @@
-const winston = require('winston');
+import winston from 'winston';
 
 // @TODO: Add configuration of the logger.
 
@@ -19,4 +19,4 @@ logger.add(
   })
 );
 
-module.exports = logger;
+export default logger;
