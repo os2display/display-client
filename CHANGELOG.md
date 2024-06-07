@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 - [#126](https://github.com/aroskanalen/display-client/pull/3)
   - Migrate from CRA to Vite
   - Upgrade node from 14 -> 20
+  - Winston logging to Pino logging
 
 ## [2.0.3] - 2024-05-21
 
