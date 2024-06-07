@@ -4,11 +4,11 @@ import Screen from "./screen";
 import ContentService from "./service/contentService";
 import ConfigLoader from "./config-loader";
 import ReleaseLoader from "./release-loader";
-// import Logger from './logger/logger';
-import "./app.scss";
+import logger from "./logger/logger";
 import localStorageKeys from "./local-storage-keys";
 import fallback from "./assets/fallback.png";
 import idFromPath from "./id-from-path";
+import "./app.scss";
 
 /**
  * App component.
@@ -64,11 +64,11 @@ function App() {
   }
 
   const checkToken = () => {
-    // logger.log('info', 'Refresh token check');
+    logger.info("Refresh token check");
 
     // Ignore if already refreshing token.
     if (refreshingToken) {
-      // logger.log('info', 'Already refreshing token.');
+      logger.info("Already refreshing token.");
       return;
     }
 
@@ -83,7 +83,7 @@ function App() {
     );
 
     if (!rToken || !exp || !iat) {
-      // logger.log('warn', 'Refresh token, exp or iat not set.');
+      logger.warn("Refresh token, exp or iat not set.");
       return;
     }
 
@@ -94,7 +94,7 @@ function App() {
     // If more than half the time till expire has been passed refresh the token.
     if (now > iat + timeDiff / 2) {
       setRefreshingToken(true);
-      // logger.log('info', 'Refreshing token.');
+      logger.info("Refreshing token.");
 
       ConfigLoader.loadConfig().then((config) => {
         fetch(`${config.apiEndpoint}/v2/authentication/token/refresh`, {
@@ -108,7 +108,7 @@ function App() {
         })
           .then((response) => response.json())
           .then((data) => {
-            // logger.log('info', 'Token refreshed.');
+            logger.info("Token refreshed.");
 
             const decodedToken = jwtDecode(data.token);
 
@@ -127,24 +127,23 @@ function App() {
             );
           })
           .catch(() => {
-            // logger.log('error', 'Token refresh error.');
+            logger.error("Token refresh error.");
           })
           .finally(() => {
             setRefreshingToken(false);
           });
       });
     } else {
-      // logger.log(
-      // 'info',
-      // `Half the time until expire has not been reached. Will not refresh. Token will expire at ${new Date(
-      //   exp * 1000
-      // ).toISOString()}`
-      // );
+      logger.info(
+        `Half the time until expire has not been reached. Will not refresh. Token will expire at ${new Date(
+          exp * 1000
+        ).toISOString()}`
+      );
     }
   };
 
   const startContent = (localScreenId) => {
-    // logger.log('info', 'Starting content.');
+    logger.info("Starting content.");
 
     if (contentServiceRef.current !== null) {
       return;
@@ -178,7 +177,7 @@ function App() {
   };
 
   const checkLogin = () => {
-    // logger.log('info', 'Check login.');
+    logger.info("Check login.");
 
     const localStorageToken = localStorage.getItem(localStorageKeys.API_TOKEN);
     const localScreenId = localStorage.getItem(localStorageKeys.SCREEN_ID);
@@ -251,7 +250,7 @@ function App() {
   };
 
   const reauthenticateHandler = () => {
-    // logger.log('info', 'Reauthenticate.');
+    logger.info("Reauthenticate.");
 
     localStorage.removeItem(localStorageKeys.API_TOKEN);
     localStorage.removeItem(localStorageKeys.API_TOKEN_EXPIRE);
@@ -277,7 +276,7 @@ function App() {
   };
 
   const checkForUpdates = () => {
-    // logger.log('info', 'Checking for new release timestamp.');
+    logger.info("Checking for new release timestamp.");
 
     ReleaseLoader.loadConfig().then((release) => {
       if (releaseTimestampRef?.current === null) {
@@ -299,22 +298,19 @@ function App() {
 
           window.location.replace(redirectUrl);
         } else {
-          // logger.log(
-          //   'info',
-          //   'Release timestamp or version null, not redirecting.'
-          // );
+          logger.info("Release timestamp or version null, not redirecting.");
         }
       }
     });
   };
 
   const contentEmpty = () => {
-    // logger.log('info', 'Content empty. Displaying fallback.');
+    logger.info("Content empty. Displaying fallback.");
     setDisplayFallback(true);
   };
 
   const contentNotEmpty = () => {
-    // logger.log('info', 'Content not empty. Displaying content.');
+    logger.info("Content not empty. Displaying content.");
     setDisplayFallback(false);
   };
 
@@ -347,10 +343,9 @@ function App() {
 
           window.history.replaceState(null, "", currentUrl);
         } else {
-          // logger.log(
-          //   'info',
-          //   'Release timestamp or version null, not setting query parameters.'
-          // );
+          logger.info(
+            "Release timestamp or version null, not setting query parameters."
+          );
         }
       });
     }
@@ -374,7 +369,7 @@ function App() {
     });
 
     return function cleanup() {
-      // logger.log('info', 'Unmounting App.');
+      logger.info("Unmounting App.");
 
       document.removeEventListener("keypress", handleKeyboard);
       document.removeEventListener("screen", screenHandler);

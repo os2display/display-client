@@ -4,7 +4,7 @@ import Md5 from 'crypto-js/md5';
 import { RRule } from 'rrule';
 import Base64 from 'crypto-js/enc-base64';
 import isPublished from '../util/isPublished';
-// import Logger from '../logger/logger';
+import logger from '../logger/logger';
 import ConfigLoader from '../config-loader';
 
 /**
@@ -27,7 +27,7 @@ class ScheduleService {
   }
 
   checkForEmptyContent() {
-    // logger.log('info', 'Checking for empty content.');
+    logger.info('Checking for empty content.');
 
     // Check for empty content.
     const values = Object.values(this.regions);
@@ -52,7 +52,7 @@ class ScheduleService {
    * @param {string} regionId - The region id.
    */
   regionRemoved(regionId) {
-    // logger.log('info', `removing scheduling interval for region: ${regionId}`);
+    logger.info(`removing scheduling interval for region: ${regionId}`);
 
     if (Object.prototype.hasOwnProperty.call(this.intervals, regionId)) {
       clearInterval(this.intervals[regionId]);
@@ -67,10 +67,10 @@ class ScheduleService {
    * @param {object} region - The region content, with playlists and slides, to start scheduling.
    */
   updateRegion(regionId, region) {
-    // logger.log('info', `ScheduleService: updateRegion(${regionId})`);
+    logger.info(`ScheduleService: updateRegion(${regionId})`);
 
     if (!region || !regionId) {
-      // logger.log('info', `ScheduleService: regionId and/or region not set.`);
+      logger.info(`ScheduleService: regionId and/or region not set.`);
       return;
     }
 
@@ -96,10 +96,9 @@ class ScheduleService {
 
         // Extra check because of async.
         if (!Object.prototype.hasOwnProperty.call(intervals, regionId)) {
-          // logger.log(
-          //   'info',
-          //   `registering scheduling interval for region: ${regionId}, with an update rate of ${schedulingInterval}`
-          // );
+          logger.info(
+            `registering scheduling interval for region: ${regionId}, with an update rate of ${schedulingInterval}`
+          );
 
           this.intervals[regionId] = setInterval(
             () => this.checkScheduling(regionId),
@@ -121,7 +120,7 @@ class ScheduleService {
    * @param {string} regionId - The region to check.
    */
   checkScheduling(regionId) {
-    // logger.log('info', `checkScheduling for region: ${regionId}`);
+    logger.info(`checkScheduling for region: ${regionId}`);
 
     const region = this.regions[regionId];
 
@@ -153,7 +152,7 @@ class ScheduleService {
    *   Array of slides.
    */
   sendSlides(regionId, slides) {
-    // logger.log('info', `sendSlides regionContent-${regionId}`);
+    logger.info(`sendSlides regionContent-${regionId}`);
     const event = new CustomEvent(`regionContent-${regionId}`, {
       detail: {
         slides,

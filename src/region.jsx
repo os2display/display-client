@@ -5,8 +5,8 @@ import { TransitionGroup, CSSTransition } from "react-transition-group";
 import Slide from "./slide";
 import ErrorBoundary from "./error-boundary";
 import idFromPath from "./id-from-path";
+import logger from "./logger/logger";
 import "./region.scss";
-// import Logger from './logger/logger';
 
 /**
  * Region component.
@@ -70,7 +70,7 @@ function Region({ region }) {
 
     setRunId(new Date().toISOString());
 
-    // logger.log('info', `Slide done with executionId: ${slide?.executionId}`);
+    logger.info(`Slide done with executionId: ${slide?.executionId}`);
 
     // Emit slideDone event.
     const slideDoneEvent = new CustomEvent("slideDone", {

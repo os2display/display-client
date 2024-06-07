@@ -1,6 +1,6 @@
 import sha256 from 'crypto-js/sha256';
 import Base64 from 'crypto-js/enc-base64';
-// import Logger from '../logger/logger';
+import logger from '../logger/logger';
 import DataSync from '../data-sync/data-sync';
 import ScheduleService from './scheduleService';
 import ConfigLoader from '../config-loader';
@@ -41,7 +41,7 @@ class ContentService {
    * @param {string} screenPath Path to the screen.
    */
   startSyncing(screenPath) {
-    // logger.log('info', 'Starting data synchronization');
+    logger.info('Starting data synchronization');
 
     ConfigLoader.loadConfig().then((config) => {
       const dataStrategyConfig = { ...config.dataStrategy.config };
@@ -61,10 +61,10 @@ class ContentService {
    * Stop sync event handler.
    */
   stopSyncHandler() {
-    // logger.log('info', 'Event received: Stop data synchronization');
+    logger.info('Event received: Stop data synchronization');
 
     if (this.dataSync) {
-      // logger.log('info', 'Stopping data synchronization');
+      logger.info('Stopping data synchronization');
       this.dataSync.stop();
       this.dataSync = null;
     }
@@ -82,13 +82,12 @@ class ContentService {
     this.stopSyncHandler();
 
     if (data?.screenPath) {
-      // logger.log(
-      //   'info',
-      //   `Event received: Start data synchronization from ${data.screenPath}`
-      // );
+      logger.info(
+        `Event received: Start data synchronization from ${data.screenPath}`
+      );
       this.startSyncing(data.screenPath);
     } else {
-      // logger.log('info', 'Event received: Start data synchronization');
+      logger.info('Event received: Start data synchronization');
       this.startSyncing();
     }
   }
@@ -100,7 +99,7 @@ class ContentService {
    *   The event.
    */
   contentHandler(event) {
-    // logger.log('info', 'Event received: content');
+    logger.info('Event received: content');
 
     const data = event.detail;
     this.currentScreen = data.screen;
@@ -117,11 +116,11 @@ class ContentService {
     // TODO: Handle issue where region data is not present for a given region. Remove given region content.
 
     if (newHash !== this.screenHash) {
-      // logger.log('info', 'Screen has changed. Emitting screen.');
+      logger.info('Screen has changed. Emitting screen.');
       this.screenHash = newHash;
       ContentService.emitScreen(screenData);
     } else {
-      // logger.log('info', 'Screen has not changed. Not emitting screen.');
+      logger.info('Screen has not changed. Not emitting screen.');
 
       // eslint-disable-next-line guard-for-in,no-restricted-syntax
       for (const regionKey in data.screen.regionData) {
@@ -141,7 +140,7 @@ class ContentService {
     const data = event.detail;
     const regionId = data.id;
 
-    // logger.log('info', `Event received: regionReady for ${regionId}`);
+    logger.info(`Event received: regionReady for ${regionId}`);
 
     if (this.currentScreen) {
       this.scheduleService.updateRegion(
@@ -161,7 +160,7 @@ class ContentService {
     const data = event.detail;
     const regionId = data.id;
 
-    // logger.log('info', `Event received: regionRemoved for ${regionId}`);
+    logger.info(`Event received: regionRemoved for ${regionId}`);
 
     this.scheduleService.regionRemoved(regionId);
   }
@@ -170,7 +169,7 @@ class ContentService {
    * Start the engine.
    */
   start() {
-    // logger.log('info', 'Content service started.');
+    logger.info('Content service started.');
 
     document.addEventListener('stopDataSync', this.stopSyncHandler);
     document.addEventListener('startDataSync', this.startDataSyncHandler);
@@ -183,7 +182,7 @@ class ContentService {
    * Stop the engine.
    */
   stop() {
-    // logger.log('info', 'Content service stopped.');
+    logger.info('Content service stopped.');
 
     document.removeEventListener('stopDataSync', this.stopSyncHandler);
     document.removeEventListener('startDataSync', this.startDataSyncHandler);
@@ -199,7 +198,7 @@ class ContentService {
    *   Screen data.
    */
   static emitScreen(screen) {
-    // logger.log('info', 'Emitting screen');
+    logger.info('Emitting screen');
 
     const event = new CustomEvent('screen', {
       detail: {

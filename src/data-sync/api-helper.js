@@ -1,4 +1,4 @@
-// import Logger from '../logger/logger';
+import logger from '../logger/logger';
 import localStorageKeys from '../local-storage-keys';
 
 class ApiHelper {
@@ -27,7 +27,7 @@ class ApiHelper {
     let response;
 
     try {
-      // logger.log('info', `Fetching: ${this.endpoint + path}`);
+      logger.info(`Fetching: ${this.endpoint + path}`);
 
       const token = localStorage.getItem(localStorageKeys.API_TOKEN) ?? '';
       const tenantKey = localStorage.getItem(localStorageKeys.TENANT_KEY) ?? '';
@@ -46,19 +46,18 @@ class ApiHelper {
           document.dispatchEvent(new Event('reauthenticate'));
         }
 
-        // logger.log(
-        // 'error',
-        // `Failed to fetch (status: ${response.status}): ${
-        //   this.endpoint + path
-        // }`
-        // );
+        logger.error(
+          `Failed to fetch (status: ${response.status}): ${
+            this.endpoint + path
+          }`
+        );
 
         return null;
       }
 
       return response.json();
     } catch (err) {
-      // logger.log('error', `Failed to fetch: ${this.endpoint + path}`);
+      logger.error(`Failed to fetch: ${this.endpoint + path}`);
 
       return null;
     }
