@@ -29,7 +29,7 @@ services:
       - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
 
   node:
-    image: node:14
+    image: node:20
     command: yarn start
     networks:
       - app

@@ -25,7 +25,7 @@ const ConfigLoader = {
       ) {
         resolve(configData);
       } else {
-        fetch(`/client/config.json?ts=${nowTimestamp}`)
+        fetch(`config.json?ts=${nowTimestamp}`)
           .then((response) => response.json())
           .then((data) => {
             latestFetchTimestamp = nowTimestamp;
