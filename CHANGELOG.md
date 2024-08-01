@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+- Fixed base path to /client.
 - [#126](https://github.com/aroskanalen/display-client/pull/3)
   - Migrate from CRA to Vite
   - Upgrade node from 14 -> 20
