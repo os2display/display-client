@@ -1,6 +1,7 @@
 {
   "name": "display-client",
-  "version": "0.1.0",
+  "type": "module",
+  "version": "2.0.0",
   "homepage": "/client/",
   "private": true,
   "dependencies": {
