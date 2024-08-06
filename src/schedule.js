@@ -7,6 +7,12 @@ class ScheduleUtils {
 
     const now = new Date();
 
+    // From the RRULE docs:_ "Returned "UTC" dates are always meant to be 
+    // interpreted as dates in your local timezone. This may mean you have to 
+    // do additional conversion to get the "correct" local time with offset 
+    // applied."
+    //
+    // We do the opposite to ensure that datetime comparisons works as expected. 
     // For evaluation with the RRule library we pretend that "now" is in UTC instead of the local timezone.
     // That is 9:00 in Europe/Copenhagen time will be evaluated as if it was 9:00 in UTC.
     // @see https://github.com/jkbrzt/rrule#important-use-utc-dates
