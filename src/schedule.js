@@ -23,6 +23,9 @@ class ScheduleUtils {
 
     let occurs = false;
 
+    // RRule.prototype.between(after, before, inc=false [, iterator])
+    // The between() function expects "after" and "before" to be in pretend UTC as 
+    // described above.
     rrule.between(
       from,
       nowWithoutTimezone,
