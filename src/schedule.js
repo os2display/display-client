@@ -6,29 +6,25 @@ class ScheduleUtils {
     const duration = durationSeconds * 1000;
 
     const now = new Date();
+
+    // For evaluation with the RRule library we pretend that "now" is in UTC instead of the local timezone.
+    // That is 9:00 in Europe/Copenhagen time will be evaluated as if it was 9:00 in UTC.
+    // @see https://github.com/jkbrzt/rrule#important-use-utc-dates
+    const nowWithoutTimezone = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes(), now.getSeconds()));
+
     // Subtract duration from now to make sure all relevant occurrences are considered.
-    const from = new Date(now.getTime() - duration);
+    const from = new Date(nowWithoutTimezone.getTime() - duration);
 
     let occurs = false;
 
-    // @see https://github.com/jkbrzt/rrule#important-use-utc-dates
     rrule.between(
-      new Date(Date.UTC(from.getFullYear(), from.getMonth(), from.getDate(), from.getHours(), from.getMinutes(), from.getSeconds())),
-      new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes(), now.getSeconds())),
+      from,
+      nowWithoutTimezone,
       true,
       function iterator(occurrenceDate) {
-        const start = new Date(
-          occurrenceDate.getUTCFullYear(),
-          occurrenceDate.getUTCMonth(),
-          occurrenceDate.getUTCDate(),
-          occurrenceDate.getUTCHours(),
-          occurrenceDate.getUTCMinutes(),
-          occurrenceDate.getUTCSeconds(),
-        );
+        const end = new Date(occurrenceDate.getTime() + duration);
 
-        const end = new Date(start.getTime() + duration);
-
-        if (now >= start && now <= end) {
+        if (nowWithoutTimezone >= occurrenceDate && nowWithoutTimezone <= end) {
           occurs = true;
           // break iteration.
           return false;
