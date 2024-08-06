@@ -217,6 +217,8 @@ class ScheduleService {
           newSlide.executionId = `EXE-ID-${executionId}`;
           slides.push(newSlide);
         });
+      } else {
+        Logger.log('info', `Playlist ${playlist['@id']} not scheduled for now`);
       }
     });
 
