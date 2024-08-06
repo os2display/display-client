@@ -174,8 +174,6 @@ class ScheduleService {
    */
   static findScheduledSlides(playlists, regionId) {
     const slides = [];
-    const startOfDay = new Date();
-    startOfDay.setUTCHours(0, 0, 0, 0);
 
     playlists.forEach((playlist) => {
       const { schedules } = playlist;
