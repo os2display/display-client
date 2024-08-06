@@ -11,6 +11,7 @@ class ScheduleUtils {
 
     let occurs = false;
 
+    // @see https://github.com/jkbrzt/rrule#important-use-utc-dates
     rrule.between(
       new Date(Date.UTC(from.getFullYear(), from.getMonth(), from.getDate(), from.getHours(), from.getMinutes(), from.getSeconds())),
       new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes(), now.getSeconds())),
