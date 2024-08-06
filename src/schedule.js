@@ -28,6 +28,9 @@ class ScheduleUtils {
       nowWithoutTimezone,
       true,
       function iterator(occurrenceDate) {
+        // The "ccurrenceDate" we are iterating over contains a "pretend UTC" datetime
+        // object. As above, if the time for "occurrenceDate" is 09:00 UTC it should be 
+        // treated as 09:00 local time regardsless of the actual local timezone
         const end = new Date(occurrenceDate.getTime() + duration);
 
         if (nowWithoutTimezone >= occurrenceDate && nowWithoutTimezone <= end) {
