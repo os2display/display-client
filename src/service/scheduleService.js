@@ -1,11 +1,12 @@
 import cloneDeep from 'lodash.clonedeep';
 import sha256 from 'crypto-js/sha256';
 import Md5 from 'crypto-js/md5';
-import RRule from 'rrule';
+import { RRule, datetime } from 'rrule';
 import Base64 from 'crypto-js/enc-base64';
 import isPublished from '../util/isPublished';
 import Logger from '../logger/logger';
 import ConfigLoader from '../config-loader';
+import ScheduleUtils from "../schedule";
 
 /**
  * ScheduleService.
@@ -174,10 +175,6 @@ class ScheduleService {
   static findScheduledSlides(playlists, regionId) {
     const slides = [];
 
-    const now = new Date();
-    const startOfDay = new Date();
-    startOfDay.setUTCHours(0, 0, 0, 0);
-
     playlists.forEach((playlist) => {
       const { schedules } = playlist;
 
@@ -185,38 +182,29 @@ class ScheduleService {
         return;
       }
 
-      let occurs = true;
+      let active = true;
 
       // If schedules are set for the playlist, do not show playlist unless a schedule is active.
       if (schedules.length > 0) {
-        occurs = false;
+        active = false;
 
-        schedules.forEach((schedule) => {
-          const rrule = RRule.fromString(schedule.rrule.replace('\\n', '\n'));
-          rrule.between(
-            // Subtract duration from now to make sure all relevant occurrences are considered.
-            new Date(
-              now.getTime() - (schedule.duration ? schedule.duration * 1000 : 0)
-            ),
-            now,
-            true,
-            function iterator(occurrenceDate) {
-              const occurrenceEnd = new Date(
-                occurrenceDate.getTime() + schedule.duration * 1000
-              );
+        // Run through all schedule item and see if it occurs now. If one or more occur now, the playlist is active.
+        schedules.every((schedule) => {
+          const scheduleOccurs = ScheduleUtils.occursNow(schedule.rrule, schedule.duration);
 
-              if (now >= occurrenceDate && now <= occurrenceEnd) {
-                occurs = true;
-                // Break the iteration.
-                return false;
-              }
-              return true;
-            }
-          );
+          if (scheduleOccurs) {
+            active = true;
+
+            // Break iteration.
+            return false;
+          }
+
+          // Continue iteration.
+          return true;
         });
       }
 
-      if (occurs) {
+      if (active) {
         playlist?.slidesData?.forEach((slide) => {
           if (!isPublished(slide.published)) {
             return;
@@ -229,6 +217,8 @@ class ScheduleService {
           newSlide.executionId = `EXE-ID-${executionId}`;
           slides.push(newSlide);
         });
+      } else {
+        Logger.log('info', `Playlist ${playlist['@id']} not scheduled for now`);
       }
     });
 

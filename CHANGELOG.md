@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+- [#128](https://github.com/os2display/display-client/pull/128)
+  - Fixed rrule evaluation to handle local time correctly.
+
 ## [2.0.3] - 2024-05-21
 
 - [#125](https://github.com/os2display/display-client/pull/125)
