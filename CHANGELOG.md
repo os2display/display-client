@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+- Set infrastructure node version to 20.
 - Fixed base path to /client.
 - [#126](https://github.com/aroskanalen/display-client/pull/3)
   - Migrate from CRA to Vite
