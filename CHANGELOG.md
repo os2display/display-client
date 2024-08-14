@@ -4,12 +4,17 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-- Set infrastructure node version to 20.
-- Fixed base path to /client.
-- [#126](https://github.com/aroskanalen/display-client/pull/3)
+- [#127](https://github.com/os2display/display-client/pull/127)
   - Migrate from CRA to Vite
   - Upgrade node from 14 -> 20
   - Winston logging to Pino logging
+  - Set infrastructure node version to 20.
+  - Fixed base path to /client.
+
+## [2.0.4] - 2024-08-14
+
+- [#128](https://github.com/os2display/display-client/pull/128)
+  - Fixed rrule evaluation to handle local time correctly.
 
 ## [2.0.3] - 2024-05-21
 
