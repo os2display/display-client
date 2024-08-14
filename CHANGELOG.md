@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+## [2.0.4] - 2024-08-14
+
 - [#128](https://github.com/os2display/display-client/pull/128)
   - Fixed rrule evaluation to handle local time correctly.
 
