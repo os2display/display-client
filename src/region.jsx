@@ -1,12 +1,12 @@
-import { React, useEffect, useState, createRef } from 'react';
-import PropTypes from 'prop-types';
-import './region.scss';
-import { createGridArea } from 'os2display-grid-generator';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import Slide from './slide';
-import ErrorBoundary from './error-boundary';
-import idFromPath from './id-from-path';
-import Logger from './logger/logger';
+import { React, useEffect, useState, createRef } from "react";
+import PropTypes from "prop-types";
+import { createGridArea } from "os2display-grid-generator";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
+import Slide from "./slide";
+import ErrorBoundary from "./error-boundary";
+import idFromPath from "./id-from-path";
+import logger from "./logger/logger";
+import "./region.scss";
 
 /**
  * Region component.
@@ -26,7 +26,7 @@ function Region({ region }) {
   const [runId, setRunId] = useState(null);
 
   const rootStyle = {};
-  const regionId = idFromPath(region['@id']);
+  const regionId = idFromPath(region["@id"]);
 
   rootStyle.gridArea = createGridArea(region.gridArea);
 
@@ -70,10 +70,10 @@ function Region({ region }) {
 
     setRunId(new Date().toISOString());
 
-    Logger.log('info', `Slide done with executionId: ${slide?.executionId}`);
+    logger.info(`Slide done with executionId: ${slide?.executionId}`);
 
     // Emit slideDone event.
-    const slideDoneEvent = new CustomEvent('slideDone', {
+    const slideDoneEvent = new CustomEvent("slideDone", {
       detail: {
         regionId,
         executionId: slide.executionId,
@@ -104,7 +104,7 @@ function Region({ region }) {
 
     return function cleanup() {
       // Emit event that region has been removed.
-      const event = new CustomEvent('regionRemoved', {
+      const event = new CustomEvent("regionRemoved", {
         detail: {
           id: regionId,
         },
@@ -121,7 +121,7 @@ function Region({ region }) {
 
   // Notify that region is ready.
   useEffect(() => {
-    const event = new CustomEvent('regionReady', {
+    const event = new CustomEvent("regionReady", {
       detail: {
         id: regionId,
       },
@@ -188,7 +188,7 @@ function Region({ region }) {
 
 Region.propTypes = {
   region: PropTypes.shape({
-    '@id': PropTypes.string.isRequired,
+    "@id": PropTypes.string.isRequired,
     gridArea: PropTypes.arrayOf(PropTypes.string.isRequired),
   }).isRequired,
 };
