@@ -57,8 +57,4 @@ ErrorBoundary.propTypes = {
   errorHandler: PropTypes.func,
 };
 
-ErrorBoundary.defaultProps = {
-  errorHandler: () => {},
-};
-
 export default ErrorBoundary;

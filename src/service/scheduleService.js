@@ -1,12 +1,11 @@
 import cloneDeep from 'lodash.clonedeep';
 import sha256 from 'crypto-js/sha256';
 import Md5 from 'crypto-js/md5';
-import { RRule } from 'rrule';
 import Base64 from 'crypto-js/enc-base64';
 import isPublished from '../util/isPublished';
 import logger from '../logger/logger';
 import ConfigLoader from '../config-loader';
-import ScheduleUtils from "../schedule";
+import ScheduleUtils from '../schedule';
 
 /**
  * ScheduleService.
@@ -217,7 +216,7 @@ class ScheduleService {
           slides.push(newSlide);
         });
       } else {
-        Logger.log('info', `Playlist ${playlist['@id']} not scheduled for now`);
+        logger.log('info', `Playlist ${playlist['@id']} not scheduled for now`);
       }
     });
 
