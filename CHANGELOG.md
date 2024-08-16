@@ -12,7 +12,6 @@ All notable changes to this project will be documented in this file.
   - Fixed base path to /client.
 - [#118](https://github.com/os2display/display-client/pull/118)
   - Added api url to localstorage.
-  - Removed React strict mode.
 
 ## [2.0.4] - 2024-08-14
 
