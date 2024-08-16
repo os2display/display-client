@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file.
 
+## Unreleased
+
+- [#127](https://github.com/os2display/display-client/pull/127)
+  - Migrate from CRA to Vite
+  - Upgrade node from 14 -> 20
+  - Winston logging to Pino logging
+  - Set infrastructure node version to 20.
+  - Fixed base path to /client.
+
+## [2.0.4] - 2024-08-14
+
+- [#128](https://github.com/os2display/display-client/pull/128)
+  - Fixed rrule evaluation to handle local time correctly.
+
+## [2.0.3] - 2024-05-21
+
+- [#125](https://github.com/os2display/display-client/pull/125)
+  - Removed React strict mode.
+  - Added null check to release query parameter changes, to avoid redirecting to ?releaseVersion=null&releaseTimestamp=null when release.json cannot be reached (eg. when the internet connection is down).
+
+## [2.0.2] - 2024-04-25
+
 - [#123](https://github.com/os2display/display-client/pull/123)
   - Ensured real ip is logged in nginx.
 - [#124](https://github.com/os2display/display-client/pull/124)

@@ -1,6 +1,6 @@
 import cloneDeep from 'lodash.clonedeep';
 import isPublished from '../util/isPublished';
-import Logger from '../logger/logger';
+import logger from '../logger/logger';
 import ApiHelper from './api-helper';
 
 /**
@@ -67,7 +67,7 @@ class PullStrategy {
         });
       }
     } catch (err) {
-      Logger.log('error', err);
+      logger.error(err);
     }
 
     let screenCampaigns = [];
@@ -81,7 +81,7 @@ class PullStrategy {
         ({ campaign }) => campaign
       );
     } catch (err) {
-      Logger.log('error', err);
+      logger.error(err);
     }
 
     return new Promise((resolve) => {
@@ -188,8 +188,7 @@ class PullStrategy {
     try {
       screen = await this.apiHelper.getPath(screenPath);
     } catch (err) {
-      Logger.log(
-        'warn',
+      logger.warn(
         `Screen (${screenPath}) not loaded. Aborting content update.`
       );
 
@@ -197,7 +196,7 @@ class PullStrategy {
     }
 
     if (screen === null) {
-      Logger.log('warn', `Screen (${screenPath}) not loaded`);
+      logger.warn(`Screen (${screenPath}) not loaded`);
       return;
     }
 
@@ -207,17 +206,18 @@ class PullStrategy {
     let hasActiveCampaign = false;
 
     const newScreenChecksums = newScreen?.relationsChecksum ?? [];
-    const oldScreenChecksums = this.lastestScreenData?.relationsChecksum ?? null;
+    const oldScreenChecksums =
+      this.lastestScreenData?.relationsChecksum ?? null;
 
     if (
       oldScreenChecksums === null ||
       oldScreenChecksums?.campaigns !== newScreenChecksums?.campaigns ||
       oldScreenChecksums?.inScreenGroups !== newScreenChecksums?.inScreenGroups
     ) {
-      Logger.log('info', `Campaigns or screen groups modified.`);
+      logger.info(`Campaigns or screen groups modified.`);
       newScreen.campaignsData = await this.getCampaignsData(newScreen);
     } else {
-      Logger.log('info', `Campaigns or screen groups not modified.`);
+      logger.info(`Campaigns or screen groups not modified.`);
       newScreen.campaignsData = this.lastestScreenData.campaignsData;
     }
 
@@ -231,7 +231,7 @@ class PullStrategy {
 
     // With active campaigns, we override region/layout values.
     if (hasActiveCampaign) {
-      Logger.log('info', `Has active campaign.`);
+      logger.info(`Has active campaign.`);
 
       // Create ulid to connect the campaign with the regions/playlists.
       const campaignRegionId = '01G112XBWFPY029RYFB8X2H4KD';
@@ -264,11 +264,11 @@ class PullStrategy {
         oldScreenChecksums === null ||
         oldScreenChecksums?.layout !== newScreenChecksums?.layout
       ) {
-        Logger.log('info', `Layout changed since last fetch.`);
+        logger.info(`Layout changed since last fetch.`);
         newScreen.layoutData = await this.apiHelper.getPath(newScreen.layout);
       } else {
         // Get layout: Defines layout and regions.
-        Logger.log('info', `Layout not changed since last fetch.`);
+        logger.info(`Layout not changed since last fetch.`);
         newScreen.layoutData = this.lastestScreenData.layoutData;
       }
 
@@ -277,11 +277,11 @@ class PullStrategy {
         oldScreenChecksums === null ||
         oldScreenChecksums?.regions !== newScreenChecksums?.regions
       ) {
-        Logger.log('info', `Regions changed since last fetch.`);
+        logger.info(`Regions changed since last fetch.`);
         const regions = await this.getRegions(newScreen.regions);
         newScreen.regionData = await this.getSlidesForRegions(regions);
       } else {
-        Logger.log('info', `Regions not changed since last fetch.`);
+        logger.info(`Regions not changed since last fetch.`);
         newScreen.regionData = this.lastestScreenData.regionData;
       }
     }
@@ -352,8 +352,7 @@ class PullStrategy {
 
           // A slide cannot work without templateData. Mark as invalid.
           if (slide.templateData === null) {
-            Logger.log(
-              'warn',
+            logger.warn(
               `Template (${slide.templateInfo['@id']}) not loaded, slideId: ${slide['@id']}`
             );
             slide.invalid = true;
@@ -395,7 +394,7 @@ class PullStrategy {
     }
     /* eslint-enable no-restricted-syntax,no-await-in-loop */
 
-    Logger.log('info', `Emitting screen data.`);
+    logger.info(`Emitting screen data.`);
 
     this.lastestScreenData = newScreen;
 
