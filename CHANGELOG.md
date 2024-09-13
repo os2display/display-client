@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+- [#130](https://github.com/os2display/display-client/pull/130)
+  - Fixed issue with svg loading.
 - [#127](https://github.com/os2display/display-client/pull/127)
   - Migrate from CRA to Vite
   - Upgrade node from 14 -> 20

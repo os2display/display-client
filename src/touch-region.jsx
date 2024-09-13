@@ -5,8 +5,8 @@ import { createGridArea } from "os2display-grid-generator";
 import Slide from "./slide";
 import ErrorBoundary from "./error-boundary";
 import idFromPath from "./id-from-path";
-import IconClose from "./assets/icon-close.svg?react";
-import IconPointer from "./assets/icon-pointer.svg?react";
+import IconClose from "./assets/icon-close.svg";
+import IconPointer from "./assets/icon-pointer.svg";
 
 /**
  * Region component.
