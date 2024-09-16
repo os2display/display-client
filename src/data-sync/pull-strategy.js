@@ -207,7 +207,8 @@ class PullStrategy {
     let hasActiveCampaign = false;
 
     const newScreenChecksums = newScreen?.relationsChecksum ?? [];
-    const oldScreenChecksums = this.lastestScreenData?.relationsChecksum ?? null;
+    const oldScreenChecksums =
+      this.lastestScreenData?.relationsChecksum ?? null;
 
     if (
       oldScreenChecksums === null ||

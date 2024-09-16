@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+- Moved localstorage calls into helper class AppStorage.
+- Cleaned up project structure.
+
 ## [2.0.4] - 2024-08-14
 
 - [#128](https://github.com/os2display/display-client/pull/128)

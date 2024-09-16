@@ -3,7 +3,7 @@ import Base64 from 'crypto-js/enc-base64';
 import Logger from '../logger/logger';
 import DataSync from '../data-sync/data-sync';
 import ScheduleService from './scheduleService';
-import ConfigLoader from '../config-loader';
+import ConfigLoader from '../util/config-loader';
 
 /**
  * ContentService.

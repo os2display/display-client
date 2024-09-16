@@ -4,9 +4,9 @@ import SunCalc from 'suncalc';
 import { createGrid } from 'os2display-grid-generator';
 import Region from './region';
 import './screen.scss';
-import Logger from './logger/logger';
+import Logger from '../logger/logger';
 import TouchRegion from './touch-region';
-import ConfigLoader from './config-loader';
+import ConfigLoader from '../util/config-loader';
 
 /**
  * Screen component.

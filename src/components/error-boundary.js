@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Logger from './logger/logger';
+import Logger from '../logger/logger';
 import './error-boundary.scss';
-import fallback from './assets/fallback.png';
+import fallback from '../assets/fallback.png';
 
 class ErrorBoundary extends Component {
   constructor(props) {

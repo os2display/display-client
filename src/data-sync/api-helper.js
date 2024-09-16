@@ -1,5 +1,5 @@
 import Logger from '../logger/logger';
-import localStorageKeys from '../local-storage-keys';
+import appStorage from '../util/app-storage';
 
 class ApiHelper {
   endpoint = '';
@@ -29,8 +29,14 @@ class ApiHelper {
     try {
       Logger.log('info', `Fetching: ${this.endpoint + path}`);
 
-      const token = localStorage.getItem(localStorageKeys.API_TOKEN) ?? '';
-      const tenantKey = localStorage.getItem(localStorageKeys.TENANT_KEY) ?? '';
+      const token = appStorage.getToken();
+      const tenantKey = appStorage.getTenantKey();
+
+      if (!token || !tenantKey) {
+        Logger.log('error', 'Token or tenantKey not set.');
+
+        return null;
+      }
 
       response = await fetch(this.endpoint + path, {
         headers: {

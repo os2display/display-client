@@ -2,7 +2,7 @@ import { React } from 'react';
 import PropTypes from 'prop-types';
 import './slide.scss';
 import ErrorBoundary from './error-boundary';
-import { useRemoteComponent } from './useRemoteComponent';
+import { useRemoteComponent } from '../useRemoteComponent';
 
 /**
  * Slide component.

@@ -1,14 +1,13 @@
-import jwtDecode from 'jwt-decode';
 import React, { useEffect, useRef, useState } from 'react';
-import Screen from './screen';
+import Screen from './components/screen';
 import ContentService from './service/contentService';
-import ConfigLoader from './config-loader';
-import ReleaseLoader from './release-loader';
+import ConfigLoader from './util/config-loader';
+import ReleaseLoader from './util/release-loader';
 import Logger from './logger/logger';
 import './app.scss';
-import localStorageKeys from './local-storage-keys';
 import fallback from './assets/fallback.png';
-import idFromPath from './id-from-path';
+import idFromPath from './util/id-from-path';
+import appStorage from './util/app-storage';
 
 /**
  * App component.
@@ -17,12 +16,10 @@ import idFromPath from './id-from-path';
  *   The component.
  */
 function App() {
-  const fallbackImageUrl = localStorage.getItem(
-    localStorageKeys.FALLBACK_IMAGE
-  );
+  const fallbackImageUrl = appStorage.getFallbackImageUrl();
 
   const loginCheckTimeoutDefault = 20 * 1000;
-  const refreshTokenTimeoutDefault = 60 * 1000 * 15;
+  const refreshTokenTimeoutDefault = 15 * 60 * 1000;
   const releaseTimestampIntervalTimeoutDefault = 1000 * 60 * 10;
 
   const [running, setRunning] = useState(false);
@@ -72,27 +69,21 @@ function App() {
       return;
     }
 
-    const rToken = localStorage.getItem(localStorageKeys.REFRESH_TOKEN);
-    const exp = parseInt(
-      localStorage.getItem(localStorageKeys.API_TOKEN_EXPIRE),
-      10
-    );
-    const iat = parseInt(
-      localStorage.getItem(localStorageKeys.API_TOKEN_ISSUED_AT),
-      10
-    );
+    const refreshToken = appStorage.getRefreshToken();
+    const expire = appStorage.getTokenExpire();
+    const issueAt = appStorage.getTokenIssueAt();
 
-    if (!rToken || !exp || !iat) {
+    if (!refreshToken || !expire || !issueAt) {
       Logger.log('warn', 'Refresh token, exp or iat not set.');
       return;
     }
 
-    const timeDiff = exp - iat;
+    const timeDiff = expire - issueAt;
 
     const now = Math.floor(new Date().getTime() / 1000);
 
     // If more than half the time till expire has been passed refresh the token.
-    if (now > iat + timeDiff / 2) {
+    if (now > issueAt + timeDiff / 2) {
       setRefreshingToken(true);
       Logger.log('info', 'Refreshing token.');
 
@@ -103,28 +94,15 @@ function App() {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            refresh_token: rToken,
+            refresh_token: refreshToken,
           }),
         })
           .then((response) => response.json())
           .then((data) => {
             Logger.log('info', 'Token refreshed.');
 
-            const decodedToken = jwtDecode(data.token);
-
-            localStorage.setItem(localStorageKeys.API_TOKEN, data.token);
-            localStorage.setItem(
-              localStorageKeys.API_TOKEN_EXPIRE,
-              decodedToken.exp
-            );
-            localStorage.setItem(
-              localStorageKeys.API_TOKEN_ISSUED_AT,
-              decodedToken.iat
-            );
-            localStorage.setItem(
-              localStorageKeys.REFRESH_TOKEN,
-              data.refresh_token
-            );
+            appStorage.setToken(data.token);
+            appStorage.setRefreshToken(data.refresh_token);
           })
           .catch(() => {
             Logger.log('error', 'Token refresh error.');
@@ -137,7 +115,7 @@ function App() {
       Logger.log(
         'info',
         `Half the time until expire has not been reached. Will not refresh. Token will expire at ${new Date(
-          exp * 1000
+          expire * 1000
         ).toISOString()}`
       );
     }
@@ -180,8 +158,8 @@ function App() {
   const checkLogin = () => {
     Logger.log('info', 'Check login.');
 
-    const localStorageToken = localStorage.getItem(localStorageKeys.API_TOKEN);
-    const localScreenId = localStorage.getItem(localStorageKeys.SCREEN_ID);
+    const localStorageToken = appStorage.getToken();
+    const localScreenId = appStorage.getScreenId();
 
     if (!running && localStorageToken && localScreenId) {
       startContent(localScreenId);
@@ -201,24 +179,10 @@ function App() {
               data?.tenantKey &&
               data?.refresh_token
             ) {
-              const decodedToken = jwtDecode(data.token);
-
-              localStorage.setItem(localStorageKeys.API_TOKEN, data.token);
-              localStorage.setItem(
-                localStorageKeys.API_TOKEN_EXPIRE,
-                decodedToken.exp
-              );
-              localStorage.setItem(
-                localStorageKeys.API_TOKEN_ISSUED_AT,
-                decodedToken.iat
-              );
-              localStorage.setItem(localStorageKeys.SCREEN_ID, data.screenId);
-              localStorage.setItem(
-                localStorageKeys.REFRESH_TOKEN,
-                data.refresh_token
-              );
-              localStorage.setItem(localStorageKeys.TENANT_KEY, data.tenantKey);
-              localStorage.setItem(localStorageKeys.TENANT_ID, data.tenantId);
+              appStorage.setToken(data.token);
+              appStorage.setRefreshToken(data.refresh_token);
+              appStorage.setScreenId(data.screenId);
+              appStorage.setTenant(data.tenantKey, data.tenantId);
 
               startContent(data.screenId);
             } else if (data?.status === 'awaitingBindKey') {
@@ -253,14 +217,11 @@ function App() {
   const reauthenticateHandler = () => {
     Logger.log('info', 'Reauthenticate.');
 
-    localStorage.removeItem(localStorageKeys.API_TOKEN);
-    localStorage.removeItem(localStorageKeys.API_TOKEN_EXPIRE);
-    localStorage.removeItem(localStorageKeys.API_TOKEN_ISSUED_AT);
-    localStorage.removeItem(localStorageKeys.REFRESH_TOKEN);
-    localStorage.removeItem(localStorageKeys.SCREEN_ID);
-    localStorage.removeItem(localStorageKeys.TENANT_KEY);
-    localStorage.removeItem(localStorageKeys.TENANT_ID);
-    localStorage.removeItem(localStorageKeys.FALLBACK_IMAGE);
+    appStorage.clearToken();
+    appStorage.clearRefreshToken();
+    appStorage.clearScreenId();
+    appStorage.clearTenant();
+    appStorage.clearFallbackImageUrl();
 
     if (contentServiceRef?.current !== null) {
       contentServiceRef.current.stop();
@@ -268,7 +229,7 @@ function App() {
     }
 
     setScreen(null);
-    if (refreshTokenIntervalRef) {
+    if (refreshTokenIntervalRef.current) {
       clearInterval(refreshTokenIntervalRef.current);
     }
     setRunning(false);
@@ -321,7 +282,7 @@ function App() {
   // ctrl/cmd i will log screen out and refresh
   const handleKeyboard = ({ repeat, metaKey, ctrlKey, code }) => {
     if (!repeat && (metaKey || ctrlKey) && code === 'KeyI') {
-      localStorage.clear();
+      appStorage.clearAppStorage();
       window.location.reload();
     }
   };
@@ -407,9 +368,9 @@ function App() {
     }
 
     ConfigLoader.loadConfig().then((config) => {
-      const token = localStorage.getItem(localStorageKeys.API_TOKEN);
-      const tenantKey = localStorage.getItem(localStorageKeys.TENANT_KEY);
-      const tenantId = localStorage.getItem(localStorageKeys.TENANT_ID);
+      const token = appStorage.getToken();
+      const tenantKey = appStorage.getTenantKey();
+      const tenantId = appStorage.getTenantId();
 
       if (token && tenantKey && tenantId) {
         // Get fallback image.
@@ -421,11 +382,8 @@ function App() {
         })
           .then((response) => response.json())
           .then((tenantData) => {
-            if (tenantData.fallbackImageUrl) {
-              localStorage.setItem(
-                localStorageKeys.FALLBACK_IMAGE,
-                tenantData.fallbackImageUrl
-              );
+            if (tenantData?.fallbackImageUrl) {
+              appStorage.setFallbackImageUrl(tenantData.fallbackImageUrl);
             }
           });
       }

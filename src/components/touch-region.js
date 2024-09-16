@@ -1,12 +1,12 @@
 import { React, useEffect, useState, createRef } from 'react';
 import PropTypes from 'prop-types';
-import './region.scss';
+import './touch-region.scss';
 import { createGridArea } from 'os2display-grid-generator';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import Slide from './slide';
 import ErrorBoundary from './error-boundary';
-import idFromPath from './id-from-path';
-import Logger from './logger/logger';
+import idFromPath from '../util/id-from-path';
+import { ReactComponent as IconClose } from '../assets/icon-close.svg';
+import { ReactComponent as IconPointer } from '../assets/icon-pointer.svg';
 
 /**
  * Region component.
@@ -18,10 +18,10 @@ import Logger from './logger/logger';
  * @returns {object}
  *   The component.
  */
-function Region({ region }) {
+function TouchRegion({ region }) {
   const [slides, setSlides] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(null);
-  const [newSlides, setNewSlides] = useState(null);
+  const [displayClose, setDisplayClose] = useState(false);
   const [nodeRefs, setNodeRefs] = useState({});
   const [runId, setRunId] = useState(null);
 
@@ -31,46 +31,13 @@ function Region({ region }) {
   rootStyle.gridArea = createGridArea(region.gridArea);
 
   /**
-   * Find the slide after the slide with the fromId.
-   *
-   * @param {number} fromId
-   *   The id from which the next slide is determined.
-   * @returns {object}
-   *   The slide.
-   */
-  function findNextSlide(fromId) {
-    const slideIndex = slides.findIndex(
-      (slideElement) => slideElement.executionId === fromId
-    );
-
-    const nextIndex = (slideIndex + 1) % slides.length;
-
-    return {
-      nextSlide: slides[nextIndex],
-      nextIndex,
-    };
-  }
-
-  /**
    * The slide is done executing.
    *
    * @param {object} slide - The slide.
    */
   function slideDone(slide) {
-    const nextSlideAndIndex = findNextSlide(slide.executionId);
-
-    if (nextSlideAndIndex.nextIndex === 0 && Array.isArray(newSlides)) {
-      const nextSlides = [...newSlides];
-      setSlides(nextSlides);
-      setNewSlides(null);
-      setCurrentSlide(nextSlides[0]);
-    } else {
-      setCurrentSlide(nextSlideAndIndex.nextSlide);
-    }
-
-    setRunId(new Date().toISOString());
-
-    Logger.log('info', `Slide done with executionId: ${slide?.executionId}`);
+    setDisplayClose(false);
+    setCurrentSlide(null);
 
     // Emit slideDone event.
     const slideDoneEvent = new CustomEvent('slideDone', {
@@ -89,10 +56,7 @@ function Region({ region }) {
    *   The event. The data is contained in detail.
    */
   function regionContentListener(event) {
-    const receivedSlides = [...event.detail.slides];
-
-    // Filter out invalid slides.
-    setNewSlides(receivedSlides.filter((slide) => !slide.invalid));
+    setSlides([...event.detail.slides]);
   }
 
   // Setup event listener for region content.
@@ -129,23 +93,9 @@ function Region({ region }) {
     document.dispatchEvent(event);
   }, [region]);
 
-  // Start the progress if no slide is currently playing.
-  useEffect(() => {
-    if (newSlides !== null && !currentSlide) {
-      setSlides(newSlides);
-    }
-  }, [newSlides]);
-
   // Make sure current slide is set.
   useEffect(() => {
     if (!slides) return;
-
-    if (!currentSlide) {
-      if (slides.length > 0) {
-        setCurrentSlide(slides[0]);
-        setRunId(new Date().toISOString());
-      }
-    }
 
     // Add or remove refs.
     setNodeRefs((prevNodeRefs) =>
@@ -157,18 +107,19 @@ function Region({ region }) {
     );
   }, [slides]);
 
+  const startSlide = (slide) => {
+    setDisplayClose(true);
+    setCurrentSlide(slide);
+    setRunId(new Date().toISOString());
+  };
+
   return (
-    <div className="region" style={rootStyle} id={regionId}>
+    <div className="touch-region" style={rootStyle} id={regionId}>
       <ErrorBoundary>
         <>
-          <TransitionGroup component={null}>
-            {currentSlide && (
-              <CSSTransition
-                key={currentSlide.executionId}
-                timeout={1000}
-                classNames="slide"
-                nodeRef={nodeRefs[currentSlide.executionId]}
-              >
+          {currentSlide !== null && (
+            <div className="touch-region-container">
+              <div className="touch-region-content">
                 <Slide
                   slide={currentSlide}
                   id={currentSlide.executionId}
@@ -177,20 +128,58 @@ function Region({ region }) {
                   key={currentSlide.executionId}
                   forwardRef={nodeRefs[currentSlide.executionId]}
                 />
-              </CSSTransition>
-            )}
-          </TransitionGroup>
+              </div>
+              <div className="touch-region-footer">
+                <div className="touch-buttons-container">
+                  {displayClose && (
+                    <div
+                      className="touch-button-close"
+                      onClick={slideDone}
+                      onKeyDown={slideDone}
+                      role="button"
+                      tabIndex={0}
+                    >
+                      <div className="touch-button-icon">
+                        <IconClose />
+                      </div>
+                      <div className="touch-button-text">LUK</div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+          <div className="touch-buttons-container">
+            {slides &&
+              slides.map((slide) => (
+                <div
+                  className="touch-button"
+                  key={`button-${slide.executionId}`}
+                  onClick={() => startSlide(slide)}
+                  onKeyDown={() => startSlide(slide)}
+                  role="button"
+                  tabIndex={0}
+                >
+                  <div className="touch-button-icon">
+                    <IconPointer />
+                  </div>
+                  <div className="touch-button-text">
+                    {slide.content?.touchRegionButtonText ?? slide.title}
+                  </div>
+                </div>
+              ))}
+          </div>
         </>
       </ErrorBoundary>
     </div>
   );
 }
 
-Region.propTypes = {
+TouchRegion.propTypes = {
   region: PropTypes.shape({
     '@id': PropTypes.string.isRequired,
     gridArea: PropTypes.arrayOf(PropTypes.string.isRequired),
   }).isRequired,
 };
 
-export default Region;
+export default TouchRegion;

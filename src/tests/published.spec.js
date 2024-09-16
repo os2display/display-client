@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import ScheduleService from './service/scheduleService';
+import ScheduleService from '../service/scheduleService';
 
 let today = new Date();
 let tomorrow = new Date(today);
