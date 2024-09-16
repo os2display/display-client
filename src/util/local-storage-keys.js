@@ -8,4 +8,5 @@ const localStorageKeys = {
   REFRESH_TOKEN: 'refreshToken',
   FALLBACK_IMAGE: 'fallbackImage',
 };
+
 export default localStorageKeys;

@@ -8,6 +8,7 @@ import './app.scss';
 import fallback from './assets/fallback.png';
 import idFromPath from './util/id-from-path';
 import appStorage from './util/app-storage';
+import defaults from './util/defaults';
 
 /**
  * App component.
@@ -16,12 +17,6 @@ import appStorage from './util/app-storage';
  *   The component.
  */
 function App() {
-  const fallbackImageUrl = appStorage.getFallbackImageUrl();
-
-  const loginCheckTimeoutDefault = 20 * 1000;
-  const refreshTokenTimeoutDefault = 15 * 60 * 1000;
-  const releaseTimestampIntervalTimeoutDefault = 1000 * 60 * 10;
-
   const [running, setRunning] = useState(false);
   const [screen, setScreen] = useState('');
   const [bindKey, setBindKey] = useState(null);
@@ -34,6 +29,7 @@ function App() {
   const [displayFallback, setDisplayFallback] = useState(true);
   const [debug, setDebug] = useState(false);
 
+  const fallbackImageUrl = appStorage.getFallbackImageUrl();
   const fallbackStyle = {};
 
   fallbackStyle.backgroundImage = `url("${
@@ -150,7 +146,7 @@ function App() {
       // Start refresh token interval.
       refreshTokenIntervalRef.current = setInterval(
         checkToken,
-        config.refreshTokenTimeout ?? refreshTokenTimeoutDefault
+        config.refreshTokenTimeout ?? defaults.refreshTokenTimeoutDefault
       );
     });
   };
@@ -196,7 +192,7 @@ function App() {
 
               timeoutRef.current = setTimeout(
                 checkLogin,
-                config.loginCheckTimeout ?? loginCheckTimeoutDefault
+                config.loginCheckTimeout ?? defaults.loginCheckTimeoutDefault
               );
             }
           })
@@ -207,7 +203,7 @@ function App() {
 
             timeoutRef.current = setTimeout(
               checkLogin,
-              config.loginCheckTimeout ?? loginCheckTimeoutDefault
+              config.loginCheckTimeout ?? defaults.loginCheckTimeoutDefault
             );
           });
       });
@@ -330,7 +326,7 @@ function App() {
       releaseTimestampIntervalRef.current = setInterval(
         checkForUpdates,
         config.releaseTimestampIntervalTimeout ??
-          releaseTimestampIntervalTimeoutDefault
+          defaults.releaseTimestampIntervalTimeoutDefault
       );
     });
 
