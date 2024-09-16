@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Screen from './components/screen';
-import ContentService from './service/contentService';
+import ContentService from './service/content-service';
 import ConfigLoader from './util/config-loader';
 import ReleaseLoader from './util/release-loader';
 import logger from './logger/logger';
