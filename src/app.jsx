@@ -2,13 +2,14 @@ import React, { useEffect, useRef, useState } from 'react';
 import Screen from './components/screen';
 import ContentService from './service/content-service';
 import ConfigLoader from './util/config-loader';
-import ReleaseLoader from './util/release-loader';
 import logger from './logger/logger';
 import './app.scss';
 import fallback from './assets/fallback.png';
-import idFromPath from './util/id-from-path';
 import appStorage from './util/app-storage';
 import defaults from './util/defaults';
+import tokenService from "./service/token-service.js";
+import releaseService from "./service/release-service.js";
+import tenantService from "./service/tenant-service.js";
 
 /**
  * App component.
@@ -20,14 +21,12 @@ function App() {
   const [running, setRunning] = useState(false);
   const [screen, setScreen] = useState("");
   const [bindKey, setBindKey] = useState(null);
-  const [refreshingToken, setRefreshingToken] = useState(false);
-  const timeoutRef = useRef(null);
-  const refreshTokenIntervalRef = useRef(null);
-  const contentServiceRef = useRef(null);
-  const releaseTimestampRef = useRef(null);
-  const releaseTimestampIntervalRef = useRef(null);
   const [displayFallback, setDisplayFallback] = useState(true);
-  const [debug, setDebug] = useState(false);
+
+  const checkLoginTimeoutRef = useRef(null);
+  const contentServiceRef = useRef(null);
+
+  const debug = appStorage.getDebug();
 
   const fallbackImageUrl = appStorage.getFallbackImageUrl();
   const fallbackStyle = {};
@@ -56,70 +55,11 @@ function App() {
     }
   }
 
-  const checkToken = () => {
-    logger.info("Refresh token check");
-
-    // Ignore if already refreshing token.
-    if (refreshingToken) {
-      logger.info("Already refreshing token.");
-      return;
-    }
-
-    const refreshToken = appStorage.getRefreshToken();
-    const expire = appStorage.getTokenExpire();
-    const issueAt = appStorage.getTokenIssueAt();
-
-    if (!refreshToken || !expire || !issueAt) {
-      logger.warn('Refresh token, exp or iat not set.');
-      return;
-    }
-
-    const timeDiff = expire - issueAt;
-
-    const now = Math.floor(new Date().getTime() / 1000);
-
-    // If more than half the time till expire has been passed refresh the token.
-    if (now > issueAt + timeDiff / 2) {
-      setRefreshingToken(true);
-      logger.info("Refreshing token.");
-
-      ConfigLoader.loadConfig().then((config) => {
-        fetch(`${config.apiEndpoint}/v2/authentication/token/refresh`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            refresh_token: refreshToken,
-          }),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            logger.info("Token refreshed.");
-
-            appStorage.setToken(data.token);
-            appStorage.setRefreshToken(data.refresh_token);
-          })
-          .catch(() => {
-            logger.error("Token refresh error.");
-          })
-          .finally(() => {
-            setRefreshingToken(false);
-          });
-      });
-    } else {
-      logger.info(
-        `Half the time until expire has not been reached. Will not refresh. Token will expire at ${new Date(
-          expire * 1000
-        ).toISOString()}`
-      );
-    }
-  };
-
   const startContent = (localScreenId) => {
     logger.info("Starting content.");
 
     if (contentServiceRef.current !== null) {
+      logger.warn("ContentServiceRef is not null.");
       return;
     }
 
@@ -141,13 +81,7 @@ function App() {
       })
     );
 
-    ConfigLoader.loadConfig().then((config) => {
-      // Start refresh token interval.
-      refreshTokenIntervalRef.current = setInterval(
-        checkToken,
-        config.refreshTokenTimeout ?? defaults.refreshTokenTimeoutDefault
-      );
-    });
+    tokenService.startRefreshing();
   };
 
   const checkLogin = () => {
@@ -185,22 +119,22 @@ function App() {
                 setBindKey(data.bindKey);
               }
 
-              if (timeoutRef.current !== null) {
-                clearTimeout(timeoutRef.current);
+              if (checkLoginTimeoutRef.current !== null) {
+                clearTimeout(checkLoginTimeoutRef.current);
               }
 
-              timeoutRef.current = setTimeout(
+              checkLoginTimeoutRef.current = setTimeout(
                 checkLogin,
                 config.loginCheckTimeout ?? defaults.loginCheckTimeoutDefault
               );
             }
           })
           .catch(() => {
-            if (timeoutRef.current !== null) {
-              clearTimeout(timeoutRef.current);
+            if (checkLoginTimeoutRef.current !== null) {
+              clearTimeout(checkLoginTimeoutRef.current);
             }
 
-            timeoutRef.current = setTimeout(
+            checkLoginTimeoutRef.current = setTimeout(
               checkLogin,
               config.loginCheckTimeout ?? defaults.loginCheckTimeoutDefault
             );
@@ -211,6 +145,8 @@ function App() {
 
   const reauthenticateHandler = () => {
     logger.info("Reauthenticate.");
+
+    // TODO: Check if we can get a new token from refresh token.
 
     appStorage.clearToken();
     appStorage.clearRefreshToken();
@@ -224,41 +160,11 @@ function App() {
     }
 
     setScreen(null);
-    if (refreshTokenIntervalRef.current) {
-      clearInterval(refreshTokenIntervalRef.current);
-    }
     setRunning(false);
 
+    tokenService.stopRefreshing();
+
     checkLogin();
-  };
-
-  const checkForUpdates = () => {
-    logger.info("Checking for new release timestamp.");
-
-    ReleaseLoader.loadConfig().then((release) => {
-      if (releaseTimestampRef?.current === null) {
-        releaseTimestampRef.current = release.releaseTimestamp;
-      } else if (releaseTimestampRef?.current !== release.releaseTimestamp) {
-        if (
-          release.releaseTimestamp !== null &&
-          release.releaseVersion !== null
-        ) {
-          const redirectUrl = new URL(window.location.href);
-          redirectUrl.searchParams.set(
-            "releaseTimestamp",
-            release.releaseTimestamp
-          );
-          redirectUrl.searchParams.set(
-            "releaseVersion",
-            release.releaseVersion
-          );
-
-          window.location.replace(redirectUrl);
-        } else {
-          logger.info("Release timestamp or version null, not redirecting.");
-        }
-      }
-    });
   };
 
   const contentEmpty = () => {
@@ -280,32 +186,9 @@ function App() {
   };
 
   useEffect(() => {
-    const currentUrl = new URL(window.location.href);
-
-    // Make sure have releaseVersion and releaseTimestamp set in url parameters.
-    if (
-      !currentUrl.searchParams.has("releaseVersion") ||
-      !currentUrl.searchParams.has("releaseTimestamp")
-    ) {
-      ReleaseLoader.loadConfig().then((release) => {
-        if (
-          release.releaseTimestamp !== null &&
-          release.releaseVersion !== null
-        ) {
-          currentUrl.searchParams.set(
-            "releaseTimestamp",
-            release.releaseTimestamp
-          );
-          currentUrl.searchParams.set("releaseVersion", release.releaseVersion);
-
-          window.history.replaceState(null, "", currentUrl);
-        } else {
-          logger.info(
-            "Release timestamp or version null, not setting query parameters."
-          );
-        }
-      });
-    }
+    releaseService.setCurrentReleaseInUrl();
+    releaseService.checkForUpdates();
+    releaseService.startReleaseCheck();
 
     document.addEventListener("screen", screenHandler);
     document.addEventListener("reauthenticate", reauthenticateHandler);
@@ -314,16 +197,6 @@ function App() {
     document.addEventListener("keypress", handleKeyboard);
 
     checkLogin();
-
-    checkForUpdates();
-
-    ConfigLoader.loadConfig().then((config) => {
-      releaseTimestampIntervalRef.current = setInterval(
-        checkForUpdates,
-        config.releaseTimestampIntervalTimeout ??
-          defaults.releaseTimestampIntervalTimeoutDefault
-      );
-    });
 
     return function cleanup() {
       logger.info("Unmounting App.");
@@ -334,56 +207,21 @@ function App() {
       document.removeEventListener("contentEmpty", contentEmpty);
       document.removeEventListener("contentNotEmpty", contentNotEmpty);
 
-      if (timeoutRef?.current) {
-        clearTimeout(timeoutRef.current);
+      if (checkLoginTimeoutRef?.current) {
+        clearTimeout(checkLoginTimeoutRef.current);
       }
 
-      if (refreshTokenIntervalRef?.current) {
-        clearInterval(refreshTokenIntervalRef.current);
-      }
+      tokenService.stopRefreshing();
 
-      if (releaseTimestampIntervalRef?.current) {
-        clearInterval(releaseTimestampIntervalRef.current);
-      }
+      releaseService.stopReleaseCheck();
     };
   }, []);
 
   useEffect(() => {
-    // Append screenId to current url for easier debugging. If errors are logged in the API's standard http log this
-    // makes it easy to see what screen client has made the http call by putting the screen id in the referer http
-    // header.
     if (screen && screen["@id"]) {
-      const url = new URL(window.location.href);
-      url.searchParams.set("screenId", idFromPath(screen["@id"]));
-      window.history.replaceState(null, "", url);
+      releaseService.setScreenIdInUrl(screen['@id']);
+      tenantService.loadTenantConfig();
     }
-
-    ConfigLoader.loadConfig().then((config) => {
-      const token = appStorage.getToken();
-      const tenantKey = appStorage.getTenantKey();
-      const tenantId = appStorage.getTenantId();
-
-      // Make api endpoint available through localstorage.
-      appStorage.setApiUrl(config.apiEndpoint);
-
-      if (token && tenantKey && tenantId) {
-        // Get fallback image.
-        fetch(`${config.apiEndpoint}/v2/tenants/${tenantId}`, {
-          headers: {
-            authorization: `Bearer ${token}`,
-            "Authorization-Tenant-Key": tenantKey,
-          },
-        })
-          .then((response) => response.json())
-          .then((tenantData) => {
-            if (tenantData?.fallbackImageUrl) {
-              appStorage.setFallbackImageUrl(tenantData.fallbackImageUrl);
-            }
-          });
-      }
-
-      setDebug(config?.debug ?? false);
-    });
   }, [screen]);
 
   return (

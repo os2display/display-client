@@ -1,4 +1,6 @@
 // Only fetch new config if more than 15 minutes have passed.
+import appStorage from "./app-storage.js";
+
 const configFetchIntervalDefault = 15 * 60 * 1000;
 
 // Defaults.
@@ -30,6 +32,11 @@ const ConfigLoader = {
           .then((data) => {
             latestFetchTimestamp = nowTimestamp;
             configData = data;
+
+            // Make api endpoint available through localstorage.
+            appStorage.setApiUrl(configData.apiEndpoint);
+            appStorage.setDebug(configData.debug ?? false);
+
             resolve(configData);
           })
           .catch(() => {

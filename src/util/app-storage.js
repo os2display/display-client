@@ -98,7 +98,7 @@ class AppStorage {
   };
 
   setFallbackImageUrl = (fallbackImageUrl) => {
-    return localStorage.setItem(fallbackImageUrl);
+    return localStorage.setItem(localStorageKeys.FALLBACK_IMAGE, fallbackImageUrl);
   };
 
   clearFallbackImageUrl = () => {
@@ -109,6 +109,16 @@ class AppStorage {
 
   setApiUrl = (apiUrl) => {
     localStorage.setItem(localStorageKeys.API_URL, apiUrl);
+  }
+
+  // Debug
+
+  getDebug = () => {
+    return localStorage.getItem(localStorageKeys.DEBUG)
+  }
+
+  setDebug = (debug) => {
+    localStorage.setItem(localStorageKeys.DEBUG, debug);
   }
 }
 
