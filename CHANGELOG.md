@@ -4,8 +4,19 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-- Moved localstorage calls into helper class AppStorage.
-- Cleaned up project structure.
+- [#131](https://github.com/os2display/display-client/pull/131)
+  - Moved localstorage calls into helper class AppStorage.
+  - Cleaned up project structure.
+- [#130](https://github.com/os2display/display-client/pull/130)
+  - Fixed issue with svg loading.
+- [#127](https://github.com/os2display/display-client/pull/127)
+  - Migrate from CRA to Vite
+  - Upgrade node from 14 -> 20
+  - Winston logging to Pino logging
+  - Set infrastructure node version to 20.
+  - Fixed base path to /client.
+- [#118](https://github.com/os2display/display-client/pull/118)
+  - Added api url to localstorage.
 
 ## [2.0.4] - 2024-08-14
 
@@ -40,7 +51,8 @@ All notable changes to this project will be documented in this file.
 
 - [#119](https://github.com/os2display/display-client/pull/119)
   - Changed to v2 routing.
-- Limited the number of API calls by comparing relationsChecksum.
+- [#117](https://github.com/os2display/display-client/pull/117)
+  - Limited the number of API calls by comparing relationsChecksum.
 
 ## [1.3.5] - 2023-09-14
 

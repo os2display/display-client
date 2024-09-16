@@ -7,6 +7,7 @@ const localStorageKeys = {
   TENANT_ID: 'tenantId',
   REFRESH_TOKEN: 'refreshToken',
   FALLBACK_IMAGE: 'fallbackImage',
+  API_URL: 'apiUrl',
 };
 
 export default localStorageKeys;

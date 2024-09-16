@@ -104,6 +104,12 @@ class AppStorage {
   clearFallbackImageUrl = () => {
     localStorage.removeItem(localStorageKeys.FALLBACK_IMAGE);
   };
+
+  // Api URL
+
+  setApiUrl = (apiUrl) => {
+    localStorage.setItem(localStorageKeys.API_URL, apiUrl);
+  }
 }
 
 const appStorage = new AppStorage();

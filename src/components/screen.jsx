@@ -2,10 +2,10 @@ import { Fragment, React, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import SunCalc from 'suncalc';
 import { createGrid } from 'os2display-grid-generator';
-import Region from './region';
+import Region from './region.jsx';
 import './screen.scss';
-import Logger from '../logger/logger';
-import TouchRegion from './touch-region';
+import logger from '../logger/logger';
+import TouchRegion from './touch-region.jsx';
 import ConfigLoader from '../util/config-loader';
 
 /**
@@ -21,8 +21,8 @@ import ConfigLoader from '../util/config-loader';
 function Screen({ screen }) {
   const configColumns = screen?.layoutData?.grid?.columns || 1;
   const configRows = screen?.layoutData?.grid?.rows || 1;
-  const gridTemplateColumns = '1fr '.repeat(configColumns);
-  const gridTemplateRows = '1fr '.repeat(configRows);
+  const gridTemplateColumns = "1fr ".repeat(configColumns);
+  const gridTemplateRows = "1fr ".repeat(configRows);
   const colorSchemeIntervalRef = useRef(null);
 
   const rootStyle = {
@@ -33,12 +33,12 @@ function Screen({ screen }) {
 
   const refreshColorScheme = () => {
     ConfigLoader.loadConfig().then((config) => {
-      Logger.log('info', 'Refreshing color scheme.');
+      logger.info("Refreshing color scheme.");
 
       const now = new Date();
-      let colorScheme = '';
+      let colorScheme = "";
 
-      if (config.colorScheme?.type === 'library') {
+      if (config.colorScheme?.type === "library") {
         // Default to somewhere in Denmark.
         const times = SunCalc.getTimes(
           now,
@@ -47,23 +47,23 @@ function Screen({ screen }) {
         );
 
         if (now > times.sunrise && now < times.sunset) {
-          Logger.log('info', 'Light color scheme activated.');
-          colorScheme = 'color-scheme-light';
+          logger.info("Light color scheme activated.");
+          colorScheme = "color-scheme-light";
         } else {
-          Logger.log('info', 'Dark color scheme activated.');
-          colorScheme = 'color-scheme-dark';
+          logger.info("Dark color scheme activated.");
+          colorScheme = "color-scheme-dark";
         }
       } else {
         // Browser based.
-        colorScheme = window?.matchMedia('(prefers-color-scheme: dark)').matches
-          ? 'color-scheme-dark'
-          : 'color-scheme-light';
+        colorScheme = window?.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "color-scheme-dark"
+          : "color-scheme-light";
       }
 
       // Set class name on html root.
       document.documentElement.classList.remove(
-        'color-scheme-light',
-        'color-scheme-dark'
+        "color-scheme-light",
+        "color-scheme-dark"
       );
       document.documentElement.classList.add(colorScheme);
     });
@@ -71,7 +71,7 @@ function Screen({ screen }) {
 
   useEffect(() => {
     if (screen?.enableColorSchemeChange) {
-      Logger.log('info', 'Enabling color scheme change.');
+      logger.info("Enabling color scheme change.");
       refreshColorScheme();
       // Refresh color scheme every 5 minutes.
       colorSchemeIntervalRef.current = setInterval(
@@ -87,23 +87,23 @@ function Screen({ screen }) {
 
       // Cleanup html root classes.
       document.documentElement.classList.remove(
-        'color-scheme-light',
-        'color-scheme-dark'
+        "color-scheme-light",
+        "color-scheme-dark"
       );
     };
   }, [screen]);
 
   return (
-    <div className="screen" style={rootStyle} id={screen['@id']}>
+    <div className="screen" style={rootStyle} id={screen["@id"]}>
       {screen?.layoutData?.regions?.map((region) => (
-        <Fragment key={region['@id']}>
+        <Fragment key={region["@id"]}>
           {/* Default region type */}
-          {(!region.type || region.type === 'default') && (
-            <Region key={region['@id']} region={region} />
+          {(!region.type || region.type === "default") && (
+            <Region key={region["@id"]} region={region} />
           )}
           {/* Special region type: touch-buttons */}
-          {region?.type === 'touch-buttons' && (
-            <TouchRegion key={region['@id']} region={region} />
+          {region?.type === "touch-buttons" && (
+            <TouchRegion key={region["@id"]} region={region} />
           )}
         </Fragment>
       ))}
@@ -113,7 +113,7 @@ function Screen({ screen }) {
 
 Screen.propTypes = {
   screen: PropTypes.shape({
-    '@id': PropTypes.string.isRequired,
+    "@id": PropTypes.string.isRequired,
     layoutData: PropTypes.shape({
       grid: PropTypes.shape({
         columns: PropTypes.number.isRequired,
@@ -121,7 +121,7 @@ Screen.propTypes = {
       }),
       regions: PropTypes.arrayOf(
         PropTypes.shape({
-          '@id': PropTypes.string.isRequired,
+          "@id": PropTypes.string.isRequired,
           // @TODO: Expand prop type.
         })
       ),

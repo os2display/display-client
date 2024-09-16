@@ -1,4 +1,4 @@
-import Logger from '../logger/logger';
+import logger from '../logger/logger';
 import appStorage from '../util/app-storage';
 
 class ApiHelper {
@@ -27,13 +27,13 @@ class ApiHelper {
     let response;
 
     try {
-      Logger.log('info', `Fetching: ${this.endpoint + path}`);
+      logger.info(`Fetching: ${this.endpoint + path}`);
 
       const token = appStorage.getToken();
       const tenantKey = appStorage.getTenantKey();
 
       if (!token || !tenantKey) {
-        Logger.log('error', 'Token or tenantKey not set.');
+        logger.error('Token or tenantKey not set.');
 
         return null;
       }
@@ -52,8 +52,7 @@ class ApiHelper {
           document.dispatchEvent(new Event('reauthenticate'));
         }
 
-        Logger.log(
-          'error',
+        logger.error(
           `Failed to fetch (status: ${response.status}): ${
             this.endpoint + path
           }`
@@ -64,7 +63,7 @@ class ApiHelper {
 
       return response.json();
     } catch (err) {
-      Logger.log('error', `Failed to fetch: ${this.endpoint + path}`);
+      logger.error(`Failed to fetch: ${this.endpoint + path}`);
 
       return null;
     }
