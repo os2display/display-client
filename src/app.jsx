@@ -144,27 +144,33 @@ function App() {
   };
 
   const reauthenticateHandler = () => {
-    logger.info("Reauthenticate.");
+    logger.info("Reauthenticate handler invoked. Trying to use refresh token.");
 
-    // TODO: Check if we can get a new token from refresh token.
+    tokenService.refreshToken().then(() => {
+      logger.info("Reauthenticate refresh token success");
+    }).catch(() => {
+      logger.warn("Reauthenticate refresh token failed. Logging out.");
 
-    appStorage.clearToken();
-    appStorage.clearRefreshToken();
-    appStorage.clearScreenId();
-    appStorage.clearTenant();
-    appStorage.clearFallbackImageUrl();
+      document.dispatchEvent(new Event('stopDataSync'));
 
-    if (contentServiceRef?.current !== null) {
-      contentServiceRef.current.stop();
-      contentServiceRef.current = null;
-    }
+      appStorage.clearToken();
+      appStorage.clearRefreshToken();
+      appStorage.clearScreenId();
+      appStorage.clearTenant();
+      appStorage.clearFallbackImageUrl();
 
-    setScreen(null);
-    setRunning(false);
+      if (contentServiceRef?.current !== null) {
+        contentServiceRef.current.stop();
+        contentServiceRef.current = null;
+      }
 
-    tokenService.stopRefreshing();
+      setScreen(null);
+      setRunning(false);
 
-    checkLogin();
+      tokenService.stopRefreshing();
+
+      checkLogin();
+    })
   };
 
   const contentEmpty = () => {
@@ -188,7 +194,7 @@ function App() {
   useEffect(() => {
     logger.info("Mounting App.");
 
-    releaseService.checkForUpdates().then(() => {
+    releaseService.checkForNewRelease().then(() => {
       releaseService.setPreviousBootInUrl();
       releaseService.startReleaseCheck();
 

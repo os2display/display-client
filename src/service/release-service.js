@@ -8,8 +8,8 @@ import logger from "../logger/logger";
 class ReleaseService {
   releaseCheckInterval = null;
 
-  checkForUpdates = () => {
-    logger.info("Check for updates.");
+  checkForNewRelease = () => {
+    logger.info("Checking for new release.");
 
     return new Promise((resolve, reject) => {
       const url = new URL(window.location.href);
@@ -45,7 +45,7 @@ class ReleaseService {
     window.history.replaceState(null, "", url);
   }
 
-  setPreviousBootInUrl = (screenId) => {
+  setPreviousBootInUrl = () => {
     const url = new URL(window.location.href);
     url.searchParams.set("pb", appStorage.getPreviousBoot());
     window.history.replaceState(null, "", url);
@@ -54,7 +54,7 @@ class ReleaseService {
   startReleaseCheck = () => {
     ConfigLoader.loadConfig().then((config) => {
       this.releaseCheckInterval = setInterval(
-        releaseService.checkForUpdates,
+        releaseService.checkForNewRelease,
         config.releaseTimestampIntervalTimeout ??
         defaults.releaseTimestampIntervalTimeoutDefault
       );

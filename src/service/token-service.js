@@ -6,8 +6,9 @@ import defaults from "../util/defaults.js";
 class TokenService {
   refreshingToken = false;
   refreshInterval = null;
+  refreshPromise = null;
 
-  checkToken = () => {
+  ensureFreshToken = () => {
     logger.info("Refresh token check");
 
     // Ignore if already refreshing token.
@@ -27,37 +28,12 @@ class TokenService {
 
     const timeDiff = expire - issueAt;
 
-    const now = Math.floor(new Date().getTime() / 1000);
+    const nowSeconds = Math.floor(new Date().getTime() / 1000);
 
     // If more than half the time till expire has been passed refresh the token.
-    if (now > issueAt + timeDiff / 2) {
+    if (nowSeconds > issueAt + timeDiff / 2) {
       logger.info("Refreshing token.");
-      this.refreshingToken = true;
-
-      ConfigLoader.loadConfig().then((config) => {
-        fetch(`${config.apiEndpoint}/v2/authentication/token/refresh`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            refresh_token: refreshToken,
-          }),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            logger.info("Token refreshed.");
-
-            appStorage.setToken(data.token);
-            appStorage.setRefreshToken(data.refresh_token);
-          })
-          .catch(() => {
-            logger.error("Token refresh error.");
-          })
-          .finally(() => {
-            this.refreshingToken = false;
-          });
-      });
+      this.refreshToken();
     } else {
       logger.info(
         `Half the time until expire has not been reached. Will not refresh. Token will expire at ${new Date(
@@ -67,11 +43,52 @@ class TokenService {
     }
   };
 
+  refreshToken = () => {
+    logger.info("Refresh token invoked.");
+
+    if (this.refreshPromise === null) {
+      this.refreshPromise = new Promise((resolve, reject) => {
+        const refreshToken = appStorage.getRefreshToken();
+        this.refreshingToken = true;
+
+        ConfigLoader.loadConfig().then((config) => {
+          fetch(`${config.apiEndpoint}/v2/authentication/token/refresh`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              refresh_token: refreshToken,
+            }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              logger.info("Token refreshed.");
+
+              appStorage.setToken(data.token);
+              appStorage.setRefreshToken(data.refresh_token);
+              resolve();
+            })
+            .catch(() => {
+              logger.error("Token refresh error.");
+              reject("Token refresh error.");
+            })
+            .finally(() => {
+              this.refreshingToken = false;
+              this.refreshPromise = null;
+            });
+        });
+      });
+    }
+
+    return this.refreshPromise;
+  }
+
   startRefreshing = () => {
     ConfigLoader.loadConfig().then((config) => {
       // Start refresh token interval.
       this.refreshInterval = setInterval(
-        tokenService.checkToken,
+        tokenService.ensureFreshToken,
         config.refreshTokenTimeout ?? defaults.refreshTokenTimeoutDefault
       );
     });
