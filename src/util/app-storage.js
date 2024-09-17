@@ -120,6 +120,17 @@ class AppStorage {
   setDebug = (debug) => {
     localStorage.setItem(localStorageKeys.DEBUG, debug);
   }
+
+  // pBoot - previous boot timestamp
+
+  getPreviousBoot = () => {
+    const pBoot = localStorage.getItem(localStorageKeys.PREVIOUS_BOOT);
+    return pBoot !== null ? pBoot : 0;
+  }
+
+  setPreviousBoot = (pBoot) => {
+    localStorage.setItem(localStorageKeys.PREVIOUS_BOOT, pBoot);
+  }
 }
 
 const appStorage = new AppStorage();

@@ -186,17 +186,22 @@ function App() {
   };
 
   useEffect(() => {
-    releaseService.setCurrentReleaseInUrl();
-    releaseService.checkForUpdates();
-    releaseService.startReleaseCheck();
+    logger.info("Mounting App.");
 
-    document.addEventListener("screen", screenHandler);
-    document.addEventListener("reauthenticate", reauthenticateHandler);
-    document.addEventListener("contentEmpty", contentEmpty);
-    document.addEventListener("contentNotEmpty", contentNotEmpty);
-    document.addEventListener("keypress", handleKeyboard);
+    releaseService.checkForUpdates().then(() => {
+      releaseService.setPreviousBootInUrl();
+      releaseService.startReleaseCheck();
 
-    checkLogin();
+      document.addEventListener("screen", screenHandler);
+      document.addEventListener("reauthenticate", reauthenticateHandler);
+      document.addEventListener("contentEmpty", contentEmpty);
+      document.addEventListener("contentNotEmpty", contentNotEmpty);
+      document.addEventListener("keypress", handleKeyboard);
+
+      checkLogin();
+
+      appStorage.setPreviousBoot(new Date().getTime());
+    });
 
     return function cleanup() {
       logger.info("Unmounting App.");

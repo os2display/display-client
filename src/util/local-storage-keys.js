@@ -9,6 +9,7 @@ const localStorageKeys = {
   FALLBACK_IMAGE: 'fallbackImage',
   API_URL: 'apiUrl',
   DEBUG: 'debug',
+  PREVIOUS_BOOT: 'previousBoot',
 };
 
 export default localStorageKeys;

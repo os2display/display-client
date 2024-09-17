@@ -1,25 +1,23 @@
-import logger from "../logger/logger.js";
-import ReleaseLoader from "../util/release-loader.js";
-import ConfigLoader from "../util/config-loader.js";
-import defaults from "../util/defaults.js";
-import idFromPath from "../util/id-from-path.js";
+import ReleaseLoader from "../util/release-loader";
+import ConfigLoader from "../util/config-loader";
+import defaults from "../util/defaults";
+import idFromPath from "../util/id-from-path";
+import appStorage from "../util/app-storage";
+import logger from "../logger/logger";
 
 class ReleaseService {
-  currentReleaseTimestamp = null;
   releaseCheckInterval = null;
 
   checkForUpdates = () => {
-    logger.info("Checking for new release timestamp.");
+    logger.info("Check for updates.");
 
-    ReleaseLoader.loadConfig().then((release) => {
-      if (this.currentReleaseTimestamp === null) {
-        this.currentReleaseTimestamp = release.releaseTimestamp;
-      } else if (this.currentReleaseTimestamp !== release.releaseTimestamp) {
-        if (
-          release.releaseTimestamp !== null &&
-          release.releaseVersion !== null
-        ) {
-          const redirectUrl = new URL(window.location.href);
+    return new Promise((resolve, reject) => {
+      const url = new URL(window.location.href);
+      const currentTimestamp = url.searchParams.get('releaseTimestamp');
+
+      ReleaseLoader.loadConfig().then((release) => {
+        if (!currentTimestamp || currentTimestamp !== release.releaseTimestamp.toString()) {
+          const redirectUrl = url;
           redirectUrl.searchParams.set(
             "releaseTimestamp",
             release.releaseTimestamp
@@ -30,41 +28,13 @@ class ReleaseService {
           );
 
           window.location.replace(redirectUrl);
+          reject();
         } else {
-          logger.info("Release timestamp or version null, not redirecting.");
-        }
-      }
-    });
-  };
-
-  setCurrentReleaseInUrl = () => {
-    const currentUrl = new URL(window.location.href);
-
-    // Make sure have releaseVersion and releaseTimestamp set in url parameters.
-    if (
-      !currentUrl.searchParams.has("releaseVersion") ||
-      !currentUrl.searchParams.has("releaseTimestamp")
-    ) {
-      ReleaseLoader.loadConfig().then((release) => {
-        if (
-          release.releaseTimestamp !== null &&
-          release.releaseVersion !== null
-        ) {
-          currentUrl.searchParams.set(
-            "releaseTimestamp",
-            release.releaseTimestamp
-          );
-          currentUrl.searchParams.set("releaseVersion", release.releaseVersion);
-
-          window.history.replaceState(null, "", currentUrl);
-        } else {
-          logger.info(
-            "Release timestamp or version null, not setting query parameters."
-          );
+          resolve();
         }
       });
-    }
-  }
+    });
+  };
 
   setScreenIdInUrl = (screenId) => {
     // Append screenId to current url for easier debugging. If errors are logged in the API's standard http log this
@@ -72,6 +42,12 @@ class ReleaseService {
     // header.
     const url = new URL(window.location.href);
     url.searchParams.set("screenId", idFromPath(screenId));
+    window.history.replaceState(null, "", url);
+  }
+
+  setPreviousBootInUrl = (screenId) => {
+    const url = new URL(window.location.href);
+    url.searchParams.set("pb", appStorage.getPreviousBoot());
     window.history.replaceState(null, "", url);
   }
 
