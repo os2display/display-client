@@ -10,6 +10,8 @@ All notable changes to this project will be documented in this file.
   - Fixed async flow for release check.
   - Added previous boot timestamp (pb) to url.
   - Try to refresh token on reauthenticate event.
+  - Added status and error to url.
+  - Added error code to login page, if set.
 - [#130](https://github.com/os2display/display-client/pull/130)
   - Fixed issue with svg loading.
 - [#127](https://github.com/os2display/display-client/pull/127)

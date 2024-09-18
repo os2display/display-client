@@ -4,6 +4,8 @@ import defaults from "../util/defaults";
 import idFromPath from "../util/id-from-path";
 import appStorage from "../util/app-storage";
 import logger from "../logger/logger";
+import statusService from "./statusService.js";
+import {errorCodes} from "../util/status.js";
 
 class ReleaseService {
   releaseCheckInterval = null;
@@ -16,16 +18,26 @@ class ReleaseService {
       const currentTimestamp = url.searchParams.get('releaseTimestamp');
 
       ReleaseLoader.loadConfig().then((release) => {
-        if (!currentTimestamp || currentTimestamp !== release.releaseTimestamp.toString()) {
+        if (release.releaseTimestamp === null) {
+          statusService.setError(errorCodes.ERROR_RELEASE_FILE_NOT_LOADED);
+        } else if (statusService.error === errorCodes.ERROR_RELEASE_FILE_NOT_LOADED) {
+          statusService.setError(null);
+        }
+
+        if (release.releaseTimestamp !== null && (!currentTimestamp || currentTimestamp !== release.releaseTimestamp.toString())) {
           const redirectUrl = url;
+
           redirectUrl.searchParams.set(
             "releaseTimestamp",
             release.releaseTimestamp
           );
-          redirectUrl.searchParams.set(
-            "releaseVersion",
-            release.releaseVersion
-          );
+
+          if (release.releaseVersion !== null) {
+            redirectUrl.searchParams.set(
+              "releaseVersion",
+              release.releaseVersion
+            );
+          }
 
           window.location.replace(redirectUrl);
           reject();

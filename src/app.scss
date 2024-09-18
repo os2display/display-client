@@ -20,6 +20,15 @@ body {
   margin: 0;
   padding: 0;
 
+  .frontpage-error {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    color: #aaa;
+    padding: 0;
+    margin: 0;
+  }
+
   .bind-key-container {
     position: absolute;
     bottom: 10px;

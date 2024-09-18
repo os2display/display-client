@@ -10,6 +10,8 @@ import defaults from './util/defaults';
 import tokenService from "./service/token-service.js";
 import releaseService from "./service/release-service.js";
 import tenantService from "./service/tenant-service.js";
+import statusService from "./service/statusService.js";
+import {errorCodes, statusCodes} from "./util/status.js";
 
 /**
  * App component.
@@ -58,6 +60,8 @@ function App() {
   const startContent = (localScreenId) => {
     logger.info("Starting content.");
 
+    statusService.setStatus(statusCodes.RUNNING);
+
     if (contentServiceRef.current !== null) {
       logger.warn("ContentServiceRef is not null.");
       return;
@@ -93,6 +97,8 @@ function App() {
     if (!running && localStorageToken && localScreenId) {
       startContent(localScreenId);
     } else {
+      statusService.setStatus(statusCodes.LOGIN);
+
       ConfigLoader.loadConfig().then((config) => {
         fetch(`${config.apiEndpoint}/v2/authentication/screen`, {
           method: "POST",
@@ -151,6 +157,8 @@ function App() {
     }).catch(() => {
       logger.warn("Reauthenticate refresh token failed. Logging out.");
 
+      statusService.setError(errorCodes.ERROR_TOKEN_REFRESH_FAILED);
+
       document.dispatchEvent(new Event('stopDataSync'));
 
       appStorage.clearToken();
@@ -194,7 +202,7 @@ function App() {
   useEffect(() => {
     logger.info("Mounting App.");
 
-    releaseService.checkForNewRelease().then(() => {
+    releaseService.checkForNewRelease().finally(() => {
       releaseService.setPreviousBootInUrl();
       releaseService.startReleaseCheck();
 
@@ -208,6 +216,8 @@ function App() {
 
       appStorage.setPreviousBoot(new Date().getTime());
     });
+
+    statusService.setStatusInUrl();
 
     return function cleanup() {
       logger.info("Unmounting App.");
@@ -238,9 +248,12 @@ function App() {
   return (
     <div className="app" style={appStyle}>
       {!screen && bindKey && (
-        <div className="bind-key-container">
-          <h1 className="bind-key">{bindKey}</h1>
-        </div>
+          <>
+            {statusService.error && (<h2 className="frontpage-error">{statusService.error}</h2>)}
+            <div className="bind-key-container">
+              <h1 className="bind-key">{bindKey}</h1>
+            </div>
+          </>
       )}
       {screen && (
         <>

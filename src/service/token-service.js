@@ -2,6 +2,8 @@ import logger from "../logger/logger.js";
 import appStorage from "../util/app-storage.js";
 import ConfigLoader from "../util/config-loader.js";
 import defaults from "../util/defaults.js";
+import statusService from "./statusService.js";
+import {errorCodes} from "../util/status.js";
 
 class TokenService {
   refreshingToken = false;
@@ -23,6 +25,7 @@ class TokenService {
 
     if (!refreshToken || !expire || !issueAt) {
       logger.warn('Refresh token, exp or iat not set.');
+      statusService.setError(errorCodes.ERROR_TOKEN_EXP_IAT_NOT_SET);
       return;
     }
 
@@ -33,7 +36,9 @@ class TokenService {
     // If more than half the time till expire has been passed refresh the token.
     if (nowSeconds > issueAt + timeDiff / 2) {
       logger.info("Refreshing token.");
-      this.refreshToken();
+      this.refreshToken().catch(() => {
+        statusService.setError(errorCodes.ERROR_TOKEN_REFRESH_LOOP_FAILED);
+      });
     } else {
       logger.info(
         `Half the time until expire has not been reached. Will not refresh. Token will expire at ${new Date(
@@ -101,6 +106,7 @@ class TokenService {
   }
 }
 
+// Singleton.
 const tokenService = new TokenService();
 
 export default tokenService;

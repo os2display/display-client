@@ -27,6 +27,7 @@ class TenantService {
   }
 }
 
+// Singleton.
 const tenantService = new TenantService();
 
 export default tenantService;
