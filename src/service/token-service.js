@@ -3,7 +3,6 @@ import appStorage from '../util/app-storage';
 import ConfigLoader from '../util/config-loader';
 import defaults from '../util/defaults';
 import statusService from './statusService';
-import { errorCodes } from '../util/status';
 import constants from '../util/constants';
 
 class TokenService {
@@ -28,7 +27,7 @@ class TokenService {
 
     if (!refreshToken || !expire || !issueAt) {
       logger.warn('Refresh token, exp or iat not set.');
-      statusService.setError(errorCodes.ERROR_TOKEN_EXP_IAT_NOT_SET);
+      statusService.setError(constants.ERROR_TOKEN_EXP_IAT_NOT_SET);
       return;
     }
 
@@ -40,7 +39,7 @@ class TokenService {
     if (nowSeconds > issueAt + timeDiff / 2) {
       logger.info('Refreshing token.');
       this.refreshToken().catch(() => {
-        statusService.setError(errorCodes.ERROR_TOKEN_REFRESH_LOOP_FAILED);
+        statusService.setError(constants.ERROR_TOKEN_REFRESH_LOOP_FAILED);
       });
     } else {
       logger.info(
@@ -91,6 +90,7 @@ class TokenService {
 
               appStorage.setToken(data.token);
               appStorage.setRefreshToken(data.refresh_token);
+
               resolve();
             })
             .catch((err) => {
@@ -112,12 +112,12 @@ class TokenService {
     const expiredState = this.getExpireState();
 
     if (expiredState === constants.TOKEN_EXPIRED) {
-      statusService.setError(errorCodes.ERROR_TOKEN_EXPIRED);
+      statusService.setError(constants.ERROR_TOKEN_EXPIRED);
     } else if (
       expiredState === constants.TOKEN_VALID_SHOULD_HAVE_BEEN_REFRESHED
     ) {
       statusService.setError(
-        errorCodes.ERROR_TOKEN_VALID_SHOULD_HAVE_BEEN_REFRESHED
+        constants.ERROR_TOKEN_VALID_SHOULD_HAVE_BEEN_REFRESHED
       );
     } else {
       const err = statusService.error;

@@ -11,7 +11,6 @@ import tokenService from "./service/token-service";
 import releaseService from "./service/release-service";
 import tenantService from "./service/tenant-service";
 import statusService from "./service/statusService";
-import { errorCodes, statusCodes } from "./util/status";
 import constants from "./util/constants";
 
 /**
@@ -61,7 +60,7 @@ function App() {
   const startContent = (localScreenId) => {
     logger.info("Starting content.");
 
-    statusService.setStatus(statusCodes.RUNNING);
+    statusService.setStatus(constants.STATUS_RUNNING);
 
     if (contentServiceRef.current !== null) {
       logger.warn("ContentServiceRef is not null.");
@@ -113,7 +112,7 @@ function App() {
     if (!running && localStorageToken && localScreenId) {
       startContent(localScreenId);
     } else {
-      statusService.setStatus(statusCodes.LOGIN);
+      statusService.setStatus(constants.STATUS_LOGIN);
 
       tokenService
         .checkLogin()
@@ -145,7 +144,7 @@ function App() {
       .catch(() => {
         logger.warn("Reauthenticate refresh token failed. Logging out.");
 
-        statusService.setError(errorCodes.ERROR_TOKEN_REFRESH_FAILED);
+        statusService.setError(constants.ERROR_TOKEN_REFRESH_FAILED);
 
         document.dispatchEvent(new Event("stopDataSync"));
 

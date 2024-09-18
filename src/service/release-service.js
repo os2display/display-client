@@ -5,7 +5,7 @@ import idFromPath from '../util/id-from-path';
 import appStorage from '../util/app-storage';
 import logger from '../logger/logger';
 import statusService from './statusService';
-import { errorCodes } from '../util/status';
+import constants from '../util/constants';
 
 class ReleaseService {
   releaseCheckInterval = null;
@@ -19,9 +19,9 @@ class ReleaseService {
 
       ReleaseLoader.loadConfig().then((release) => {
         if (release.releaseTimestamp === null) {
-          statusService.setError(errorCodes.ERROR_RELEASE_FILE_NOT_LOADED);
+          statusService.setError(constants.ERROR_RELEASE_FILE_NOT_LOADED);
         } else if (
-          statusService.error === errorCodes.ERROR_RELEASE_FILE_NOT_LOADED
+          statusService.error === constants.ERROR_RELEASE_FILE_NOT_LOADED
         ) {
           statusService.setError(null);
         }

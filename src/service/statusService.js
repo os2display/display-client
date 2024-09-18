@@ -1,7 +1,7 @@
-import { statusCodes } from '../util/status';
+import constants from '../util/constants';
 
 class StatusService {
-  status = statusCodes.INIT;
+  status = constants.STATUS_INIT;
 
   error = null;
 
