@@ -12,6 +12,7 @@ import releaseService from "./service/release-service";
 import tenantService from "./service/tenant-service";
 import statusService from "./service/statusService";
 import { errorCodes, statusCodes } from "./util/status";
+import constants from './util/constants';
 
 /**
  * App component.
@@ -88,6 +89,21 @@ function App() {
     tokenService.startRefreshing();
   };
 
+  /* eslint-disable no-use-before-define */
+  const restartLoginTimeout = () => {
+    if (checkLoginTimeoutRef.current !== null) {
+      clearTimeout(checkLoginTimeoutRef.current);
+    }
+
+    ConfigLoader.loadConfig().then((config) => {
+      checkLoginTimeoutRef.current = setTimeout(
+        checkLogin,
+        config.loginCheckTimeout ?? defaults.loginCheckTimeoutDefault
+      );
+    });
+  };
+  /* eslint-enable no-use-before-define */
+
   const checkLogin = () => {
     logger.info("Check login.");
 
@@ -99,11 +115,14 @@ function App() {
     } else {
       statusService.setStatus(statusCodes.LOGIN);
 
-      tokenService.checkLogin().then(
-        (data) => {
-          if (data.status === tokenService.LOGIN_STATUS_READY) {
+      tokenService
+        .checkLogin()
+        .then((data) => {
+          if (data.status === constants.LOGIN_STATUS_READY) {
             startContent(data.screenId);
-          } else if (data.status === tokenService.LOGIN_STATUS_AWAITING_BIND_KEY) {
+          } else if (
+            data.status === constants.LOGIN_STATUS_AWAITING_BIND_KEY
+          ) {
             if (data?.bindKey) {
               setBindKey(data.bindKey);
             }
@@ -116,19 +135,6 @@ function App() {
         });
     }
   };
-
-  const restartLoginTimeout = () => {
-    if (checkLoginTimeoutRef.current !== null) {
-      clearTimeout(checkLoginTimeoutRef.current);
-    }
-
-    ConfigLoader.loadConfig().then((config) => {
-      checkLoginTimeoutRef.current = setTimeout(
-          checkLogin,
-          config.loginCheckTimeout ?? defaults.loginCheckTimeoutDefault
-      );
-    });
-  }
 
   const reauthenticateHandler = () => {
     logger.info("Reauthenticate handler invoked. Trying to use refresh token.");
@@ -185,6 +191,8 @@ function App() {
 
   useEffect(() => {
     logger.info("Mounting App.");
+
+    tokenService.checkToken();
 
     releaseService.checkForNewRelease().finally(() => {
       releaseService.setPreviousBootInUrl();

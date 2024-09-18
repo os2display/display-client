@@ -4,12 +4,9 @@ import ConfigLoader from '../util/config-loader';
 import defaults from '../util/defaults';
 import statusService from './statusService';
 import { errorCodes } from '../util/status';
+import constants from '../util/constants';
 
 class TokenService {
-  LOGIN_STATUS_READY = 'ready';
-  LOGIN_STATUS_AWAITING_BIND_KEY = 'awaitingBindKey';
-  LOGIN_STATUS_UNKNOWN = 'unknown';
-
   refreshingToken = false;
 
   refreshInterval = null;
@@ -54,6 +51,22 @@ class TokenService {
     }
   };
 
+  getExpireState = () => {
+    const expire = appStorage.getTokenExpire();
+    const issueAt = appStorage.getTokenIssueAt();
+
+    const timeDiff = expire - issueAt;
+    const nowSeconds = Math.floor(new Date().getTime() / 1000);
+
+    if (nowSeconds > expire) {
+      return constants.TOKEN_EXPIRED;
+    }
+    if (nowSeconds > issueAt + timeDiff / 2) {
+      return constants.TOKEN_VALID_SHOULD_HAVE_BEEN_REFRESHED;
+    }
+    return constants.TOKEN_VALID;
+  };
+
   refreshToken = () => {
     logger.info('Refresh token invoked.');
 
@@ -95,18 +108,41 @@ class TokenService {
     return this.refreshPromise;
   };
 
+  checkToken = () => {
+    const expiredState = this.getExpireState();
+
+    if (expiredState === constants.TOKEN_EXPIRED) {
+      statusService.setError(errorCodes.ERROR_TOKEN_EXPIRED);
+    } else if (expiredState === constants.TOKEN_VALID_SHOULD_HAVE_BEEN_REFRESHED) {
+      statusService.setError(
+        errorCodes.ERROR_TOKEN_VALID_SHOULD_HAVE_BEEN_REFRESHED
+      );
+    } else {
+      const err = statusService.error;
+      if (
+        err !== null &&
+        [
+          constants.TOKEN_EXPIRED,
+          constants.TOKEN_VALID_SHOULD_HAVE_BEEN_REFRESHED,
+        ].includes(err)
+      ) {
+        statusService.setError(null);
+      }
+    }
+  };
+
   checkLogin = () => {
     return new Promise((resolve, reject) => {
       ConfigLoader.loadConfig().then((config) => {
         fetch(`${config.apiEndpoint}/v2/authentication/screen`, {
-          method: "POST",
-          mode: "cors",
-          credentials: "include",
+          method: 'POST',
+          mode: 'cors',
+          credentials: 'include',
         })
           .then((response) => response.json())
           .then((data) => {
             if (
-              data?.status === "ready" &&
+              data?.status === constants.LOGIN_STATUS_READY &&
               data?.token &&
               data?.screenId &&
               data?.tenantKey &&
@@ -118,18 +154,18 @@ class TokenService {
               appStorage.setTenant(data.tenantKey, data.tenantId);
 
               resolve({
-                status: this.LOGIN_STATUS_READY,
+                status: constants.LOGIN_STATUS_READY,
                 screenId: data.screenId,
-              })
-            } else if (data?.status === this.LOGIN_STATUS_AWAITING_BIND_KEY) {
+              });
+            } else if (data?.status === constants.LOGIN_STATUS_AWAITING_BIND_KEY) {
               resolve({
-                status: this.LOGIN_STATUS_AWAITING_BIND_KEY,
+                status: constants.LOGIN_STATUS_AWAITING_BIND_KEY,
                 bindKey: data.bindKey,
-              })
+              });
             } else {
               resolve({
-                status: this.LOGIN_STATUS_UNKNOWN,
-              })
+                status: constants.LOGIN_STATUS_UNKNOWN,
+              });
             }
           })
           .catch((err) => {
@@ -137,7 +173,7 @@ class TokenService {
           });
       });
     });
-  }
+  };
 
   startRefreshing = () => {
     ConfigLoader.loadConfig().then((config) => {
