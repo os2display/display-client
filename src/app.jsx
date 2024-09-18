@@ -99,55 +99,36 @@ function App() {
     } else {
       statusService.setStatus(statusCodes.LOGIN);
 
-      ConfigLoader.loadConfig().then((config) => {
-        fetch(`${config.apiEndpoint}/v2/authentication/screen`, {
-          method: "POST",
-          mode: "cors",
-          credentials: "include",
+      tokenService.checkLogin().then(
+        (data) => {
+          if (data.status === tokenService.LOGIN_STATUS_READY) {
+            startContent(data.screenId);
+          } else if (data.status === tokenService.LOGIN_STATUS_AWAITING_BIND_KEY) {
+            if (data?.bindKey) {
+              setBindKey(data.bindKey);
+            }
+
+            restartLoginTimeout();
+          }
         })
-          .then((response) => response.json())
-          .then((data) => {
-            if (
-              data?.status === "ready" &&
-              data?.token &&
-              data?.screenId &&
-              data?.tenantKey &&
-              data?.refresh_token
-            ) {
-              appStorage.setToken(data.token);
-              appStorage.setRefreshToken(data.refresh_token);
-              appStorage.setScreenId(data.screenId);
-              appStorage.setTenant(data.tenantKey, data.tenantId);
-
-              startContent(data.screenId);
-            } else if (data?.status === "awaitingBindKey") {
-              if (data?.bindKey) {
-                setBindKey(data.bindKey);
-              }
-
-              if (checkLoginTimeoutRef.current !== null) {
-                clearTimeout(checkLoginTimeoutRef.current);
-              }
-
-              checkLoginTimeoutRef.current = setTimeout(
-                checkLogin,
-                config.loginCheckTimeout ?? defaults.loginCheckTimeoutDefault
-              );
-            }
-          })
-          .catch(() => {
-            if (checkLoginTimeoutRef.current !== null) {
-              clearTimeout(checkLoginTimeoutRef.current);
-            }
-
-            checkLoginTimeoutRef.current = setTimeout(
-              checkLogin,
-              config.loginCheckTimeout ?? defaults.loginCheckTimeoutDefault
-            );
-          });
-      });
+        .catch(() => {
+          restartLoginTimeout();
+        });
     }
   };
+
+  const restartLoginTimeout = () => {
+    if (checkLoginTimeoutRef.current !== null) {
+      clearTimeout(checkLoginTimeoutRef.current);
+    }
+
+    ConfigLoader.loadConfig().then((config) => {
+      checkLoginTimeoutRef.current = setTimeout(
+          checkLogin,
+          config.loginCheckTimeout ?? defaults.loginCheckTimeoutDefault
+      );
+    });
+  }
 
   const reauthenticateHandler = () => {
     logger.info("Reauthenticate handler invoked. Trying to use refresh token.");

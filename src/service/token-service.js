@@ -6,6 +6,10 @@ import statusService from './statusService';
 import { errorCodes } from '../util/status';
 
 class TokenService {
+  LOGIN_STATUS_READY = 'ready';
+  LOGIN_STATUS_AWAITING_BIND_KEY = 'awaitingBindKey';
+  LOGIN_STATUS_UNKNOWN = 'unknown';
+
   refreshingToken = false;
 
   refreshInterval = null;
@@ -90,6 +94,50 @@ class TokenService {
 
     return this.refreshPromise;
   };
+
+  checkLogin = () => {
+    return new Promise((resolve, reject) => {
+      ConfigLoader.loadConfig().then((config) => {
+        fetch(`${config.apiEndpoint}/v2/authentication/screen`, {
+          method: "POST",
+          mode: "cors",
+          credentials: "include",
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (
+              data?.status === "ready" &&
+              data?.token &&
+              data?.screenId &&
+              data?.tenantKey &&
+              data?.refresh_token
+            ) {
+              appStorage.setToken(data.token);
+              appStorage.setRefreshToken(data.refresh_token);
+              appStorage.setScreenId(data.screenId);
+              appStorage.setTenant(data.tenantKey, data.tenantId);
+
+              resolve({
+                status: this.LOGIN_STATUS_READY,
+                screenId: data.screenId,
+              })
+            } else if (data?.status === this.LOGIN_STATUS_AWAITING_BIND_KEY) {
+              resolve({
+                status: this.LOGIN_STATUS_AWAITING_BIND_KEY,
+                bindKey: data.bindKey,
+              })
+            } else {
+              resolve({
+                status: this.LOGIN_STATUS_UNKNOWN,
+              })
+            }
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
+    });
+  }
 
   startRefreshing = () => {
     ConfigLoader.loadConfig().then((config) => {
