@@ -10,7 +10,7 @@ import defaults from "./util/defaults";
 import tokenService from "./service/token-service";
 import releaseService from "./service/release-service";
 import tenantService from "./service/tenant-service";
-import statusService from "./service/statusService";
+import statusService from "./service/status-service";
 import constants from "./util/constants";
 
 /**

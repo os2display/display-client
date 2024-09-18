@@ -4,7 +4,7 @@ import defaults from '../util/defaults';
 import idFromPath from '../util/id-from-path';
 import appStorage from '../util/app-storage';
 import logger from '../logger/logger';
-import statusService from './statusService';
+import statusService from './status-service';
 import constants from '../util/constants';
 
 class ReleaseService {

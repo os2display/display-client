@@ -2,7 +2,7 @@ import logger from '../logger/logger';
 import appStorage from '../util/app-storage';
 import ConfigLoader from '../util/config-loader';
 import defaults from '../util/defaults';
-import statusService from './statusService';
+import statusService from './status-service';
 import constants from '../util/constants';
 
 class TokenService {
@@ -90,6 +90,16 @@ class TokenService {
 
               appStorage.setToken(data.token);
               appStorage.setRefreshToken(data.refresh_token);
+
+              // Remove token expired error codes.
+              if (
+                [
+                  constants.ERROR_TOKEN_EXPIRED,
+                  constants.ERROR_TOKEN_VALID_SHOULD_HAVE_BEEN_REFRESHED,
+                ].includes(statusService.error)
+              ) {
+                statusService.setError(null);
+              }
 
               resolve();
             })
