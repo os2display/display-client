@@ -1,5 +1,7 @@
 import react from 'react';
 
-export const resolve = {
+const resolve = {
   react,
 };
+
+export default resolve;

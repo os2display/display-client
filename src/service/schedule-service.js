@@ -4,8 +4,8 @@ import Md5 from 'crypto-js/md5';
 import Base64 from 'crypto-js/enc-base64';
 import isPublished from '../util/isPublished';
 import logger from '../logger/logger';
-import ConfigLoader from '../config-loader';
-import ScheduleUtils from '../schedule';
+import ConfigLoader from '../util/config-loader';
+import ScheduleUtils from '../util/schedule';
 
 /**
  * ScheduleService.
@@ -188,7 +188,10 @@ class ScheduleService {
 
         // Run through all schedule item and see if it occurs now. If one or more occur now, the playlist is active.
         schedules.every((schedule) => {
-          const scheduleOccurs = ScheduleUtils.occursNow(schedule.rrule, schedule.duration);
+          const scheduleOccurs = ScheduleUtils.occursNow(
+            schedule.rrule,
+            schedule.duration
+          );
 
           if (scheduleOccurs) {
             active = true;

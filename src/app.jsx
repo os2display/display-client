@@ -1,14 +1,17 @@
-import jwtDecode from "jwt-decode";
 import React, { useEffect, useRef, useState } from "react";
-import Screen from "./screen";
-import ContentService from "./service/contentService";
-import ConfigLoader from "./config-loader";
-import ReleaseLoader from "./release-loader";
+import Screen from "./components/screen";
+import ContentService from "./service/content-service";
+import ConfigLoader from "./util/config-loader";
 import logger from "./logger/logger";
-import localStorageKeys from "./local-storage-keys";
-import fallback from "./assets/fallback.png";
-import idFromPath from "./id-from-path";
 import "./app.scss";
+import fallback from "./assets/fallback.png";
+import appStorage from "./util/app-storage";
+import defaults from "./util/defaults";
+import tokenService from "./service/token-service";
+import releaseService from "./service/release-service";
+import tenantService from "./service/tenant-service";
+import statusService from "./service/status-service";
+import constants from "./util/constants";
 
 /**
  * App component.
@@ -17,26 +20,17 @@ import "./app.scss";
  *   The component.
  */
 function App() {
-  const fallbackImageUrl = localStorage.getItem(
-    localStorageKeys.FALLBACK_IMAGE
-  );
-
-  const loginCheckTimeoutDefault = 20 * 1000;
-  const refreshTokenTimeoutDefault = 60 * 1000 * 15;
-  const releaseTimestampIntervalTimeoutDefault = 1000 * 60 * 10;
-
   const [running, setRunning] = useState(false);
   const [screen, setScreen] = useState("");
   const [bindKey, setBindKey] = useState(null);
-  const [refreshingToken, setRefreshingToken] = useState(false);
-  const timeoutRef = useRef(null);
-  const refreshTokenIntervalRef = useRef(null);
-  const contentServiceRef = useRef(null);
-  const releaseTimestampRef = useRef(null);
-  const releaseTimestampIntervalRef = useRef(null);
   const [displayFallback, setDisplayFallback] = useState(true);
-  const [debug, setDebug] = useState(false);
 
+  const checkLoginTimeoutRef = useRef(null);
+  const contentServiceRef = useRef(null);
+
+  const debug = appStorage.getDebug();
+
+  const fallbackImageUrl = appStorage.getFallbackImageUrl();
   const fallbackStyle = {};
 
   fallbackStyle.backgroundImage = `url("${
@@ -63,89 +57,13 @@ function App() {
     }
   }
 
-  const checkToken = () => {
-    logger.info("Refresh token check");
-
-    // Ignore if already refreshing token.
-    if (refreshingToken) {
-      logger.info("Already refreshing token.");
-      return;
-    }
-
-    const rToken = localStorage.getItem(localStorageKeys.REFRESH_TOKEN);
-    const exp = parseInt(
-      localStorage.getItem(localStorageKeys.API_TOKEN_EXPIRE),
-      10
-    );
-    const iat = parseInt(
-      localStorage.getItem(localStorageKeys.API_TOKEN_ISSUED_AT),
-      10
-    );
-
-    if (!rToken || !exp || !iat) {
-      logger.warn("Refresh token, exp or iat not set.");
-      return;
-    }
-
-    const timeDiff = exp - iat;
-
-    const now = Math.floor(new Date().getTime() / 1000);
-
-    // If more than half the time till expire has been passed refresh the token.
-    if (now > iat + timeDiff / 2) {
-      setRefreshingToken(true);
-      logger.info("Refreshing token.");
-
-      ConfigLoader.loadConfig().then((config) => {
-        fetch(`${config.apiEndpoint}/v2/authentication/token/refresh`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            refresh_token: rToken,
-          }),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            logger.info("Token refreshed.");
-
-            const decodedToken = jwtDecode(data.token);
-
-            localStorage.setItem(localStorageKeys.API_TOKEN, data.token);
-            localStorage.setItem(
-              localStorageKeys.API_TOKEN_EXPIRE,
-              decodedToken.exp
-            );
-            localStorage.setItem(
-              localStorageKeys.API_TOKEN_ISSUED_AT,
-              decodedToken.iat
-            );
-            localStorage.setItem(
-              localStorageKeys.REFRESH_TOKEN,
-              data.refresh_token
-            );
-          })
-          .catch(() => {
-            logger.error("Token refresh error.");
-          })
-          .finally(() => {
-            setRefreshingToken(false);
-          });
-      });
-    } else {
-      logger.info(
-        `Half the time until expire has not been reached. Will not refresh. Token will expire at ${new Date(
-          exp * 1000
-        ).toISOString()}`
-      );
-    }
-  };
-
   const startContent = (localScreenId) => {
     logger.info("Starting content.");
 
+    statusService.setStatus(constants.STATUS_RUNNING);
+
     if (contentServiceRef.current !== null) {
+      logger.warn("ContentServiceRef is not null.");
       return;
     }
 
@@ -167,141 +85,87 @@ function App() {
       })
     );
 
+    tokenService.startRefreshing();
+  };
+
+  /* eslint-disable no-use-before-define */
+  const restartLoginTimeout = () => {
+    if (checkLoginTimeoutRef.current !== null) {
+      clearTimeout(checkLoginTimeoutRef.current);
+    }
+
     ConfigLoader.loadConfig().then((config) => {
-      // Start refresh token interval.
-      refreshTokenIntervalRef.current = setInterval(
-        checkToken,
-        config.refreshTokenTimeout ?? refreshTokenTimeoutDefault
+      checkLoginTimeoutRef.current = setTimeout(
+        checkLogin,
+        config.loginCheckTimeout ?? defaults.loginCheckTimeoutDefault
       );
     });
   };
+  /* eslint-enable no-use-before-define */
 
   const checkLogin = () => {
     logger.info("Check login.");
 
-    const localStorageToken = localStorage.getItem(localStorageKeys.API_TOKEN);
-    const localScreenId = localStorage.getItem(localStorageKeys.SCREEN_ID);
+    const localStorageToken = appStorage.getToken();
+    const localScreenId = appStorage.getScreenId();
 
     if (!running && localStorageToken && localScreenId) {
       startContent(localScreenId);
     } else {
-      ConfigLoader.loadConfig().then((config) => {
-        fetch(`${config.apiEndpoint}/v2/authentication/screen`, {
-          method: "POST",
-          mode: "cors",
-          credentials: "include",
+      statusService.setStatus(constants.STATUS_LOGIN);
+
+      tokenService
+        .checkLogin()
+        .then((data) => {
+          if (data.status === constants.LOGIN_STATUS_READY) {
+            startContent(data.screenId);
+          } else if (data.status === constants.LOGIN_STATUS_AWAITING_BIND_KEY) {
+            if (data?.bindKey) {
+              setBindKey(data.bindKey);
+            }
+
+            restartLoginTimeout();
+          }
         })
-          .then((response) => response.json())
-          .then((data) => {
-            if (
-              data?.status === "ready" &&
-              data?.token &&
-              data?.screenId &&
-              data?.tenantKey &&
-              data?.refresh_token
-            ) {
-              const decodedToken = jwtDecode(data.token);
-
-              localStorage.setItem(localStorageKeys.API_TOKEN, data.token);
-              localStorage.setItem(
-                localStorageKeys.API_TOKEN_EXPIRE,
-                decodedToken.exp
-              );
-              localStorage.setItem(
-                localStorageKeys.API_TOKEN_ISSUED_AT,
-                decodedToken.iat
-              );
-              localStorage.setItem(localStorageKeys.SCREEN_ID, data.screenId);
-              localStorage.setItem(
-                localStorageKeys.REFRESH_TOKEN,
-                data.refresh_token
-              );
-              localStorage.setItem(localStorageKeys.TENANT_KEY, data.tenantKey);
-              localStorage.setItem(localStorageKeys.TENANT_ID, data.tenantId);
-
-              startContent(data.screenId);
-            } else if (data?.status === "awaitingBindKey") {
-              if (data?.bindKey) {
-                setBindKey(data.bindKey);
-              }
-
-              if (timeoutRef.current !== null) {
-                clearTimeout(timeoutRef.current);
-              }
-
-              timeoutRef.current = setTimeout(
-                checkLogin,
-                config.loginCheckTimeout ?? loginCheckTimeoutDefault
-              );
-            }
-          })
-          .catch(() => {
-            if (timeoutRef.current !== null) {
-              clearTimeout(timeoutRef.current);
-            }
-
-            timeoutRef.current = setTimeout(
-              checkLogin,
-              config.loginCheckTimeout ?? loginCheckTimeoutDefault
-            );
-          });
-      });
+        .catch(() => {
+          restartLoginTimeout();
+        });
     }
   };
 
   const reauthenticateHandler = () => {
-    logger.info("Reauthenticate.");
+    logger.info("Reauthenticate handler invoked. Trying to use refresh token.");
 
-    localStorage.removeItem(localStorageKeys.API_TOKEN);
-    localStorage.removeItem(localStorageKeys.API_TOKEN_EXPIRE);
-    localStorage.removeItem(localStorageKeys.API_TOKEN_ISSUED_AT);
-    localStorage.removeItem(localStorageKeys.REFRESH_TOKEN);
-    localStorage.removeItem(localStorageKeys.SCREEN_ID);
-    localStorage.removeItem(localStorageKeys.TENANT_KEY);
-    localStorage.removeItem(localStorageKeys.TENANT_ID);
-    localStorage.removeItem(localStorageKeys.FALLBACK_IMAGE);
+    tokenService
+      .refreshToken()
+      .then(() => {
+        logger.info("Reauthenticate refresh token success");
+      })
+      .catch(() => {
+        logger.warn("Reauthenticate refresh token failed. Logging out.");
 
-    if (contentServiceRef?.current !== null) {
-      contentServiceRef.current.stop();
-      contentServiceRef.current = null;
-    }
+        statusService.setError(constants.ERROR_TOKEN_REFRESH_FAILED);
 
-    setScreen(null);
-    if (refreshTokenIntervalRef) {
-      clearInterval(refreshTokenIntervalRef.current);
-    }
-    setRunning(false);
+        document.dispatchEvent(new Event("stopDataSync"));
 
-    checkLogin();
-  };
+        appStorage.clearToken();
+        appStorage.clearRefreshToken();
+        appStorage.clearScreenId();
+        appStorage.clearTenant();
+        appStorage.clearFallbackImageUrl();
 
-  const checkForUpdates = () => {
-    logger.info("Checking for new release timestamp.");
-
-    ReleaseLoader.loadConfig().then((release) => {
-      if (releaseTimestampRef?.current === null) {
-        releaseTimestampRef.current = release.releaseTimestamp;
-      } else if (releaseTimestampRef?.current !== release.releaseTimestamp) {
-        if (
-          release.releaseTimestamp !== null &&
-          release.releaseVersion !== null
-        ) {
-          const redirectUrl = new URL(window.location.href);
-          redirectUrl.searchParams.set(
-            "releaseTimestamp",
-            release.releaseTimestamp
-          );
-          redirectUrl.searchParams.set(
-            "releaseVersion",
-            release.releaseVersion
-          );
-
-          window.location.replace(redirectUrl);
-        } else {
-          logger.info("Release timestamp or version null, not redirecting.");
+        if (contentServiceRef?.current !== null) {
+          contentServiceRef.current.stop();
+          contentServiceRef.current = null;
         }
-      }
-    });
+
+        setScreen(null);
+        setRunning(false);
+
+        tokenService.stopRefreshing();
+
+        checkLogin();
+      });
   };
 
   const contentEmpty = () => {
@@ -317,56 +181,32 @@ function App() {
   // ctrl/cmd i will log screen out and refresh
   const handleKeyboard = ({ repeat, metaKey, ctrlKey, code }) => {
     if (!repeat && (metaKey || ctrlKey) && code === "KeyI") {
-      localStorage.clear();
+      appStorage.clearAppStorage();
       window.location.reload();
     }
   };
 
   useEffect(() => {
-    const currentUrl = new URL(window.location.href);
+    logger.info("Mounting App.");
 
-    // Make sure have releaseVersion and releaseTimestamp set in url parameters.
-    if (
-      !currentUrl.searchParams.has("releaseVersion") ||
-      !currentUrl.searchParams.has("releaseTimestamp")
-    ) {
-      ReleaseLoader.loadConfig().then((release) => {
-        if (
-          release.releaseTimestamp !== null &&
-          release.releaseVersion !== null
-        ) {
-          currentUrl.searchParams.set(
-            "releaseTimestamp",
-            release.releaseTimestamp
-          );
-          currentUrl.searchParams.set("releaseVersion", release.releaseVersion);
+    tokenService.checkToken();
 
-          window.history.replaceState(null, "", currentUrl);
-        } else {
-          logger.info(
-            "Release timestamp or version null, not setting query parameters."
-          );
-        }
-      });
-    }
+    releaseService.checkForNewRelease().finally(() => {
+      releaseService.setPreviousBootInUrl();
+      releaseService.startReleaseCheck();
 
-    document.addEventListener("screen", screenHandler);
-    document.addEventListener("reauthenticate", reauthenticateHandler);
-    document.addEventListener("contentEmpty", contentEmpty);
-    document.addEventListener("contentNotEmpty", contentNotEmpty);
-    document.addEventListener("keypress", handleKeyboard);
+      document.addEventListener("screen", screenHandler);
+      document.addEventListener("reauthenticate", reauthenticateHandler);
+      document.addEventListener("contentEmpty", contentEmpty);
+      document.addEventListener("contentNotEmpty", contentNotEmpty);
+      document.addEventListener("keypress", handleKeyboard);
 
-    checkLogin();
+      checkLogin();
 
-    checkForUpdates();
-
-    ConfigLoader.loadConfig().then((config) => {
-      releaseTimestampIntervalRef.current = setInterval(
-        checkForUpdates,
-        config.releaseTimestampIntervalTimeout ??
-          releaseTimestampIntervalTimeoutDefault
-      );
+      appStorage.setPreviousBoot(new Date().getTime());
     });
+
+    statusService.setStatusInUrl();
 
     return function cleanup() {
       logger.info("Unmounting App.");
@@ -377,67 +217,34 @@ function App() {
       document.removeEventListener("contentEmpty", contentEmpty);
       document.removeEventListener("contentNotEmpty", contentNotEmpty);
 
-      if (timeoutRef?.current) {
-        clearTimeout(timeoutRef.current);
+      if (checkLoginTimeoutRef?.current) {
+        clearTimeout(checkLoginTimeoutRef.current);
       }
 
-      if (refreshTokenIntervalRef?.current) {
-        clearInterval(refreshTokenIntervalRef.current);
-      }
+      tokenService.stopRefreshing();
 
-      if (releaseTimestampIntervalRef?.current) {
-        clearInterval(releaseTimestampIntervalRef.current);
-      }
+      releaseService.stopReleaseCheck();
     };
   }, []);
 
   useEffect(() => {
-    // Append screenId to current url for easier debugging. If errors are logged in the API's standard http log this
-    // makes it easy to see what screen client has made the http call by putting the screen id in the referer http
-    // header.
     if (screen && screen["@id"]) {
-      const url = new URL(window.location.href);
-      url.searchParams.set("screenId", idFromPath(screen["@id"]));
-      window.history.replaceState(null, "", url);
+      releaseService.setScreenIdInUrl(screen["@id"]);
+      tenantService.loadTenantConfig();
     }
-
-    ConfigLoader.loadConfig().then((config) => {
-      const token = localStorage.getItem(localStorageKeys.API_TOKEN);
-      const tenantKey = localStorage.getItem(localStorageKeys.TENANT_KEY);
-      const tenantId = localStorage.getItem(localStorageKeys.TENANT_ID);
-
-      // Make api endpoint available through localstorage.
-      localStorage.setItem(localStorageKeys.API_URL, config.apiEndpoint);
-
-      if (token && tenantKey && tenantId) {
-        // Get fallback image.
-        fetch(`${config.apiEndpoint}/v2/tenants/${tenantId}`, {
-          headers: {
-            authorization: `Bearer ${token}`,
-            "Authorization-Tenant-Key": tenantKey,
-          },
-        })
-          .then((response) => response.json())
-          .then((tenantData) => {
-            if (tenantData.fallbackImageUrl) {
-              localStorage.setItem(
-                localStorageKeys.FALLBACK_IMAGE,
-                tenantData.fallbackImageUrl
-              );
-            }
-          });
-      }
-
-      setDebug(config?.debug ?? false);
-    });
   }, [screen]);
 
   return (
     <div className="app" style={appStyle}>
       {!screen && bindKey && (
-        <div className="bind-key-container">
-          <h1 className="bind-key">{bindKey}</h1>
-        </div>
+        <>
+          {statusService.error && (
+            <h2 className="frontpage-error">{statusService.error}</h2>
+          )}
+          <div className="bind-key-container">
+            <h1 className="bind-key">{bindKey}</h1>
+          </div>
+        </>
       )}
       {screen && (
         <>

@@ -1,12 +1,12 @@
 import { React, useEffect, useState, createRef } from "react";
 import PropTypes from "prop-types";
+import "./region.scss";
 import { createGridArea } from "os2display-grid-generator";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import Slide from "./slide";
 import ErrorBoundary from "./error-boundary";
-import idFromPath from "./id-from-path";
-import logger from "./logger/logger";
-import "./region.scss";
+import idFromPath from "../util/id-from-path";
+import logger from "../logger/logger";
 
 /**
  * Region component.
@@ -56,7 +56,7 @@ function Region({ region }) {
    *
    * @param {object} slide - The slide.
    */
-  function slideDone(slide) {
+  const slideDone = (slide) => {
     const nextSlideAndIndex = findNextSlide(slide.executionId);
 
     if (nextSlideAndIndex.nextIndex === 0 && Array.isArray(newSlides)) {
@@ -80,7 +80,7 @@ function Region({ region }) {
       },
     });
     document.dispatchEvent(slideDoneEvent);
-  }
+  };
 
   /**
    * Handle region content event.

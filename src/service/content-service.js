@@ -2,8 +2,8 @@ import sha256 from 'crypto-js/sha256';
 import Base64 from 'crypto-js/enc-base64';
 import logger from '../logger/logger';
 import DataSync from '../data-sync/data-sync';
-import ScheduleService from './scheduleService';
-import ConfigLoader from '../config-loader';
+import ScheduleService from './schedule-service';
+import ConfigLoader from '../util/config-loader';
 
 /**
  * ContentService.

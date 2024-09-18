@@ -1,5 +1,5 @@
 import logger from '../logger/logger';
-import localStorageKeys from '../local-storage-keys';
+import appStorage from '../util/app-storage';
 
 class ApiHelper {
   endpoint = '';
@@ -29,8 +29,14 @@ class ApiHelper {
     try {
       logger.info(`Fetching: ${this.endpoint + path}`);
 
-      const token = localStorage.getItem(localStorageKeys.API_TOKEN) ?? '';
-      const tenantKey = localStorage.getItem(localStorageKeys.TENANT_KEY) ?? '';
+      const token = appStorage.getToken();
+      const tenantKey = appStorage.getTenantKey();
+
+      if (!token || !tenantKey) {
+        logger.error('Token or tenantKey not set.');
+
+        return null;
+      }
 
       response = await fetch(this.endpoint + path, {
         headers: {
@@ -42,7 +48,6 @@ class ApiHelper {
       if (response.ok === false) {
         // TODO: Change to a better strategy for triggering reauthenticate.
         if (response.status === 401) {
-          document.dispatchEvent(new Event('stopDataSync'));
           document.dispatchEvent(new Event('reauthenticate'));
         }
 
