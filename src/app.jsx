@@ -1,17 +1,17 @@
-import React, { useEffect, useRef, useState } from 'react';
-import Screen from './components/screen';
-import ContentService from './service/content-service';
-import ConfigLoader from './util/config-loader';
-import logger from './logger/logger';
-import './app.scss';
-import fallback from './assets/fallback.png';
-import appStorage from './util/app-storage';
-import defaults from './util/defaults';
-import tokenService from "./service/token-service.js";
-import releaseService from "./service/release-service.js";
-import tenantService from "./service/tenant-service.js";
-import statusService from "./service/statusService.js";
-import {errorCodes, statusCodes} from "./util/status.js";
+import React, { useEffect, useRef, useState } from "react";
+import Screen from "./components/screen";
+import ContentService from "./service/content-service";
+import ConfigLoader from "./util/config-loader";
+import logger from "./logger/logger";
+import "./app.scss";
+import fallback from "./assets/fallback.png";
+import appStorage from "./util/app-storage";
+import defaults from "./util/defaults";
+import tokenService from "./service/token-service";
+import releaseService from "./service/release-service";
+import tenantService from "./service/tenant-service";
+import statusService from "./service/statusService";
+import { errorCodes, statusCodes } from "./util/status";
 
 /**
  * App component.
@@ -152,33 +152,36 @@ function App() {
   const reauthenticateHandler = () => {
     logger.info("Reauthenticate handler invoked. Trying to use refresh token.");
 
-    tokenService.refreshToken().then(() => {
-      logger.info("Reauthenticate refresh token success");
-    }).catch(() => {
-      logger.warn("Reauthenticate refresh token failed. Logging out.");
+    tokenService
+      .refreshToken()
+      .then(() => {
+        logger.info("Reauthenticate refresh token success");
+      })
+      .catch(() => {
+        logger.warn("Reauthenticate refresh token failed. Logging out.");
 
-      statusService.setError(errorCodes.ERROR_TOKEN_REFRESH_FAILED);
+        statusService.setError(errorCodes.ERROR_TOKEN_REFRESH_FAILED);
 
-      document.dispatchEvent(new Event('stopDataSync'));
+        document.dispatchEvent(new Event("stopDataSync"));
 
-      appStorage.clearToken();
-      appStorage.clearRefreshToken();
-      appStorage.clearScreenId();
-      appStorage.clearTenant();
-      appStorage.clearFallbackImageUrl();
+        appStorage.clearToken();
+        appStorage.clearRefreshToken();
+        appStorage.clearScreenId();
+        appStorage.clearTenant();
+        appStorage.clearFallbackImageUrl();
 
-      if (contentServiceRef?.current !== null) {
-        contentServiceRef.current.stop();
-        contentServiceRef.current = null;
-      }
+        if (contentServiceRef?.current !== null) {
+          contentServiceRef.current.stop();
+          contentServiceRef.current = null;
+        }
 
-      setScreen(null);
-      setRunning(false);
+        setScreen(null);
+        setRunning(false);
 
-      tokenService.stopRefreshing();
+        tokenService.stopRefreshing();
 
-      checkLogin();
-    })
+        checkLogin();
+      });
   };
 
   const contentEmpty = () => {
@@ -193,7 +196,7 @@ function App() {
 
   // ctrl/cmd i will log screen out and refresh
   const handleKeyboard = ({ repeat, metaKey, ctrlKey, code }) => {
-    if (!repeat && (metaKey || ctrlKey) && code === 'KeyI') {
+    if (!repeat && (metaKey || ctrlKey) && code === "KeyI") {
       appStorage.clearAppStorage();
       window.location.reload();
     }
@@ -240,7 +243,7 @@ function App() {
 
   useEffect(() => {
     if (screen && screen["@id"]) {
-      releaseService.setScreenIdInUrl(screen['@id']);
+      releaseService.setScreenIdInUrl(screen["@id"]);
       tenantService.loadTenantConfig();
     }
   }, [screen]);
@@ -248,12 +251,14 @@ function App() {
   return (
     <div className="app" style={appStyle}>
       {!screen && bindKey && (
-          <>
-            {statusService.error && (<h2 className="frontpage-error">{statusService.error}</h2>)}
-            <div className="bind-key-container">
-              <h1 className="bind-key">{bindKey}</h1>
-            </div>
-          </>
+        <>
+          {statusService.error && (
+            <h2 className="frontpage-error">{statusService.error}</h2>
+          )}
+          <div className="bind-key-container">
+            <h1 className="bind-key">{bindKey}</h1>
+          </div>
+        </>
       )}
       {screen && (
         <>

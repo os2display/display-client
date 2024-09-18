@@ -1,8 +1,8 @@
-import { React } from 'react';
-import PropTypes from 'prop-types';
-import './slide.scss';
-import ErrorBoundary from './error-boundary';
-import { useRemoteComponent } from '../use-remote-component';
+import { React } from "react";
+import PropTypes from "prop-types";
+import "./slide.scss";
+import ErrorBoundary from "./error-boundary";
+import { useRemoteComponent } from "../use-remote-component";
 
 /**
  * Slide component.
@@ -25,11 +25,11 @@ function Slide({ slide, id, run, slideDone, forwardRef }) {
    *
    * Call slideDone after a timeout to ensure progression.
    */
-  function handleError() {
+  const handleError = () => {
     setTimeout(() => {
       slideDone(slide);
     }, 2000);
-  }
+  };
 
   return (
     <div

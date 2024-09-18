@@ -1,21 +1,23 @@
-import logger from "../logger/logger.js";
-import appStorage from "../util/app-storage.js";
-import ConfigLoader from "../util/config-loader.js";
-import defaults from "../util/defaults.js";
-import statusService from "./statusService.js";
-import {errorCodes} from "../util/status.js";
+import logger from '../logger/logger';
+import appStorage from '../util/app-storage';
+import ConfigLoader from '../util/config-loader';
+import defaults from '../util/defaults';
+import statusService from './statusService';
+import { errorCodes } from '../util/status';
 
 class TokenService {
   refreshingToken = false;
+
   refreshInterval = null;
+
   refreshPromise = null;
 
   ensureFreshToken = () => {
-    logger.info("Refresh token check");
+    logger.info('Refresh token check');
 
     // Ignore if already refreshing token.
     if (this.refreshingToken) {
-      logger.info("Already refreshing token.");
+      logger.info('Already refreshing token.');
       return;
     }
 
@@ -35,7 +37,7 @@ class TokenService {
 
     // If more than half the time till expire has been passed refresh the token.
     if (nowSeconds > issueAt + timeDiff / 2) {
-      logger.info("Refreshing token.");
+      logger.info('Refreshing token.');
       this.refreshToken().catch(() => {
         statusService.setError(errorCodes.ERROR_TOKEN_REFRESH_LOOP_FAILED);
       });
@@ -49,7 +51,7 @@ class TokenService {
   };
 
   refreshToken = () => {
-    logger.info("Refresh token invoked.");
+    logger.info('Refresh token invoked.');
 
     if (this.refreshPromise === null) {
       this.refreshPromise = new Promise((resolve, reject) => {
@@ -58,9 +60,9 @@ class TokenService {
 
         ConfigLoader.loadConfig().then((config) => {
           fetch(`${config.apiEndpoint}/v2/authentication/token/refresh`, {
-            method: "POST",
+            method: 'POST',
             headers: {
-              "Content-Type": "application/json",
+              'Content-Type': 'application/json',
             },
             body: JSON.stringify({
               refresh_token: refreshToken,
@@ -68,15 +70,15 @@ class TokenService {
           })
             .then((response) => response.json())
             .then((data) => {
-              logger.info("Token refreshed.");
+              logger.info('Token refreshed.');
 
               appStorage.setToken(data.token);
               appStorage.setRefreshToken(data.refresh_token);
               resolve();
             })
-            .catch(() => {
-              logger.error("Token refresh error.");
-              reject("Token refresh error.");
+            .catch((err) => {
+              logger.error('Token refresh error.');
+              reject(err);
             })
             .finally(() => {
               this.refreshingToken = false;
@@ -87,23 +89,23 @@ class TokenService {
     }
 
     return this.refreshPromise;
-  }
+  };
 
   startRefreshing = () => {
     ConfigLoader.loadConfig().then((config) => {
       // Start refresh token interval.
       this.refreshInterval = setInterval(
-        tokenService.ensureFreshToken,
+        this.ensureFreshToken,
         config.refreshTokenTimeout ?? defaults.refreshTokenTimeoutDefault
       );
     });
-  }
+  };
 
   stopRefreshing = () => {
     if (this.refreshInterval) {
       clearInterval(this.refreshInterval);
     }
-  }
+  };
 }
 
 // Singleton.

@@ -1,17 +1,17 @@
-import ReleaseLoader from "../util/release-loader";
-import ConfigLoader from "../util/config-loader";
-import defaults from "../util/defaults";
-import idFromPath from "../util/id-from-path";
-import appStorage from "../util/app-storage";
-import logger from "../logger/logger";
-import statusService from "./statusService.js";
-import {errorCodes} from "../util/status.js";
+import ReleaseLoader from '../util/release-loader';
+import ConfigLoader from '../util/config-loader';
+import defaults from '../util/defaults';
+import idFromPath from '../util/id-from-path';
+import appStorage from '../util/app-storage';
+import logger from '../logger/logger';
+import statusService from './statusService';
+import { errorCodes } from '../util/status';
 
 class ReleaseService {
   releaseCheckInterval = null;
 
   checkForNewRelease = () => {
-    logger.info("Checking for new release.");
+    logger.info('Checking for new release.');
 
     return new Promise((resolve, reject) => {
       const url = new URL(window.location.href);
@@ -20,21 +20,27 @@ class ReleaseService {
       ReleaseLoader.loadConfig().then((release) => {
         if (release.releaseTimestamp === null) {
           statusService.setError(errorCodes.ERROR_RELEASE_FILE_NOT_LOADED);
-        } else if (statusService.error === errorCodes.ERROR_RELEASE_FILE_NOT_LOADED) {
+        } else if (
+          statusService.error === errorCodes.ERROR_RELEASE_FILE_NOT_LOADED
+        ) {
           statusService.setError(null);
         }
 
-        if (release.releaseTimestamp !== null && (!currentTimestamp || currentTimestamp !== release.releaseTimestamp.toString())) {
+        if (
+          release.releaseTimestamp !== null &&
+          (!currentTimestamp ||
+            currentTimestamp !== release.releaseTimestamp.toString())
+        ) {
           const redirectUrl = url;
 
           redirectUrl.searchParams.set(
-            "releaseTimestamp",
+            'releaseTimestamp',
             release.releaseTimestamp
           );
 
           if (release.releaseVersion !== null) {
             redirectUrl.searchParams.set(
-              "releaseVersion",
+              'releaseVersion',
               release.releaseVersion
             );
           }
@@ -53,31 +59,31 @@ class ReleaseService {
     // makes it easy to see what screen client has made the http call by putting the screen id in the referer http
     // header.
     const url = new URL(window.location.href);
-    url.searchParams.set("screenId", idFromPath(screenId));
-    window.history.replaceState(null, "", url);
-  }
+    url.searchParams.set('screenId', idFromPath(screenId));
+    window.history.replaceState(null, '', url);
+  };
 
   setPreviousBootInUrl = () => {
     const url = new URL(window.location.href);
-    url.searchParams.set("pb", appStorage.getPreviousBoot());
-    window.history.replaceState(null, "", url);
-  }
+    url.searchParams.set('pb', appStorage.getPreviousBoot());
+    window.history.replaceState(null, '', url);
+  };
 
   startReleaseCheck = () => {
     ConfigLoader.loadConfig().then((config) => {
       this.releaseCheckInterval = setInterval(
-        releaseService.checkForNewRelease,
+        this.checkForNewRelease,
         config.releaseTimestampIntervalTimeout ??
-        defaults.releaseTimestampIntervalTimeoutDefault
+          defaults.releaseTimestampIntervalTimeoutDefault
       );
     });
-  }
+  };
 
   stopReleaseCheck = () => {
     if (this.releaseCheckInterval) {
       clearInterval(this.releaseCheckInterval);
     }
-  }
+  };
 }
 
 // Singleton.

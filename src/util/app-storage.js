@@ -98,7 +98,10 @@ class AppStorage {
   };
 
   setFallbackImageUrl = (fallbackImageUrl) => {
-    return localStorage.setItem(localStorageKeys.FALLBACK_IMAGE, fallbackImageUrl);
+    return localStorage.setItem(
+      localStorageKeys.FALLBACK_IMAGE,
+      fallbackImageUrl
+    );
   };
 
   clearFallbackImageUrl = () => {
@@ -109,28 +112,28 @@ class AppStorage {
 
   setApiUrl = (apiUrl) => {
     localStorage.setItem(localStorageKeys.API_URL, apiUrl);
-  }
+  };
 
   // Debug
 
   getDebug = () => {
-    return localStorage.getItem(localStorageKeys.DEBUG)
-  }
+    return localStorage.getItem(localStorageKeys.DEBUG);
+  };
 
   setDebug = (debug) => {
     localStorage.setItem(localStorageKeys.DEBUG, debug);
-  }
+  };
 
   // pBoot - previous boot timestamp
 
   getPreviousBoot = () => {
     const pBoot = localStorage.getItem(localStorageKeys.PREVIOUS_BOOT);
     return pBoot !== null ? pBoot : 0;
-  }
+  };
 
   setPreviousBoot = (pBoot) => {
     localStorage.setItem(localStorageKeys.PREVIOUS_BOOT, pBoot);
-  }
+  };
 }
 
 const appStorage = new AppStorage();

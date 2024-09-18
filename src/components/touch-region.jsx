@@ -1,10 +1,10 @@
-import { React, useEffect, useState, createRef } from 'react';
-import PropTypes from 'prop-types';
-import './touch-region.scss';
-import { createGridArea } from 'os2display-grid-generator';
-import Slide from './slide.jsx';
-import ErrorBoundary from './error-boundary.jsx';
-import idFromPath from '../util/id-from-path';
+import { React, useEffect, useState, createRef } from "react";
+import PropTypes from "prop-types";
+import "./touch-region.scss";
+import { createGridArea } from "os2display-grid-generator";
+import Slide from "./slide";
+import ErrorBoundary from "./error-boundary";
+import idFromPath from "../util/id-from-path";
 import IconClose from "../assets/icon-close.svg";
 import IconPointer from "../assets/icon-pointer.svg";
 
@@ -35,7 +35,7 @@ function TouchRegion({ region }) {
    *
    * @param {object} slide - The slide.
    */
-  function slideDone(slide) {
+  const slideDone = (slide) => {
     setDisplayClose(false);
     setCurrentSlide(null);
 
@@ -47,7 +47,7 @@ function TouchRegion({ region }) {
       },
     });
     document.dispatchEvent(slideDoneEvent);
-  }
+  };
 
   /**
    * Handle region content event.

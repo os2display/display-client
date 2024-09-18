@@ -1,5 +1,5 @@
-import ConfigLoader from "../util/config-loader.js";
-import appStorage from "../util/app-storage.js";
+import ConfigLoader from '../util/config-loader';
+import appStorage from '../util/app-storage';
 
 class TenantService {
   loadTenantConfig = () => {
@@ -13,7 +13,7 @@ class TenantService {
         fetch(`${config.apiEndpoint}/v2/tenants/${tenantId}`, {
           headers: {
             authorization: `Bearer ${token}`,
-            "Authorization-Tenant-Key": tenantKey,
+            'Authorization-Tenant-Key': tenantKey,
           },
         })
           .then((response) => response.json())
@@ -24,7 +24,7 @@ class TenantService {
           });
       }
     });
-  }
+  };
 }
 
 // Singleton.

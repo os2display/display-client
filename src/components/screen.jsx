@@ -1,12 +1,12 @@
-import { Fragment, React, useEffect, useRef } from 'react';
-import PropTypes from 'prop-types';
-import SunCalc from 'suncalc';
-import { createGrid } from 'os2display-grid-generator';
-import Region from './region.jsx';
-import './screen.scss';
-import logger from '../logger/logger';
-import TouchRegion from './touch-region.jsx';
-import ConfigLoader from '../util/config-loader';
+import { Fragment, React, useEffect, useRef } from "react";
+import PropTypes from "prop-types";
+import SunCalc from "suncalc";
+import { createGrid } from "os2display-grid-generator";
+import Region from "./region";
+import "./screen.scss";
+import logger from "../logger/logger";
+import TouchRegion from "./touch-region";
+import ConfigLoader from "../util/config-loader";
 
 /**
  * Screen component.
