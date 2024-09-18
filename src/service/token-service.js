@@ -113,7 +113,9 @@ class TokenService {
 
     if (expiredState === constants.TOKEN_EXPIRED) {
       statusService.setError(errorCodes.ERROR_TOKEN_EXPIRED);
-    } else if (expiredState === constants.TOKEN_VALID_SHOULD_HAVE_BEEN_REFRESHED) {
+    } else if (
+      expiredState === constants.TOKEN_VALID_SHOULD_HAVE_BEEN_REFRESHED
+    ) {
       statusService.setError(
         errorCodes.ERROR_TOKEN_VALID_SHOULD_HAVE_BEEN_REFRESHED
       );
@@ -157,7 +159,9 @@ class TokenService {
                 status: constants.LOGIN_STATUS_READY,
                 screenId: data.screenId,
               });
-            } else if (data?.status === constants.LOGIN_STATUS_AWAITING_BIND_KEY) {
+            } else if (
+              data?.status === constants.LOGIN_STATUS_AWAITING_BIND_KEY
+            ) {
               resolve({
                 status: constants.LOGIN_STATUS_AWAITING_BIND_KEY,
                 bindKey: data.bindKey,

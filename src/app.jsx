@@ -12,7 +12,7 @@ import releaseService from "./service/release-service";
 import tenantService from "./service/tenant-service";
 import statusService from "./service/statusService";
 import { errorCodes, statusCodes } from "./util/status";
-import constants from './util/constants';
+import constants from "./util/constants";
 
 /**
  * App component.
@@ -120,9 +120,7 @@ function App() {
         .then((data) => {
           if (data.status === constants.LOGIN_STATUS_READY) {
             startContent(data.screenId);
-          } else if (
-            data.status === constants.LOGIN_STATUS_AWAITING_BIND_KEY
-          ) {
+          } else if (data.status === constants.LOGIN_STATUS_AWAITING_BIND_KEY) {
             if (data?.bindKey) {
               setBindKey(data.bindKey);
             }
