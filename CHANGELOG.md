@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+- [#132](https://github.com/os2display/display-client/pull/132)
+  - Remove token errors after re-login.
 - [#131](https://github.com/os2display/display-client/pull/131)
   - Moved localstorage calls into helper class AppStorage.
   - Cleaned up project structure.
