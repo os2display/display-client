@@ -6,3 +6,4 @@
 * ER104: Release file could not be loaded.
 * ER105: Token is expired.
 * ER106: Token is valid but should have been refreshed.
+* ER201: Error loading slide template.
