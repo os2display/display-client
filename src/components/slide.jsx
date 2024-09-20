@@ -57,30 +57,29 @@ function Slide({
   }, [err]);
 
   return (
-    <>
+    <div
+      id={id}
+      className="slide"
+      ref={forwardRef}
+      data-run={run}
+      data-execution-id={slide.executionId}
+    >
+      {loading && "..."}
       {!loading && err && !Component && (
         <h2 className="frontpage-error">ER201</h2>
       )}
       {!loading && !err && Component && (
-        <div
-          id={id}
-          className="slide"
-          ref={forwardRef}
-          data-run={run}
-          data-execution-id={slide.executionId}
-        >
-          <ErrorBoundary errorHandler={handleError}>
-            <Component
-              slide={slide}
-              content={slide.content}
-              run={run}
-              slideDone={slideDone}
-              executionId={slide.executionId}
-            />
-          </ErrorBoundary>
-        </div>
+        <ErrorBoundary errorHandler={handleError}>
+          <Component
+            slide={slide}
+            content={slide.content}
+            run={run}
+            slideDone={slideDone}
+            executionId={slide.executionId}
+          />
+        </ErrorBoundary>
       )}
-    </>
+    </div>
   );
 }
 
