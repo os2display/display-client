@@ -131,6 +131,7 @@ class TokenService {
       );
     } else {
       const err = statusService.error;
+
       if (
         err !== null &&
         [
@@ -164,6 +165,19 @@ class TokenService {
               appStorage.setRefreshToken(data.refresh_token);
               appStorage.setScreenId(data.screenId);
               appStorage.setTenant(data.tenantKey, data.tenantId);
+
+              // Remove token expired error codes.
+              if (
+                [
+                  constants.ERROR_TOKEN_REFRESH_FAILED,
+                  constants.ERROR_TOKEN_REFRESH_LOOP_FAILED,
+                  constants.ERROR_TOKEN_EXP_IAT_NOT_SET,
+                  constants.ERROR_TOKEN_EXPIRED,
+                  constants.ERROR_TOKEN_VALID_SHOULD_HAVE_BEEN_REFRESHED,
+                ].includes(statusService.error)
+              ) {
+                statusService.setError(null);
+              }
 
               resolve({
                 status: constants.LOGIN_STATUS_READY,
