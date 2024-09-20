@@ -1,8 +1,9 @@
-import { React } from "react";
+import { React, useEffect } from "react";
 import PropTypes from "prop-types";
 import "./slide.scss";
 import ErrorBoundary from "./error-boundary";
 import { useRemoteComponent } from "../use-remote-component";
+import logger from "../logger/logger";
 
 /**
  * Slide component.
@@ -13,11 +14,23 @@ import { useRemoteComponent } from "../use-remote-component";
  * @param {number} props.run - Timestamp for when to run the slide.
  * @param {Function} props.slideDone - The function to call when the slide is done running.
  * @param {React.ForwardRefRenderFunction} props.forwardRef - The ref for the slide.
+ * @param {string|null} props.errorTimestamp - Slide error timestamp.
+ * @param {Function} props.slideError - Callback when slide encountered an error.
  * @returns {object} - The component.
  */
-function Slide({ slide, id, run, slideDone, forwardRef }) {
+function Slide({
+  slide,
+  id,
+  run,
+  slideDone,
+  forwardRef,
+  errorTimestamp = null,
+  slideError,
+}) {
   const [loading, err, Component] = useRemoteComponent(
-    slide.templateData.resources.component
+    // errorTimestamp ensures reload of component in case of error.
+    slide.templateData.resources.component +
+      (errorTimestamp !== null ? `?e=${errorTimestamp}` : "")
   );
 
   /**
@@ -26,10 +39,22 @@ function Slide({ slide, id, run, slideDone, forwardRef }) {
    * Call slideDone after a timeout to ensure progression.
    */
   const handleError = () => {
+    logger.warn("Slide error boundary triggered.");
+
     setTimeout(() => {
-      slideDone(slide);
-    }, 2000);
+      slideError(slide);
+    }, 5000);
   };
+
+  useEffect(() => {
+    if (err) {
+      logger.warn("Remote component loading error.");
+
+      setTimeout(() => {
+        slideError(slide);
+      }, 5000);
+    }
+  }, [err]);
 
   return (
     <div
@@ -39,8 +64,11 @@ function Slide({ slide, id, run, slideDone, forwardRef }) {
       data-run={run}
       data-execution-id={slide.executionId}
     >
-      {loading && <div>...</div>}
-      {!loading && err == null && Component && (
+      {loading && "..."}
+      {!loading && err && !Component && (
+        <h2 className="frontpage-error">ER201</h2>
+      )}
+      {!loading && !err && Component && (
         <ErrorBoundary errorHandler={handleError}>
           <Component
             slide={slide}
@@ -59,6 +87,7 @@ Slide.propTypes = {
   id: PropTypes.string.isRequired,
   run: PropTypes.string.isRequired,
   slideDone: PropTypes.func.isRequired,
+  slideError: PropTypes.func.isRequired,
   slide: PropTypes.shape({
     executionId: PropTypes.string,
     templateData: PropTypes.shape({
@@ -69,6 +98,7 @@ Slide.propTypes = {
       PropTypes.array,
     ]).isRequired,
   }).isRequired,
+  errorTimestamp: PropTypes.string,
   forwardRef: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.shape({ current: PropTypes.instanceOf(Element) }),

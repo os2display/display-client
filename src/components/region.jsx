@@ -83,6 +83,20 @@ function Region({ region }) {
   };
 
   /**
+   * The slide has encountered an error.
+   *
+   * @param {object} slideWithError - The slide
+   */
+  const slideError = (slideWithError) => {
+    // Set error timestamp to force reload.
+    const slide = slides.find(
+      (slideElement) => slideElement.executionId === slideWithError.executionId
+    );
+    slide.errorTimestamp = new Date().getTime();
+    slideDone(slideWithError);
+  };
+
+  /**
    * Handle region content event.
    *
    * @param {CustomEvent} event
@@ -174,6 +188,8 @@ function Region({ region }) {
                   id={currentSlide.executionId}
                   run={runId}
                   slideDone={slideDone}
+                  slideError={slideError}
+                  errorTimestamp={currentSlide.errorTimestamp}
                   key={currentSlide.executionId}
                   forwardRef={nodeRefs[currentSlide.executionId]}
                 />
