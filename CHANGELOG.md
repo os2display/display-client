@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+- [#135](https://github.com/os2display/display-client/pull/135)
+  - Fixed cursor being hidden when not in debug mode.
+  - Moved registration of listeners in useEffect.
 - [#134](https://github.com/os2display/display-client/pull/134)
   - Fixed remote loader for touch regions.
 - [#133](https://github.com/os2display/display-client/pull/133)

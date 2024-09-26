@@ -114,16 +114,6 @@ class AppStorage {
     localStorage.setItem(localStorageKeys.API_URL, apiUrl);
   };
 
-  // Debug
-
-  getDebug = () => {
-    return localStorage.getItem(localStorageKeys.DEBUG);
-  };
-
-  setDebug = (debug) => {
-    localStorage.setItem(localStorageKeys.DEBUG, debug);
-  };
-
   // pBoot - previous boot timestamp
 
   getPreviousBoot = () => {
