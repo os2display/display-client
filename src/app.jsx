@@ -12,6 +12,7 @@ import releaseService from "./service/release-service";
 import tenantService from "./service/tenant-service";
 import statusService from "./service/status-service";
 import constants from "./util/constants";
+import localStorageKeys from "./util/local-storage-keys.js";
 
 /**
  * App component.
@@ -24,11 +25,10 @@ function App() {
   const [screen, setScreen] = useState("");
   const [bindKey, setBindKey] = useState(null);
   const [displayFallback, setDisplayFallback] = useState(true);
+  const [debug, setDebug] = useState(false);
 
   const checkLoginTimeoutRef = useRef(null);
   const contentServiceRef = useRef(null);
-
-  const debug = appStorage.getDebug();
 
   const fallbackImageUrl = appStorage.getFallbackImageUrl();
   const fallbackStyle = {};
@@ -189,17 +189,21 @@ function App() {
   useEffect(() => {
     logger.info("Mounting App.");
 
+    document.addEventListener("keypress", handleKeyboard);
+    document.addEventListener("screen", screenHandler);
+    document.addEventListener("reauthenticate", reauthenticateHandler);
+    document.addEventListener("contentEmpty", contentEmpty);
+    document.addEventListener("contentNotEmpty", contentNotEmpty);
+
     tokenService.checkToken();
+
+    ConfigLoader.loadConfig().then((config) => {
+      setDebug(config.debug ?? false);
+    });
 
     releaseService.checkForNewRelease().finally(() => {
       releaseService.setPreviousBootInUrl();
       releaseService.startReleaseCheck();
-
-      document.addEventListener("screen", screenHandler);
-      document.addEventListener("reauthenticate", reauthenticateHandler);
-      document.addEventListener("contentEmpty", contentEmpty);
-      document.addEventListener("contentNotEmpty", contentNotEmpty);
-      document.addEventListener("keypress", handleKeyboard);
 
       checkLogin();
 

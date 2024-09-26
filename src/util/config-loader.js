@@ -35,7 +35,6 @@ const ConfigLoader = {
 
             // Make api endpoint available through localstorage.
             appStorage.setApiUrl(configData.apiEndpoint);
-            appStorage.setDebug(configData.debug ?? false);
 
             resolve(configData);
           })
