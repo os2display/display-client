@@ -12,7 +12,6 @@ import releaseService from "./service/release-service";
 import tenantService from "./service/tenant-service";
 import statusService from "./service/status-service";
 import constants from "./util/constants";
-import localStorageKeys from "./util/local-storage-keys.js";
 
 /**
  * App component.
