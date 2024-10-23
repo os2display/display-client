@@ -14,6 +14,9 @@ const constants = {
   ERROR_RELEASE_FILE_NOT_LOADED: 'ER104', // Release file could not be loaded.
   ERROR_TOKEN_EXPIRED: 'ER105', // Token is expired.
   ERROR_TOKEN_VALID_SHOULD_HAVE_BEEN_REFRESHED: 'ER106', // Token is valid but should have been refreshed.
+  NO_TOKEN: 'NO_TOKEN',
+  NO_EXPIRE: 'NO_EXPIRE',
+  NO_ISSUED_AT: 'NO_ISSUED_AT',
 };
 
 export default constants;
