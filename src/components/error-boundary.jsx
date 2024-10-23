@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import Logger from './logger/logger';
-import './error-boundary.scss';
-import fallback from './assets/fallback.png';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import logger from "../logger/logger";
+import fallback from "../assets/fallback.png";
+import "./error-boundary.scss";
 
 class ErrorBoundary extends Component {
   constructor(props) {
@@ -16,9 +16,9 @@ class ErrorBoundary extends Component {
   }
 
   componentDidCatch(error, errorInfo) {
-    Logger.log('error', `ErrorBoundary caught error: ${error}`, errorInfo);
+    logger.error(`ErrorBoundary caught error: ${error}`, errorInfo);
 
-    const { errorHandler } = this.props;
+    const { errorHandler = () => {} } = this.props;
     errorHandler(error, errorInfo);
 
     this.setState({
@@ -55,10 +55,6 @@ class ErrorBoundary extends Component {
 ErrorBoundary.propTypes = {
   children: PropTypes.node.isRequired,
   errorHandler: PropTypes.func,
-};
-
-ErrorBoundary.defaultProps = {
-  errorHandler: () => {},
 };
 
 export default ErrorBoundary;

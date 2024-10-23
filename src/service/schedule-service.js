@@ -1,12 +1,11 @@
 import cloneDeep from 'lodash.clonedeep';
 import sha256 from 'crypto-js/sha256';
 import Md5 from 'crypto-js/md5';
-import { RRule, datetime } from 'rrule';
 import Base64 from 'crypto-js/enc-base64';
 import isPublished from '../util/isPublished';
-import Logger from '../logger/logger';
-import ConfigLoader from '../config-loader';
-import ScheduleUtils from "../schedule";
+import logger from '../logger/logger';
+import ConfigLoader from '../util/config-loader';
+import ScheduleUtils from '../util/schedule';
 
 /**
  * ScheduleService.
@@ -28,7 +27,7 @@ class ScheduleService {
   }
 
   checkForEmptyContent() {
-    Logger.log('info', 'Checking for empty content.');
+    logger.info('Checking for empty content.');
 
     // Check for empty content.
     const values = Object.values(this.regions);
@@ -53,7 +52,7 @@ class ScheduleService {
    * @param {string} regionId - The region id.
    */
   regionRemoved(regionId) {
-    Logger.log('info', `removing scheduling interval for region: ${regionId}`);
+    logger.info(`removing scheduling interval for region: ${regionId}`);
 
     if (Object.prototype.hasOwnProperty.call(this.intervals, regionId)) {
       clearInterval(this.intervals[regionId]);
@@ -68,10 +67,10 @@ class ScheduleService {
    * @param {object} region - The region content, with playlists and slides, to start scheduling.
    */
   updateRegion(regionId, region) {
-    Logger.log('info', `ScheduleService: updateRegion(${regionId})`);
+    logger.info(`ScheduleService: updateRegion(${regionId})`);
 
     if (!region || !regionId) {
-      Logger.log('info', `ScheduleService: regionId and/or region not set.`);
+      logger.info(`ScheduleService: regionId and/or region not set.`);
       return;
     }
 
@@ -97,8 +96,7 @@ class ScheduleService {
 
         // Extra check because of async.
         if (!Object.prototype.hasOwnProperty.call(intervals, regionId)) {
-          Logger.log(
-            'info',
+          logger.info(
             `registering scheduling interval for region: ${regionId}, with an update rate of ${schedulingInterval}`
           );
 
@@ -122,7 +120,7 @@ class ScheduleService {
    * @param {string} regionId - The region to check.
    */
   checkScheduling(regionId) {
-    Logger.log('info', `checkScheduling for region: ${regionId}`);
+    logger.info(`checkScheduling for region: ${regionId}`);
 
     const region = this.regions[regionId];
 
@@ -154,7 +152,7 @@ class ScheduleService {
    *   Array of slides.
    */
   sendSlides(regionId, slides) {
-    Logger.log('info', `sendSlides regionContent-${regionId}`);
+    logger.info(`sendSlides regionContent-${regionId}`);
     const event = new CustomEvent(`regionContent-${regionId}`, {
       detail: {
         slides,
@@ -190,7 +188,10 @@ class ScheduleService {
 
         // Run through all schedule item and see if it occurs now. If one or more occur now, the playlist is active.
         schedules.every((schedule) => {
-          const scheduleOccurs = ScheduleUtils.occursNow(schedule.rrule, schedule.duration);
+          const scheduleOccurs = ScheduleUtils.occursNow(
+            schedule.rrule,
+            schedule.duration
+          );
 
           if (scheduleOccurs) {
             active = true;
@@ -218,7 +219,7 @@ class ScheduleService {
           slides.push(newSlide);
         });
       } else {
-        Logger.log('info', `Playlist ${playlist['@id']} not scheduled for now`);
+        logger.log('info', `Playlist ${playlist['@id']} not scheduled for now`);
       }
     });
 
