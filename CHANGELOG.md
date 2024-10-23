@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+- [#137](https://github.com/os2display/display-client/pull/137)
+  - Add `no-cache´ directive to nginx setup.
+
 ## [2.1.0] - 2024-10-23
 
 - [#135](https://github.com/os2display/display-client/pull/135)

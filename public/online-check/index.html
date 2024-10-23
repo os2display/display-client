@@ -18,7 +18,7 @@
     }
 
     body {
-      background-color: #333333;
+      background-color: #000000;
       margin-top: 10%;
       text-align: center;
       font-family: Arial,Helvetica,sans-serif;
@@ -71,7 +71,7 @@
 
     const checkOnlineStatus = async () => {
       try {
-        const online = await fetch("1pixel.png?no_cache=" + Date.now());
+        const online = await fetch("1pixel.png?ts=" + Date.now());
         return online.status >= 200 && online.status < 300; // either true or false
       } catch (err) {
         return false; // definitely offline
@@ -87,7 +87,7 @@
       helpDisplay.textContent = "Redirecting to client...";
 
       setTimeout(async () => {
-          window.location.assign("../");
+          window.location.assign("../?ts="+ Date.now());
         }, 3000
       )
     }
