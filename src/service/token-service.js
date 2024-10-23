@@ -53,6 +53,17 @@ class TokenService {
   getExpireState = () => {
     const expire = appStorage.getTokenExpire();
     const issueAt = appStorage.getTokenIssueAt();
+    const token = appStorage.getToken();
+
+    if (expire === null) {
+      return constants.NO_EXPIRE;
+    }
+    if (issueAt === null) {
+      return constants.NO_ISSUED_AT;
+    }
+    if (token === null) {
+      return constants.NO_TOKEN;
+    }
 
     const timeDiff = expire - issueAt;
     const nowSeconds = Math.floor(new Date().getTime() / 1000);
@@ -121,11 +132,11 @@ class TokenService {
   checkToken = () => {
     const expiredState = this.getExpireState();
 
-    if (expiredState === constants.TOKEN_EXPIRED) {
+    if ([constants.NO_EXPIRE, constants.NO_ISSUED_AT, constants.NO_TOKEN].includes(expiredState)) {
+      // Ignore. No token saved in storage.
+    } else if (expiredState === constants.TOKEN_EXPIRED) {
       statusService.setError(constants.ERROR_TOKEN_EXPIRED);
-    } else if (
-      expiredState === constants.TOKEN_VALID_SHOULD_HAVE_BEEN_REFRESHED
-    ) {
+    } else if (expiredState === constants.TOKEN_VALID_SHOULD_HAVE_BEEN_REFRESHED) {
       statusService.setError(
         constants.ERROR_TOKEN_VALID_SHOULD_HAVE_BEEN_REFRESHED
       );
