@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+## [2.1.0] - 2024-10-23
+
 - [#135](https://github.com/os2display/display-client/pull/135)
   - Fixed cursor being hidden when not in debug mode.
   - Moved registration of listeners in useEffect.
