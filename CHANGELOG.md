@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+- [#138](https://github.com/os2display/display-client/pull/138)
+  - Avoided setting ER105 in url when no token exists in local storage.
 - [#137](https://github.com/os2display/display-client/pull/137)
   - Add `no-cache´ directive to nginx setup.
 
