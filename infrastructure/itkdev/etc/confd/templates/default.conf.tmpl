@@ -4,8 +4,6 @@ server {
     root /var/www/html;
 
     add_header Cache-Control "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0";
-    add_header Pragma "no-cache";
-    add_header Expires "0";
 
     location {{ getenv "APP_SCREEN_CLIENT_PATH" "/" }} {
         rewrite ^{{ getenv "APP_SCREEN_CLIENT_PATH" "/" }}(.*) /$1 break;
@@ -14,6 +12,10 @@ server {
 
         try_files $uri $uri/ =404;
     }
+
+        location = {{ getenv "APP_SCREEN_CLIENT_PATH" "" }}/online-check/ {
+            add_header Cache-Control "public, max-age=604800";
+        }
 
     location = {{ getenv "APP_SCREEN_CLIENT_PATH" "" }}/robots.txt {
        add_header Content-Type text/plain;
