@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+- [#141](https://github.com/os2display/display-client/pull/141)
+  - Avoided setting ER105 in url when no token exists in local storage.
+
 ## [2.1.1] - 2024-10-23
 
 - [#138](https://github.com/os2display/display-client/pull/138)
