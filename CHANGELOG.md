@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+- [#140](https://github.com/os2display/display-client/pull/140)
+  - Fixed issue where campaign end resulted in blank screen.
+
 ## [2.1.1] - 2024-10-23
 
 - [#138](https://github.com/os2display/display-client/pull/138)
