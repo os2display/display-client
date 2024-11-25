@@ -50,7 +50,7 @@ Start docker setup
 
 ```
 # Install npm packages
-docker compose run node yarn install
+docker compose run --rm node yarn install
 
 # Up the containers
 docker compose up -d

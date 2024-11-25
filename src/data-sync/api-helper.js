@@ -1,5 +1,5 @@
-import Logger from '../logger/logger';
-import localStorageKeys from '../local-storage-keys';
+import logger from '../logger/logger';
+import appStorage from '../util/app-storage';
 
 class ApiHelper {
   endpoint = '';
@@ -31,10 +31,16 @@ class ApiHelper {
       const previewToken = url.searchParams.get('preview-token');
       const previewTenant = url.searchParams.get('preview-tenant');
 
-      Logger.log('info', `Fetching: ${this.endpoint + path}`);
+      logger.log('info', `Fetching: ${this.endpoint + path}`);
 
-      const token = localStorage.getItem(localStorageKeys.API_TOKEN) ?? '';
-      const tenantKey = localStorage.getItem(localStorageKeys.TENANT_KEY) ?? '';
+      const token = appStorage.getToken();
+      const tenantKey = appStorage.getTenantKey();
+
+      if ((!token || !tenantKey) && (!previewToken || !previewTenant)) {
+        logger.error('Token or tenantKey not set.');
+
+        return null;
+      }
 
       response = await fetch(this.endpoint + path, {
         headers: {
@@ -46,12 +52,10 @@ class ApiHelper {
       if (response.ok === false) {
         // TODO: Change to a better strategy for triggering reauthenticate.
         if (response.status === 401) {
-          document.dispatchEvent(new Event('stopDataSync'));
           document.dispatchEvent(new Event('reauthenticate'));
         }
 
-        Logger.log(
-          'error',
+        logger.error(
           `Failed to fetch (status: ${response.status}): ${
             this.endpoint + path
           }`
@@ -62,7 +66,7 @@ class ApiHelper {
 
       return response.json();
     } catch (err) {
-      Logger.log('error', `Failed to fetch: ${this.endpoint + path}`);
+      logger.error(`Failed to fetch: ${this.endpoint + path}`);
 
       return null;
     }

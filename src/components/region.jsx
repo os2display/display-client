@@ -1,12 +1,12 @@
-import { React, useEffect, useState, createRef } from 'react';
-import PropTypes from 'prop-types';
-import './region.scss';
-import { createGridArea } from 'os2display-grid-generator';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import Slide from './slide';
-import ErrorBoundary from './error-boundary';
-import idFromPath from './id-from-path';
-import Logger from './logger/logger';
+import { React, useEffect, useState, createRef } from "react";
+import PropTypes from "prop-types";
+import "./region.scss";
+import { createGridArea } from "os2display-grid-generator";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
+import Slide from "./slide";
+import ErrorBoundary from "./error-boundary";
+import idFromPath from "../util/id-from-path";
+import logger from "../logger/logger";
 
 /**
  * Region component.
@@ -26,7 +26,7 @@ function Region({ region }) {
   const [runId, setRunId] = useState(null);
 
   const rootStyle = {};
-  const regionId = idFromPath(region['@id']);
+  const regionId = idFromPath(region["@id"]);
 
   rootStyle.gridArea = createGridArea(region.gridArea);
 
@@ -56,7 +56,7 @@ function Region({ region }) {
    *
    * @param {object} slide - The slide.
    */
-  function slideDone(slide) {
+  const slideDone = (slide) => {
     const nextSlideAndIndex = findNextSlide(slide.executionId);
 
     if (nextSlideAndIndex.nextIndex === 0 && Array.isArray(newSlides)) {
@@ -70,17 +70,31 @@ function Region({ region }) {
 
     setRunId(new Date().toISOString());
 
-    Logger.log('info', `Slide done with executionId: ${slide?.executionId}`);
+    logger.info(`Slide done with executionId: ${slide?.executionId}`);
 
     // Emit slideDone event.
-    const slideDoneEvent = new CustomEvent('slideDone', {
+    const slideDoneEvent = new CustomEvent("slideDone", {
       detail: {
         regionId,
         executionId: slide.executionId,
       },
     });
     document.dispatchEvent(slideDoneEvent);
-  }
+  };
+
+  /**
+   * The slide has encountered an error.
+   *
+   * @param {object} slideWithError - The slide
+   */
+  const slideError = (slideWithError) => {
+    // Set error timestamp to force reload.
+    const slide = slides.find(
+      (slideElement) => slideElement.executionId === slideWithError.executionId
+    );
+    slide.errorTimestamp = new Date().getTime();
+    slideDone(slideWithError);
+  };
 
   /**
    * Handle region content event.
@@ -97,14 +111,18 @@ function Region({ region }) {
 
   // Setup event listener for region content.
   useEffect(() => {
+    logger.info(`Mounting region ${regionId}`);
+
     document.addEventListener(
       `regionContent-${regionId}`,
       regionContentListener
     );
 
     return function cleanup() {
+      logger.info(`Unmounting region ${regionId}`);
+
       // Emit event that region has been removed.
-      const event = new CustomEvent('regionRemoved', {
+      const event = new CustomEvent("regionRemoved", {
         detail: {
           id: regionId,
         },
@@ -121,7 +139,7 @@ function Region({ region }) {
 
   // Notify that region is ready.
   useEffect(() => {
-    const event = new CustomEvent('regionReady', {
+    const event = new CustomEvent("regionReady", {
       detail: {
         id: regionId,
       },
@@ -174,6 +192,8 @@ function Region({ region }) {
                   id={currentSlide.executionId}
                   run={runId}
                   slideDone={slideDone}
+                  slideError={slideError}
+                  errorTimestamp={currentSlide.errorTimestamp}
                   key={currentSlide.executionId}
                   forwardRef={nodeRefs[currentSlide.executionId]}
                 />
@@ -188,7 +208,7 @@ function Region({ region }) {
 
 Region.propTypes = {
   region: PropTypes.shape({
-    '@id': PropTypes.string.isRequired,
+    "@id": PropTypes.string.isRequired,
     gridArea: PropTypes.arrayOf(PropTypes.string.isRequired),
   }).isRequired,
 };

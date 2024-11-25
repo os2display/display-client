@@ -60,13 +60,7 @@ describe('Client tests', () => {
 
     cy.visit('/');
 
-    cy.wait([
-      '@bindKey',
-      '@screen',
-      '@groups',
-      '@campaigns',
-      '@layout',
-    ]);
+    cy.wait(['@bindKey', '@screen', '@groups', '@campaigns', '@layout']);
 
     cy.get('.region').should('exist');
   });
@@ -495,11 +489,7 @@ describe('Client tests', () => {
     }).as('layout');
 
     cy.visit('/');
-    cy.wait([
-      '@bindKey',
-      '@screen',
-      '@layout',
-    ]);
+    cy.wait(['@bindKey', '@screen', '@layout']);
 
     cy.get('.region')
       .eq(0)
