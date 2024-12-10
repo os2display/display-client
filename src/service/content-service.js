@@ -1,7 +1,5 @@
 import sha256 from 'crypto-js/sha256';
 import Base64 from 'crypto-js/enc-base64';
-import { object, string } from 'prop-types';
-import Logger from '../logger/logger';
 import PullStrategy from '../data-sync/pull-strategy';
 import {
   screenForPlaylistPreview,
@@ -88,7 +86,7 @@ class ContentService {
 
     this.stopSyncHandler();
 
-    Logger.log(
+    logger.log(
       'info',
       `Event received: Start data synchronization from ${data?.screenPath}`
     );
@@ -98,7 +96,7 @@ class ContentService {
       );
       this.startSyncing(data.screenPath);
     } else {
-      Logger.log('error', 'Error: screenPath not set.');
+      logger.log('error', 'Error: screenPath not set.');
     }
   }
 
@@ -211,7 +209,7 @@ class ContentService {
   async startPreview(event) {
     const data = event.detail;
     const { mode, id } = data;
-    Logger.log('info', `Starting preview. Mode: ${mode}, ID: ${id}`);
+    logger.log('info', `Starting preview. Mode: ${mode}, ID: ${id}`);
 
     const config = await ConfigLoader.loadConfig();
 
@@ -267,7 +265,7 @@ class ContentService {
         })
       );
     } else {
-      Logger.error(`Unsupported preview mode: ${mode}.`);
+      logger.error(`Unsupported preview mode: ${mode}.`);
     }
   }
 

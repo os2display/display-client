@@ -2,7 +2,6 @@ import cloneDeep from 'lodash.clonedeep';
 import isPublished from '../util/isPublished';
 import logger from '../logger/logger';
 import ApiHelper from './api-helper';
-import apiHelper from "./api-helper";
 
 /**
  * PullStrategy.
@@ -414,7 +413,7 @@ class PullStrategy {
   }
 
   async getTemplateData(slide) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       const templatePath = slide.templateInfo['@id'];
 
       this.apiHelper.getPath(templatePath).then((data) => {
@@ -424,7 +423,7 @@ class PullStrategy {
   }
 
   async getFeedData(slide) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       if (!slide?.feed?.feedUrl) {
         resolve([]);
       } else {
@@ -436,7 +435,7 @@ class PullStrategy {
   }
 
   async getMediaData(media) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       this.apiHelper.getPath(media).then((data) => {
         resolve(data);
       });

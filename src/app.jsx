@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import PropTypes from "prop-types";
 import Screen from "./components/screen";
 import ContentService from "./service/content-service";
 import ConfigLoader from "./util/config-loader";
@@ -16,9 +17,9 @@ import constants from "./util/constants";
 /**
  * App component.
  *
- * @param root0
- * @param root0.preview
- * @param root0.previewId
+ * @param {object} props The props.
+ * @param {string | null} props.preview Type of preview to enable.
+ * @param {string | null} props.previewId The id of the entity to preview.
  * @returns {object}
  *   The component.
  */
@@ -235,6 +236,7 @@ function App({ preview, previewId }) {
       statusService.setStatusInUrl();
     }
 
+    /* eslint-disable-next-line consistent-return */
     return function cleanup() {
       logger.info("Unmounting App.");
 
@@ -284,5 +286,10 @@ function App({ preview, previewId }) {
     </div>
   );
 }
+
+App.propTypes = {
+  preview: PropTypes.string,
+  previewId: PropTypes.string,
+};
 
 export default App;
