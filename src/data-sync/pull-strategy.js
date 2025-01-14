@@ -202,8 +202,7 @@ class PullStrategy {
 
     const newScreen = cloneDeep(screen);
 
-    // Campaigns data
-    let hasActiveCampaign = false;
+    newScreen.hasActiveCampaign = false;
 
     const newScreenChecksums = newScreen?.relationsChecksum ?? [];
     const oldScreenChecksums =
@@ -224,13 +223,13 @@ class PullStrategy {
     if (newScreen.campaignsData.length > 0) {
       newScreen.campaignsData.forEach(({ published }) => {
         if (isPublished(published)) {
-          hasActiveCampaign = true;
+          newScreen.hasActiveCampaign = true;
         }
       });
     }
 
     // With active campaigns, we override region/layout values.
-    if (hasActiveCampaign) {
+    if (newScreen.hasActiveCampaign) {
       logger.info(`Has active campaign.`);
 
       // Create ulid to connect the campaign with the regions/playlists.
@@ -259,8 +258,11 @@ class PullStrategy {
         newScreen.regionData
       );
     } else {
+      logger.info(`Has no active campaign.`);
+
       // Get layout: Defines layout and regions.
       if (
+        this.lastestScreenData?.hasActiveCampaign ||
         oldScreenChecksums === null ||
         oldScreenChecksums?.layout !== newScreenChecksums?.layout
       ) {
@@ -274,6 +276,7 @@ class PullStrategy {
 
       // Fetch regions playlists: Yields playlists of slides for the regions
       if (
+        this.lastestScreenData?.hasActiveCampaign ||
         oldScreenChecksums === null ||
         oldScreenChecksums?.regions !== newScreenChecksums?.regions
       ) {
@@ -393,8 +396,6 @@ class PullStrategy {
       }
     }
     /* eslint-enable no-restricted-syntax,no-await-in-loop */
-
-    logger.info(`Emitting screen data.`);
 
     this.lastestScreenData = newScreen;
 

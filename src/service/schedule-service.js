@@ -58,6 +58,9 @@ class ScheduleService {
       clearInterval(this.intervals[regionId]);
       delete this.intervals[regionId];
     }
+
+    // Remove cached version of region data.
+    delete this.regions[regionId];
   }
 
   /**

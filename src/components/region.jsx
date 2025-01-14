@@ -111,12 +111,16 @@ function Region({ region }) {
 
   // Setup event listener for region content.
   useEffect(() => {
+    logger.info(`Mounting region ${regionId}`);
+
     document.addEventListener(
       `regionContent-${regionId}`,
       regionContentListener
     );
 
     return function cleanup() {
+      logger.info(`Unmounting region ${regionId}`);
+
       // Emit event that region has been removed.
       const event = new CustomEvent("regionRemoved", {
         detail: {
