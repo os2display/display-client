@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-- Added support for previews.
+- [#142](https://github.com/os2display/display-client/pull/142)
+  - Added support for previews.
+
+## [2.1.2] - 2024-11-20
+
 - [#140](https://github.com/os2display/display-client/pull/140)
   - Fixed issue where campaign end resulted in blank screen.
 
