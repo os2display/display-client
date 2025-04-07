@@ -408,6 +408,40 @@ class PullStrategy {
     document.dispatchEvent(event);
   }
 
+  getPath(id) {
+    return this.apiHelper.getPath(id);
+  }
+
+  async getTemplateData(slide) {
+    return new Promise((resolve) => {
+      const templatePath = slide.templateInfo['@id'];
+
+      this.apiHelper.getPath(templatePath).then((data) => {
+        resolve(data);
+      });
+    });
+  }
+
+  async getFeedData(slide) {
+    return new Promise((resolve) => {
+      if (!slide?.feed?.feedUrl) {
+        resolve([]);
+      } else {
+        this.apiHelper.getPath(slide.feed.feedUrl).then((data) => {
+          resolve(data);
+        });
+      }
+    });
+  }
+
+  async getMediaData(media) {
+    return new Promise((resolve) => {
+      this.apiHelper.getPath(media).then((data) => {
+        resolve(data);
+      });
+    });
+  }
+
   /**
    * Start the data synchronization.
    */

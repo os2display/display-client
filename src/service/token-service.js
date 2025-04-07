@@ -132,11 +132,19 @@ class TokenService {
   checkToken = () => {
     const expiredState = this.getExpireState();
 
-    if ([constants.NO_EXPIRE, constants.NO_ISSUED_AT, constants.NO_TOKEN].includes(expiredState)) {
+    if (
+      [
+        constants.NO_EXPIRE,
+        constants.NO_ISSUED_AT,
+        constants.NO_TOKEN,
+      ].includes(expiredState)
+    ) {
       // Ignore. No token saved in storage.
     } else if (expiredState === constants.TOKEN_EXPIRED) {
       statusService.setError(constants.ERROR_TOKEN_EXPIRED);
-    } else if (expiredState === constants.TOKEN_VALID_SHOULD_HAVE_BEEN_REFRESHED) {
+    } else if (
+      expiredState === constants.TOKEN_VALID_SHOULD_HAVE_BEEN_REFRESHED
+    ) {
       statusService.setError(
         constants.ERROR_TOKEN_VALID_SHOULD_HAVE_BEEN_REFRESHED
       );

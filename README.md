@@ -32,6 +32,18 @@ All endpoint should be configured without a trailing slash. The endpoints `apiEn
 left empty if the api is hosted from the root of the same domain as the client. E.g. if the api is at https://example.org and the client is at
 https://example.org/client
 
+## Preview
+
+The client can be started in preview mode by setting the following url parameters:
+```
+preview=<screen|playlist|slide>
+preview-id=<id of entity to preview>
+preview-token=<token for accessing data>
+preview-tenant=<tenant id>
+```
+
+The preview will use the token and tenant for acessing the data from the api.
+
 ## Docker development setup
 
 Start docker setup
