@@ -27,12 +27,16 @@ class ApiHelper {
     let response;
 
     try {
-      logger.info(`Fetching: ${this.endpoint + path}`);
+      const url = new URL(window.location.href);
+      const previewToken = url.searchParams.get('preview-token');
+      const previewTenant = url.searchParams.get('preview-tenant');
+
+      logger.log('info', `Fetching: ${this.endpoint + path}`);
 
       const token = appStorage.getToken();
       const tenantKey = appStorage.getTenantKey();
 
-      if (!token || !tenantKey) {
+      if ((!token || !tenantKey) && (!previewToken || !previewTenant)) {
         logger.error('Token or tenantKey not set.');
 
         return null;
@@ -40,8 +44,8 @@ class ApiHelper {
 
       response = await fetch(this.endpoint + path, {
         headers: {
-          authorization: `Bearer ${token}`,
-          'Authorization-Tenant-Key': tenantKey,
+          authorization: `Bearer ${previewToken ?? token}`,
+          'Authorization-Tenant-Key': previewTenant ?? tenantKey,
         },
       });
 

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import PropTypes from "prop-types";
 import Screen from "./components/screen";
 import ContentService from "./service/content-service";
 import ConfigLoader from "./util/config-loader";
@@ -16,10 +17,13 @@ import constants from "./util/constants";
 /**
  * App component.
  *
+ * @param {object} props The props.
+ * @param {string | null} props.preview Type of preview to enable.
+ * @param {string | null} props.previewId The id of the entity to preview.
  * @returns {object}
  *   The component.
  */
-function App() {
+function App({ preview, previewId }) {
   const [running, setRunning] = useState(false);
   const [screen, setScreen] = useState("");
   const [bindKey, setBindKey] = useState(null);
@@ -187,30 +191,52 @@ function App() {
 
   useEffect(() => {
     logger.info("Mounting App.");
+    if (preview !== null) {
+      document.addEventListener("screen", screenHandler);
+      document.addEventListener("contentEmpty", contentEmpty);
+      document.addEventListener("contentNotEmpty", contentNotEmpty);
 
-    document.addEventListener("keypress", handleKeyboard);
-    document.addEventListener("screen", screenHandler);
-    document.addEventListener("reauthenticate", reauthenticateHandler);
-    document.addEventListener("contentEmpty", contentEmpty);
-    document.addEventListener("contentNotEmpty", contentNotEmpty);
+      if (preview === "screen") {
+        startContent(previewId);
+        return;
+      }
+      setRunning(true);
+      contentServiceRef.current = new ContentService();
+      contentServiceRef.current.start();
+      document.dispatchEvent(
+        new CustomEvent("startPreview", {
+          detail: {
+            mode: preview,
+            id: previewId,
+          },
+        })
+      );
+    } else {
+      document.addEventListener("keypress", handleKeyboard);
+      document.addEventListener("screen", screenHandler);
+      document.addEventListener("reauthenticate", reauthenticateHandler);
+      document.addEventListener("contentEmpty", contentEmpty);
+      document.addEventListener("contentNotEmpty", contentNotEmpty);
 
-    tokenService.checkToken();
+      tokenService.checkToken();
 
-    ConfigLoader.loadConfig().then((config) => {
-      setDebug(config.debug ?? false);
-    });
+      ConfigLoader.loadConfig().then((config) => {
+        setDebug(config.debug ?? false);
+      });
 
-    releaseService.checkForNewRelease().finally(() => {
-      releaseService.setPreviousBootInUrl();
-      releaseService.startReleaseCheck();
+      releaseService.checkForNewRelease().finally(() => {
+        releaseService.setPreviousBootInUrl();
+        releaseService.startReleaseCheck();
 
-      checkLogin();
+        checkLogin();
 
-      appStorage.setPreviousBoot(new Date().getTime());
-    });
+        appStorage.setPreviousBoot(new Date().getTime());
+      });
 
-    statusService.setStatusInUrl();
+      statusService.setStatusInUrl();
+    }
 
+    /* eslint-disable-next-line consistent-return */
     return function cleanup() {
       logger.info("Unmounting App.");
 
@@ -260,5 +286,10 @@ function App() {
     </div>
   );
 }
+
+App.propTypes = {
+  preview: PropTypes.string,
+  previewId: PropTypes.string,
+};
 
 export default App;
