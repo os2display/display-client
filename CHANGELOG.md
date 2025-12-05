@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+- [#145](https://github.com/os2display/display-client/pull/145)
+  - NPM upgrade.
+  - Upgraded DOMPurify to 3.3.
+
 ## [2.2.1] - 2025-11-04
 
 - Fix missing release assets.
