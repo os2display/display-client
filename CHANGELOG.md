@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+## [2.3.1] - 2026-10-26
+
+- [#147](https://github.com/os2display/display-client/pull/147)
+  - Switched docker compose to the maintained `nginx/nginx-unprivileged` image.
+
 ## [2.3.0] - 2025-12-05
 
 - [#145](https://github.com/os2display/display-client/pull/145)
