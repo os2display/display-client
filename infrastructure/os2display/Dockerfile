@@ -23,7 +23,7 @@ RUN rm -rf public/fixtures
 ####
 ## Build main application image.
 ####
-FROM nginxinc/nginx-unprivileged:alpine
+FROM nginx/nginx-unprivileged:alpine
 LABEL maintainer="ITK Dev <itkdev@mkb.aarhus.dk>"
 
 ARG APP_VERSION="develop"
